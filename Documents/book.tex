@@ -1,0 +1,85 @@
+\documentclass[oneside]{book}
+
+\usepackage{caption}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage[bottom]{footmisc}
+\usepackage[toc,page]{appendix}
+\usepackage{xcolor,colortbl}
+\usepackage{fancyhdr}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{longtable}
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks,
+	citecolor=black,
+	filecolor=black,
+	linkcolor=black,
+	urlcolor=black
+}
+\usepackage{xepersian}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\labelenumii}{\theenumii}
+\renewcommand{\labelenumiii}{\theenumiii}
+\renewcommand{\labelenumiv}{\theenumiv}
+\renewcommand{\theenumii}{\arabic{enumii}.\theenumi.}
+\renewcommand{\theenumiii}{\arabic{enumiii}.\arabic{enumii}.\theenumi.}
+\renewcommand{\theenumiv}{\arabic{enumiv}.\arabic{enumiii}.\arabic{enumii}.\theenumi.}
+\renewcommand*\appendixpagename{پیوست‌ها}
+\renewcommand\appendixtocname{پیوست‌ها}
+
+\settextfont{XB Niloofar}
+%\settextfont{BBCNassim}
+%\setlatintextfont{Linux Libertine}
+\setdigitfont{XB Niloofar}
+
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\rightmark}
+\fancyhead[RE, LO]{\thepage}
+
+\begin{document}
+
+\bgroup
+\def\arraystretch{2}
+
+\newcounter{usecase_ID}
+\newcounter{usecase_AF}[usecase_ID]
+
+\include{front_page}
+
+\frontmatter%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tableofcontents
+
+\mainmatter%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\include{docindex}
+\include{sysdesc}
+\include{rqms}
+\include{risks}
+\include{usecase}
+\include{crc}
+\include{activity}
+\include{prot}
+
+\begin{appendices}
+	\include{changes}
+	\include{glossary}
+	\include{sched}
+\end{appendices}
+
+
+\backmatter%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\include{referenc}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
