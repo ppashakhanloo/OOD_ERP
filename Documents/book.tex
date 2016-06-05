@@ -9,10 +9,11 @@
 \usepackage[toc,page]{appendix}
 \usepackage{xcolor,colortbl}
 \usepackage{fancyhdr}
-\usepackage{geometry}
+\usepackage[top=1.5in, bottom=2in, left=1in, right=1in]{geometry}
 \usepackage{enumitem}
 \usepackage{longtable}
 \usepackage{hyperref}
+\usepackage{pdfpages}
 \hypersetup{
 	colorlinks,
 	citecolor=black,
@@ -21,7 +22,6 @@
 	urlcolor=black
 }
 \usepackage{xepersian}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \renewcommand{\labelenumii}{\theenumii}
@@ -45,7 +45,6 @@
 \fancyhead[RE, LO]{\thepage}
 
 \begin{document}
-
 \bgroup
 \def\arraystretch{2}
 
@@ -71,6 +70,8 @@
 \include{analys_class}
 \include{package}
 \include{analys_seq}
+\include{comp}
+\include{design_class}
 
 \begin{appendices}
 	\include{changes}
