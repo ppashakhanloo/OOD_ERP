@@ -25,7 +25,10 @@ DROP TABLE IF EXISTS `physical_resource`;
 CREATE TABLE `physical_resource` (
   `name` varchar(255) DEFAULT NULL,
   `model` varchar(255) DEFAULT NULL,
-  `location` varchar(255) DEFAULT NULL
+  `location` varchar(255) DEFAULT NULL,
+  `ResourceID` varchar(255) NOT NULL,
+  PRIMARY KEY (`ResourceID`),
+  CONSTRAINT `physical_resource_ibfk_1` FOREIGN KEY (`ResourceID`) REFERENCES `resource` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -47,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-22 17:19:26
+-- Dump completed on 2016-06-22 18:12:09
