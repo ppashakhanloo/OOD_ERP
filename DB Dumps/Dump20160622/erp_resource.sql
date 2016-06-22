@@ -26,7 +26,14 @@ CREATE TABLE `resource` (
   `ID` varchar(255) NOT NULL,
   `resourceStatus` varchar(255) DEFAULT NULL,
   `isAvailable` tinyint(4) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
+  `UnitID` varchar(255) NOT NULL,
+  `ProjectID` varchar(255) NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `UnitID` (`UnitID`),
+  KEY `ProjectID` (`ProjectID`),
+  CONSTRAINT `resource_ibfk_3` FOREIGN KEY (`ProjectID`) REFERENCES `project` (`ID`),
+  CONSTRAINT `resource_ibfk_1` FOREIGN KEY (`UnitID`) REFERENCES `unit` (`ID`),
+  CONSTRAINT `resource_ibfk_2` FOREIGN KEY (`UnitID`) REFERENCES `unit` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -36,6 +43,7 @@ CREATE TABLE `resource` (
 
 LOCK TABLES `resource` WRITE;
 /*!40000 ALTER TABLE `resource` DISABLE KEYS */;
+INSERT INTO `resource` VALUES ('1',NULL,NULL,'1','1'),('7899812','IDLE',0,'1','1');
 /*!40000 ALTER TABLE `resource` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -48,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-22 17:19:25
+-- Dump completed on 2016-06-22 18:12:08

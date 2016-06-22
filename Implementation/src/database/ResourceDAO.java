@@ -2,6 +2,7 @@ package database;
 
 import java.util.ArrayList;
 
+import resource.HumanResource;
 import resource.Resource;
 
 import java.sql.*;
@@ -42,7 +43,7 @@ public class ResourceDAO implements DAO<Resource> {
 		int isAvailable = 0;
 		if (item.isAvailable())
 			isAvailable = 1;
-		String query = "insert into Resource (ID, resourceStatus, isAvailable, Unit_ID, Project_ID) " + "values (" + "'"
+		String query = "insert into Resource (ID, resourceStatus, isAvailable, UnitID, ProjectID) " + "values (" + "'"
 				+ item.getID() + "'" + ", " + "'" + item.getResourceStatus().toString() + "'" + ", " + "'" + isAvailable
 				+ "'" + ", " + "'" + unitID + "'" + ", " + "'" + projectID + "'" + ")";
 
@@ -81,6 +82,6 @@ public class ResourceDAO implements DAO<Resource> {
 
 	public static void main(String[] args) {
 		ResourceDAO dao = new ResourceDAO();
-		
+		System.out.println(dao.add(new HumanResource("pardis", "gheini", "doa", "123456"), "1", "1"));
 	}
 }
