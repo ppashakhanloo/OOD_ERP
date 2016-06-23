@@ -142,7 +142,7 @@ public class HumanResourceDAO extends ResourceDAO {
 		return listConditional("confirmStatus = " + "'" + confirmStatus.toString() + "'");
 	}
 
-	public boolean authenticate(String ID, String password) {
+	private boolean authenticate(String ID, String password) {
 		ResultSet rs;
 		try {
 			rs = myStmt.executeQuery(queryGenerator.select("human_resource", null,
@@ -151,6 +151,27 @@ public class HumanResourceDAO extends ResourceDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
+		}
+	}
+
+	public boolean login(String ID, String password) {
+		if (authenticate(ID, password)) {
+			try {
+				myStmt.executeUpdate(queryGenerator.update("human_resource", "logged_in", "1", "ResourceID = " + ID));
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return false;
+			}
+			return true;
+		}
+		return false;
+	}
+
+	public void logout(String ID) {
+		try {
+			myStmt.executeUpdate(queryGenerator.update("human_resource", "logged_in", "0", "ResourceID = " + ID));
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -164,7 +185,7 @@ public class HumanResourceDAO extends ResourceDAO {
 	}
 
 	public static void main(String[] args) {
-		HumanResourceDAO dao = new HumanResourceDAO();
+		// HumanResourceDAO dao = new HumanResourceDAO();
 		// System.out.println(dao.authenticate("102664", "989"));
 		// Resource res = new HumanResource("pardis", "pasha", "java", "888",
 		// (new AccessLevelFactory()).getAccessLevel("2"));

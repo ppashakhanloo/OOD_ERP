@@ -37,6 +37,7 @@ CREATE TABLE `information_resource` (
 
 LOCK TABLES `information_resource` WRITE;
 /*!40000 ALTER TABLE `information_resource` DISABLE KEYS */;
+INSERT INTO `information_resource` VALUES ('==db==','db description','591625'),('==db==','db description','661401'),('==db==','db description','708814');
 /*!40000 ALTER TABLE `information_resource` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -49,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-22 18:12:07
+-- Dump completed on 2016-06-24  1:35:26
