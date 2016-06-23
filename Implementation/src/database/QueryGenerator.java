@@ -25,7 +25,9 @@ public class QueryGenerator {
 	}
 
 	public String update(String tableName, String colName, String newVal, String cond) {
-		return "UPDATE " + tableName + " SET " + colName + " = " + newVal + " WHERE " + cond;
+		ArrayList<String> value = new ArrayList<>();
+		value.add(newVal);
+		return "UPDATE " + tableName + " SET " + colName + " = " + separatedList(",", "'", value) + " WHERE " + cond;
 	}
 
 	public String delete(String tableName, String cond) {
