@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import access.AccessLevelFactory;
+import resource.ConfirmStatus;
 import resource.HumanResource;
 import resource.Resource;
 
@@ -106,7 +107,11 @@ public class HumanResourceDAO extends ResourceDAO {
 
 	@Override
 	public ArrayList<Resource> list() {
-		String query = queryGenerator.select("human_resource", null, null);
+		return listConditional(null);
+	}
+
+	private ArrayList<Resource> listConditional(String cond) {
+		String query = queryGenerator.select("human_resource", null, cond);
 		ArrayList<Resource> results = new ArrayList<>();
 		ResultSet rs;
 		try {
@@ -121,6 +126,34 @@ public class HumanResourceDAO extends ResourceDAO {
 		return results;
 	}
 
+	public ArrayList<Resource> getByFirstName(String firstName) {
+		return listConditional("firstName = " + "'" + firstName + "'");
+	}
+
+	public ArrayList<Resource> getByLastName(String lastName) {
+		return listConditional("lastName = " + "'" + lastName + "'");
+	}
+
+	public ArrayList<Resource> getByExpertise(String expertise) {
+		return listConditional("expertise LIKE " + "'%" + expertise + "%'");
+	}
+
+	public ArrayList<Resource> getByConfirmStatus(ConfirmStatus confirmStatus) {
+		return listConditional("confirmStatus = " + "'" + confirmStatus.toString() + "'");
+	}
+
+	public boolean authenticate(String ID, String password) {
+		ResultSet rs;
+		try {
+			rs = myStmt.executeQuery(queryGenerator.select("human_resource", null,
+					"ResourceID = " + ID + " AND " + "password = " + password));
+			return (rs.next());
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 	protected Resource fillHumanResource(ResultSet rs) throws SQLException {
 		Resource newRes = new HumanResource();
 		String accessLevelID = rs.getString("AccessLevelID");
@@ -132,21 +165,22 @@ public class HumanResourceDAO extends ResourceDAO {
 
 	public static void main(String[] args) {
 		HumanResourceDAO dao = new HumanResourceDAO();
-
-		Resource res = new HumanResource("pardis", "pasha", "java", "888",
-				(new AccessLevelFactory()).getAccessLevel("2"));
-		System.out.println("ADDED: " + dao.add(res, "1", "1"));
-		HumanResource oldRes = (HumanResource) dao.get(res.getID());
-		System.out.println("OLD: " + oldRes);
-		System.out.println("ID: " + oldRes.getID());
-		HumanResource upRes = new HumanResource(oldRes.getFirstName(), oldRes.getLastName(), "android",
-				oldRes.getPassword(), oldRes.getAccessLevel());
-		upRes.setID(oldRes.getID());
-		System.out.println("UPDATED: " + dao.update(upRes));
-		HumanResource newRes = (HumanResource) dao.get(res.getID());
-		System.out.println();
-		System.out.println("NEW: " + newRes);
-
-		System.out.println("REMOVE: " + dao.remove("980920"));
+		// System.out.println(dao.authenticate("102664", "989"));
+		// Resource res = new HumanResource("pardis", "pasha", "java", "888",
+		// (new AccessLevelFactory()).getAccessLevel("2"));
+		// System.out.println("ADDED: " + dao.add(res, "1", "1"));
+		// HumanResource oldRes = (HumanResource) dao.get(res.getID());
+		// System.out.println("OLD: " + oldRes);
+		// System.out.println("ID: " + oldRes.getID());
+		// HumanResource upRes = new HumanResource(oldRes.getFirstName(),
+		// oldRes.getLastName(), "android, java",
+		// oldRes.getPassword(), oldRes.getAccessLevel());
+		// upRes.setID(oldRes.getID());
+		// System.out.println("UPDATED: " + dao.update(upRes));
+		// HumanResource newRes = (HumanResource) dao.get(res.getID());
+		// System.out.println();
+		// System.out.println("NEW: " + newRes);
+		// System.out.println("REMOVE: " + dao.remove("980920"));
+		// System.out.println("LIST: " + dao.getByExpertise("java"));
 	}
 }
