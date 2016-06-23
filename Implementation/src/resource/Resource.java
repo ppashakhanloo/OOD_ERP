@@ -12,18 +12,26 @@ public class Resource {
 		return ID;
 	}
 
-	private void setID(String ID) {
+	public void setID(String ID) {
 		this.ID = ID;
 	}
 
 	private String generateNDigitID(int n) {
 		Random random = new Random();
-		return Integer.toString((int) (Math.pow(10, n) + random.nextFloat() * 9 * Math.pow(10, n)));
+		return Integer.toString((int) (Math.pow(10, n - 1) + random.nextFloat() * 9 * Math.pow(10, n - 1)));
 	}
 
 	public Resource() {
 		this.setID(generateNDigitID(ID_LENGTH));
 		this.setResourceStatus(ResourceStatus.IDLE);
+		this.setAvailable(false);
+	}
+
+	public Resource(String iD, ResourceStatus resourceStatus, boolean isAvailable) {
+		super();
+		this.resourceStatus = resourceStatus;
+		this.isAvailable = isAvailable;
+		ID = iD;
 	}
 
 	public void edit(Resource resource) {
@@ -43,6 +51,11 @@ public class Resource {
 
 	public void setAvailable(boolean isAvailable) {
 		this.isAvailable = isAvailable;
+	}
+
+	@Override
+	public String toString() {
+		return "ID=" + ID + ", resourceStatus=" + resourceStatus + ", isAvailable=" + isAvailable;
 	}
 
 	// TODO
