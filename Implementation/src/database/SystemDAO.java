@@ -79,8 +79,7 @@ public class SystemDAO implements DAO<System> {
 	}
 
 	private System fillSystem(ResultSet rs) throws SQLException {
-		System newSys = new System();
-		newSys = new System(rs.getString("ID"), rs.getString("name"));
+		System newSys = new System(rs.getString("ID"), rs.getString("name"));
 		return newSys;
 	}
 
@@ -144,10 +143,11 @@ public class SystemDAO implements DAO<System> {
 		return systems;
 	}
 
-	public ArrayList<Module> getModules(System system) {
+	public ArrayList<Module> getModules(String sysID) {
 		ArrayList<Module> modules = new ArrayList<>();
 		ModuleDAO moduleDAO = ModuleDAO.getInstance();
-		String query = generator.select("module_system", null, "SystemID = "+system.getID());
+		String query = generator.select("module_system", null, "SystemID = "
+				+ sysID);
 		try {
 			ResultSet rs = myStmt.executeQuery(query);
 			while (rs.next()) {
@@ -158,7 +158,7 @@ public class SystemDAO implements DAO<System> {
 		}
 		return modules;
 	}
-	
+
 	public static void main(String[] args) {
 		SystemDAO dao = new SystemDAO();
 		java.lang.System.out.println(dao.get("1629336").getID());

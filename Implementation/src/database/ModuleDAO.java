@@ -2,13 +2,13 @@ package database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
 import project.Module;
 
-public class ModuleDAO implements DAO<Module>{
+public class ModuleDAO implements DAO<Module> {
 
 	private Connection sqlConn;
 	private Statement myStmt;
@@ -36,35 +36,135 @@ public class ModuleDAO implements DAO<Module>{
 		return moduleDAO;
 	}
 
-	
 	@Override
 	public boolean add(Module item) {
-		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public boolean add(Module item, String systemID) {
+		String query = "INSERT INTO module (ID, name, developmentStart,developmentEnd) VALUES ('"
+				+ item.getID()
+				+ "', '"
+				+ item.getName()
+				+ "', "
+				+ item.getDevelopmentStart()
+				+ ", "
+				+ item.getDevelopmentEnd()
+				+ ");";
+		try {
+			myStmt.executeUpdate(query);
+			ArrayList<String> cols = new ArrayList<>();
+			ArrayList<String> values = new ArrayList<>();
+			cols.add("ModuleID");
+			cols.add("SystemID");
+			values.add(item.getID());
+			values.add(systemID);
+			String query2 = generator.insert("module_system", cols, values);
+			myStmt.executeUpdate(query2);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 
 	@Override
 	public Module get(String key) {
-		// TODO Auto-generated method stub
+		String query = generator.select("module", null, "ID = " + key);
+		try {
+			ResultSet rs = myStmt.executeQuery(query);
+			while (rs.next()) {
+				Module newMod = fillModule(rs);
+				return newMod;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
+	}
+
+	private Module fillModule(ResultSet rs) throws SQLException {
+		 Module newMod = new Module(rs.getString("ID"), rs.getString("name"),
+				rs.getDate("developmentStart"), rs.getDate("developmentEnd"));
+		return newMod;
 	}
 
 	@Override
 	public void remove(String key) {
-		// TODO Auto-generated method stub
-		
+		String query = "DELETE FROM module WHERE ID = " + key + ";";
+		try {
+			myStmt.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void update(Module item) {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	public ArrayList<Module> getByName(String name) {
+		ArrayList<Module> modules = new ArrayList<>();
+		String query = generator.select("module", null, "name = " + name);
+		ResultSet rs;
+		try {
+			rs = myStmt.executeQuery(query);
+			while (rs.next()) {
+				modules.add(fillModule(rs));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return modules;
+	}
+
+	public ArrayList<Module> getByDevelopmentStart(String DevelopmentStart) {
+		ArrayList<Module> modules = new ArrayList<>();
+		String query = generator.select("module", null, "developmentStart = "
+				+ DevelopmentStart);
+		ResultSet rs;
+		try {
+			rs = myStmt.executeQuery(query);
+			while (rs.next()) {
+				modules.add(fillModule(rs));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return modules;
+	}
+
+	public ArrayList<Module> getByDevelopmentEnd(String DevelopmentEnd) {
+		ArrayList<Module> modules = new ArrayList<>();
+		String query = generator.select("module", null, "developmentEnd = "
+				+ DevelopmentEnd);
+		ResultSet rs;
+		try {
+			rs = myStmt.executeQuery(query);
+			while (rs.next()) {
+				modules.add(fillModule(rs));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return modules;
 	}
 
 	@Override
 	public ArrayList<Module> list() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Module> modules = new ArrayList<>();
+		try {
+			ResultSet rs = myStmt.executeQuery("SELECT * FROM module;");
+			while (rs.next()) {
+				Module newMod = fillModule(rs);
+				modules.add(newMod);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return modules;
 	}
 
 }
