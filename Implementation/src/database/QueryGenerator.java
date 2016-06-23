@@ -3,7 +3,6 @@ package database;
 import java.util.ArrayList;
 
 public class QueryGenerator {
-	private String query;
 	public static QueryGenerator queryGenerator;
 
 	private QueryGenerator() {
@@ -25,12 +24,21 @@ public class QueryGenerator {
 				+ separatedList(",", "'", values) + ")";
 	}
 
+	public String update(String tableName, String colName, String newVal, String cond) {
+		ArrayList<String> value = new ArrayList<>();
+		value.add(newVal);
+		return "UPDATE " + tableName + " SET " + colName + " = " + separatedList(",", "'", value) + " WHERE " + cond;
+	}
+
+	public String delete(String tableName, String cond) {
+		return "DELETE FROM " + tableName + " WHERE " + cond;
+	}
+
 	private String separatedList(String separator, String wrapper, ArrayList<String> values) {
 		String stringValues = "";
 		for (String value : values)
 			stringValues += wrapper + value + wrapper + separator + " ";
-		stringValues = stringValues.substring(0, stringValues.length() - 2);
-		return stringValues;
+		return stringValues.substring(0, stringValues.length() - 2);
 	}
 
 	public static void main(String[] args) {
