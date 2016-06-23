@@ -11,6 +11,17 @@ import database.SystemDAO;
 public class Project {
 	String ID;
 	String name;
+	public Project(String iD, String name, Date developmentStart,
+			Date developmentEnd, String customerName, int usersCount) {
+		super();
+		ID = iD;
+		this.name = name;
+		this.developmentStart = developmentStart;
+		this.developmentEnd = developmentEnd;
+		this.customerName = customerName;
+		this.usersCount = usersCount;
+	}
+
 	Date developmentStart;
 	Date developmentEnd;
 	String customerName;
@@ -61,6 +72,16 @@ public class Project {
 		return projectDAO.getProjectManagers(getID());
 	}
 
+	public boolean addTechnology(Technology technology){
+		ProjectDAO projectDAO = ProjectDAO.getInstance();
+		return projectDAO.addTechnology(technology, getID());
+	}
+	
+	public ArrayList<Technology> getTechnologies(){
+		ProjectDAO projectDAO = ProjectDAO.getInstance();
+		return projectDAO.getTechnologiesByProject(getID());
+	}
+	
 	public String getID() {
 		return ID;
 	}

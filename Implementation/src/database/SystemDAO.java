@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import project.Module;
 import project.System;
 
 public class SystemDAO implements DAO<System> {
@@ -129,9 +130,38 @@ public class SystemDAO implements DAO<System> {
 		return systems;
 	}
 
+	public ArrayList<System> getByName(String name) {
+		ArrayList<System> systems = new ArrayList<>();
+		String query = generator.select("system", null, "name = " + name);
+		try {
+			ResultSet rs = myStmt.executeQuery(query);
+			while (rs.next()) {
+				systems.add(fillSystem(rs));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return systems;
+	}
+
+	public ArrayList<Module> getModules(System system) {
+		ArrayList<Module> modules = new ArrayList<>();
+		ModuleDAO moduleDAO = ModuleDAO.getInstance();
+		String query = generator.select("module_system", null, "SystemID = "+system.getID());
+		try {
+			ResultSet rs = myStmt.executeQuery(query);
+			while (rs.next()) {
+				modules.add(moduleDAO.get(rs.getString("ModuleID")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return modules;
+	}
+	
 	public static void main(String[] args) {
-		// SystemDAO dao = new SystemDAO();
-		// java.lang.System.out.println(dao.getByProjectID("1").get(0).getID());
+		SystemDAO dao = new SystemDAO();
+		java.lang.System.out.println(dao.get("1629336").getID());
 	}
 
 }
