@@ -9,6 +9,7 @@ public class HumanResource extends Resource {
 	private String password;
 	private ConfirmStatus confirmStatus;
 	private AccessLevel accessLevel;
+	private boolean loggedIn;
 
 	public HumanResource() {
 		super();
@@ -76,6 +77,20 @@ public class HumanResource extends Resource {
 
 	public void confirm() {
 		setConfirmStatus(ConfirmStatus.CONFIRMED);
+	}
+
+	public boolean isLoggedIn() {
+		return loggedIn;
+	}
+
+	public void setLoggedIn(boolean loggedIn) {
+		this.loggedIn = loggedIn;
+	}
+
+	public boolean login() {
+		// TODO
+		setLoggedIn(true);
+		return true;
 	}
 
 	@Override

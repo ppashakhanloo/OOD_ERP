@@ -1,14 +1,16 @@
 package resource;
 
 import java.util.ArrayList;
+
+import database.HumanResourceDAO;
 import database.ResourceDAO;
 
 public class ResourceCatalogue {
-	private ArrayList<Resource> resourceList;
+	// private ArrayList<Resource> resourceList;
 	private static ResourceCatalogue resourceCatalogue;
 
 	private ResourceCatalogue() {
-		resourceList = new ArrayList<>();
+		// resourceList = new ArrayList<>();
 	}
 
 	public static ResourceCatalogue getInstance() {
@@ -29,8 +31,9 @@ public class ResourceCatalogue {
 	}
 
 	public ArrayList<Resource> getAll() {
+		ResourceDAO resourceDAO = ResourceDAO.getInstance();
 		ArrayList<Resource> realResources = new ArrayList<>();
-		for (Resource resource : resourceList) {
+		for (Resource resource : resourceDAO.list()) {
 			if (resource.isAvailable)
 				realResources.add(resource);
 		}
@@ -51,11 +54,6 @@ public class ResourceCatalogue {
 		ResourceDAO resourceDAO = ResourceDAO.getInstance();
 		return resourceDAO.get(ID);
 	}
-
-	// TODO
-	// public boolean humanResourceLogin(String password, String ID) {
-	//
-	// }
 
 	public ArrayList<Resource> getAll(ResourceType resourceType) {
 		ArrayList<Resource> realResources = getAll();
@@ -87,7 +85,16 @@ public class ResourceCatalogue {
 			}
 			break;
 		}
-
 		return resources;
+	}
+
+	public boolean humanResourceLogin(String ID, String password) {
+		HumanResourceDAO humanResourceDAO = HumanResourceDAO.getInstance();
+		return humanResourceDAO.login(ID, password);
+	}
+
+	public void humanResourceLogout(String ID) {
+		HumanResourceDAO humanResourceDAO = HumanResourceDAO.getInstance();
+		humanResourceDAO.logout(ID);
 	}
 }

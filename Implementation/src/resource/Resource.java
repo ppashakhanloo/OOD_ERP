@@ -35,6 +35,8 @@ public class Resource {
 	}
 
 	public void edit(Resource resource) {
+		this.resourceStatus = resource.getResourceStatus();
+		this.isAvailable = resource.isAvailable();
 	}
 
 	public ResourceStatus getResourceStatus() {
@@ -57,9 +59,4 @@ public class Resource {
 	public String toString() {
 		return "ID=" + ID + ", resourceStatus=" + resourceStatus + ", isAvailable=" + isAvailable;
 	}
-
-	// TODO
-	// public boolean logout() {
-	//
-	// }
 }
