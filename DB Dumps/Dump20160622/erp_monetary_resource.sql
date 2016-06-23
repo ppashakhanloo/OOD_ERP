@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `monetary_resource`;
 CREATE TABLE `monetary_resource` (
   `monetaryType` varchar(255) DEFAULT NULL,
   `quantity_amount` int(15) DEFAULT NULL,
-  `auantity_unit` varchar(255) DEFAULT NULL,
+  `quantity_unit` varchar(255) DEFAULT NULL,
   `location` varchar(255) DEFAULT NULL,
   `accountNumber` int(10) DEFAULT NULL,
   `ResourceID` varchar(255) NOT NULL,
@@ -40,6 +40,7 @@ CREATE TABLE `monetary_resource` (
 
 LOCK TABLES `monetary_resource` WRITE;
 /*!40000 ALTER TABLE `monetary_resource` DISABLE KEYS */;
+INSERT INTO `monetary_resource` VALUES ('CASH',100000,'RIAL','Saman',1234567890,'266022'),('CASH',100000,'RIAL','Saman',1234567890,'267379'),('CASH',100000,'DOLLAR','Sasan',1234567890,'484850'),('CASH',100000,'RIAL','Sasan',1234567890,'620640'),('CASH',100000,'RIAL','Saman',1234567890,'796307'),('CASH',100000,'DOLLAR','Sasan',1234567890,'852934');
 /*!40000 ALTER TABLE `monetary_resource` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-22 18:12:08
+-- Dump completed on 2016-06-24  1:35:26

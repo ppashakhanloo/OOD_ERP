@@ -30,10 +30,11 @@ CREATE TABLE `human_resource` (
   `confirmStatus` varchar(255) DEFAULT NULL,
   `ResourceID` varchar(255) NOT NULL,
   `AccessLevelID` varchar(255) NOT NULL,
+  `logged_in` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`ResourceID`),
   KEY `AccessLevelID` (`AccessLevelID`),
-  CONSTRAINT `human_resource_ibfk_2` FOREIGN KEY (`AccessLevelID`) REFERENCES `access_level` (`ID`),
-  CONSTRAINT `human_resource_ibfk_1` FOREIGN KEY (`ResourceID`) REFERENCES `resource` (`ID`)
+  CONSTRAINT `human_resource_ibfk_1` FOREIGN KEY (`ResourceID`) REFERENCES `resource` (`ID`),
+  CONSTRAINT `human_resource_ibfk_2` FOREIGN KEY (`AccessLevelID`) REFERENCES `access_level` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -55,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-22 18:12:07
+-- Dump completed on 2016-06-24  1:35:26

@@ -43,7 +43,7 @@ CREATE TABLE `resource` (
 
 LOCK TABLES `resource` WRITE;
 /*!40000 ALTER TABLE `resource` DISABLE KEYS */;
-INSERT INTO `resource` VALUES ('1',NULL,NULL,'1','1'),('7899812','IDLE',0,'1','1');
+INSERT INTO `resource` VALUES ('102664','IDLE',0,'1','1'),('117096','IDLE',0,'1','1'),('167893','IDLE',0,'1','1'),('188546','IDLE',0,'1','1'),('215343','IDLE',0,'1','1'),('225066','IDLE',0,'1','1'),('266022','IDLE',0,'1','1'),('267379','IDLE',0,'1','1'),('406079','IDLE',0,'1','1'),('413164','IDLE',0,'1','1'),('418066','IDLE',0,'1','1'),('479891','IDLE',0,'1','1'),('484850','IDLE',0,'1','1'),('591625','IDLE',0,'1','1'),('620640','IDLE',0,'1','1'),('621900','IDLE',0,'1','1'),('657312','IDLE',0,'1','1'),('661401','IDLE',0,'1','1'),('708814','IDLE',0,'1','1'),('736826','IDLE',0,'1','1'),('746945','IDLE',0,'1','1'),('748573','IDLE',0,'1','1'),('760082','IDLE',0,'1','1'),('774992','IDLE',0,'1','1'),('791523','IDLE',0,'1','1'),('796307','IDLE',0,'1','1'),('805576','IDLE',0,'1','1'),('852934','IDLE',0,'1','1'),('858241','IDLE',0,'1','1'),('876579','IDLE',0,'1','1'),('926047','IDLE',0,'1','1'),('955731','IDLE',0,'1','1'),('958114','IDLE',0,'1','1');
 /*!40000 ALTER TABLE `resource` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -56,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-22 18:12:08
+-- Dump completed on 2016-06-24  1:35:26

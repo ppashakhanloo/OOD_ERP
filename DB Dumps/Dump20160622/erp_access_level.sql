@@ -25,16 +25,16 @@ DROP TABLE IF EXISTS `access_level`;
 CREATE TABLE `access_level` (
   `ID` varchar(255) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
-  `canGetReport` tinyint(4) DEFAULT NULL,
-  `canSearch` tinyint(4) DEFAULT NULL,
-  `canGetResourceAttributes` tinyint(4) DEFAULT NULL,
-  `canAddRemResource` tinyint(4) DEFAULT NULL,
-  `canAddRemReq` tinyint(4) DEFAULT NULL,
-  `canAddProject` tinyint(4) DEFAULT NULL,
-  `canAddRemSysMod` tinyint(4) DEFAULT NULL,
-  `canChangePermission` tinyint(4) DEFAULT NULL,
-  `canConfirmNormalUser` tinyint(4) DEFAULT NULL,
-  `canConfirmMidUser` tinyint(4) DEFAULT NULL,
+  `canGetReport` varchar(1) DEFAULT '0',
+  `canSearch` varchar(1) DEFAULT '0',
+  `canGetResourceAttributes` varchar(1) DEFAULT '0',
+  `canAddRemResource` varchar(1) DEFAULT '0',
+  `canAddRemReq` varchar(1) DEFAULT '0',
+  `canAddProject` varchar(1) DEFAULT '0',
+  `canAddRemSysMod` varchar(1) DEFAULT '0',
+  `canChangePermission` varchar(1) DEFAULT '0',
+  `canConfirmNormalUser` varchar(1) DEFAULT '0',
+  `canConfirmMidUser` varchar(1) DEFAULT '0',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -45,7 +45,7 @@ CREATE TABLE `access_level` (
 
 LOCK TABLES `access_level` WRITE;
 /*!40000 ALTER TABLE `access_level` DISABLE KEYS */;
-INSERT INTO `access_level` VALUES ('1',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `access_level` VALUES ('1',NULL,'1','1','1','1','1','1','1','1','1','1'),('2',NULL,'1','1','1','0','0','0','0','0','0','0');
 /*!40000 ALTER TABLE `access_level` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -58,4 +58,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-22 18:12:08
+-- Dump completed on 2016-06-24  1:35:27
