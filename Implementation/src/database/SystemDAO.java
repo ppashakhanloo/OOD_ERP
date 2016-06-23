@@ -40,7 +40,6 @@ public class SystemDAO implements DAO<System> {
 
 	@Override
 	public boolean add(System item) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -65,7 +64,8 @@ public class SystemDAO implements DAO<System> {
 
 	@Override
 	public System get(String key) {
-		String query = generator.select("system", null, "ID = " + key);
+		String query = generator.select("system", null, "ID = " + "'" + key
+				+ "'");
 		try {
 			ResultSet rs = myStmt.executeQuery(query);
 			while (rs.next()) {
@@ -85,7 +85,7 @@ public class SystemDAO implements DAO<System> {
 
 	@Override
 	public void remove(String key) {
-		String query = "DELETE FROM system WHERE ID = " + key + ";";
+		String query = "DELETE FROM system WHERE ID = " + "'" + key + "'" + ";";
 		try {
 			myStmt.executeUpdate(query);
 		} catch (SQLException e) {
@@ -94,9 +94,15 @@ public class SystemDAO implements DAO<System> {
 	}
 
 	@Override
-	public void update(System item) {
-		// TODO Auto-generated method stub
-
+	public boolean update(System item) {
+		try {
+			myStmt.executeUpdate(generator.update("system", "name",
+					item.getName(), "ID = " + "'" + item.getID() + "'"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 
 	@Override
@@ -118,7 +124,7 @@ public class SystemDAO implements DAO<System> {
 		ArrayList<System> systems = new ArrayList<>();
 		try {
 			ResultSet rs = myStmt.executeQuery(generator.select("system", null,
-					"ProjectID = " + pid));
+					"ProjectID = " + "'" + pid + "'"));
 			while (rs.next()) {
 				if (rs.getString("ProjectID").equals(pid))
 					systems.add(fillSystem(rs));
@@ -131,7 +137,8 @@ public class SystemDAO implements DAO<System> {
 
 	public ArrayList<System> getByName(String name) {
 		ArrayList<System> systems = new ArrayList<>();
-		String query = generator.select("system", null, "name = " + name);
+		String query = generator.select("system", null, "name = " + "'" + name
+				+ "'");
 		try {
 			ResultSet rs = myStmt.executeQuery(query);
 			while (rs.next()) {
@@ -147,7 +154,7 @@ public class SystemDAO implements DAO<System> {
 		ArrayList<Module> modules = new ArrayList<>();
 		ModuleDAO moduleDAO = ModuleDAO.getInstance();
 		String query = generator.select("module_system", null, "SystemID = "
-				+ sysID);
+				+ "'" + sysID + "'");
 		try {
 			ResultSet rs = myStmt.executeQuery(query);
 			while (rs.next()) {
@@ -160,8 +167,8 @@ public class SystemDAO implements DAO<System> {
 	}
 
 	public static void main(String[] args) {
-		SystemDAO dao = new SystemDAO();
-		java.lang.System.out.println(dao.get("1629336").getID());
+		// SystemDAO dao = new SystemDAO();
+		// java.lang.System.out.println(dao.getModules("1629336"));
 	}
 
 }

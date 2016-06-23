@@ -45,7 +45,7 @@ public class ProjectDAO implements DAO<Project> {
 		ArrayList<Unit> units = new ArrayList<>();
 		UnitDAO unitDAO = UnitDAO.getInstance();
 		String query = generator.select("project_unit", null, "ProjectID = "
-				+ pid);
+				+ "'" + pid + "'");
 		try {
 			ResultSet rs = myStmt.executeQuery(query);
 			while (rs.next()) {
@@ -60,10 +60,10 @@ public class ProjectDAO implements DAO<Project> {
 	public HumanResource getProjectManagers(String pid) {
 		HumanResourceDAO hrDAO = HumanResourceDAO.getInstance();
 		String query = generator.select("project_management", null,
-				"ProjectID = " + pid);
+				"ProjectID = " + "'" + pid + "'");
 		try {
 			ResultSet rs = myStmt.executeQuery(query);
-			while (rs.next()) {
+			if (rs.next()) {
 				return ((HumanResource) hrDAO.get(rs.getString("ManagerID")));
 			}
 		} catch (SQLException e) {
@@ -91,7 +91,7 @@ public class ProjectDAO implements DAO<Project> {
 
 	public boolean addTechnology(Technology tech, String pid) {
 		String techExistQuery = generator.select("technology", null, "name = "
-				+ tech.getName());
+				+ "'" + tech.getName() + "'");
 		try {
 			ResultSet rs = myStmt.executeQuery(techExistQuery);
 			if (!rs.next()) {
@@ -125,13 +125,18 @@ public class ProjectDAO implements DAO<Project> {
 	public ArrayList<Technology> getTechnologiesByProject(String pid) {
 		ArrayList<Technology> techs = new ArrayList<>();
 		String techNamesQuery = generator.select("project_technology", null,
-				"ProjectID = " + pid);
+				"ProjectID = " + "'" + pid + "'");
 		try {
 			ResultSet rs = myStmt.executeQuery(techNamesQuery);
 			while (rs.next()) {
-				ResultSet techRS = myStmt.executeQuery(generator.select(
-						"technology", null,
-						"name = " + rs.getString("Technologyname")));
+				Statement stmt = sqlConn.createStatement();
+				ResultSet techRS = stmt
+						.executeQuery(generator.select(
+								"technology",
+								null,
+								"name = " + "'"
+										+ rs.getString("Technologyname") + "'"));
+				techRS.first();
 				techs.add(fillTechnology(techRS));
 			}
 		} catch (SQLException e) {
@@ -185,7 +190,8 @@ public class ProjectDAO implements DAO<Project> {
 
 	@Override
 	public Project get(String key) {
-		String query = generator.select("system", null, "ID = " + key);
+		String query = generator.select("project", null, "ID = " + "'" + key
+				+ "'");
 		try {
 			ResultSet rs = myStmt.executeQuery(query);
 			if (rs.next()) {
@@ -207,7 +213,7 @@ public class ProjectDAO implements DAO<Project> {
 
 	@Override
 	public void remove(String key) {
-		String query = generator.delete("project", "ID = " + key);
+		String query = generator.delete("project", "ID = " + "'" + key + "'");
 		try {
 			myStmt.executeUpdate(query);
 		} catch (SQLException e) {
@@ -218,7 +224,8 @@ public class ProjectDAO implements DAO<Project> {
 
 	public ArrayList<Project> getByName(String name) {
 		ArrayList<Project> projects = new ArrayList<>();
-		String query = generator.select("project", null, "name = " + name);
+		String query = generator.select("project", null, "name = " + "'" + name
+				+ "'");
 		ResultSet rs;
 		try {
 			rs = myStmt.executeQuery(query);
@@ -234,7 +241,7 @@ public class ProjectDAO implements DAO<Project> {
 	public ArrayList<Project> getByCustomerName(String name) {
 		ArrayList<Project> projects = new ArrayList<>();
 		String query = generator.select("project", null, "customerName = "
-				+ name);
+				+ "'" + name + "'");
 		ResultSet rs;
 		try {
 			rs = myStmt.executeQuery(query);
@@ -279,7 +286,6 @@ public class ProjectDAO implements DAO<Project> {
 		return projects;
 	}
 
-	
 	public ArrayList<Project> getByUsersCount(int count) {
 		ArrayList<Project> projects = new ArrayList<>();
 		String query = generator.select("project", null, "usersCount = "
@@ -295,27 +301,16 @@ public class ProjectDAO implements DAO<Project> {
 		}
 		return projects;
 	}
-	
+
 	public ArrayList<Project> getByDevelopersCount(int developersCount) {
-		ArrayList<Project> projects = new ArrayList<>();
-		String query = generator.select("project", null, "developersCount = "
-				+ developersCount);
-		ResultSet rs;
-		try {
-			rs = myStmt.executeQuery(query);
-			while (rs.next()) {
-				projects.add(fillProject(rs));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return projects;
+		return null;
+		// TODO
 	}
-	
+
 	public ArrayList<Project> getByTechnology(Technology tech) {
 		ArrayList<Project> projects = new ArrayList<>();
-		String query = generator.select("project_technology", null, "Technologyname = "
-				+ tech.getName());
+		String query = generator.select("project_technology", null,
+				"Technologyname = " + "'" + tech.getName() + "'");
 		ResultSet rs;
 		try {
 			rs = myStmt.executeQuery(query);
@@ -327,10 +322,26 @@ public class ProjectDAO implements DAO<Project> {
 		}
 		return projects;
 	}
-	
+
 	@Override
-	public void update(Project item) {
-		// TODO Auto-generated method stub
+	public boolean update(Project item) {
+		try {
+			myStmt.executeUpdate(generator.update("project", "name",
+					item.getName(), "ID = " + item.getID()));
+			myStmt.executeUpdate(generator.update("project", "customerName",
+					item.getCustomerName(), "ID = " + item.getID()));
+			myStmt.executeUpdate("UPDATE project SET developmentStart  = "
+					+ item.getDevelopmentStart() + " WHERE ID = "
+					+ item.getID());
+			myStmt.executeUpdate("UPDATE project SET developmentEnd  = "
+					+ item.getDevelopmentEnd() + " WHERE ID = " + item.getID());
+			myStmt.executeUpdate("UPDATE project SET usersCount  = "
+					+ item.getUsersCount() + " WHERE ID = " + item.getID());
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 
 	}
 
@@ -338,7 +349,7 @@ public class ProjectDAO implements DAO<Project> {
 	public ArrayList<Project> list() {
 		ArrayList<Project> projects = new ArrayList<>();
 		try {
-			ResultSet rs = myStmt.executeQuery("SELECT * FROM proejct");
+			ResultSet rs = myStmt.executeQuery("SELECT * FROM project");
 			while (rs.next()) {
 				projects.add(fillProject(rs));
 			}
@@ -346,6 +357,11 @@ public class ProjectDAO implements DAO<Project> {
 			e.printStackTrace();
 		}
 		return projects;
+	}
+
+	public static void main(String[] args) {
+		// ProjectDAO prj = ProjectDAO.getInstance();
+		// java.lang.System.out.println(prj.getByName("WEB"));
 	}
 
 }

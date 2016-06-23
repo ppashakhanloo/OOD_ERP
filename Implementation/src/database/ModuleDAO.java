@@ -6,7 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+
 import project.Module;
+import resource.HumanResource;
 
 public class ModuleDAO implements DAO<Module> {
 
@@ -84,7 +86,7 @@ public class ModuleDAO implements DAO<Module> {
 	}
 
 	private Module fillModule(ResultSet rs) throws SQLException {
-		 Module newMod = new Module(rs.getString("ID"), rs.getString("name"),
+		Module newMod = new Module(rs.getString("ID"), rs.getString("name"),
 				rs.getDate("developmentStart"), rs.getDate("developmentEnd"));
 		return newMod;
 	}
@@ -100,8 +102,20 @@ public class ModuleDAO implements DAO<Module> {
 	}
 
 	@Override
-	public void update(Module item) {
-		// TODO Auto-generated method stub
+	public boolean update(Module item) {
+		try {
+			myStmt.executeUpdate(generator.update("module", "name",
+					item.getName(), "ID = " + item.getID()));
+			myStmt.executeUpdate("UPDATE module SET developmentStart  = "
+					+ item.getDevelopmentStart() + " WHERE ID = "
+					+ item.getID());
+			myStmt.executeUpdate("UPDATE module SET developmentEnd  = "
+					+ item.getDevelopmentEnd() + " WHERE ID = " + item.getID());
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 
 	}
 
@@ -165,6 +179,43 @@ public class ModuleDAO implements DAO<Module> {
 			e.printStackTrace();
 		}
 		return modules;
+	}
+
+	public ArrayList<HumanResource> getDevelopers(String modID) {
+		HumanResourceDAO hrDAO = HumanResourceDAO.getInstance();
+		ArrayList<HumanResource> developers = new ArrayList<>();
+		String query = generator.select("module_humanresource", null,
+				"ModuleID = " + modID);
+		try {
+			ResultSet rs = myStmt.executeQuery(query);
+			while (rs.next()) {
+				developers.add((HumanResource) hrDAO.get(rs
+						.getString("HumanResourceID")));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return developers;
+	}
+
+	public boolean addDeveloper(String modID, HumanResource developer) {
+		ArrayList<String> colNames = new ArrayList<>();
+		ArrayList<String> values = new ArrayList<>();
+		colNames.add("ModuleID");
+		colNames.add("HumanResourceID");
+		values.add(modID);
+		values.add(developer.getID());
+		String query = generator.insert("module_humanresource", colNames,
+				values);
+		try {
+			myStmt.executeUpdate(query);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 
 }

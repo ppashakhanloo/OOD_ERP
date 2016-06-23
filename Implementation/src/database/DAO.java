@@ -9,7 +9,7 @@ public interface DAO<T> {
 
 	public void remove(String key);
 
-	public void update(T item);
+	public boolean update(T item);
 
 	public ArrayList<T> list();
 }

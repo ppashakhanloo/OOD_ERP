@@ -1,7 +1,12 @@
 package project;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
+
+import resource.HumanResource;
+import database.ModuleDAO;
+import database.ModuleModificationDAO;
 
 public class Module {
 
@@ -12,7 +17,7 @@ public class Module {
 	Date developmentEnd;
 
 	public Module() {
-		this.ID = generateNDigitID(ID_LENGTH);
+		setID(generateNDigitID(ID_LENGTH));
 	}
 
 	public Module(String iD, String name, Date developmentStart,
@@ -29,6 +34,21 @@ public class Module {
 				* 9 * Math.pow(10, n - 1)));
 	}
 
+	public ArrayList<ModuleModification> getModuleModificatios(){
+		ModuleModificationDAO modDAO = ModuleModificationDAO.getInstance();
+		return modDAO.getByModuleID(getID());
+	}
+	
+	public ArrayList<HumanResource> getDevelopers(){
+		ModuleDAO modDAO = ModuleDAO.getInstance();
+		return modDAO.getDevelopers(getID());
+	}
+	
+	public boolean addDeveloper(HumanResource developer){
+		ModuleDAO modDAO = ModuleDAO.getInstance();
+		return modDAO.addDeveloper(getID(), developer);
+	}
+	
 	public String getID() {
 		return ID;
 	}

@@ -62,12 +62,12 @@ public class ModuleModificationDAO implements DAO<ModuleModification> {
 
 	}
 
-	public void addModifier(ModuleModification mod, HumanResource modifier) {
+	public boolean addModifier(String modID, HumanResource modifier) {
 		ArrayList<String> colNames = new ArrayList<>();
 		ArrayList<String> values = new ArrayList<>();
 		colNames.add("ModuleModificationID");
 		colNames.add("HumanResourceID");
-		values.add(mod.getID());
+		values.add(modID);
 		values.add(modifier.getID());
 		String query = generator.insert("modulemodification_humanresource",
 				colNames, values);
@@ -75,7 +75,26 @@ public class ModuleModificationDAO implements DAO<ModuleModification> {
 			myStmt.executeUpdate(query);
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return false;
 		}
+		return true;
+	}
+
+	public ArrayList<HumanResource> getModifiers(String modID) {
+		ArrayList<HumanResource> modifiers = new ArrayList<>();
+		HumanResourceDAO hrDAO = HumanResourceDAO.getInstance();
+		String query = generator.select("modulemodification_humanresource",
+				null, "ModuleModificationID = " + modID);
+		try {
+			ResultSet rs = myStmt.executeQuery(query);
+			while (rs.next()) {
+				modifiers.add((HumanResource) hrDAO.get(rs
+						.getString("HumanResourceID")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return modifiers;
 	}
 
 	@Override
@@ -114,9 +133,21 @@ public class ModuleModificationDAO implements DAO<ModuleModification> {
 	}
 
 	@Override
-	public void update(ModuleModification item) {
-		// TODO Auto-generated method stub
-
+	public boolean update(ModuleModification item) {
+		try {
+			myStmt.executeUpdate(generator.update("module_modification",
+					"modificationType", item.getModificationType(), "ID = "
+							+ item.getID()));
+			myStmt.executeUpdate("UPDATE module_modification SET modificationStart  = "
+					+ item.getModificationStart() + " WHERE ID = "
+					+ item.getID());
+			myStmt.executeUpdate("UPDATE module_modification SET modificationEnd  = "
+					+ item.getModificationEnd() + " WHERE ID = " + item.getID());
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 
 	@Override
@@ -133,6 +164,21 @@ public class ModuleModificationDAO implements DAO<ModuleModification> {
 			e.printStackTrace();
 		}
 		return modules;
+	}
+
+	public ArrayList<ModuleModification> getByModuleID(String key) {
+		ArrayList<ModuleModification> mods = new ArrayList<>();
+		String query = generator.select("module_modification", null,
+				"ModuleID = " + key);
+		try {
+			ResultSet rs = myStmt.executeQuery(query);
+			while (rs.next()) {
+				mods.add(fillModuleModification(rs));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return mods;
 	}
 
 }

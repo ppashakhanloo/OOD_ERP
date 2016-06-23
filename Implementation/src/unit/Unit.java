@@ -3,10 +3,15 @@ package unit;
 public class Unit {
 	String ID;
 	String name;
+	
+	public Unit(String iD, String name) {
+		setID(iD);
+		this.name = name;
+	}
 	public String getID() {
 		return ID;
 	}
-	public void setID(String iD) {
+	private void setID(String iD) {
 		ID = iD;
 	}
 	public String getName() {

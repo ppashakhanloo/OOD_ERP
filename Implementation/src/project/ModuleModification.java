@@ -1,7 +1,11 @@
 package project;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
+
+import resource.HumanResource;
+import database.ModuleModificationDAO;
 
 public class ModuleModification {
 	int ID_LENGTH = 6;
@@ -29,6 +33,16 @@ public class ModuleModification {
 		this.modificationEnd = modificationEnd;
 	}
 
+	public ArrayList<HumanResource> getModifiers(){
+		ModuleModificationDAO modDAO = ModuleModificationDAO.getInstance();
+		return modDAO.getModifiers(getID());
+	}
+	
+	public boolean addModifier(HumanResource modifier){
+		ModuleModificationDAO modDAO = ModuleModificationDAO.getInstance();
+		return modDAO.addModifier(getID(), modifier);
+	}
+	
 	public String getID() {
 		return ID;
 	}
