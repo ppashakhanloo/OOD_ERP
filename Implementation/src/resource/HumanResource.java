@@ -3,13 +3,12 @@ package resource;
 import access.AccessLevel;
 
 public class HumanResource extends Resource {
-	String firstName;
-	String lastName;
-	String expertise;
-	String password;
-	ConfirmStatus confirmStatus;
-
-	AccessLevel accessLevel;
+	private String firstName;
+	private String lastName;
+	private String expertise;
+	private String password;
+	private ConfirmStatus confirmStatus;
+	private AccessLevel accessLevel;
 
 	public HumanResource() {
 		super();

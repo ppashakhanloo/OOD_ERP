@@ -164,7 +164,7 @@ public class HumanResourceDAO extends ResourceDAO {
 	}
 
 	public static void main(String[] args) {
-		HumanResourceDAO dao = new HumanResourceDAO();
+		// HumanResourceDAO dao = new HumanResourceDAO();
 		// System.out.println(dao.authenticate("102664", "989"));
 		// Resource res = new HumanResource("pardis", "pasha", "java", "888",
 		// (new AccessLevelFactory()).getAccessLevel("2"));

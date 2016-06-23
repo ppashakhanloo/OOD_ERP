@@ -26,4 +26,9 @@ public class InformationResource extends Resource {
 		this.description = description;
 	}
 
+	@Override
+	public String toString() {
+		return super.toString() + ",\n" + "name=" + name + ", description=" + description;
+	}
+
 }
