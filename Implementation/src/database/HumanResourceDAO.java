@@ -10,8 +10,16 @@ import resource.Resource;
 
 public class HumanResourceDAO extends ResourceDAO {
 
-	public HumanResourceDAO() {
+	private HumanResourceDAO() {
 		super();
+	}
+
+	public static HumanResourceDAO humanResourceDAO;
+
+	public static HumanResourceDAO getInstance() {
+		if (humanResourceDAO == null)
+			humanResourceDAO = new HumanResourceDAO();
+		return humanResourceDAO;
 	}
 
 	@Override
@@ -113,7 +121,7 @@ public class HumanResourceDAO extends ResourceDAO {
 		return results;
 	}
 
-	private Resource fillHumanResource(ResultSet rs) throws SQLException {
+	protected Resource fillHumanResource(ResultSet rs) throws SQLException {
 		Resource newRes = new HumanResource();
 		String accessLevelID = rs.getString("AccessLevelID");
 		newRes = new HumanResource(rs.getString("firstName"), rs.getString("lastName"), rs.getString("expertise"),
@@ -123,23 +131,22 @@ public class HumanResourceDAO extends ResourceDAO {
 	}
 
 	public static void main(String[] args) {
-		// HumanResourceDAO dao = new HumanResourceDAO();
-		//
-		// Resource res = new HumanResource("pardis", "pasha", "java", "888",
-		// (new AccessLevelFactory()).getAccessLevel("2"));
-		// System.out.println("ADDED: " + dao.add(res, "1", "1"));
-		// HumanResource oldRes = (HumanResource) dao.get(res.getID());
-		// System.out.println("OLD: " + oldRes);
-		// System.out.println("ID: " + oldRes.getID());
-		// HumanResource upRes = new HumanResource(oldRes.getFirstName(),
-		// oldRes.getLastName(), "android",
-		// oldRes.getPassword(), oldRes.getAccessLevel());
-		// upRes.setID(oldRes.getID());
-		// System.out.println("UPDATED: " + dao.update(upRes));
-		// HumanResource newRes = (HumanResource) dao.get(res.getID());
-		// System.out.println();
-		// System.out.println("NEW: " + newRes);
-		// System.out.println("REMOVE: " + dao.remove("980920"));
-		// System.out.println("LIST: " + dao.list());
+		HumanResourceDAO dao = new HumanResourceDAO();
+
+		Resource res = new HumanResource("pardis", "pasha", "java", "888",
+				(new AccessLevelFactory()).getAccessLevel("2"));
+		System.out.println("ADDED: " + dao.add(res, "1", "1"));
+		HumanResource oldRes = (HumanResource) dao.get(res.getID());
+		System.out.println("OLD: " + oldRes);
+		System.out.println("ID: " + oldRes.getID());
+		HumanResource upRes = new HumanResource(oldRes.getFirstName(), oldRes.getLastName(), "android",
+				oldRes.getPassword(), oldRes.getAccessLevel());
+		upRes.setID(oldRes.getID());
+		System.out.println("UPDATED: " + dao.update(upRes));
+		HumanResource newRes = (HumanResource) dao.get(res.getID());
+		System.out.println();
+		System.out.println("NEW: " + newRes);
+
+		System.out.println("REMOVE: " + dao.remove("980920"));
 	}
 }
