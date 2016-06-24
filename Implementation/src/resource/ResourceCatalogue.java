@@ -7,11 +7,6 @@ import database.*;
 public class ResourceCatalogue {
     // private ArrayList<Resource> resourceList;
 
-    private HumanResourceDAO humanResourceDAO;
-    private MonetaryResourceDAO monetaryResourceDAO;
-    private InformationResourceDAO informationResourceDAO;
-    private PhysicalResourceDAO physicalResourceDAO;
-
     private static ResourceCatalogue resourceCatalogue;
 
 
@@ -28,43 +23,41 @@ public class ResourceCatalogue {
 
     public boolean add(Resource resource, String unitID, String projectID) {
         if (resource instanceof HumanResource)
-            return humanResourceDAO.getInstance().add(resource, unitID, projectID);
+            return HumanResourceDAO.getInstance().add(resource, unitID, projectID);
         else if (resource instanceof PhysicalResource)
-            return physicalResourceDAO.getInstance().add(resource, unitID, projectID);
+            return PhysicalResourceDAO.getInstance().add(resource, unitID, projectID);
         else if (resource instanceof InformationResource)
-            return informationResourceDAO.getInstance().add(resource, unitID, projectID);
+            return InformationResourceDAO.getInstance().add(resource, unitID, projectID);
         else if (resource instanceof MonetaryResource)
-            return monetaryResourceDAO.getInstance().add(resource, unitID, projectID);
+            return MonetaryResourceDAO.getInstance().add(resource, unitID, projectID);
         return false;
     }
 
     public void remove(Resource resource) {
         if (resource instanceof HumanResource)
-            humanResourceDAO.getInstance().remove(resource.getID());
+            HumanResourceDAO.getInstance().remove(resource.getID());
         else if (resource instanceof PhysicalResource)
-            physicalResourceDAO.getInstance().remove(resource.getID());
+            PhysicalResourceDAO.getInstance().remove(resource.getID());
         else if (resource instanceof InformationResource)
-            informationResourceDAO.getInstance().remove(resource.getID());
+            InformationResourceDAO.getInstance().remove(resource.getID());
         else if (resource instanceof MonetaryResource)
-            monetaryResourceDAO.getInstance().remove(resource.getID());
+            MonetaryResourceDAO.getInstance().remove(resource.getID());
     }
 
     public ArrayList<Resource> getAll() {
         ArrayList<Resource> allResources = new ArrayList<>();
-        allResources.addAll(humanResourceDAO.getInstance().list());
-        allResources.addAll(physicalResourceDAO.getInstance().list());
-        allResources.addAll(informationResourceDAO.getInstance().list());
-        allResources.addAll(monetaryResourceDAO.getInstance().list());
+        allResources.addAll(HumanResourceDAO.getInstance().list());
+        allResources.addAll(PhysicalResourceDAO.getInstance().list());
+        allResources.addAll(InformationResourceDAO.getInstance().list());
+        allResources.addAll(MonetaryResourceDAO.getInstance().list());
 
         ArrayList<Resource> realResources = new ArrayList<>();
 
         for (Resource resource : allResources) {
             if (resource.isAvailable()) {
-                System.out.println("hi!!!!!!!!!!!!!!!!!!!!!!");
                 realResources.add(resource);
             }
         }
-        System.out.println("res=" + realResources);
         return realResources;
     }
 
@@ -80,14 +73,11 @@ public class ResourceCatalogue {
 
     public Resource get(String ID) {
         ResourceDAO resourceDAO = ResourceDAO.getInstance();
-        System.out.println("ID: " + ID);
-        System.out.println("IN RESOURCE CATALOG: " + resourceDAO.get(ID));
         return resourceDAO.get(ID);
     }
 
     public ArrayList<Resource> getAll(ResourceType resourceType) {
         ArrayList<Resource> realResources = getAll();
-        System.out.println("***************here: " + realResources);
         ArrayList<Resource> resources = new ArrayList<>();
 
         switch (resourceType) {

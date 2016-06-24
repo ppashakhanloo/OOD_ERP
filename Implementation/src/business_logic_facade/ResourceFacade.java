@@ -1,10 +1,9 @@
 package business_logic_facade;
 
-
-import resource.Resource;
-import resource.ResourceCatalogue;
-import resource.ResourceType;
+import access.AccessLevelFactory;
+import resource.*;
 import unit.Unit;
+import unit.UnitCatalogue;
 
 import java.util.ArrayList;
 
@@ -29,8 +28,14 @@ public class ResourceFacade {
         return ResourceCatalogue.getInstance().getAll(ResourceType.MONETARY);
     }
 
-//    public ArrayList<Unit> getUnits() {
-//        return UnitCatalogue.getInstance().getAll();
-//    }
+    public ArrayList<Unit> getUnits() {
+        return UnitCatalogue.getInstance().getAll();
+    }
+
+    public void addNewHumanResource(String firstName, String lastName, String expertise, String password, String unitID) {
+        // by default, set accessLevel to 3
+        HumanResource humanResource = new HumanResource(firstName, lastName, expertise, password, (new AccessLevelFactory()).getAccessLevel("3"));
+        ResourceCatalogue.getInstance().add(humanResource, unitID, "");
+    }
 
 }

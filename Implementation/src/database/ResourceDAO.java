@@ -46,13 +46,13 @@ public class ResourceDAO {
 		colNames.add("resourceStatus");
 		colNames.add("isAvailable");
 		colNames.add("UnitID");
-		colNames.add("ProjectID");
+//		colNames.add("ProjectID");
 		ArrayList<String> values = new ArrayList<>();
 		values.add(item.getID());
 		values.add(item.getResourceStatus().toString());
 		values.add(Integer.toString(isAvailable));
 		values.add(unitID);
-		values.add(projectID);
+//		values.add(projectID);
 		String query = queryGenerator.insert("resource", colNames, values);
 
 		try {

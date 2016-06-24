@@ -48,7 +48,6 @@ public class HumanResourceDAO extends ResourceDAO {
         values.add(humanResourceItem.getAccessLevel().getID());
 
         String query = queryGenerator.insert("human_resource", colNames, values);
-        System.out.println(query);
         try {
             myStmt.executeUpdate(query);
         } catch (SQLException e) {
@@ -192,19 +191,19 @@ public class HumanResourceDAO extends ResourceDAO {
         System.out.println(dao.authenticate("102664", "989"));
         Resource res = new HumanResource("sara", "pasha", "java", "888",
                 (new AccessLevelFactory()).getAccessLevel("2"));
-        System.out.println("ADDED: " + dao.add(res, "1", "1"));
-        HumanResource oldRes = (HumanResource) dao.get(res.getID());
-        System.out.println("OLD: " + oldRes);
-        System.out.println("ID: " + oldRes.getID());
-        HumanResource upRes = new HumanResource(oldRes.getFirstName(),
-                oldRes.getLastName(), "android, java",
-                oldRes.getPassword(), oldRes.getAccessLevel());
-        upRes.setID(oldRes.getID());
-        System.out.println("UPDATED: " + dao.update(upRes));
-        HumanResource newRes = (HumanResource) dao.get(res.getID());
-        System.out.println();
-        System.out.println("NEW: " + newRes);
-//		 System.out.println("REMOVE: " + dao.remove("980920"));
-        System.out.println("LIST: " + dao.getByExpertise("java"));
+        System.out.println("ADDED: " + dao.add(res, "1", ""));
+//        HumanResource oldRes = (HumanResource) dao.get(res.getID());
+//        System.out.println("OLD: " + oldRes);
+//        System.out.println("ID: " + oldRes.getID());
+//        HumanResource upRes = new HumanResource(oldRes.getFirstName(),
+//                oldRes.getLastName(), "android, java",
+//                oldRes.getPassword(), oldRes.getAccessLevel());
+//        upRes.setID(oldRes.getID());
+//        System.out.println("UPDATED: " + dao.update(upRes));
+//        HumanResource newRes = (HumanResource) dao.get(res.getID());
+//        System.out.println();
+//        System.out.println("NEW: " + newRes);
+////		 System.out.println("REMOVE: " + dao.remove("980920"));
+//        System.out.println("LIST: " + dao.getByExpertise("java"));
     }
 }

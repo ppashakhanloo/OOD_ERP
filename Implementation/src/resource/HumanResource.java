@@ -1,6 +1,7 @@
 package resource;
 
 import access.AccessLevel;
+import access.AccessLevelFactory;
 
 public class HumanResource extends Resource {
     private String firstName;

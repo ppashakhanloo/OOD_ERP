@@ -15,7 +15,6 @@ public class UserFacade {
     public boolean login(String ID, String password) {
         ResourceCatalogue resourceCatalogue = ResourceCatalogue.getInstance();
         currentUser = resourceCatalogue.humanResourceLogin(ID, password);
-        System.out.println("CURRENT USER: " + currentUser);
         if (currentUser != null)
             return true;
         return false;
@@ -32,7 +31,6 @@ public class UserFacade {
 
 
     public Map<PermissionType, Boolean> getCurrentUserPermissions() {
-        System.out.println();
         return currentUser.getAccessLevel().getPermissions();
     }
 }

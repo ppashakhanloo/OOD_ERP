@@ -24,7 +24,7 @@ public class Resource {
 	public Resource() {
 		this.setID(generateNDigitID(ID_LENGTH));
 		this.setResourceStatus(ResourceStatus.IDLE);
-		this.setAvailable(false);
+		this.setAvailable(true);
 	}
 
 	public Resource(String iD, ResourceStatus resourceStatus, boolean isAvailable) {
