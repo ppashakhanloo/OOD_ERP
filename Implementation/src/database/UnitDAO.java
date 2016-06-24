@@ -2,10 +2,12 @@ package database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import unit.Requirement;
 import unit.Unit;
 
 public class UnitDAO implements DAO<Unit> {
@@ -36,36 +38,134 @@ public class UnitDAO implements DAO<Unit> {
 		return unitDAO;
 	}
 
-
-	
 	@Override
 	public boolean add(Unit item) {
-		// TODO Auto-generated method stub
-		return false;
+		ArrayList<String> colNames = new ArrayList<>();
+		colNames.add("ID");
+		colNames.add("name");
+		ArrayList<String> values = new ArrayList<>();
+		values.add(item.getID());
+		values.add(item.getName());
+		try {
+			myStmt.executeUpdate(generator.insert("unit", colNames, values));
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 
 	@Override
 	public Unit get(String key) {
-		// TODO Auto-generated method stub
+		String query = generator
+				.select("unit", null, "ID = " + "'" + key + "'");
+		try {
+			ResultSet rs = myStmt.executeQuery(query);
+			if (rs.next()) {
+				return fillUnit(rs);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
+	}
+
+	public ArrayList<Unit> getByName(String name) {
+		ArrayList<Unit> units = new ArrayList<>();
+		String query = generator.select("unit", null, "name = " + "'" + name
+				+ "'");
+		ResultSet rs;
+		try {
+			rs = myStmt.executeQuery(query);
+			while (rs.next()) {
+				units.add(fillUnit(rs));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return units;
+	}
+
+	private Unit fillUnit(ResultSet rs) {
+		try {
+			return (new Unit(rs.getString("ID"), rs.getString("name")));
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
 	public void remove(String key) {
-		// TODO Auto-generated method stub
-		
+		try {
+			myStmt.executeUpdate(generator.delete("unit", "ID = " + "'" + key
+					+ "'"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	@Override
-	public void update(Unit item) {
-		// TODO Auto-generated method stub
-		
+	public boolean update(Unit item) {
+		try {
+			myStmt.executeUpdate(generator.update("unit", "name",
+					item.getName(), "ID = " + "'" + item.getID() + "'"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 
 	@Override
 	public ArrayList<Unit> list() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Unit> units = new ArrayList<>();
+		try {
+			ResultSet rs = myStmt.executeQuery("SELECT * FROM unit;");
+			while (rs.next()) {
+				Unit newUnit = fillUnit(rs);
+				units.add(newUnit);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return units;
+	}
+
+	public ArrayList<Requirement> getRequirements(String uid) {
+		ArrayList<Requirement> reqs = new ArrayList<>();
+		String query = generator.select("requirement", null, "UnitID = " + "'"
+				+ uid + "'");
+		try {
+			ResultSet rs = myStmt.executeQuery(query);
+			while (rs.next()) {
+				reqs.add(fillRequirement(rs));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return reqs;
+	}
+
+	public void removeRequirement(Requirement req) {
+		String query = generator.delete("requirement",
+				"ID = " + "'" + req.getID() + "'");
+		try {
+			myStmt.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private Requirement fillRequirement(ResultSet rs) {
+		try {
+			return (new Requirement(rs.getString("ID"),
+					rs.getString("description"), rs.getDate("provideDate")));
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }

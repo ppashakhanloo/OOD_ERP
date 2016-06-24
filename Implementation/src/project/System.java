@@ -1,8 +1,9 @@
 package project;
 
+import java.util.ArrayList;
 import java.util.Random;
-
-import resource.ResourceStatus;
+import database.ModuleDAO;
+import database.SystemDAO;
 
 public class System {
 	int ID_LENGTH = 6;
@@ -22,7 +23,32 @@ public class System {
 		Random random = new Random();
 		return Integer.toString((int) (Math.pow(10, n) + random.nextFloat() * 9 * Math.pow(10, n)));
 	}
-
+	
+	public void removeModule(Module module){
+		ModuleDAO moduleDAO = ModuleDAO.getInstance();
+		moduleDAO.remove(module.getID());
+	}
+	
+	public int getModulesCount(){
+		SystemDAO systemDAO = SystemDAO.getInstance();
+		return systemDAO.getModules(getID()).size();
+	}
+	
+	public ArrayList<Module> getModules(){
+		SystemDAO systemDAO = SystemDAO.getInstance();
+		return systemDAO.getModules(getID());
+	}
+	
+	public Module getModule(String id){
+		ModuleDAO moduleDAO = ModuleDAO.getInstance();
+		return moduleDAO.get(id);
+	}
+	
+	public boolean addModule(Module module){
+		ModuleDAO moduleDAO = ModuleDAO.getInstance();
+		return moduleDAO.add(module, getID());
+	}
+	
 	public String getID() {
 		return ID;
 	}

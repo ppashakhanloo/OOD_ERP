@@ -6,9 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
 import project.*;
-import project.System;
 import resource.HumanResource;
 import unit.Unit;
 
@@ -40,10 +38,11 @@ public class ProjectDAO implements DAO<Project> {
 		return projectDAO;
 	}
 
-	public ArrayList<Unit> getUnitsByProjectID(String pid){
+	public ArrayList<Unit> getUnitsByProjectID(String pid) {
 		ArrayList<Unit> units = new ArrayList<>();
 		UnitDAO unitDAO = UnitDAO.getInstance();
-		String query = generator.select("project_unit", null, "ProjectID = "+pid);
+		String query = generator.select("project_unit", null, "ProjectID = "
+				+ "'" + pid + "'");
 		try {
 			ResultSet rs = myStmt.executeQuery(query);
 			while (rs.next()) {
@@ -54,13 +53,14 @@ public class ProjectDAO implements DAO<Project> {
 		}
 		return units;
 	}
-	
-	public HumanResource getProjectManagers(String pid){
+
+	public HumanResource getProjectManagers(String pid) {
 		HumanResourceDAO hrDAO = HumanResourceDAO.getInstance();
-		String query = generator.select("project_management", null, "ProjectID = "+pid);
+		String query = generator.select("project_management", null,
+				"ProjectID = " + "'" + pid + "'");
 		try {
 			ResultSet rs = myStmt.executeQuery(query);
-			while (rs.next()) {
+			if (rs.next()) {
 				return ((HumanResource) hrDAO.get(rs.getString("ManagerID")));
 			}
 		} catch (SQLException e) {
@@ -68,9 +68,8 @@ public class ProjectDAO implements DAO<Project> {
 		}
 		return null;
 	}
-	
-	public boolean setProjectManagers(String pid, String mid){
-		HumanResourceDAO hrDAO = HumanResourceDAO.getInstance();
+
+	public boolean setProjectManagers(String pid, String mid) {
 		ArrayList<String> colNames = new ArrayList<>();
 		colNames.add("ProjectID");
 		colNames.add("ManagerID");
@@ -86,35 +85,282 @@ public class ProjectDAO implements DAO<Project> {
 		}
 		return true;
 	}
-	
+
+	public boolean addTechnology(Technology tech, String pid) {
+		String techExistQuery = generator.select("technology", null, "name = "
+				+ "'" + tech.getName() + "'");
+		try {
+			ResultSet rs = myStmt.executeQuery(techExistQuery);
+			if (!rs.next()) {
+				ArrayList<String> colNames = new ArrayList<>();
+				colNames.add("name");
+				colNames.add("reason");
+				ArrayList<String> values = new ArrayList<>();
+				values.add(tech.getName());
+				values.add(tech.getReason());
+				String addTechQuery = generator.insert("technology", colNames,
+						values);
+				myStmt.executeUpdate(addTechQuery);
+			}
+
+			ArrayList<String> cols = new ArrayList<>();
+			cols.add("ProjectID");
+			cols.add("Technologyname");
+			ArrayList<String> value = new ArrayList<>();
+			value.add(pid);
+			value.add(tech.getName());
+			String addProjTechQuery = generator.insert("project_technology",
+					cols, value);
+			myStmt.executeUpdate(addProjTechQuery);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
+	public ArrayList<Technology> getTechnologiesByProject(String pid) {
+		ArrayList<Technology> techs = new ArrayList<>();
+		String techNamesQuery = generator.select("project_technology", null,
+				"ProjectID = " + "'" + pid + "'");
+		try {
+			ResultSet rs = myStmt.executeQuery(techNamesQuery);
+			while (rs.next()) {
+				Statement stmt = sqlConn.createStatement();
+				ResultSet techRS = stmt
+						.executeQuery(generator.select(
+								"technology",
+								null,
+								"name = " + "'"
+										+ rs.getString("Technologyname") + "'"));
+				techRS.first();
+				techs.add(fillTechnology(techRS));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return techs;
+	}
+
+	protected Technology fillTechnology(ResultSet rs) throws SQLException {
+		Technology newTech = new Technology(rs.getString("name"),
+				rs.getString("reason"));
+		return newTech;
+	}
+
 	@Override
 	public boolean add(Project item) {
-		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public boolean add(Project item, String uid) {
+		String query = "INSERT INTO project (ID, name, developmentStart,developmentEnd, customerName, usersCount) VALUES ('"
+				+ item.getID()
+				+ "', '"
+				+ item.getName()
+				+ "', "
+				+ item.getDevelopmentStart()
+				+ ", "
+				+ item.getDevelopmentEnd()
+				+ ", '"
+				+ item.getCustomerName()
+				+ "', "
+				+ item.getUsersCount()
+				+ ");";
+		try {
+			myStmt.executeUpdate(query);
+			ArrayList<String> colNames = new ArrayList<>();
+			colNames.add("UnitID");
+			colNames.add("ProjectID");
+			ArrayList<String> values = new ArrayList<>();
+			values.add(uid);
+			values.add(item.getID());
+			String query2 = generator.insert("project_unit", colNames, values);
+			myStmt.executeUpdate(query2);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 
 	@Override
 	public Project get(String key) {
-		// TODO Auto-generated method stub
+		String query = generator.select("project", null, "ID = " + "'" + key
+				+ "'");
+		try {
+			ResultSet rs = myStmt.executeQuery(query);
+			if (rs.next()) {
+				Project newPrj = fillProject(rs);
+				return newPrj;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
+	}
+
+	protected Project fillProject(ResultSet rs) throws SQLException {
+		Project project = new Project(rs.getString("ID"), rs.getString("name"),
+				rs.getDate("developmentStart"), rs.getDate("developmentEnd"),
+				rs.getString("customerName"), rs.getInt("usersCount"));
+		return project;
 	}
 
 	@Override
 	public void remove(String key) {
-		// TODO Auto-generated method stub
+		String query = generator.delete("project", "ID = " + "'" + key + "'");
+		try {
+			myStmt.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 	}
 
+	public ArrayList<Project> getByName(String name) {
+		ArrayList<Project> projects = new ArrayList<>();
+		String query = generator.select("project", null, "name = " + "'" + name
+				+ "'");
+		ResultSet rs;
+		try {
+			rs = myStmt.executeQuery(query);
+			while (rs.next()) {
+				projects.add(fillProject(rs));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return projects;
+	}
+
+	public ArrayList<Project> getByCustomerName(String name) {
+		ArrayList<Project> projects = new ArrayList<>();
+		String query = generator.select("project", null, "customerName = "
+				+ "'" + name + "'");
+		ResultSet rs;
+		try {
+			rs = myStmt.executeQuery(query);
+			while (rs.next()) {
+				projects.add(fillProject(rs));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return projects;
+	}
+
+	public ArrayList<Project> getByDevelopmentStart(String DevelopmentStart) {
+		ArrayList<Project> projects = new ArrayList<>();
+		String query = generator.select("project", null, "developmentStart = "
+				+ DevelopmentStart);
+		ResultSet rs;
+		try {
+			rs = myStmt.executeQuery(query);
+			while (rs.next()) {
+				projects.add(fillProject(rs));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return projects;
+	}
+
+	public ArrayList<Project> getByDevelopmentEnd(String DevelopmentEnd) {
+		ArrayList<Project> projects = new ArrayList<>();
+		String query = generator.select("project", null, "developmentEnd = "
+				+ DevelopmentEnd);
+		ResultSet rs;
+		try {
+			rs = myStmt.executeQuery(query);
+			while (rs.next()) {
+				projects.add(fillProject(rs));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return projects;
+	}
+
+	public ArrayList<Project> getByUsersCount(int count) {
+		ArrayList<Project> projects = new ArrayList<>();
+		String query = generator.select("project", null, "usersCount = "
+				+ count);
+		ResultSet rs;
+		try {
+			rs = myStmt.executeQuery(query);
+			while (rs.next()) {
+				projects.add(fillProject(rs));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return projects;
+	}
+
+	public ArrayList<Project> getByDevelopersCount(int developersCount) {
+		return null;
+		// TODO
+	}
+
+	public ArrayList<Project> getByTechnology(Technology tech) {
+		ArrayList<Project> projects = new ArrayList<>();
+		String query = generator.select("project_technology", null,
+				"Technologyname = " + "'" + tech.getName() + "'");
+		ResultSet rs;
+		try {
+			rs = myStmt.executeQuery(query);
+			while (rs.next()) {
+				projects.add(get(rs.getString("ProjectID")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return projects;
+	}
+
 	@Override
-	public void update(Project item) {
-		// TODO Auto-generated method stub
+	public boolean update(Project item) {
+		try {
+			myStmt.executeUpdate(generator.update("project", "name",
+					item.getName(), "ID = " + "'" + item.getID() + "'"));
+			myStmt.executeUpdate(generator.update("project", "customerName",
+					item.getCustomerName(), "ID = " + "'" + item.getID() + "'"));
+			myStmt.executeUpdate("UPDATE project SET developmentStart  = "
+					+ item.getDevelopmentStart() + " WHERE ID = " + "'"
+					+ item.getID() + "'");
+			myStmt.executeUpdate("UPDATE project SET developmentEnd  = "
+					+ item.getDevelopmentEnd() + " WHERE ID = " + "'"
+					+ item.getID() + "'");
+			myStmt.executeUpdate("UPDATE project SET usersCount  = "
+					+ item.getUsersCount() + " WHERE ID = " + "'"
+					+ item.getID() + "'");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 
 	}
 
 	@Override
 	public ArrayList<Project> list() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Project> projects = new ArrayList<>();
+		try {
+			ResultSet rs = myStmt.executeQuery("SELECT * FROM project");
+			while (rs.next()) {
+				projects.add(fillProject(rs));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return projects;
+	}
+
+	public static void main(String[] args) {
+		// ProjectDAO prj = ProjectDAO.getInstance();
+		// java.lang.System.out.println(prj.getByName("WEB"));
 	}
 
 }

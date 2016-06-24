@@ -2,6 +2,7 @@ package project;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 
 import resource.HumanResource;
 import unit.Unit;
@@ -15,6 +16,28 @@ public class Project {
 	Date developmentEnd;
 	String customerName;
 	int usersCount;
+	int ID_LENGTH = 6;
+
+	public Project() {
+		setID(generateNDigitID(ID_LENGTH));
+	}
+
+	public Project(String iD, String name, Date developmentStart,
+			Date developmentEnd, String customerName, int usersCount) {
+		super();
+		ID = iD;
+		this.name = name;
+		this.developmentStart = developmentStart;
+		this.developmentEnd = developmentEnd;
+		this.customerName = customerName;
+		this.usersCount = usersCount;
+	}
+
+	private String generateNDigitID(int n) {
+		Random random = new Random();
+		return Integer.toString((int) (Math.pow(10, n - 1) + random.nextFloat()
+				* 9 * Math.pow(10, n - 1)));
+	}
 
 	public boolean addSystem(System system) {
 		SystemDAO systemDAO = SystemDAO.getInstance();
@@ -59,6 +82,16 @@ public class Project {
 	public HumanResource getProjectManager() {
 		ProjectDAO projectDAO = ProjectDAO.getInstance();
 		return projectDAO.getProjectManagers(getID());
+	}
+
+	public boolean addTechnology(Technology technology) {
+		ProjectDAO projectDAO = ProjectDAO.getInstance();
+		return projectDAO.addTechnology(technology, getID());
+	}
+
+	public ArrayList<Technology> getTechnologies() {
+		ProjectDAO projectDAO = ProjectDAO.getInstance();
+		return projectDAO.getTechnologiesByProject(getID());
 	}
 
 	public String getID() {
