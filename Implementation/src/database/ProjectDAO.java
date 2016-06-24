@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
+
 import project.*;
 import resource.HumanResource;
 import unit.Unit;
@@ -54,7 +56,7 @@ public class ProjectDAO implements DAO<Project> {
 		return units;
 	}
 
-	public HumanResource getProjectManagers(String pid) {
+	public HumanResource getProjectManager(String pid) {
 		HumanResourceDAO hrDAO = HumanResourceDAO.getInstance();
 		String query = generator.select("project_management", null,
 				"ProjectID = " + "'" + pid + "'");
@@ -69,7 +71,7 @@ public class ProjectDAO implements DAO<Project> {
 		return null;
 	}
 
-	public boolean setProjectManagers(String pid, String mid) {
+	public boolean setProjectManager(String pid, String mid) {
 		ArrayList<String> colNames = new ArrayList<>();
 		colNames.add("ProjectID");
 		colNames.add("ManagerID");
@@ -251,7 +253,7 @@ public class ProjectDAO implements DAO<Project> {
 		return projects;
 	}
 
-	public ArrayList<Project> getByDevelopmentStart(String DevelopmentStart) {
+	public ArrayList<Project> getByDevelopmentStart(Date DevelopmentStart) {
 		ArrayList<Project> projects = new ArrayList<>();
 		String query = generator.select("project", null, "developmentStart = "
 				+ DevelopmentStart);
@@ -267,7 +269,7 @@ public class ProjectDAO implements DAO<Project> {
 		return projects;
 	}
 
-	public ArrayList<Project> getByDevelopmentEnd(String DevelopmentEnd) {
+	public ArrayList<Project> getByDevelopmentEnd(Date DevelopmentEnd) {
 		ArrayList<Project> projects = new ArrayList<>();
 		String query = generator.select("project", null, "developmentEnd = "
 				+ DevelopmentEnd);

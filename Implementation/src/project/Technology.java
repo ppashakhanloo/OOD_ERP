@@ -10,10 +10,6 @@ public class Technology {
 		return name;
 	}
 
-	private void setName(String name) {
-		this.name = name;
-	}
-
 	public String getReason() {
 		return reason;
 	}

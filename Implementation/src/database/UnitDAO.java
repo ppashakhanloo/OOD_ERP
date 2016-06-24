@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import unit.Requirement;
 import unit.Unit;
 
 public class UnitDAO implements DAO<Unit> {
@@ -132,40 +131,4 @@ public class UnitDAO implements DAO<Unit> {
 		}
 		return units;
 	}
-
-	public ArrayList<Requirement> getRequirements(String uid) {
-		ArrayList<Requirement> reqs = new ArrayList<>();
-		String query = generator.select("requirement", null, "UnitID = " + "'"
-				+ uid + "'");
-		try {
-			ResultSet rs = myStmt.executeQuery(query);
-			while (rs.next()) {
-				reqs.add(fillRequirement(rs));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return reqs;
-	}
-
-	public void removeRequirement(Requirement req) {
-		String query = generator.delete("requirement",
-				"ID = " + "'" + req.getID() + "'");
-		try {
-			myStmt.executeUpdate(query);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private Requirement fillRequirement(ResultSet rs) {
-		try {
-			return (new Requirement(rs.getString("ID"),
-					rs.getString("description"), rs.getDate("provideDate")));
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
 }
