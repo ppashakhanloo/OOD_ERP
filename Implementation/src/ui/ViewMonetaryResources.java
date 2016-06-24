@@ -1,7 +1,9 @@
 package ui;
 
+import access.PermissionType;
 import business_logic_facade.ResourceFacade;
 import business_logic_facade.UserFacade;
+import com.sun.org.apache.xpath.internal.SourceTree;
 import resource.MonetaryResource;
 import resource.Resource;
 
@@ -38,13 +40,18 @@ public class ViewMonetaryResources extends MonetaryResourceObserver implements V
         JPanel addResourcesPanel = new JPanel(new GridBagLayout());
         GridBagConstraints cs = new GridBagConstraints();
         cs.fill = GridBagConstraints.HORIZONTAL;
+
         JButton addNew = new JButton("افزودن منبع جدید");
-        addNew.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                addNewMonetaryResource.setVisible(true);
-            }
-        });
+        if (mainFrame.getCurrentUser().getCurrentUserPermissions().get(PermissionType.canAddRemResource))
+            addNew.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    addNewMonetaryResource.setVisible(true);
+                }
+            });
+        else
+            addNew.setEnabled(false);
+
         cs.gridx = 0;
         cs.gridy = 0;
         cs.gridwidth = 1;
@@ -69,7 +76,7 @@ public class ViewMonetaryResources extends MonetaryResourceObserver implements V
     }
 
     @Override
-    public void update(){
+    public void update() {
         mainFrame.getMainFrame().remove(jScrollPane);
         listModel = new DefaultListModel<>();
         for (Resource resource : resourceFacade.getMonetaryResources())
@@ -83,7 +90,7 @@ public class ViewMonetaryResources extends MonetaryResourceObserver implements V
 
     public static void main(String[] args) {
         UserFacade userFacade = new UserFacade();
-        userFacade.login("871539", "888");
+        userFacade.login("158481", "y");
         ViewMonetaryResources viewMonetaryResources = new ViewMonetaryResources(userFacade);
         viewMonetaryResources.setVisible(true);
     }

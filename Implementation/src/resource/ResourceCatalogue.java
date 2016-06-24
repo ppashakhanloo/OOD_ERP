@@ -110,9 +110,8 @@ public class ResourceCatalogue {
     }
 
     public HumanResource humanResourceLogin(String ID, String password) {
-        HumanResourceDAO humanResourceDAO = HumanResourceDAO.getInstance();
-        if (humanResourceDAO.login(ID, password))
-            return (HumanResource) humanResourceDAO.get(ID);
+        if (HumanResourceDAO.getInstance().login(ID, password))
+            return (HumanResource) HumanResourceDAO.getInstance().get(ID);
         return null;
     }
 

@@ -23,6 +23,11 @@ public class Unit {
 		this.name = name;
 	}
 
+	public Unit(String name) {
+		setID(generateNDigitID(ID_LENGTH));
+		this.name = name;
+	}
+
 	private String generateNDigitID(int n) {
 		Random random = new Random();
 		return Integer.toString((int) (Math.pow(10, n - 1) + random.nextFloat()

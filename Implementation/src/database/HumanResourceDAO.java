@@ -147,7 +147,7 @@ public class HumanResourceDAO extends ResourceDAO {
         ResultSet rs;
         try {
             rs = myStmt.executeQuery(queryGenerator.select("human_resource", null,
-                    "ResourceID = " + ID + " AND " + "password = " + password));
+                    "ResourceID = " + ID + " AND " + "password = " + "'" + password + "'"));
             return (rs.next());
         } catch (SQLException e) {
             e.printStackTrace();

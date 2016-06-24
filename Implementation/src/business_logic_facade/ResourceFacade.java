@@ -31,7 +31,7 @@ public class ResourceFacade {
     }
 
     public ArrayList<Unit> getUnits() {
-        return UnitCatalogue.getInstance().getAll();
+        return UnitCatalogue.getInstance().list();
     }
 
     public List<QuantityUnit> getQuantityUnits() { return Arrays.asList(QuantityUnit.values()); }
@@ -50,6 +50,12 @@ public class ResourceFacade {
     public void addNewInformationResource(String name, String description, String unitID) {
         InformationResource informationResource = new InformationResource(name, description);
         ResourceCatalogue.getInstance().add(informationResource, unitID, "");
+    }
+
+
+    public void addNewUnit(String name) {
+        Unit unit = new Unit(name);
+        UnitCatalogue.getInstance().add(unit);
     }
 
     public void addNewMonetaryResource(String monetaryType, String location, String accountNumber, Integer amount, String quantityUnit, String unitID) {

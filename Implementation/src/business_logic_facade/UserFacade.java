@@ -13,14 +13,14 @@ public class UserFacade {
     private HumanResource currentUser;
 
     public boolean login(String ID, String password) {
-        ResourceCatalogue resourceCatalogue = ResourceCatalogue.getInstance();
-        currentUser = resourceCatalogue.humanResourceLogin(ID, password);
+        currentUser = ResourceCatalogue.getInstance().humanResourceLogin(ID, password);
+        System.out.println("CURRENT USER ACCESS LEVEL ID = " + currentUser.getAccessLevel().getID());
+        System.out.println("CURRENT USER ID = " + currentUser.getID());
         return currentUser != null;
     }
 
     public void logout(String ID) {
-        ResourceCatalogue resourceCatalogue = ResourceCatalogue.getInstance();
-        resourceCatalogue.humanResourceLogout(ID);
+        ResourceCatalogue.getInstance().humanResourceLogout(ID);
     }
 
     public String getID() {
