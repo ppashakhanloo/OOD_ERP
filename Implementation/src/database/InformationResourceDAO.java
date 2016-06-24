@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import resource.InformationResource;
 import resource.Resource;
+import resource.ResourceStatus;
 
 public class InformationResourceDAO extends ResourceDAO {
 
@@ -50,12 +51,12 @@ public class InformationResourceDAO extends ResourceDAO {
 	@Override
 	public Resource get(String key) {
 		try {
-			ResultSet rs = myStmt
-					.executeQuery(queryGenerator.select("information_resource", null, "ResourceID = " + key));
+			ResultSet rs = myStmt.executeQuery("SELECT * from information_resource inner join resource on human_resource.ResourceID = resource.ID");
+			Resource newRes = null;
 			while (rs.next()) {
-				Resource newRes = fillInformationResource(rs);
-				return newRes;
+				newRes = fillInformationResource(rs);
 			}
+			return newRes;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -68,7 +69,7 @@ public class InformationResourceDAO extends ResourceDAO {
 	}
 
 	private ArrayList<Resource> listConditional(String cond) {
-		String query = queryGenerator.select("information_resource", null, cond);
+		String query = "SELECT * from information_resource inner join resource on information_resource.ResourceID = resource.ID" + (cond == null ? "" : " WHERE " + cond);
 		ArrayList<Resource> results = new ArrayList<>();
 		ResultSet rs;
 		try {
@@ -86,6 +87,8 @@ public class InformationResourceDAO extends ResourceDAO {
 	protected Resource fillInformationResource(ResultSet rs) throws SQLException {
 		Resource newRes = new InformationResource(rs.getString("name"), rs.getString("description"));
 		newRes.setID(rs.getString("ResourceID"));
+		newRes.setAvailable(rs.getString("isAvailable").equals("1") ? true : false);
+		newRes.setResourceStatus(rs.getString("resourceStatus").equals("IDLE") ? ResourceStatus.IDLE : ResourceStatus.BUSY);
 		return newRes;
 	}
 

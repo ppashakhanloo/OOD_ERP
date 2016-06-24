@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import resource.PhysicalResource;
 import resource.Resource;
+import resource.ResourceStatus;
 
 public class PhysicalResourceDAO extends ResourceDAO {
 	private PhysicalResourceDAO() {
@@ -51,16 +52,18 @@ public class PhysicalResourceDAO extends ResourceDAO {
 	@Override
 	public Resource get(String key) {
 		try {
-			ResultSet rs = myStmt.executeQuery(queryGenerator.select("physical_resource", null, "ResourceID = " + key));
+			ResultSet rs = myStmt.executeQuery("SELECT * from physical_resource inner join resource on human_resource.ResourceID = resource.ID");
+			Resource newRes = null;
 			while (rs.next()) {
-				Resource newRes = fillPhysicalResource(rs);
-				return newRes;
+				newRes = fillPhysicalResource(rs);
 			}
+			return newRes;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
+
 
 	@Override
 	public ArrayList<Resource> list() {
@@ -108,7 +111,7 @@ public class PhysicalResourceDAO extends ResourceDAO {
 	}
 
 	private ArrayList<Resource> listConditional(String cond) {
-		String query = queryGenerator.select("physical_resource", null, cond);
+		String query = "SELECT * from physical_resource inner join resource on physical_resource.ResourceID = resource.ID" + (cond == null ? "" : " WHERE " + cond);
 		ArrayList<Resource> results = new ArrayList<>();
 		ResultSet rs;
 		try {
@@ -126,6 +129,8 @@ public class PhysicalResourceDAO extends ResourceDAO {
 	protected Resource fillPhysicalResource(ResultSet rs) throws SQLException {
 		Resource newRes = new PhysicalResource(rs.getString("name"), rs.getString("model"), rs.getString("location"));
 		newRes.setID(rs.getString("ResourceID"));
+		newRes.setAvailable(rs.getString("isAvailable").equals("1") ? true : false);
+		newRes.setResourceStatus(rs.getString("resourceStatus").equals("IDLE") ? ResourceStatus.IDLE : ResourceStatus.BUSY);
 		return newRes;
 	}
 

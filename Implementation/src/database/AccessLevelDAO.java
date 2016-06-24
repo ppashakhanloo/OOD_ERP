@@ -59,6 +59,7 @@ public class AccessLevelDAO {
 				permitTypes.put(PermissionType.canGetResourceAttributes,
 						rs.getString("canGetResourceAttributes").equals("0") ? false : true);
 				permitTypes.put(PermissionType.canSearch, rs.getString("canSearch").equals("0") ? false : true);
+				permitTypes.put(PermissionType.canAddUnit, rs.getString("canAddUnit").equals("0") ? false : true);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

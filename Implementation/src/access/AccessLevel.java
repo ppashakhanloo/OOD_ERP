@@ -31,6 +31,10 @@ abstract public class AccessLevel {
 		return hasPermission.get(permissionType);
 	}
 
+	public Map<PermissionType, Boolean> getPermissions() {
+		return hasPermission;
+	}
+
 	@Override
 	public String toString() {
 		return hasPermission.toString();
