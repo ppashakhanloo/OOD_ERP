@@ -2,7 +2,6 @@ package ui;
 
 import business_logic_facade.ResourceFacade;
 import business_logic_facade.UserFacade;
-import resource.HumanResource;
 import resource.MonetaryResource;
 import resource.Resource;
 

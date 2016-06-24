@@ -1,6 +1,7 @@
 package ui;
 
 import business_logic_facade.ResourceFacade;
+import ui.utilities.FormUtility;
 import unit.Unit;
 
 import javax.swing.*;

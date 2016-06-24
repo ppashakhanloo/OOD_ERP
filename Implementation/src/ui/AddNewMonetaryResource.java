@@ -2,6 +2,7 @@ package ui;
 
 import business_logic_facade.ResourceFacade;
 import resource.QuantityUnit;
+import ui.utilities.FormUtility;
 import unit.Unit;
 
 import javax.swing.*;
