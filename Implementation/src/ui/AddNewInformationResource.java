@@ -13,7 +13,7 @@ import java.util.ArrayList;
 /**
  * Created by ppash on 6/24/2016.
  */
-public class AddNewInformationResource extends MainDialog{
+public class AddNewInformationResource extends MainDialog {
 
     private ResourceFacade resourceFacade;
 

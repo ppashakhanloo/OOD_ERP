@@ -1,7 +1,6 @@
 package ui;
 
 import business_logic_facade.ResourceFacade;
-import resource.PhysicalResource;
 import unit.Unit;
 
 import javax.swing.*;
@@ -14,7 +13,7 @@ import java.util.ArrayList;
 /**
  * Created by ppash on 6/24/2016.
  */
-public class AddNewPhysicalResource extends MainDialog{
+public class AddNewPhysicalResource extends MainDialog {
 
     private ResourceFacade resourceFacade;
 

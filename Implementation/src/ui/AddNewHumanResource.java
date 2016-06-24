@@ -1,7 +1,6 @@
 package ui;
 
 import business_logic_facade.ResourceFacade;
-import javafx.beans.Observable;
 import unit.Unit;
 
 import javax.swing.*;
@@ -10,12 +9,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Observer;
 
 /**
  * Created by ppash on 6/24/2016.
  */
-public class AddNewHumanResource extends MainDialog{
+public class AddNewHumanResource extends MainDialog {
 
     private ResourceFacade resourceFacade;
 
