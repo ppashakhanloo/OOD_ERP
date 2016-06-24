@@ -156,7 +156,7 @@ public class ProjectDAO implements DAO<Project> {
 		return false;
 	}
 
-	public boolean add(Project item, String uid) {
+	public boolean add(Project item, ArrayList<String> uid) {
 		String query = "INSERT INTO project (ID, name, developmentStart,developmentEnd, customerName, usersCount) VALUES ('"
 				+ item.getID()
 				+ "', '"
@@ -172,14 +172,17 @@ public class ProjectDAO implements DAO<Project> {
 				+ ");";
 		try {
 			myStmt.executeUpdate(query);
-			ArrayList<String> colNames = new ArrayList<>();
-			colNames.add("UnitID");
-			colNames.add("ProjectID");
-			ArrayList<String> values = new ArrayList<>();
-			values.add(uid);
-			values.add(item.getID());
-			String query2 = generator.insert("project_unit", colNames, values);
-			myStmt.executeUpdate(query2);
+			for (int i = 0; i < uid.size(); i++) {
+				ArrayList<String> colNames = new ArrayList<>();
+				colNames.add("UnitID");
+				colNames.add("ProjectID");
+				ArrayList<String> values = new ArrayList<>();
+				values.add(uid.get(i));
+				values.add(item.getID());
+				String query2 = generator.insert("project_unit", colNames,
+						values);
+				myStmt.executeUpdate(query2);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;

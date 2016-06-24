@@ -17,7 +17,7 @@ public class ProjectCatalogue {
         return projectCatalogue;
     }
 
-    public boolean add(Project project, String uid) {
+    public boolean add(Project project, ArrayList<String> uid) {
         return ProjectDAO.getInstance().add(project, uid);
     }
 
