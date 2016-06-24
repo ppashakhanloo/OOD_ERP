@@ -2,54 +2,88 @@ package ui;
 
 import business_logic_facade.ResourceFacade;
 import business_logic_facade.UserFacade;
-import resource.HumanResource;
 import resource.PhysicalResource;
 import resource.Resource;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by ppash on 6/24/2016.
  */
-public class ViewPhysicalResources extends MainFrame {
+public class ViewPhysicalResources extends PhysicalResourceObserver implements Visiblity {
 
-    ResourceFacade resourceFacade;
+    private MainFrame mainFrame;
+    private ResourceFacade resourceFacade;
+
+    private AddNewPhysicalResource addNewPhysicalResource;
+
+    private DefaultListModel<PhysicalResource> listModel;
+    private JList<PhysicalResource> resourceList;
+    private JScrollPane jScrollPane;
+
 
     public ViewPhysicalResources(UserFacade currentUser) {
-        super(currentUser);
+        mainFrame = new MainFrame(currentUser);
         resourceFacade = new ResourceFacade();
+        addNewPhysicalResource = new AddNewPhysicalResource();
+        addNewPhysicalResource.attach(this);
         prepareGUI();
     }
 
     private void prepareGUI() {
-        super.getMainFrame().setTitle("مشاهده منابع فیزیکی");
+        mainFrame.getMainFrame().setTitle("مشاهده منابع فیزیکی");
         JPanel addResourcesPanel = new JPanel(new GridBagLayout());
         GridBagConstraints cs = new GridBagConstraints();
         cs.fill = GridBagConstraints.HORIZONTAL;
         JButton addNew = new JButton("افزودن منبع جدید");
+        addNew.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addNewPhysicalResource.setVisible(true);
+            }
+        });
         cs.gridx = 0;
         cs.gridy = 0;
         cs.gridwidth = 1;
         addResourcesPanel.add(addNew, cs);
-        super.getMainFrame().getContentPane().removeAll();
-        super.getMainFrame().getContentPane().add(addResourcesPanel, BorderLayout.NORTH);
+        mainFrame.getMainFrame().getContentPane().add(addResourcesPanel, BorderLayout.NORTH);
 
         ////////////////////
-        DefaultListModel<PhysicalResource> listModel = new DefaultListModel<>();
+        listModel = new DefaultListModel<>();
         for (Resource resource : resourceFacade.getPhysicalResources())
             listModel.addElement((PhysicalResource) resource);
-        JList<PhysicalResource> resourceList = new JList<>(listModel);
-        super.getMainFrame().add(new JScrollPane(resourceList), BorderLayout.CENTER);
+        resourceList = new JList<>(listModel);
         ////////////////////
+        jScrollPane = new JScrollPane(resourceList);
+        mainFrame.getMainFrame().add(jScrollPane, BorderLayout.CENTER);
+        mainFrame.getMainFrame().setResizable(true);
+        mainFrame.getMainFrame().pack();
+    }
 
-        super.getMainFrame().setResizable(true);
-        super.getMainFrame().pack();
+    @Override
+    public void setVisible(boolean visible) {
+        mainFrame.getMainFrame().setVisible(visible);
+    }
+
+    @Override
+    public void update(){
+        mainFrame.getMainFrame().remove(jScrollPane);
+        listModel = new DefaultListModel<>();
+        for (Resource resource : resourceFacade.getPhysicalResources())
+            listModel.addElement((PhysicalResource) resource);
+        resourceList = new JList<>(listModel);
+        jScrollPane = new JScrollPane(resourceList);
+        mainFrame.getMainFrame().add(jScrollPane, BorderLayout.CENTER);
+        mainFrame.getMainFrame().repaint();
+        mainFrame.getMainFrame().revalidate();
     }
 
     public static void main(String[] args) {
         UserFacade userFacade = new UserFacade();
-        userFacade.login("478837", "888");
+        userFacade.login("871539", "888");
         ViewPhysicalResources viewPhysicalResources = new ViewPhysicalResources(userFacade);
         viewPhysicalResources.setVisible(true);
     }

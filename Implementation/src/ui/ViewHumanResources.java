@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 /**
  * Created by ppash on 6/24/2016.
  */
-public class ViewHumanResources  extends HumanResourceObserver implements Visiblity {
+public class ViewHumanResources extends HumanResourceObserver implements Visiblity {
 
     private MainFrame mainFrame;
     private ResourceFacade resourceFacade;

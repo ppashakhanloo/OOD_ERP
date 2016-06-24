@@ -38,4 +38,8 @@ public class ResourceFacade {
         ResourceCatalogue.getInstance().add(humanResource, unitID, "");
     }
 
+    public void addNewPhysicalResource(String name, String model, String location, String unitID) {
+        PhysicalResource physicalResource = new PhysicalResource(name, model, location);
+        ResourceCatalogue.getInstance().add(physicalResource, unitID, "");
+    }
 }
