@@ -111,7 +111,7 @@ public class MonetaryResourceDAO extends ResourceDAO {
         Resource newRes = new MonetaryResource(monetaryType, rs.getString("location"), rs.getInt("accountNumber"),
                 new Quantity(rs.getInt("quantity_amount"), quantityType));
         newRes.setID(rs.getString("ResourceID"));
-        newRes.setAvailable(rs.getString("isAvailable").equals("1") ? true : false);
+        newRes.setAvailable(rs.getString("isAvailable").equals("1"));
         newRes.setResourceStatus(rs.getString("resourceStatus").equals("IDLE") ? ResourceStatus.IDLE : ResourceStatus.BUSY);
         return newRes;
     }

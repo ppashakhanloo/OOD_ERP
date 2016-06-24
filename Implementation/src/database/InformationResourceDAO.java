@@ -87,7 +87,7 @@ public class InformationResourceDAO extends ResourceDAO {
 	protected Resource fillInformationResource(ResultSet rs) throws SQLException {
 		Resource newRes = new InformationResource(rs.getString("name"), rs.getString("description"));
 		newRes.setID(rs.getString("ResourceID"));
-		newRes.setAvailable(rs.getString("isAvailable").equals("1") ? true : false);
+		newRes.setAvailable(rs.getString("isAvailable").equals("1"));
 		newRes.setResourceStatus(rs.getString("resourceStatus").equals("IDLE") ? ResourceStatus.IDLE : ResourceStatus.BUSY);
 		return newRes;
 	}

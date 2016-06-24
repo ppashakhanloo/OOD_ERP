@@ -15,9 +15,7 @@ public class UserFacade {
     public boolean login(String ID, String password) {
         ResourceCatalogue resourceCatalogue = ResourceCatalogue.getInstance();
         currentUser = resourceCatalogue.humanResourceLogin(ID, password);
-        if (currentUser != null)
-            return true;
-        return false;
+        return currentUser != null;
     }
 
     public void logout(String ID) {
