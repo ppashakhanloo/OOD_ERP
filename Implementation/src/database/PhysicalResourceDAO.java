@@ -129,7 +129,7 @@ public class PhysicalResourceDAO extends ResourceDAO {
 	protected Resource fillPhysicalResource(ResultSet rs) throws SQLException {
 		Resource newRes = new PhysicalResource(rs.getString("name"), rs.getString("model"), rs.getString("location"));
 		newRes.setID(rs.getString("ResourceID"));
-		newRes.setAvailable(rs.getString("isAvailable").equals("1") ? true : false);
+		newRes.setAvailable(rs.getString("isAvailable").equals("1"));
 		newRes.setResourceStatus(rs.getString("resourceStatus").equals("IDLE") ? ResourceStatus.IDLE : ResourceStatus.BUSY);
 		return newRes;
 	}

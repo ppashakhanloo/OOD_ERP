@@ -14,30 +14,30 @@ import java.util.ArrayList;
 /**
  * Created by ppash on 6/24/2016.
  */
-public class AddNewPhysicalResource extends MainDialog {
+public class AddNewInformationResource extends MainDialog {
 
     private ResourceFacade resourceFacade;
 
-    ArrayList<PhysicalResourceObserver> observers;
+    ArrayList<InformationResourceObserver> observers;
 
-    public AddNewPhysicalResource() {
+    public AddNewInformationResource() {
         resourceFacade = new ResourceFacade();
         observers = new ArrayList<>();
         prepareGUI();
     }
 
-    public void attach(PhysicalResourceObserver observer){
+    public void attach(InformationResourceObserver observer){
         observers.add(observer);
     }
 
     public void notifyAllObservers(){
-        for (PhysicalResourceObserver observer : observers) {
+        for (InformationResourceObserver observer : observers) {
             observer.update();
         }
     }
 
     private void prepareGUI() {
-        super.getMainDialog().setTitle("افزودن منبع فیزیکی");
+        super.getMainDialog().setTitle("افزودن منبع اطلاعاتی");
         JPanel form = new JPanel(new GridBagLayout());
 
         super.getMainDialog().getContentPane().setLayout(new BorderLayout());
@@ -50,13 +50,9 @@ public class AddNewPhysicalResource extends MainDialog {
         formUtility.addLabel("نام ", form);
         formUtility.addLastField(name, form);
 
-        JTextField model = new JTextField(20);
-        formUtility.addLabel("مدل ", form);
-        formUtility.addLastField(model, form);
-
-        JTextField location = new JTextField(20);
-        formUtility.addLabel("محل ", form);
-        formUtility.addLastField(location, form);
+        JTextArea description = new JTextArea();
+        formUtility.addLabel("توضیح ", form);
+        formUtility.addLastField(new JScrollPane(description), form);
 
         // JTextField ID
 
@@ -72,7 +68,7 @@ public class AddNewPhysicalResource extends MainDialog {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                resourceFacade.addNewPhysicalResource(name.getText(), model.getText(), location.getText(), ((Unit)unitsCombo.getSelectedItem()).getID());
+                resourceFacade.addNewInformationResource(name.getText(), description.getText(), ((Unit)unitsCombo.getSelectedItem()).getID());
                 notifyAllObservers();
                 setVisible(false);
             }
@@ -88,7 +84,7 @@ public class AddNewPhysicalResource extends MainDialog {
     public static void main(String[] args) {
 //        UserFacade userFacade = new UserFacade();
 //        userFacade.login("478837", "888");
-        AddNewPhysicalResource addNewPhysicalResource = new AddNewPhysicalResource();
-        addNewPhysicalResource.setVisible(true);
+        AddNewInformationResource addNewInformationResource = new AddNewInformationResource();
+        addNewInformationResource.setVisible(true);
     }
 }

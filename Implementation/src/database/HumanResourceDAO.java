@@ -181,7 +181,7 @@ public class HumanResourceDAO extends ResourceDAO {
         Resource newRes = new HumanResource(rs.getString("firstName"), rs.getString("lastName"), rs.getString("expertise"),
                 rs.getString("password"), (new AccessLevelFactory()).getAccessLevel(accessLevelID));
         newRes.setID(rs.getString("ResourceID"));
-        newRes.setAvailable(rs.getString("isAvailable").equals("1") ? true : false);
+        newRes.setAvailable(rs.getString("isAvailable").equals("1"));
         newRes.setResourceStatus(rs.getString("resourceStatus").equals("IDLE") ? ResourceStatus.IDLE : ResourceStatus.BUSY);
         return newRes;
     }

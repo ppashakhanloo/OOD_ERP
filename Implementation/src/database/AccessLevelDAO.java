@@ -43,23 +43,23 @@ public class AccessLevelDAO {
 		try {
 			rs = myStmt.executeQuery(queryGenerator.select("access_level", null, "ID = " + ID));
 			while (rs.next()) {
-				permitTypes.put(PermissionType.canAddProject, rs.getString("canAddProject").equals("0") ? false : true);
-				permitTypes.put(PermissionType.canAddRemReq, rs.getString("canAddRemReq").equals("0") ? false : true);
+				permitTypes.put(PermissionType.canAddProject, !rs.getString("canAddProject").equals("0"));
+				permitTypes.put(PermissionType.canAddRemReq, !rs.getString("canAddRemReq").equals("0"));
 				permitTypes.put(PermissionType.canAddRemResource,
-						rs.getString("canAddRemResource").equals("0") ? false : true);
+						!rs.getString("canAddRemResource").equals("0"));
 				permitTypes.put(PermissionType.canAddRemSysMod,
-						rs.getString("canAddRemSysMod").equals("0") ? false : true);
+						!rs.getString("canAddRemSysMod").equals("0"));
 				permitTypes.put(PermissionType.canChangePermission,
-						rs.getString("canChangePermission").equals("0") ? false : true);
+						!rs.getString("canChangePermission").equals("0"));
 				permitTypes.put(PermissionType.canConfirmMidUser,
-						rs.getString("canConfirmMidUser").equals("0") ? false : true);
+						!rs.getString("canConfirmMidUser").equals("0"));
 				permitTypes.put(PermissionType.canConfirmNormalUser,
-						rs.getString("canConfirmNormalUser").equals("0") ? false : true);
-				permitTypes.put(PermissionType.canGetReport, rs.getString("canGetReport").equals("0") ? false : true);
+						!rs.getString("canConfirmNormalUser").equals("0"));
+				permitTypes.put(PermissionType.canGetReport, !rs.getString("canGetReport").equals("0"));
 				permitTypes.put(PermissionType.canGetResourceAttributes,
-						rs.getString("canGetResourceAttributes").equals("0") ? false : true);
-				permitTypes.put(PermissionType.canSearch, rs.getString("canSearch").equals("0") ? false : true);
-				permitTypes.put(PermissionType.canAddUnit, rs.getString("canAddUnit").equals("0") ? false : true);
+						!rs.getString("canGetResourceAttributes").equals("0"));
+				permitTypes.put(PermissionType.canSearch, !rs.getString("canSearch").equals("0"));
+				permitTypes.put(PermissionType.canAddUnit, !rs.getString("canAddUnit").equals("0"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

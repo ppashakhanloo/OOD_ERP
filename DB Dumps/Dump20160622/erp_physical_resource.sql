@@ -38,7 +38,7 @@ CREATE TABLE `physical_resource` (
 
 LOCK TABLES `physical_resource` WRITE;
 /*!40000 ALTER TABLE `physical_resource` DISABLE KEYS */;
-INSERT INTO `physical_resource` VALUES ('table','nilper','room202','117096'),('chair','nilper','room202','406079'),('chair','nilper','room201','479891'),('table','nilper','room201','736826'),('chair','nilper','room201','746945'),('chair','nilper','room202','774992');
+INSERT INTO `physical_resource` VALUES ('table','nilper','room202','117096'),('a','b','c','308881'),('chair','nilper','room202','406079'),('chair','nilper','room201','479891'),('table','nilper','room201','736826'),('chair','nilper','room201','746945'),('chair','nilper','room202','774992');
 /*!40000 ALTER TABLE `physical_resource` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-24  1:35:27
+-- Dump completed on 2016-06-25  3:43:27

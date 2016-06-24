@@ -1,8 +1,16 @@
-package ui;
+package ui.utilities;
 
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Simple utility class for creating forms that have a column
+ * of labels and a column of fields. All of the labels have the
+ * same width, determined by the width of the widest label
+ * component.
+ * <P>
+ * Philip Isenhour - 060628 - http://javatechniques.com/
+ */
 public class FormUtility {
     /**
      * Grid bag constraints for fields and labels
@@ -96,5 +104,4 @@ public class FormUtility {
         gbl.setConstraints(c, middleConstraints);
         parent.add(c);
     }
-
 }

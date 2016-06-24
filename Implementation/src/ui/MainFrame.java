@@ -33,6 +33,7 @@ public class MainFrame implements Visiblity {
     }
 
     private void prepareFrame() {
+
         JPanel welcomePanel = new JPanel(new GridBagLayout());
         GridBagConstraints cs = new GridBagConstraints();
         cs.fill = GridBagConstraints.HORIZONTAL;
@@ -103,24 +104,24 @@ public class MainFrame implements Visiblity {
         });
 
         JMenuItem monetaryResources = new JMenuItem("منابع مالی");
-        monetaryResources.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                mainFrame.setVisible(false);
-                ViewMonetaryResources viewResources = new ViewMonetaryResources(currentUser);
-                viewResources.setVisible(true);
-            }
-        });
+//        monetaryResources.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                mainFrame.setVisible(false);
+//                ViewMonetaryResources viewResources = new ViewMonetaryResources(currentUser);
+//                viewResources.setVisible(true);
+//            }
+//        });
 
         JMenuItem informationResources = new JMenuItem("منابع اطلاعاتی");
-        informationResources.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                mainFrame.setVisible(false);
-                ViewInformationResources viewResources = new ViewInformationResources(currentUser);
-                viewResources.setVisible(true);
-            }
-        });
+//        informationResources.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                mainFrame.setVisible(false);
+//                ViewInformationResources viewResources = new ViewInformationResources(currentUser);
+//                viewResources.setVisible(true);
+//            }
+//        });
 
         resources.add(humanResources);
         resources.add(physicalResources);
