@@ -1,5 +1,7 @@
 package project;
 
+import database.ProjectDAO;
+
 public class Technology {
 	String name;
 	String reason;
@@ -8,7 +10,7 @@ public class Technology {
 		return name;
 	}
 
-	public void setName(String name) {
+	private void setName(String name) {
 		this.name = name;
 	}
 
@@ -16,8 +18,10 @@ public class Technology {
 		return reason;
 	}
 
-	public void setReason(String reason) {
+	public boolean setReason(String reason) {
 		this.reason = reason;
+		ProjectDAO projectDAO = ProjectDAO.getInstance();
+		return projectDAO.updateTechnology(new Technology(getName(), reason));
 	}
 
 	public Technology(String name, String reason) {

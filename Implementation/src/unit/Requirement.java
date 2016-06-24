@@ -51,15 +51,21 @@ public class Requirement {
 		return description;
 	}
 
-	public void setDescription(String description) {
+	public boolean setDescription(String description) {
 		this.description = description;
+		RequirementDAO reqDAO = RequirementDAO.getInstance();
+		return reqDAO.update(new Requirement(getID(), description,
+				getProvideDate()));
 	}
 
 	public Date getProvideDate() {
 		return provideDate;
 	}
 
-	public void setProvideDate(Date provideDate) {
+	public boolean setProvideDate(Date provideDate) {
 		this.provideDate = provideDate;
+		RequirementDAO reqDAO = RequirementDAO.getInstance();
+		return reqDAO.update(new Requirement(getID(), getDescription(),
+				provideDate));
 	}
 }

@@ -344,6 +344,19 @@ public class ProjectDAO implements DAO<Project> {
 
 	}
 
+	public boolean updateTechnology(Technology item) {
+		try {
+			myStmt.executeUpdate(generator.update("technology", "reason",
+					item.getReason(), "name = " + "'" + item.getName() + "'"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+
+	}
+
+	
 	@Override
 	public ArrayList<Project> list() {
 		ArrayList<Project> projects = new ArrayList<>();

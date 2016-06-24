@@ -106,40 +106,60 @@ public class Project {
 		return name;
 	}
 
-	public void setName(String name) {
+	public boolean setName(String name) {
 		this.name = name;
+		ProjectDAO projectDAO = ProjectDAO.getInstance();
+		return projectDAO.update(new Project(getID(), name,
+				getDevelopmentStart(), getDevelopmentEnd(), getCustomerName(),
+				getUsersCount()));
 	}
 
 	public Date getDevelopmentStart() {
 		return developmentStart;
 	}
 
-	public void setDevelopmentStart(Date developmentStart) {
+	public boolean setDevelopmentStart(Date developmentStart) {
 		this.developmentStart = developmentStart;
+		ProjectDAO projectDAO = ProjectDAO.getInstance();
+		return projectDAO.update(new Project(getID(), getName(),
+				developmentStart, getDevelopmentEnd(), getCustomerName(),
+				getUsersCount()));
 	}
 
 	public Date getDevelopmentEnd() {
 		return developmentEnd;
 	}
 
-	public void setDevelopmentEnd(Date developmentEnd) {
+	public boolean setDevelopmentEnd(Date developmentEnd) {
 		this.developmentEnd = developmentEnd;
+		ProjectDAO projectDAO = ProjectDAO.getInstance();
+		return projectDAO.update(new Project(getID(), getName(),
+				getDevelopmentStart(), developmentEnd, getCustomerName(),
+				getUsersCount()));
 	}
 
 	public String getCustomerName() {
 		return customerName;
 	}
 
-	public void setCustomerName(String customerName) {
+	public boolean setCustomerName(String customerName) {
 		this.customerName = customerName;
+		ProjectDAO projectDAO = ProjectDAO.getInstance();
+		return projectDAO.update(new Project(getID(), getName(),
+				getDevelopmentStart(), getDevelopmentEnd(), customerName,
+				getUsersCount()));
 	}
 
 	public int getUsersCount() {
 		return usersCount;
 	}
 
-	public void setUsersCount(int usersCount) {
+	public boolean setUsersCount(int usersCount) {
 		this.usersCount = usersCount;
+		ProjectDAO projectDAO = ProjectDAO.getInstance();
+		return projectDAO.update(new Project(getID(), getName(),
+				getDevelopmentStart(), getDevelopmentEnd(), getCustomerName(),
+				usersCount));
 	}
 
 }

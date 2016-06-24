@@ -34,21 +34,26 @@ public class Module {
 				* 9 * Math.pow(10, n - 1)));
 	}
 
-	public ArrayList<ModuleModification> getModuleModificatios(){
+	public ArrayList<ModuleModification> getModuleModifications() {
 		ModuleModificationDAO modDAO = ModuleModificationDAO.getInstance();
 		return modDAO.getByModuleID(getID());
 	}
-	
-	public ArrayList<HumanResource> getDevelopers(){
+
+	public boolean addModification(ModuleModification mod) {
+		ModuleModificationDAO modDAO = ModuleModificationDAO.getInstance();
+		return modDAO.add(mod, getID());
+	}
+
+	public ArrayList<HumanResource> getDevelopers() {
 		ModuleDAO modDAO = ModuleDAO.getInstance();
 		return modDAO.getDevelopers(getID());
 	}
-	
-	public boolean addDeveloper(HumanResource developer){
+
+	public boolean addDeveloper(HumanResource developer) {
 		ModuleDAO modDAO = ModuleDAO.getInstance();
 		return modDAO.addDeveloper(getID(), developer);
 	}
-	
+
 	public String getID() {
 		return ID;
 	}
@@ -61,24 +66,33 @@ public class Module {
 		return name;
 	}
 
-	public void setName(String name) {
+	public boolean setName(String name) {
 		this.name = name;
+		ModuleDAO modDAO = ModuleDAO.getInstance();
+		return modDAO.update(new Module(getID(), name, getDevelopmentStart(),
+				getDevelopmentEnd()));
 	}
 
 	public Date getDevelopmentStart() {
 		return developmentStart;
 	}
 
-	public void setDevelopmentStart(Date developmentStart) {
+	public boolean setDevelopmentStart(Date developmentStart) {
 		this.developmentStart = developmentStart;
+		ModuleDAO modDAO = ModuleDAO.getInstance();
+		return modDAO.update(new Module(getID(), getName(), developmentStart,
+				getDevelopmentEnd()));
 	}
 
 	public Date getDevelopmentEnd() {
 		return developmentEnd;
 	}
 
-	public void setDevelopmentEnd(Date developmentEnd) {
+	public boolean setDevelopmentEnd(Date developmentEnd) {
 		this.developmentEnd = developmentEnd;
+		ModuleDAO modDAO = ModuleDAO.getInstance();
+		return modDAO.update(new Module(getID(), getName(),
+				getDevelopmentStart(), developmentEnd));
 	}
 
 }
