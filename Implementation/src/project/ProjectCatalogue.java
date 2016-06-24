@@ -1,8 +1,6 @@
 package project;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-
 import database.ProjectDAO;
 
 public class ProjectCatalogue {

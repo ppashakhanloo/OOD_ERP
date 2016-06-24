@@ -72,7 +72,8 @@ public class ModuleDAO implements DAO<Module> {
 
 	@Override
 	public Module get(String key) {
-		String query = generator.select("module", null, "ID = " + key);
+		String query = generator.select("module", null, "ID = " + "'" + key
+				+ "'");
 		try {
 			ResultSet rs = myStmt.executeQuery(query);
 			while (rs.next()) {
@@ -93,7 +94,7 @@ public class ModuleDAO implements DAO<Module> {
 
 	@Override
 	public void remove(String key) {
-		String query = "DELETE FROM module WHERE ID = " + key + ";";
+		String query = "DELETE FROM module WHERE ID = " + "'" + key + "'" + ";";
 		try {
 			myStmt.executeUpdate(query);
 		} catch (SQLException e) {
@@ -105,12 +106,13 @@ public class ModuleDAO implements DAO<Module> {
 	public boolean update(Module item) {
 		try {
 			myStmt.executeUpdate(generator.update("module", "name",
-					item.getName(), "ID = " + item.getID()));
+					item.getName(), "ID = " + "'" + item.getID() + "'"));
 			myStmt.executeUpdate("UPDATE module SET developmentStart  = "
-					+ item.getDevelopmentStart() + " WHERE ID = "
-					+ item.getID());
+					+ item.getDevelopmentStart() + " WHERE ID = " + "'"
+					+ item.getID() + "'");
 			myStmt.executeUpdate("UPDATE module SET developmentEnd  = "
-					+ item.getDevelopmentEnd() + " WHERE ID = " + item.getID());
+					+ item.getDevelopmentEnd() + " WHERE ID = " + "'"
+					+ item.getID() + "'");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
@@ -121,7 +123,8 @@ public class ModuleDAO implements DAO<Module> {
 
 	public ArrayList<Module> getByName(String name) {
 		ArrayList<Module> modules = new ArrayList<>();
-		String query = generator.select("module", null, "name = " + name);
+		String query = generator.select("module", null, "name = " + "'" + name
+				+ "'");
 		ResultSet rs;
 		try {
 			rs = myStmt.executeQuery(query);
@@ -185,7 +188,7 @@ public class ModuleDAO implements DAO<Module> {
 		HumanResourceDAO hrDAO = HumanResourceDAO.getInstance();
 		ArrayList<HumanResource> developers = new ArrayList<>();
 		String query = generator.select("module_humanresource", null,
-				"ModuleID = " + modID);
+				"ModuleID = " + "'" + modID + "'");
 		try {
 			ResultSet rs = myStmt.executeQuery(query);
 			while (rs.next()) {

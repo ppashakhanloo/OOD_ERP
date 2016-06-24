@@ -6,9 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
-import com.mysql.fabric.xmlrpc.base.Array;
-
 import project.*;
 import resource.HumanResource;
 import unit.Unit;
@@ -327,16 +324,18 @@ public class ProjectDAO implements DAO<Project> {
 	public boolean update(Project item) {
 		try {
 			myStmt.executeUpdate(generator.update("project", "name",
-					item.getName(), "ID = " + item.getID()));
+					item.getName(), "ID = " + "'" + item.getID() + "'"));
 			myStmt.executeUpdate(generator.update("project", "customerName",
-					item.getCustomerName(), "ID = " + item.getID()));
+					item.getCustomerName(), "ID = " + "'" + item.getID() + "'"));
 			myStmt.executeUpdate("UPDATE project SET developmentStart  = "
-					+ item.getDevelopmentStart() + " WHERE ID = "
-					+ item.getID());
+					+ item.getDevelopmentStart() + " WHERE ID = " + "'"
+					+ item.getID() + "'");
 			myStmt.executeUpdate("UPDATE project SET developmentEnd  = "
-					+ item.getDevelopmentEnd() + " WHERE ID = " + item.getID());
+					+ item.getDevelopmentEnd() + " WHERE ID = " + "'"
+					+ item.getID() + "'");
 			myStmt.executeUpdate("UPDATE project SET usersCount  = "
-					+ item.getUsersCount() + " WHERE ID = " + item.getID());
+					+ item.getUsersCount() + " WHERE ID = " + "'"
+					+ item.getID() + "'");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
