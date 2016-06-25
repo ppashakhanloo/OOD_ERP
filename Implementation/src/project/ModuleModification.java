@@ -33,16 +33,16 @@ public class ModuleModification {
 		this.modificationEnd = modificationEnd;
 	}
 
-	public ArrayList<HumanResource> getModifiers(){
+	public ArrayList<HumanResource> getModifiers() {
 		ModuleModificationDAO modDAO = ModuleModificationDAO.getInstance();
 		return modDAO.getModifiers(getID());
 	}
-	
-	public boolean addModifier(HumanResource modifier){
+
+	public boolean addModifier(HumanResource modifier) {
 		ModuleModificationDAO modDAO = ModuleModificationDAO.getInstance();
 		return modDAO.addModifier(getID(), modifier);
 	}
-	
+
 	public String getID() {
 		return ID;
 	}
@@ -55,24 +55,35 @@ public class ModuleModification {
 		return modificationType;
 	}
 
-	public void setModificationType(String modificationType) {
+	public boolean setModificationType(String modificationType) {
 		this.modificationType = modificationType;
+		ModuleModificationDAO modDAO = ModuleModificationDAO.getInstance();
+		return modDAO.update(new ModuleModification(getID(), modificationType,
+				getModificationStart(), getModificationEnd()));
 	}
 
 	public Date getModificationStart() {
 		return modificationStart;
 	}
 
-	public void setModificationStart(Date modificationStart) {
+	public boolean setModificationStart(Date modificationStart) {
 		this.modificationStart = modificationStart;
+		ModuleModificationDAO modDAO = ModuleModificationDAO.getInstance();
+		return modDAO
+				.update(new ModuleModification(getID(), getModificationType(),
+						modificationStart, getModificationEnd()));
 	}
 
 	public Date getModificationEnd() {
 		return modificationEnd;
 	}
 
-	public void setModificationEnd(Date modificationEnd) {
+	public boolean setModificationEnd(Date modificationEnd) {
 		this.modificationEnd = modificationEnd;
+		ModuleModificationDAO modDAO = ModuleModificationDAO.getInstance();
+		return modDAO
+				.update(new ModuleModification(getID(), getModificationType(),
+						getModificationStart(), modificationEnd));
 	}
 
 }

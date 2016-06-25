@@ -10,45 +10,46 @@ public class System {
 	String ID;
 	String name;
 
-	public System(){
+	public System() {
 		this.setID(generateNDigitID(ID_LENGTH));
 	}
-	
-	public System(String id, String name){
+
+	public System(String id, String name) {
 		this.setID(id);
 		this.setName(name);
 	}
 
 	private String generateNDigitID(int n) {
 		Random random = new Random();
-		return Integer.toString((int) (Math.pow(10, n) + random.nextFloat() * 9 * Math.pow(10, n)));
+		return Integer.toString((int) (Math.pow(10, n) + random.nextFloat() * 9
+				* Math.pow(10, n)));
 	}
-	
-	public void removeModule(Module module){
+
+	public void removeModule(Module module) {
 		ModuleDAO moduleDAO = ModuleDAO.getInstance();
 		moduleDAO.remove(module.getID());
 	}
-	
-	public int getModulesCount(){
+
+	public int getModulesCount() {
 		SystemDAO systemDAO = SystemDAO.getInstance();
 		return systemDAO.getModules(getID()).size();
 	}
-	
-	public ArrayList<Module> getModules(){
+
+	public ArrayList<Module> getModules() {
 		SystemDAO systemDAO = SystemDAO.getInstance();
 		return systemDAO.getModules(getID());
 	}
-	
-	public Module getModule(String id){
+
+	public Module getModule(String id) {
 		ModuleDAO moduleDAO = ModuleDAO.getInstance();
 		return moduleDAO.get(id);
 	}
-	
-	public boolean addModule(Module module){
+
+	public boolean addModule(Module module) {
 		ModuleDAO moduleDAO = ModuleDAO.getInstance();
 		return moduleDAO.add(module, getID());
 	}
-	
+
 	public String getID() {
 		return ID;
 	}
@@ -61,8 +62,10 @@ public class System {
 		return name;
 	}
 
-	public void setName(String name) {
+	public boolean setName(String name) {
 		this.name = name;
+		SystemDAO sysDAO = SystemDAO.getInstance();
+		return sysDAO.update(new System(getID(), name));
 	}
 
 }

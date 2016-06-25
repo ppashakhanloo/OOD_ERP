@@ -32,7 +32,7 @@ public class UnitCatalogue {
         return unitDAO.get(ID);
     }
 
-    public ArrayList<Unit> getAll() {
+    public ArrayList<Unit> list() {
         UnitDAO unitDAO = UnitDAO.getInstance();
         return unitDAO.list();
     }

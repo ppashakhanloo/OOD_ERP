@@ -5,6 +5,17 @@ import database.ProjectDAO;
 
 public class ProjectCatalogue {
 
+	private static ProjectCatalogue projectCatalogue;
+
+	private ProjectCatalogue() {
+	}
+
+	public static ProjectCatalogue getInstance() {
+		if (projectCatalogue == null)
+			projectCatalogue = new ProjectCatalogue();
+		return projectCatalogue;
+	}
+
 	public boolean add(Project project, String uid) {
 		ProjectDAO projectDAO = ProjectDAO.getInstance();
 		return projectDAO.add(project, uid);
