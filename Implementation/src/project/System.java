@@ -69,4 +69,8 @@ public class System {
 		return sysDAO.update(new System(getID(), name));
 	}
 
+	public static void main(String[] args) {
+
+	}
+
 }
