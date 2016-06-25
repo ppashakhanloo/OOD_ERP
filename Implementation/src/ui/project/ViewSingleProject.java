@@ -3,12 +3,20 @@ package ui.project;
 import business_logic_facade.OperationFacade;
 import business_logic_facade.ProjectFacade;
 import business_logic_facade.UserFacade;
+import project.Module;
 import project.Project;
+import project.System;
 import project.Technology;
 import ui.MainFrame;
 import ui.Visibility;
+import unit.Unit;
 
 import javax.swing.*;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class ViewSingleProject extends ProjectObserver implements Visibility {
     private MainFrame mainFrame;
@@ -16,27 +24,6 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
     private ProjectFacade projectFacade;
     private Project project;
     private EditProject editProject;
-
-    private JButton viewRes;
-    private JButton viewReqs;
-    private JButton edit;
-    private JList<String> jList1;
-    private JScrollPane treePanel;
-    private JScrollPane jScrollPane2;
-    private JScrollPane jScrollPane3;
-    private JTree jTree1;
-    private JLabel managerLbl;
-    private JTextField managerName;
-    private JTextField name;
-    private JLabel nameLbl;
-    private JPanel structPanel;
-    private JTree structTree;
-    private JList<Technology> techList;
-    private JPanel techPanel;
-    private JScrollPane unitList;
-    private JPanel unitsPanel;
-    private JSpinner usersCount;
-    private JLabel usersCountLbl;
 
     public ViewSingleProject(UserFacade currentUser, Project project) {
         mainFrame = new MainFrame(currentUser);
@@ -49,93 +36,136 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
     }
 
     private void prepareGUI() {
-        treePanel = new JScrollPane();
-        jTree1 = new JTree();
 
-        nameLbl = new JLabel("نام پروژه");
-        name = new JTextField(project.getName());
+        JLabel nameLbl = new JLabel("نام پروژه");
+        JTextField name = new JTextField(project.getName());
         name.setEditable(false);
 
-        managerLbl = new JLabel("مدیر پروژه");
-        managerName = new JTextField((projectFacade.getProjectManager(project.getID()) == null)
+        JLabel managerLbl = new JLabel("مدیر پروژه");
+        JTextField managerName = new JTextField((projectFacade.getProjectManager(project.getID()) == null)
                 ? "تعیین نشده"
                 : projectFacade.getProjectManager(project.getID()).getFirstName() + " " + projectFacade.getProjectManager(project.getID()).getLastName());
         managerName.setEditable(false);
 
-        usersCountLbl = new JLabel("تعداد کاربران");
-        usersCount = new JSpinner();
-        usersCount.setValue(new Integer(project.getUsersCount()));
+        JLabel usersCountLbl = new JLabel("تعداد کاربران");
+        JSpinner usersCount = new JSpinner();
+        usersCount.setValue(project.getUsersCount());
         usersCount.setEnabled(false);
 
 
-        structPanel = new JPanel();
-        jScrollPane2 = new JScrollPane();
-        structTree = new JTree();
+        JPanel structPanel = new JPanel();
+        JScrollPane structTreeScroll = new JScrollPane();
+        JTree structTree = new JTree();
 
 
-        techPanel = new JPanel();
-        jScrollPane3 = new JScrollPane();
-        DefaultListModel<Technology> listModel = new DefaultListModel<>();
-        project.getTechnologies().forEach(listModel::addElement);
-        techList = new JList(listModel);
+        JPanel techPanel = new JPanel();
+        JScrollPane techListScroll = new JScrollPane();
+        DefaultListModel<Technology> listModelTech = new DefaultListModel<>();
+        project.getTechnologies().forEach(listModelTech::addElement);
+        JList<Technology> techList = new JList(listModelTech);
 
 
-        unitsPanel = new JPanel();
-        unitList = new JScrollPane();
-        jList1 = new JList<>();
-        viewRes = new JButton("مشاهده منابع");
-        viewReqs = new JButton("مشاهده نیازمندی‌ها");
-        edit = new JButton("ویرایش");
+        JPanel unitsPanel = new JPanel();
+        DefaultListModel<Unit> listModelUnit = new DefaultListModel<>();
+        JScrollPane unitListScroll = new JScrollPane();
+        project.getInvolvedUnits().forEach(listModelUnit::addElement);
+        JList<Unit> unitList = new JList(listModelUnit);
 
-        treePanel.setViewportView(jTree1);
+
+        JButton viewRes = new JButton("مشاهده منابع");
+//        viewRes.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                viewProjectResources.setVisible(true);
+//            }
+//        });
+
+
+        JButton viewReqs = new JButton("مشاهده نیازمندی‌ها");
+//        viewReqs.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                viewProjectRequirements.setVisible(true);
+//            }
+//        });
+
+
+        JButton edit = new JButton("ویرایش");
+        edit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                editProject.setVisible(true);
+            }
+        });
+
 
         structPanel.setBorder(BorderFactory.createTitledBorder("ساختار پروژه"));
-
-        jScrollPane2.setViewportView(structTree);
+        structTreeScroll.setViewportView(structTree);
 
         GroupLayout structPanelLayout = new GroupLayout(structPanel);
         structPanel.setLayout(structPanelLayout);
         structPanelLayout.setHorizontalGroup(
                 structPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(structPanelLayout.createSequentialGroup()
-                                .addComponent(jScrollPane2, GroupLayout.PREFERRED_SIZE, 148, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(structTreeScroll, GroupLayout.PREFERRED_SIZE, 148, GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
         );
         structPanelLayout.setVerticalGroup(
                 structPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(structPanelLayout.createSequentialGroup()
-                                .addComponent(jScrollPane2, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(structTreeScroll, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
         );
+        java.lang.System.out.println("HI!");
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode(project);
+        // create the system nodes
+        ArrayList<System> systems = project.getSystems();
+        java.lang.System.out.println("SYSTEMS: " + systems);
+        DefaultMutableTreeNode[] systemNodes = new DefaultMutableTreeNode[systems.size()];
+        if (systems != null) {
+            for (int i = 0; i < systems.size(); i++) {
+                systemNodes[i] = new DefaultMutableTreeNode(systems.get(i));
+                ArrayList<Module> modules = systems.get(i).getModules();
+                DefaultMutableTreeNode[] moduleNodes = new DefaultMutableTreeNode[modules.size()];
+                for (int j  =0;j<modules.size();j++){
+                    moduleNodes[j] = new DefaultMutableTreeNode(modules.get(j));
+                    systemNodes[i].add(moduleNodes[j]);
+                }
+                root.add(systemNodes[i]);
+            }
+            DefaultTreeModel defaultTreeModel = new DefaultTreeModel(root);
+            structTree.setModel(defaultTreeModel);
+        }
+
 
         techPanel.setBorder(BorderFactory.createTitledBorder("تکنولوژی‌ها"));
 
-        jScrollPane3.setViewportView(techList);
+        techListScroll.setViewportView(techList);
 
         GroupLayout techPanelLayout = new GroupLayout(techPanel);
         techPanel.setLayout(techPanelLayout);
         techPanelLayout.setHorizontalGroup(
                 techPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane3, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(techListScroll, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
         );
         techPanelLayout.setVerticalGroup(
                 techPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane3, GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
+                        .addComponent(techListScroll, GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
         );
 
         unitsPanel.setBorder(BorderFactory.createTitledBorder("واحدهای درگیر"));
 
-        unitList.setViewportView(jList1);
+        unitListScroll.setViewportView(unitList);
 
         GroupLayout unitsPanelLayout = new GroupLayout(unitsPanel);
         unitsPanel.setLayout(unitsPanelLayout);
         unitsPanelLayout.setHorizontalGroup(
                 unitsPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(unitList, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(unitListScroll, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         unitsPanelLayout.setVerticalGroup(
                 unitsPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(unitList, GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+                        .addComponent(unitListScroll, GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
         );
 
         GroupLayout layout = new GroupLayout(mainFrame.getMainFrame().getContentPane());
