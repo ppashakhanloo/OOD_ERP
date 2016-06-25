@@ -48,13 +48,13 @@ public class EditProject extends MainDialog {
             }
         });
 
-        JButton addUnit = new JButton("افزودن واحد جدید درگیر");
-        addUnit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                addUnit.setVisible(true);
-            }
-        });
+//        JButton addUnit = new JButton("افزودن واحد جدید درگیر");
+//        addUnit.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                addUnit.setVisible(true);
+//            }
+//        });
 
 
         JButton edit = new JButton("ذخیره تغییرات");
@@ -93,7 +93,9 @@ public class EditProject extends MainDialog {
                                                         .addComponent(addTech, GroupLayout.PREFERRED_SIZE, 161, GroupLayout.PREFERRED_SIZE))
                                                 .addGroup(layout.createSequentialGroup()
                                                         .addGap(18, 18, 18)
-                                                        .addComponent(addUnit, GroupLayout.PREFERRED_SIZE, 161, GroupLayout.PREFERRED_SIZE)))
+//                                                        .addComponent(addUnit, GroupLayout.PREFERRED_SIZE, 161, GroupLayout.PREFERRED_SIZE)
+                                                )
+                                        )
 
                                 )));
         layout.setVerticalGroup(
@@ -122,7 +124,7 @@ public class EditProject extends MainDialog {
                                                                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                                                         .addComponent(addTech)
                                                                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                                        .addComponent(addUnit)
+//                                                                        .addComponent(addUnit)
                                                                         .addGap(0, 9, Short.MAX_VALUE)))
                                                 )))));
 

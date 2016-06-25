@@ -24,7 +24,11 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
     private ProjectFacade projectFacade;
     private Project project;
     private EditProject editProject;
+    private AddNewTechnology addNewTechnology;
     private UserFacade userFacade;
+
+    DefaultListModel<Technology> listModelTech;
+    JList<Technology> techList;
 
 
     public ViewSingleProject(UserFacade currentUser, Project project) {
@@ -33,8 +37,11 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
         projectFacade = new ProjectFacade();
         this.userFacade = currentUser;
         this.project = project;
-        editProject = new EditProject(project, new AddNewTechnology(project));
+        addNewTechnology = new AddNewTechnology(project);
+        editProject = new EditProject(project, addNewTechnology);
         editProject.attach(this);
+        addNewTechnology.attach(this);
+
         prepareGUI();
     }
 
@@ -63,9 +70,9 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
 
         JPanel techPanel = new JPanel();
         JScrollPane techListScroll = new JScrollPane();
-        DefaultListModel<Technology> listModelTech = new DefaultListModel<>();
+        listModelTech = new DefaultListModel<>();
         project.getTechnologies().forEach(listModelTech::addElement);
-        JList<Technology> techList = new JList(listModelTech);
+        techList = new JList(listModelTech);
 
 
         JPanel unitsPanel = new JPanel();
@@ -245,8 +252,10 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
 
     @Override
     public void update() {
-//        prepareGUI();
-//        mainFrame = new MainFrame(userFacade);
+
+        listModelTech = new DefaultListModel<>();
+        project.getTechnologies().forEach(listModelTech::addElement);
+        techList = new JList(listModelTech);
         prepareGUI();
         mainFrame.getMainFrame().repaint();
         mainFrame.getMainFrame().revalidate();
