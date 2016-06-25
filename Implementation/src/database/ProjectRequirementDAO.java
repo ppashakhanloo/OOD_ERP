@@ -78,8 +78,36 @@ public class ProjectRequirementDAO implements DAO<ProjectRequirement> {
 
 	@Override
 	public boolean add(ProjectRequirement item) {
-		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public boolean add(ProjectRequirement item, String ProjectID,
+			String ResourceID) {
+		String query = "INSERT INTO project_requirement (ID, provideDate, releaseDate,"
+				+ "isEssential, criticalProvideDate, lengthOfPossession, ProjectID, ResourceID) "
+				+ "VALUES ('"
+				+ item.getID()
+				+ "', "
+				+ item.getProvideDate()
+				+ ", "
+				+ item.getReleaseDate()
+				+ ", "
+				+ item.isEssential()
+				+ ", "
+				+ item.getCriticalProvideDate()
+				+ ", "
+				+ item.getLengthOfPossession()
+				+ ", '"
+				+ ProjectID
+				+ "', '"
+				+ ResourceID + "');";
+		try {
+			myStmt.executeUpdate(query);
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
@@ -105,5 +133,4 @@ public class ProjectRequirementDAO implements DAO<ProjectRequirement> {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }
