@@ -1,8 +1,9 @@
-package ui;
+package ui.resource;
 
 import business_logic_facade.OperationFacade;
+import ui.MainDialog;
 import ui.utilities.FormUtility;
-import ui.utilities.UnitObserver;
+import unit.Unit;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -11,31 +12,30 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-/**
- * Created by ppash on 6/24/2016.
- */
-public class AddNewUnit extends MainDialog {
+class AddNewInformationResource extends MainDialog {
 
     private OperationFacade operationFacade;
 
-    ArrayList<UnitObserver> observers;
+    private ArrayList<InformationResourceObserver> observers;
 
-    public AddNewUnit() {
+    AddNewInformationResource() {
         operationFacade = new OperationFacade();
         observers = new ArrayList<>();
         prepareGUI();
     }
 
-    public void attach(UnitObserver observer){
+    public void attach(InformationResourceObserver observer) {
         observers.add(observer);
     }
 
-    public void notifyAllObservers(){
-        observers.forEach(UnitObserver::update);
+    private void notifyAllObservers() {
+        for (InformationResourceObserver observer : observers) {
+            observer.update();
+        }
     }
 
     private void prepareGUI() {
-        super.getMainDialog().setTitle("افزودن واحد جدید");
+        super.getMainDialog().setTitle("افزودن منبع اطلاعاتی");
         JPanel form = new JPanel(new GridBagLayout());
 
         super.getMainDialog().getContentPane().setLayout(new BorderLayout());
@@ -45,14 +45,28 @@ public class AddNewUnit extends MainDialog {
         FormUtility formUtility = new FormUtility();
 
         JTextField name = new JTextField(20);
-        formUtility.addLabel("نام واحد ", form);
+        formUtility.addLabel("نام ", form);
         formUtility.addLastField(name, form);
+
+        JTextArea description = new JTextArea();
+        formUtility.addLabel("توضیح ", form);
+        formUtility.addLastField(new JScrollPane(description), form);
+
+        // JTextField ID
+
+        ArrayList<Unit> units = operationFacade.getUnits();
+        JComboBox<Unit> unitsCombo = new JComboBox<>();
+        for (Unit unit : units)
+            unitsCombo.addItem(unit);
+
+        formUtility.addLabel("واحد ", form);
+        formUtility.addLastField(unitsCombo, form);
 
         JButton submit = new JButton("افزودن");
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                operationFacade.addNewUnit(name.getText());
+                operationFacade.addNewInformationResource(name.getText(), description.getText(), ((Unit) unitsCombo.getSelectedItem()).getID());
                 notifyAllObservers();
                 setVisible(false);
             }
@@ -68,7 +82,7 @@ public class AddNewUnit extends MainDialog {
     public static void main(String[] args) {
 //        UserFacade userFacade = new UserFacade();
 //        userFacade.login("478837", "888");
-        AddNewUnit addNewUnit = new AddNewUnit();
-        addNewUnit.setVisible(true);
+        AddNewInformationResource addNewInformationResource = new AddNewInformationResource();
+        addNewInformationResource.setVisible(true);
     }
 }

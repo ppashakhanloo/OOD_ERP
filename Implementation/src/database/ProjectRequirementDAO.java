@@ -7,10 +7,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
-
 import project.Project;
 import report.ProjectRequirement;
 import resource.Resource;
+
+import java.sql.*;
+import java.util.ArrayList;
 
 public class ProjectRequirementDAO implements DAO<ProjectRequirement> {
 	private Connection sqlConn;

@@ -1,6 +1,7 @@
-package ui;
+package ui.resource;
 
 import business_logic_facade.OperationFacade;
+import ui.MainDialog;
 import ui.utilities.FormUtility;
 import unit.Unit;
 
@@ -11,33 +12,30 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-/**
- * Created by ppash on 6/24/2016.
- */
-public class AddNewHumanResource extends MainDialog {
+class AddNewPhysicalResource extends MainDialog {
 
     private OperationFacade operationFacade;
 
-    ArrayList<HumanResourceObserver> observers;
+    private ArrayList<PhysicalResourceObserver> observers;
 
-    public AddNewHumanResource() {
+    AddNewPhysicalResource() {
         operationFacade = new OperationFacade();
         observers = new ArrayList<>();
         prepareGUI();
     }
 
-    public void attach(HumanResourceObserver observer){
+    public void attach(PhysicalResourceObserver observer){
         observers.add(observer);
     }
 
-    public void notifyAllObservers(){
-        for (HumanResourceObserver observer : observers) {
+    private void notifyAllObservers(){
+        for (PhysicalResourceObserver observer : observers) {
             observer.update();
         }
     }
 
     private void prepareGUI() {
-        super.getMainDialog().setTitle("افزودن منبع انسانی");
+        super.getMainDialog().setTitle("افزودن منبع فیزیکی");
         JPanel form = new JPanel(new GridBagLayout());
 
         super.getMainDialog().getContentPane().setLayout(new BorderLayout());
@@ -46,22 +44,17 @@ public class AddNewHumanResource extends MainDialog {
         form.setLayout(new GridBagLayout());
         FormUtility formUtility = new FormUtility();
 
-        JTextField firstName = new JTextField(20);
+        JTextField name = new JTextField(20);
         formUtility.addLabel("نام ", form);
-        formUtility.addLastField(firstName, form);
+        formUtility.addLastField(name, form);
 
-        JTextField lastName = new JTextField(20);
-        formUtility.addLabel("نام خانوادگی ", form);
-        formUtility.addLastField(lastName, form);
+        JTextField model = new JTextField(20);
+        formUtility.addLabel("مدل ", form);
+        formUtility.addLastField(model, form);
 
-        JTextField expertise = new JTextField(20);
-        formUtility.addLabel("تخصص‌ها ", form);
-        formUtility.addLastField(expertise, form);
-
-
-        JTextField password = new JTextField(20);
-        formUtility.addLabel("رمز ", form);
-        formUtility.addLastField(password, form);
+        JTextField location = new JTextField(20);
+        formUtility.addLabel("محل ", form);
+        formUtility.addLastField(location, form);
 
         // JTextField ID
 
@@ -77,7 +70,7 @@ public class AddNewHumanResource extends MainDialog {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                operationFacade.addNewHumanResource(firstName.getText(), lastName.getText(), expertise.getText(), password.getText(), ((Unit)unitsCombo.getSelectedItem()).getID());
+                operationFacade.addNewPhysicalResource(name.getText(), model.getText(), location.getText(), ((Unit)unitsCombo.getSelectedItem()).getID());
                 notifyAllObservers();
                 setVisible(false);
             }
@@ -93,7 +86,7 @@ public class AddNewHumanResource extends MainDialog {
     public static void main(String[] args) {
 //        UserFacade userFacade = new UserFacade();
 //        userFacade.login("478837", "888");
-        AddNewHumanResource addNewHumanResource = new AddNewHumanResource();
-        addNewHumanResource.setVisible(true);
+        AddNewPhysicalResource addNewPhysicalResource = new AddNewPhysicalResource();
+        addNewPhysicalResource.setVisible(true);
     }
 }

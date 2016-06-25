@@ -1,15 +1,11 @@
 package database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Date;
-
 import resource.Resource;
 import unit.Requirement;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class RequirementDAO implements DAO<Requirement> {
 

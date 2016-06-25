@@ -1,13 +1,9 @@
 package database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-
 import unit.Unit;
+
+import java.sql.*;
+import java.util.ArrayList;
 
 public class UnitDAO implements DAO<Unit> {
 

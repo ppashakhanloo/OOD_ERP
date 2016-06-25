@@ -1,8 +1,8 @@
 package resource;
 
-import java.util.ArrayList;
-
 import database.*;
+
+import java.util.ArrayList;
 
 public class ResourceCatalogue {
     // private ArrayList<Resource> resourceList;

@@ -1,13 +1,10 @@
 package database;
 
-import java.util.ArrayList;
-
-import access.AccessLevelFactory;
-import resource.HumanResource;
 import resource.Resource;
 import resource.ResourceStatus;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class ResourceDAO {
 	protected Connection sqlConn;

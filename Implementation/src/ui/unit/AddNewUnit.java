@@ -1,8 +1,8 @@
-package ui;
+package ui.unit;
 
 import business_logic_facade.OperationFacade;
+import ui.MainDialog;
 import ui.utilities.FormUtility;
-import unit.Unit;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -11,33 +11,29 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-/**
- * Created by ppash on 6/24/2016.
- */
-public class AddNewPhysicalResource extends MainDialog {
+
+public class AddNewUnit extends MainDialog {
 
     private OperationFacade operationFacade;
 
-    ArrayList<PhysicalResourceObserver> observers;
+    private ArrayList<UnitObserver> observers;
 
-    public AddNewPhysicalResource() {
+    public AddNewUnit() {
         operationFacade = new OperationFacade();
         observers = new ArrayList<>();
         prepareGUI();
     }
 
-    public void attach(PhysicalResourceObserver observer){
+    public void attach(UnitObserver observer) {
         observers.add(observer);
     }
 
-    public void notifyAllObservers(){
-        for (PhysicalResourceObserver observer : observers) {
-            observer.update();
-        }
+    public void notifyAllObservers() {
+        observers.forEach(UnitObserver::update);
     }
 
     private void prepareGUI() {
-        super.getMainDialog().setTitle("افزودن منبع فیزیکی");
+        super.getMainDialog().setTitle("افزودن واحد جدید");
         JPanel form = new JPanel(new GridBagLayout());
 
         super.getMainDialog().getContentPane().setLayout(new BorderLayout());
@@ -47,32 +43,14 @@ public class AddNewPhysicalResource extends MainDialog {
         FormUtility formUtility = new FormUtility();
 
         JTextField name = new JTextField(20);
-        formUtility.addLabel("نام ", form);
+        formUtility.addLabel("نام واحد ", form);
         formUtility.addLastField(name, form);
-
-        JTextField model = new JTextField(20);
-        formUtility.addLabel("مدل ", form);
-        formUtility.addLastField(model, form);
-
-        JTextField location = new JTextField(20);
-        formUtility.addLabel("محل ", form);
-        formUtility.addLastField(location, form);
-
-        // JTextField ID
-
-        ArrayList<Unit> units = operationFacade.getUnits();
-        JComboBox<Unit> unitsCombo = new JComboBox<>();
-        for (Unit unit : units)
-            unitsCombo.addItem(unit);
-
-        formUtility.addLabel("واحد ", form);
-        formUtility.addLastField(unitsCombo, form);
 
         JButton submit = new JButton("افزودن");
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                operationFacade.addNewPhysicalResource(name.getText(), model.getText(), location.getText(), ((Unit)unitsCombo.getSelectedItem()).getID());
+                operationFacade.addNewUnit(name.getText());
                 notifyAllObservers();
                 setVisible(false);
             }
@@ -88,7 +66,7 @@ public class AddNewPhysicalResource extends MainDialog {
     public static void main(String[] args) {
 //        UserFacade userFacade = new UserFacade();
 //        userFacade.login("478837", "888");
-        AddNewPhysicalResource addNewPhysicalResource = new AddNewPhysicalResource();
-        addNewPhysicalResource.setVisible(true);
+        AddNewUnit addNewUnit = new AddNewUnit();
+        addNewUnit.setVisible(true);
     }
 }

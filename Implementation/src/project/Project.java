@@ -1,13 +1,13 @@
 package project;
 
+import database.ProjectDAO;
+import database.SystemDAO;
+import resource.HumanResource;
+import unit.Unit;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
-
-import resource.HumanResource;
-import unit.Unit;
-import database.ProjectDAO;
-import database.SystemDAO;
 
 public class Project {
     String ID;

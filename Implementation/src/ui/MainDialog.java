@@ -2,10 +2,7 @@ package ui;
 
 import javax.swing.*;
 
-/**
- * Created by ppash on 6/24/2016.
- */
-public class MainDialog implements Visiblity {
+public class MainDialog implements Visibility {
     private JDialog mainDialog;
 
     public MainDialog() {

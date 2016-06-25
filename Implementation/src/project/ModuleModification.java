@@ -1,11 +1,11 @@
 package project;
 
+import database.ModuleModificationDAO;
+import resource.HumanResource;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
-
-import resource.HumanResource;
-import database.ModuleModificationDAO;
 
 public class ModuleModification {
 	int ID_LENGTH = 6;

@@ -32,10 +32,6 @@ public class OperationFacade {
         return ResourceCatalogue.getInstance().getAll(ResourceType.MONETARY);
     }
 
-    public ArrayList<Project> getProjects() {
-        return ProjectCatalogue.getInstance().list();
-    }
-
     public ArrayList<Unit> getUnits() {
         return UnitCatalogue.getInstance().list();
     }
@@ -68,17 +64,4 @@ public class OperationFacade {
                 new Quantity(amount, quantityUnit.equals("DOLLAR") ? QuantityUnit.DOLLAR : QuantityUnit.RIAL));
         ResourceCatalogue.getInstance().add(monetaryResource, unitID, "");
     }
-
-    // TODO
-    public void addNewProject(String name, ArrayList<Unit> involvedUnits) {
-        // by default, set accessLevel to 3
-
-        ResourceCatalogue.getInstance().add(humanResource, unitID, "");
-
-        Project project = new Project();
-        project.setName(name);
-        ProjectCatalogue.getInstance().add(project);
-
-    }
-
 }

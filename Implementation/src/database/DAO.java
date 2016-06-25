@@ -2,7 +2,7 @@ package database;
 
 import java.util.ArrayList;
 
-public interface DAO<T> {
+interface DAO<T> {
 	boolean add(T item);
 
 	T get(String key);

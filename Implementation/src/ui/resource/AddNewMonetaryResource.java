@@ -1,7 +1,8 @@
-package ui;
+package ui.resource;
 
 import business_logic_facade.OperationFacade;
 import resource.QuantityUnit;
+import ui.MainDialog;
 import ui.utilities.FormUtility;
 import unit.Unit;
 
@@ -10,18 +11,16 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Enumeration;
 
-/**
- * Created by ppash on 6/24/2016.
- */
-public class AddNewMonetaryResource extends MainDialog {
+class AddNewMonetaryResource extends MainDialog {
 
     private OperationFacade operationFacade;
 
-    ArrayList<MonetaryResourceObserver> observers;
+    private ArrayList<MonetaryResourceObserver> observers;
 
-    public AddNewMonetaryResource() {
+    AddNewMonetaryResource() {
         operationFacade = new OperationFacade();
         observers = new ArrayList<>();
         prepareGUI();
@@ -31,7 +30,7 @@ public class AddNewMonetaryResource extends MainDialog {
         observers.add(observer);
     }
 
-    public void notifyAllObservers() {
+    private void notifyAllObservers() {
         for (MonetaryResourceObserver observer : observers) {
             observer.update();
         }

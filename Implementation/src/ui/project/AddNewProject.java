@@ -1,29 +1,25 @@
-package ui;
+package ui.project;
 
 import business_logic_facade.OperationFacade;
-import project.Project;
+import business_logic_facade.ProjectFacade;
+import ui.MainDialog;
 import ui.utilities.FormUtility;
 import unit.Unit;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Date;
 
-/**
- * Created by ppash on 6/24/2016.
- */
-public class AddNewProject extends MainDialog {
+class AddNewProject extends MainDialog {
 
     private OperationFacade operationFacade;
+    private ProjectFacade projectFacade;
+    private ArrayList<ProjectObserver> observers;
 
-    ArrayList<ProjectObserver> observers;
-
-    public AddNewProject() {
+    AddNewProject() {
         operationFacade = new OperationFacade();
+        projectFacade = new ProjectFacade();
         observers = new ArrayList<>();
         prepareGUI();
     }
@@ -32,10 +28,8 @@ public class AddNewProject extends MainDialog {
         observers.add(observer);
     }
 
-    public void notifyAllObservers() {
-        for (ProjectObserver observer : observers) {
-            observer.update();
-        }
+    private void notifyAllObservers() {
+        observers.forEach(ProjectObserver::update);
     }
 
     private void prepareGUI() {
@@ -62,16 +56,13 @@ public class AddNewProject extends MainDialog {
         formUtility.addLastField(unitList, form);
         //////////////////////////////////////////////////////
 
-
-
         JButton submit = new JButton("افزودن");
-        submit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                operationFacade.addNewProject(name.getText(), unitList.getSelectedValuesList());
-                notifyAllObservers();
-                setVisible(false);
-            }
+        submit.addActionListener(e -> {
+            ArrayList<String> involvedUnits = new ArrayList<>();
+            for (Unit unit : unitList.getSelectedValuesList()) involvedUnits.add(unit.getID());
+            projectFacade.addNewProject(name.getText(), involvedUnits);
+            notifyAllObservers();
+            setVisible(false);
         });
 
         JButton cancel = new JButton("صرف‌نظر");

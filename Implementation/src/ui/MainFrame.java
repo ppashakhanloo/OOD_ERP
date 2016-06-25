@@ -2,6 +2,12 @@ package ui;
 
 import access.PermissionType;
 import business_logic_facade.UserFacade;
+import ui.project.ViewProjects;
+import ui.unit.ViewUnits;
+import ui.resource.ViewHumanResources;
+import ui.resource.ViewInformationResources;
+import ui.resource.ViewMonetaryResources;
+import ui.resource.ViewPhysicalResources;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,10 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Map;
 
-/**
- * Created by ppash on 6/24/2016.
- */
-public class MainFrame implements Visiblity {
+public class MainFrame implements Visibility {
 
     private JFrame mainFrame;
     private UserFacade currentUser;
@@ -23,7 +26,7 @@ public class MainFrame implements Visiblity {
         prepareGUI();
     }
 
-    protected JFrame getMainFrame() {
+    public JFrame getMainFrame() {
         return mainFrame;
     }
 

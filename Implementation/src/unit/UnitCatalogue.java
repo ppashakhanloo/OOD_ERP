@@ -1,8 +1,8 @@
 package unit;
 
-import java.util.ArrayList;
-
 import database.UnitDAO;
+
+import java.util.ArrayList;
 
 public class UnitCatalogue {
 
