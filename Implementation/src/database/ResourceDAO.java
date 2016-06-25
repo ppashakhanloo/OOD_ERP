@@ -6,6 +6,8 @@ import resource.ResourceStatus;
 import java.sql.*;
 import java.util.ArrayList;
 
+import project.Project;
+
 public class ResourceDAO {
 	protected Connection sqlConn;
 	protected Statement myStmt;
@@ -93,6 +95,17 @@ public class ResourceDAO {
 	}
 
 	public Resource get(String key) {
+		String query = queryGenerator.select("resource", null, "ID = " + "'" + key
+				+ "'");
+		try {
+			Statement myStmt = sqlConn.createStatement();
+			ResultSet rs = myStmt.executeQuery(query);
+			if (rs.next()) {
+				return fillResource(rs);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
