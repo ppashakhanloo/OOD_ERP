@@ -126,7 +126,7 @@ public class SystemDAO implements DAO<System> {
 			ResultSet rs = myStmt.executeQuery(generator.select("system", null,
 					"ProjectID = " + "'" + pid + "'"));
 			while (rs.next()) {
-				if (rs.getString("ProjectID").equals(pid))
+					java.lang.System.out.println(rs.getString("ID"));
 					systems.add(fillSystem(rs));
 			}
 		} catch (SQLException e) {
@@ -167,8 +167,8 @@ public class SystemDAO implements DAO<System> {
 	}
 
 	public static void main(String[] args) {
-		// SystemDAO dao = new SystemDAO();
-		// java.lang.System.out.println(dao.getModules("1629336"));
+		 SystemDAO dao = new SystemDAO();
+		java.lang.System.out.println(dao.getByProjectID("1"));
 	}
 
 }

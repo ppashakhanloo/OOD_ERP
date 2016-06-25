@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import report.UnitResource;
 import resource.Resource;
+import unit.Unit;
 
 public class UnitResourceDAO implements DAO<UnitResource> {
 
@@ -71,6 +72,32 @@ public class UnitResourceDAO implements DAO<UnitResource> {
 			e.printStackTrace();
 		}
 		return unitResources;
+	}
+
+	public Resource getResource(String key) {
+		String query = generator.select("unit_resource", null, "ID = " + "'"
+				+ key + "'");
+		try {
+			ResultSet rs = myStmt.executeQuery(query);
+			ResourceDAO dao = ResourceDAO.getInstance();
+			return dao.get(rs.getString("ResourceID"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public Unit getUnit(String key) {
+		String query = generator.select("unit_resource", null, "ID = " + "'"
+				+ key + "'");
+		try {
+			ResultSet rs = myStmt.executeQuery(query);
+			UnitDAO dao = UnitDAO.getInstance();
+			return dao.get(rs.getString("UnitID"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override

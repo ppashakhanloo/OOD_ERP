@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 
 import project.*;
 import resource.HumanResource;
@@ -16,9 +16,9 @@ public class ProjectDAO implements DAO<Project> {
 
 	private Connection sqlConn;
 	private Statement myStmt;
-	private String url = "jdbc:mysql://localhost:3306/erp";
+	private String url = "jdbc:mysql://localhost:9999/erp";
 	private String user = "root";
-	private String password = "0440448182";
+	private String password = "28525336";
 
 	QueryGenerator generator = QueryGenerator.getInstance();
 
@@ -376,8 +376,13 @@ public class ProjectDAO implements DAO<Project> {
 	}
 
 	public static void main(String[] args) {
-		// ProjectDAO prj = ProjectDAO.getInstance();
-		// java.lang.System.out.println(prj.getByName("WEB"));
+		ProjectDAO prj = ProjectDAO.getInstance();
+	       // java.lang.System.out.println(prj.getByName("WEB"));
+	        Project proj = new Project("abc123", "prj1", new java.sql.Date(10), new java.sql.Date(10), "customer", 10);
+	        ArrayList<String> uniIDs = new ArrayList<String>();
+	        uniIDs.add("1");
+	        prj.add(proj, uniIDs);
+	        java.lang.System.out.println(prj.get("abc123").getCustomerName());
 	}
 
 }

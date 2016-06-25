@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 
 import project.Project;
 import report.ProjectRequirement;
@@ -63,6 +64,54 @@ public class ProjectRequirementDAO implements DAO<ProjectRequirement> {
 		}
 	}
 
+	public ArrayList<ProjectRequirement> getByProvideDate(Date provideDate) {
+		ArrayList<ProjectRequirement> projects = new ArrayList<>();
+		String query = generator.select("project_requirement", null,
+				"provideDate = " + provideDate);
+		ResultSet rs;
+		try {
+			rs = myStmt.executeQuery(query);
+			while (rs.next()) {
+				projects.add(fillProjReq(rs));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return projects;
+	}
+
+	public ArrayList<ProjectRequirement> getByReleaseDate(Date releaseDate) {
+		ArrayList<ProjectRequirement> projects = new ArrayList<>();
+		String query = generator.select("project_requirement", null,
+				"releaseDate = " + releaseDate);
+		ResultSet rs;
+		try {
+			rs = myStmt.executeQuery(query);
+			while (rs.next()) {
+				projects.add(fillProjReq(rs));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return projects;
+	}
+
+	public ArrayList<ProjectRequirement> getEssentials() {
+		ArrayList<ProjectRequirement> projects = new ArrayList<>();
+		String query = generator.select("project_requirement", null,
+				"isEssential = 1");
+		ResultSet rs;
+		try {
+			rs = myStmt.executeQuery(query);
+			while (rs.next()) {
+				projects.add(fillProjReq(rs));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return projects;
+	}
+
 	public Project getProject(String key) {
 		String query = generator.select("project_requirement", null, "ID = "
 				+ "'" + key + "'");
@@ -112,25 +161,76 @@ public class ProjectRequirementDAO implements DAO<ProjectRequirement> {
 
 	@Override
 	public ProjectRequirement get(String key) {
-		// TODO Auto-generated method stub
+		String query = generator.select("project_requirement", null, "ID = "
+				+ "'" + key + "'");
+		try {
+			ResultSet rs = myStmt.executeQuery(query);
+			if (rs.next()) {
+				return (fillProjReq(rs));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
+	}
+
+	protected ProjectRequirement fillProjReq(ResultSet rs) throws SQLException {
+		ProjectRequirement prjReq = new ProjectRequirement(rs.getString("ID"),
+				rs.getDate("provideDate"), rs.getDate("releaseDate"),
+				rs.getBoolean("isEssential"),
+				rs.getDate("criticalProvideDate"),
+				rs.getInt("lengthOfPossession"));
+		return prjReq;
 	}
 
 	@Override
 	public void remove(String key) {
-		// TODO Auto-generated method stub
-
+		String query = generator.delete("project_requirement", "ID = " + "'"
+				+ key + "'");
+		try {
+			myStmt.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public boolean update(ProjectRequirement item) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			myStmt.executeUpdate("UPDATE project SET provideDate  = "
+					+ item.getProvideDate() + " WHERE ID = " + "'"
+					+ item.getID() + "'");
+			myStmt.executeUpdate("UPDATE project SET releaseDate  = "
+					+ item.getReleaseDate() + " WHERE ID = " + "'"
+					+ item.getID() + "'");
+			myStmt.executeUpdate("UPDATE project SET criticalProvideDate  = "
+					+ item.getCriticalProvideDate() + " WHERE ID = " + "'"
+					+ item.getID() + "'");
+			myStmt.executeUpdate("UPDATE project SET isEssential  = "
+					+ item.isEssential() + " WHERE ID = " + "'" + item.getID()
+					+ "'");
+			myStmt.executeUpdate("UPDATE project SET lengthOfPossession  = "
+					+ item.getLengthOfPossession() + " WHERE ID = " + "'"
+					+ item.getID() + "'");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 
 	@Override
 	public ArrayList<ProjectRequirement> list() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<ProjectRequirement> projectReqs = new ArrayList<>();
+		try {
+			ResultSet rs = myStmt
+					.executeQuery("SELECT * FROM project_requirement;");
+			while (rs.next()) {
+				projectReqs.add(fillProjReq(rs));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return projectReqs;
 	}
 }
