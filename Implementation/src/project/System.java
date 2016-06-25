@@ -1,9 +1,10 @@
 package project;
 
-import java.util.ArrayList;
-import java.util.Random;
 import database.ModuleDAO;
 import database.SystemDAO;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 public class System {
 	int ID_LENGTH = 6;

@@ -1,14 +1,14 @@
 package database;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-
 import access.AccessLevelFactory;
 import resource.ConfirmStatus;
 import resource.HumanResource;
 import resource.Resource;
 import resource.ResourceStatus;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class HumanResourceDAO extends ResourceDAO {
 

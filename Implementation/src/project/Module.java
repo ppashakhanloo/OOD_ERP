@@ -1,12 +1,12 @@
 package project;
 
+import database.ModuleDAO;
+import database.ModuleModificationDAO;
+import resource.HumanResource;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
-
-import resource.HumanResource;
-import database.ModuleDAO;
-import database.ModuleModificationDAO;
 
 public class Module {
 

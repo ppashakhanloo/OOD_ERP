@@ -1,8 +1,8 @@
 package project;
 
-import java.util.ArrayList;
-
 import database.ProjectDAO;
+
+import java.util.ArrayList;
 
 public class ProjectCatalogue {
 

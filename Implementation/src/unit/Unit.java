@@ -1,12 +1,12 @@
 package unit;
 
-import java.util.ArrayList;
-import java.util.Random;
-
-import resource.Resource;
 import database.RequirementDAO;
 import database.UnitDAO;
 import database.UnitResourceDAO;
+import resource.Resource;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 public class Unit {
 

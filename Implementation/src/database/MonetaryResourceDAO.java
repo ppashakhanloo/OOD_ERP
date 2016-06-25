@@ -1,10 +1,10 @@
 package database;
 
+import resource.*;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import resource.*;
 
 public class MonetaryResourceDAO extends ResourceDAO {
     private MonetaryResourceDAO() {

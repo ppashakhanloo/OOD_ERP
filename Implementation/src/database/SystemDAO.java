@@ -1,14 +1,10 @@
 package database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-
 import project.Module;
 import project.System;
+
+import java.sql.*;
+import java.util.ArrayList;
 
 public class SystemDAO implements DAO<System> {
 

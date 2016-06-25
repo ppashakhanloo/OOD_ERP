@@ -1,10 +1,10 @@
 package unit;
 
-import java.util.Date;
-import java.util.Random;
-
 import database.RequirementDAO;
 import resource.Resource;
+
+import java.util.Date;
+import java.util.Random;
 
 public class Requirement {
 

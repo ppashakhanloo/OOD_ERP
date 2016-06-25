@@ -1,12 +1,12 @@
 package database;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-
 import resource.PhysicalResource;
 import resource.Resource;
 import resource.ResourceStatus;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class PhysicalResourceDAO extends ResourceDAO {
 	private PhysicalResourceDAO() {

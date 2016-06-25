@@ -1,14 +1,10 @@
 package database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import access.PermissionType;
+
+import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
-
-import access.PermissionType;
 
 public class AccessLevelDAO {
 	protected Connection sqlConn;

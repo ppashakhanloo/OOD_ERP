@@ -1,14 +1,10 @@
 package database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-
 import project.ModuleModification;
 import resource.HumanResource;
+
+import java.sql.*;
+import java.util.ArrayList;
 
 public class ModuleModificationDAO implements DAO<ModuleModification> {
 
