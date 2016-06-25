@@ -186,8 +186,7 @@ public class Project {
 	}
 
 	public ArrayList<ProjectRequirement> getRequirements() {
-		ProjectRequirementDAO dao = ProjectRequirementDAO.getInstance();
-		return dao.getRequirementByProjectID(getID());
+		return ProjectRequirementDAO.getInstance().getRequirementByProjectID(getID());
 	}
 
 	public ArrayList<Resource> getResources() {
