@@ -127,4 +127,8 @@ public class UnitDAO implements DAO<Unit> {
 		}
 		return units;
 	}
+	//public static void main(String[] args) {
+	//	UnitDAO dao = UnitDAO.getInstance();
+	//	System.out.println(dao.update(new Unit("1", "test")));
+	//}
 }

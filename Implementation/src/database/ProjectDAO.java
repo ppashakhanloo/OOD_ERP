@@ -344,8 +344,9 @@ public class ProjectDAO implements DAO<Project> {
 			myStmt.executeUpdate("UPDATE project SET developmentStart  = "
 					+ item.getDevelopmentStart() + " WHERE ID = " + "'"
 					+ item.getID() + "'");
-			myStmt.executeUpdate("UPDATE project SET developmentEnd  = "+item.getDevelopmentEnd()+
-					" WHERE ID = " + "'"+ item.getID() + "'");
+			myStmt.executeUpdate("UPDATE project SET developmentEnd  = "
+					+ item.getDevelopmentEnd() + " WHERE ID = " + "'"
+					+ item.getID() + "'");
 			myStmt.executeUpdate("UPDATE project SET usersCount  = "
 					+ item.getUsersCount() + " WHERE ID = " + "'"
 					+ item.getID() + "'");
@@ -385,19 +386,19 @@ public class ProjectDAO implements DAO<Project> {
 		return projects;
 	}
 
-	public static void main(String[] args) {
-		ProjectDAO prj = ProjectDAO.getInstance();
-		// java.lang.System.out.println(prj.getByName("WEB"));
-		// Project proj = new Project("abc123", "prj1", null,null, "customer",
-		// 10);
-		// ArrayList<String> uniIDs = new ArrayList<String>();
-		// uniIDs.add("1");
-		// prj.add(proj, uniIDs);
-		// java.lang.System.out.println(prj.get("abc123").getCustomerName());
-		// java.lang.System.out.println(prj.getByUsersCount(0).get(0).getID());
-		//prj.update(new Project("1", "MIR", null,null,"maryam",4));
-		//prj.updateTechnology(new Technology("cj", "want"));
-		java.lang.System.out.println(prj.getUnitsByProjectID("WEB").get(0).getID());
-	}
+	// public static void main(String[] args) {
+	// ProjectDAO prj = ProjectDAO.getInstance();
+	// java.lang.System.out.println(prj.getByName("WEB"));
+	// Project proj = new Project("abc123", "prj1", null,null, "customer",
+	// 10);
+	// ArrayList<String> uniIDs = new ArrayList<String>();
+	// uniIDs.add("1");
+	// prj.add(proj, uniIDs);
+	// java.lang.System.out.println(prj.get("abc123").getCustomerName());
+	// java.lang.System.out.println(prj.getByUsersCount(0).get(0).getID());
+	// prj.update(new Project("1", "MIR", null,null,"maryam",4));
+	// prj.updateTechnology(new Technology("cj", "want"));
+	// java.lang.System.out.println(prj.getUnitsByProjectID("WEB").get(0).getID());
+	// }
 
 }
