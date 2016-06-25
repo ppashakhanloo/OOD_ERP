@@ -11,10 +11,6 @@ import java.util.Date;
 import project.Project;
 import report.ProjectRequirement;
 import resource.Resource;
-import unit.Requirement;
-
-import java.sql.*;
-import java.util.ArrayList;
 
 public class ProjectRequirementDAO implements DAO<ProjectRequirement> {
 	private Connection sqlConn;
@@ -251,5 +247,37 @@ public class ProjectRequirementDAO implements DAO<ProjectRequirement> {
 			e.printStackTrace();
 		}
 		return Reqs;
+	}
+
+	public ArrayList<Project> getProjectsWithEssentialResource(String rid) {
+		ArrayList<Project> Reqs = new ArrayList<>();
+		try {
+			ResultSet rs = myStmt.executeQuery(generator.select(
+					"project_requirement", null,
+					"isEssential = 1 AND ResourceID = " + "'" + rid + "'"));
+			while (rs.next()) {
+				ProjectDAO dao = ProjectDAO.getInstance();
+				Reqs.add(dao.get(rs.getString("ProjectID")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return Reqs;
+	}
+
+	public ArrayList<Resource> getRequiredResources(String pid) {
+		ArrayList<Resource> Ress = new ArrayList<>();
+		try {
+			ResultSet rs = myStmt.executeQuery(generator.select(
+					"project_requirement", null, "provideDate = ?"
+							+ " AND ProjectID = " + "'" + pid + "'"));
+			while (rs.next()) {
+				ResourceDAO dao = ResourceDAO.getInstance();
+				Ress.add(dao.get(rs.getString("ResourceID")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return Ress;
 	}
 }
