@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 
 import resource.Resource;
 import unit.Requirement;
@@ -139,6 +140,36 @@ public class RequirementDAO implements DAO<Requirement> {
 		ArrayList<Requirement> reqs = new ArrayList<>();
 		try {
 			ResultSet rs = myStmt.executeQuery("SELECT * FROM requirement;");
+			while (rs.next()) {
+				reqs.add(fillRequirement(rs));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return reqs;
+	}
+
+	public ArrayList<Requirement> getRequirementsByUnitID(String uid) {
+		ArrayList<Requirement> reqs = new ArrayList<>();
+		String query = generator.select("requirement", null, "UnitID = " + "'"
+				+ uid + "'");
+		try {
+			ResultSet rs = myStmt.executeQuery(query);
+			while (rs.next()) {
+				reqs.add(fillRequirement(rs));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return reqs;
+	}
+
+	public ArrayList<Requirement> getByProvideDate(Date provideDate) {
+		ArrayList<Requirement> reqs = new ArrayList<>();
+		String query = generator.select("requirement", null, "provideDate = "
+				+ provideDate);
+		try {
+			ResultSet rs = myStmt.executeQuery(query);
 			while (rs.next()) {
 				reqs.add(fillRequirement(rs));
 			}

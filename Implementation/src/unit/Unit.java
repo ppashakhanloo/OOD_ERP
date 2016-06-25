@@ -35,13 +35,13 @@ public class Unit {
 	}
 
 	public ArrayList<Requirement> getRequirements() {
-		UnitDAO unitDAO = UnitDAO.getInstance();
-		return unitDAO.getRequirements(getID());
+		RequirementDAO reqDAO = RequirementDAO.getInstance();
+		return reqDAO.getRequirementsByUnitID(getID());
 	}
 
 	public void removeRequirement(Requirement req) {
-		UnitDAO unitDAO = UnitDAO.getInstance();
-		unitDAO.removeRequirement(req);
+		RequirementDAO reqDAO = RequirementDAO.getInstance();
+		reqDAO.remove(req.getID());
 	}
 
 	public ArrayList<Resource> getResources() {

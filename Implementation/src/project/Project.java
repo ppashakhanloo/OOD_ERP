@@ -76,12 +76,12 @@ public class Project {
 
     public boolean setProjectManager(HumanResource hr) {
         ProjectDAO projectDAO = ProjectDAO.getInstance();
-        return projectDAO.setProjectManagers(getID(), hr.getID());
+        return projectDAO.setProjectManager(getID(), hr.getID());
     }
 
     public HumanResource getProjectManager() {
         ProjectDAO projectDAO = ProjectDAO.getInstance();
-        return projectDAO.getProjectManagers(getID());
+        return projectDAO.getProjectManager(getID());
     }
 
     public boolean addTechnology(Technology technology) {
