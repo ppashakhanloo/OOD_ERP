@@ -16,9 +16,9 @@ public class ProjectDAO implements DAO<Project> {
 
 	private Connection sqlConn;
 	private Statement myStmt;
-	private String url = "jdbc:mysql://localhost:9999/erp";
+	private String url = "jdbc:mysql://localhost:3306/erp";
 	private String user = "root";
-	private String password = "28525336";
+	private String password = "0440448182";
 
 	QueryGenerator generator = QueryGenerator.getInstance();
 
@@ -358,7 +358,6 @@ public class ProjectDAO implements DAO<Project> {
 
 	}
 
-	
 	@Override
 	public ArrayList<Project> list() {
 		ArrayList<Project> projects = new ArrayList<>();

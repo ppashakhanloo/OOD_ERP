@@ -33,6 +33,17 @@ public class Project {
         this.usersCount = usersCount;
     }
 
+    public Project(String name, Date developmentStart,
+                   Date developmentEnd, String customerName, int usersCount) {
+        super();
+        setID(generateNDigitID(ID_LENGTH));
+        this.name = name;
+        this.developmentStart = developmentStart;
+        this.developmentEnd = developmentEnd;
+        this.customerName = customerName;
+        this.usersCount = usersCount;
+    }
+
     private String generateNDigitID(int n) {
         Random random = new Random();
         return Integer.toString((int) (Math.pow(10, n - 1) + random.nextFloat()
@@ -164,8 +175,8 @@ public class Project {
 
     @Override
     public String toString() {
-        return "ID=" + ID + ", name=" + name + ", developmentStart=" + developmentStart.toString()
-                + ", developmentEnd=" + developmentEnd.toString() + ", customerName=" + customerName
+        return "ID=" + ID + ", name=" + name + ", developmentStart=" + (developmentStart == null ? "" : developmentStart.toString())
+                + ", developmentEnd=" + (developmentEnd == null ? "" : developmentEnd.toString()) + ", customerName=" + customerName
                 + ", usersCount=" + Integer.toString(usersCount);
     }
 }

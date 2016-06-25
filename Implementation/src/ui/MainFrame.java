@@ -138,7 +138,7 @@ public class MainFrame implements Visiblity {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainFrame.setVisible(false);
-                ViewProjects viewUnits = new ViewProjects(currentUser);
+                ViewProjects viewProjects = new ViewProjects(currentUser);
                 viewProjects.setVisible(true);
             }
         });

@@ -11,6 +11,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by ppash on 6/24/2016.
@@ -47,37 +48,32 @@ public class AddNewProject extends MainDialog {
         form.setLayout(new GridBagLayout());
         FormUtility formUtility = new FormUtility();
 
-        JTextField firstName = new JTextField(20);
-        formUtility.addLabel("نام ", form);
-        formUtility.addLastField(firstName, form);
+        JTextField name = new JTextField(20);
+        formUtility.addLabel("نام پروژه ", form);
+        formUtility.addLastField(name, form);
 
-
-        // واحدهای درگیر
-        DefaultListModel<Unit> listModel;
-        JList<Unit> unitList;
-        JScrollPane jScrollPane;
-        //////////////////////////////////////////////////// TODO
-        listModel = new DefaultListModel<>();
+        DefaultListModel<Unit> listModel = new DefaultListModel<>();
         operationFacade.getUnits().forEach(listModel::addElement);
-        unitList = new JList<>(listModel);
-        ////////////////////
-        jScrollPane = new JScrollPane(unitList);
-        getMainDialog().add(jScrollPane, BorderLayout.CENTER);
-
-        formUtility.addLabel("واحد ", form);
+        JList<Unit> unitList = new JList<>(listModel);
+        unitList.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        unitList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        getMainDialog().add(new JScrollPane(unitList), BorderLayout.CENTER);
+        formUtility.addLabel("واحدهای درگیر ", form);
         formUtility.addLastField(unitList, form);
         //////////////////////////////////////////////////////
+
 
 
         JButton submit = new JButton("افزودن");
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                operationFacade.addNewProject(firstName.getText(), lastName.getText(), expertise.getText(), password.getText(), ((Unit) unitsCombo.getSelectedItem()).getID());
+                operationFacade.addNewProject(name.getText(), unitList.getSelectedValuesList());
                 notifyAllObservers();
                 setVisible(false);
             }
         });
+
         JButton cancel = new JButton("صرف‌نظر");
         formUtility.addLastField(submit, form);
         formUtility.addLastField(cancel, form);

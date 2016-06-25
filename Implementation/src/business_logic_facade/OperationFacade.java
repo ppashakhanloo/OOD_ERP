@@ -70,10 +70,15 @@ public class OperationFacade {
     }
 
     // TODO
-    public void addNewProject(String firstName, String lastName, String expertise, String password, String unitID) {
+    public void addNewProject(String name, ArrayList<Unit> involvedUnits) {
         // by default, set accessLevel to 3
-        HumanResource humanResource = new HumanResource(firstName, lastName, expertise, password, (new AccessLevelFactory()).getAccessLevel("3"));
+
         ResourceCatalogue.getInstance().add(humanResource, unitID, "");
+
+        Project project = new Project();
+        project.setName(name);
+        ProjectCatalogue.getInstance().add(project);
+
     }
 
 }
