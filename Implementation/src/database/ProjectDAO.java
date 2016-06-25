@@ -333,7 +333,6 @@ public class ProjectDAO implements DAO<Project> {
                     + item.getDevelopmentStart() + " WHERE ID = " + "'"
                     + item.getID() + "'");
             myStmt.executeUpdate("UPDATE project SET developmentEnd  = "
-                    + item.getDevelopmentEnd() + " WHERE ID = " + "'"
                     + item.getID() + "'");
             myStmt.executeUpdate("UPDATE project SET usersCount  = "
                     + item.getUsersCount() + " WHERE ID = " + "'"

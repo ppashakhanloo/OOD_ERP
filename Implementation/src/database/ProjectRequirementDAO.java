@@ -7,9 +7,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
+
 import project.Project;
 import report.ProjectRequirement;
 import resource.Resource;
+import unit.Requirement;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -234,5 +236,20 @@ public class ProjectRequirementDAO implements DAO<ProjectRequirement> {
 			e.printStackTrace();
 		}
 		return projectReqs;
+	}
+
+	public ArrayList<ProjectRequirement> getRequirementByProjectID(String pid) {
+		ArrayList<ProjectRequirement> Reqs = new ArrayList<>();
+		try {
+			ResultSet rs = myStmt.executeQuery(generator.select(
+					"project_requirement", null, "ProjectID = " + "'" + pid
+							+ "'"));
+			while (rs.next()) {
+				Reqs.add(fillProjReq(rs));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return Reqs;
 	}
 }
