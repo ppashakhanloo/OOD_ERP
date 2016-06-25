@@ -24,14 +24,24 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
     private ProjectFacade projectFacade;
     private Project project;
     private EditProject editProject;
+    private AddNewTechnology addNewTechnology;
+    private UserFacade userFacade;
+
+    DefaultListModel<Technology> listModelTech;
+    JList<Technology> techList;
+
 
     public ViewSingleProject(UserFacade currentUser, Project project) {
         mainFrame = new MainFrame(currentUser);
         operationFacade = new OperationFacade();
         projectFacade = new ProjectFacade();
+        this.userFacade = currentUser;
         this.project = project;
-        editProject = new EditProject();
+        addNewTechnology = new AddNewTechnology(project);
+        editProject = new EditProject(project, addNewTechnology);
         editProject.attach(this);
+        addNewTechnology.attach(this);
+
         prepareGUI();
     }
 
@@ -60,9 +70,9 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
 
         JPanel techPanel = new JPanel();
         JScrollPane techListScroll = new JScrollPane();
-        DefaultListModel<Technology> listModelTech = new DefaultListModel<>();
+        listModelTech = new DefaultListModel<>();
         project.getTechnologies().forEach(listModelTech::addElement);
-        JList<Technology> techList = new JList(listModelTech);
+        techList = new JList(listModelTech);
 
 
         JPanel unitsPanel = new JPanel();
@@ -73,6 +83,7 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
 
 
         JButton viewRes = new JButton("مشاهده منابع");
+        // TODO
 //        viewRes.addActionListener(new ActionListener() {
 //            @Override
 //            public void actionPerformed(ActionEvent e) {
@@ -82,6 +93,7 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
 
 
         JButton viewReqs = new JButton("مشاهده نیازمندی‌ها");
+        // TODO
 //        viewReqs.addActionListener(new ActionListener() {
 //            @Override
 //            public void actionPerformed(ActionEvent e) {
@@ -116,18 +128,17 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
                                 .addComponent(structTreeScroll, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
         );
-        java.lang.System.out.println("HI!");
+
         DefaultMutableTreeNode root = new DefaultMutableTreeNode(project);
         // create the system nodes
         ArrayList<System> systems = project.getSystems();
-        java.lang.System.out.println("SYSTEMS: " + systems);
         DefaultMutableTreeNode[] systemNodes = new DefaultMutableTreeNode[systems.size()];
         if (systems != null) {
             for (int i = 0; i < systems.size(); i++) {
                 systemNodes[i] = new DefaultMutableTreeNode(systems.get(i));
                 ArrayList<Module> modules = systems.get(i).getModules();
                 DefaultMutableTreeNode[] moduleNodes = new DefaultMutableTreeNode[modules.size()];
-                for (int j  =0;j<modules.size();j++){
+                for (int j = 0; j < modules.size(); j++) {
                     moduleNodes[j] = new DefaultMutableTreeNode(modules.get(j));
                     systemNodes[i].add(moduleNodes[j]);
                 }
@@ -241,7 +252,13 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
 
     @Override
     public void update() {
-        // TODO
+
+        listModelTech = new DefaultListModel<>();
+        project.getTechnologies().forEach(listModelTech::addElement);
+        techList = new JList(listModelTech);
+        prepareGUI();
+        mainFrame.getMainFrame().repaint();
+        mainFrame.getMainFrame().revalidate();
     }
 
     @Override
