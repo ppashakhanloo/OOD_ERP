@@ -186,12 +186,12 @@ public class HumanResourceDAO extends ResourceDAO {
         return newRes;
     }
 
-    public static void main(String[] args) {
-        HumanResourceDAO dao = new HumanResourceDAO();
-        System.out.println(dao.authenticate("102664", "989"));
-        Resource res = new HumanResource("sara", "pasha", "java", "888",
-                (new AccessLevelFactory()).getAccessLevel("2"));
-        System.out.println("ADDED: " + dao.add(res, "1", ""));
+   // public static void main(String[] args) {
+   //     HumanResourceDAO dao = new HumanResourceDAO();
+   //     System.out.println(dao.authenticate("102664", "989"));
+    //    Resource res = new HumanResource("sara", "pasha", "java", "888",
+     //           (new AccessLevelFactory()).getAccessLevel("2"));
+     //   System.out.println("ADDED: " + dao.add(res, "1", ""));
 //        HumanResource oldRes = (HumanResource) dao.get(res.getID());
 //        System.out.println("OLD: " + oldRes);
 //        System.out.println("ID: " + oldRes.getID());
@@ -205,5 +205,5 @@ public class HumanResourceDAO extends ResourceDAO {
 //        System.out.println("NEW: " + newRes);
 ////		 System.out.println("REMOVE: " + dao.remove("980920"));
 //        System.out.println("LIST: " + dao.getByExpertise("java"));
-    }
+    //}
 }
