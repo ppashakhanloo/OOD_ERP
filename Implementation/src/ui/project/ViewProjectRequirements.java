@@ -21,9 +21,6 @@ public class ViewProjectRequirements extends ProjectObserver implements Visibili
     private OperationFacade operationFacade;
     private ProjectFacade projectFacade;
 
-
-    private AddNewProject addNewProject;
-
     private DefaultListModel<ProjectRequirement> listModel;
     private JList<ProjectRequirement> resourceList;
     private JScrollPane jScrollPane;
@@ -34,11 +31,8 @@ public class ViewProjectRequirements extends ProjectObserver implements Visibili
         mainFrame = new MainFrame(currentUser);
         operationFacade = new OperationFacade();
         projectFacade = new ProjectFacade();
-        addNewProject = new AddNewProject();
         this.project = project;
-        addNewProject.attach(this);
         prepareGUI();
-        System.out.println("**************HI*************");
     }
 
     private void prepareGUI() {
@@ -46,7 +40,7 @@ public class ViewProjectRequirements extends ProjectObserver implements Visibili
         JPanel addProjectsPanel = new JPanel(new GridBagLayout());
         GridBagConstraints cs = new GridBagConstraints();
         cs.fill = GridBagConstraints.HORIZONTAL;
-
+        System.out.println("**************HI*************");
         JButton addNew = new JButton("افزودن نیازمندی جدید");
         if (mainFrame.getCurrentUser().getCurrentUserPermissions().get(PermissionType.canAddRemReq))
             addNew.addActionListener(new ActionListener() {
@@ -57,13 +51,13 @@ public class ViewProjectRequirements extends ProjectObserver implements Visibili
             });
         else
             addNew.setEnabled(false);
-
+        System.out.println("**************HI*************");
         cs.gridx = 0;
         cs.gridy = 0;
         cs.gridwidth = 1;
         addProjectsPanel.add(addNew, cs);
         mainFrame.getMainFrame().getContentPane().add(addProjectsPanel, BorderLayout.NORTH);
-
+        System.out.println("**************HI*************");
         /////////////////////////////////////////////
         listModel = new DefaultListModel<>();
         for (ProjectRequirement pr : projectFacade.getProjectRequirements(project.getID()))
@@ -72,9 +66,11 @@ public class ViewProjectRequirements extends ProjectObserver implements Visibili
         jScrollPane = new JScrollPane(resourceList);
         mainFrame.getMainFrame().add(jScrollPane, BorderLayout.CENTER);
         //////////////////////////////////////////
-
+        System.out.println("**************END taghriban*************");
         mainFrame.getMainFrame().setResizable(true);
+        System.out.println("**************END taghriban*************");
         mainFrame.getMainFrame().pack();
+        System.out.println("**************END taghriban*************");
     }
 
     @Override
