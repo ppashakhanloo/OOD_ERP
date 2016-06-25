@@ -9,4 +9,11 @@ public class ProjectRequirementCatalogue {
 		ProjectRequirementDAO dao = ProjectRequirementDAO.getInstance();
 		return dao.list();
 	}
+	
+	public void remove(ProjectRequirement prjReq){
+		ProjectRequirementDAO dao = ProjectRequirementDAO.getInstance();
+		dao.remove(prjReq.getID());
+	}
+	
+	
 }
