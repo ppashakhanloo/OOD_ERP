@@ -4,7 +4,7 @@ import project.Project;
 import project.ProjectCatalogue;
 import project.Technology;
 import resource.HumanResource;
-import unit.Unit;
+import resource.Resource;
 
 import java.util.ArrayList;
 
@@ -21,8 +21,11 @@ public class ProjectFacade {
         return ProjectCatalogue.getInstance().list();
     }
 
+    public Project getProject(String pid) {
+        return ProjectCatalogue.getInstance().get(pid);
+    }
 
-    public HumanResource getProjectManager(String pid){
+    public HumanResource getProjectManager(String pid) {
         return ProjectCatalogue.getInstance().get(pid).getProjectManager();
     }
 
@@ -32,5 +35,9 @@ public class ProjectFacade {
 
     public void addInvolvedUnit(String uid, String pid) {
 //        ProjectCatalogue.getInstance().get(pid).
+    }
+
+    public ArrayList<Resource> getProjectResources(String pid) {
+        return ProjectCatalogue.getInstance().get(pid).getResources();
     }
 }

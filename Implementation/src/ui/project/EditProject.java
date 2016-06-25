@@ -1,6 +1,7 @@
 package ui.project;
 
 import business_logic_facade.ProjectFacade;
+import business_logic_facade.UserFacade;
 import project.Module;
 import project.Project;
 import project.System;
@@ -19,10 +20,12 @@ public class EditProject extends MainDialog {
 
     private ArrayList<ProjectObserver> observers;
     private ProjectFacade projectFacade;
+    private UserFacade userFacade;
 
-    public EditProject(Project project, AddNewTechnology addNewTechnology) {
+    public EditProject(Project project, AddNewTechnology addNewTechnology, UserFacade userFacade) {
         observers = new ArrayList<>();
         projectFacade = new ProjectFacade();
+        this.userFacade = userFacade;
         prepareGUI(project, addNewTechnology);
     }
 
@@ -61,8 +64,9 @@ public class EditProject extends MainDialog {
         edit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-
+                ViewSingleProject viewSingleProject = new ViewSingleProject(userFacade, project);
+                viewSingleProject.setVisible(true);
+                getMainDialog().setVisible(false);
             }
         });
 

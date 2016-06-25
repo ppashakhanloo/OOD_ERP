@@ -107,22 +107,6 @@ public class ResourceDAO {
 		return true;
 	}
 
-	public ArrayList<Resource> getResourcesByProjectID(String pid) {
-		ArrayList<Resource> resources = new ArrayList<>();
-		String query = queryGenerator.select("resource", null, "ProjectID = "
-				+ "'" + pid + "'");
-		try {
-			ResultSet rs = myStmt.executeQuery(query);
-			while(rs.next()){
-				resources.add(fillResource(rs));
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return resources;
-	}
-
 	private Resource fillResource(ResultSet rs) throws SQLException {
 		ResourceStatus resourceStatus = ResourceStatus.IDLE;
 		switch (rs.getString("resourceStatus")) {
