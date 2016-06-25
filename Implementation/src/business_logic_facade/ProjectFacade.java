@@ -2,7 +2,9 @@ package business_logic_facade;
 
 import project.Project;
 import project.ProjectCatalogue;
+import project.Technology;
 import resource.HumanResource;
+import unit.Unit;
 
 import java.util.ArrayList;
 
@@ -22,5 +24,13 @@ public class ProjectFacade {
 
     public HumanResource getProjectManager(String pid){
         return ProjectCatalogue.getInstance().get(pid).getProjectManager();
+    }
+
+    public void addNewTechnology(String name, String reason, String pid) {
+        ProjectCatalogue.getInstance().get(pid).addTechnology(new Technology(name, reason));
+    }
+
+    public void addInvolvedUnit(String uid, String pid) {
+//        ProjectCatalogue.getInstance().get(pid).
     }
 }

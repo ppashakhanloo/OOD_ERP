@@ -24,13 +24,16 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
     private ProjectFacade projectFacade;
     private Project project;
     private EditProject editProject;
+    private UserFacade userFacade;
+
 
     public ViewSingleProject(UserFacade currentUser, Project project) {
         mainFrame = new MainFrame(currentUser);
         operationFacade = new OperationFacade();
         projectFacade = new ProjectFacade();
+        this.userFacade = currentUser;
         this.project = project;
-        editProject = new EditProject();
+        editProject = new EditProject(project, new AddNewTechnology(project));
         editProject.attach(this);
         prepareGUI();
     }
@@ -73,6 +76,7 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
 
 
         JButton viewRes = new JButton("مشاهده منابع");
+        // TODO
 //        viewRes.addActionListener(new ActionListener() {
 //            @Override
 //            public void actionPerformed(ActionEvent e) {
@@ -82,6 +86,7 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
 
 
         JButton viewReqs = new JButton("مشاهده نیازمندی‌ها");
+        // TODO
 //        viewReqs.addActionListener(new ActionListener() {
 //            @Override
 //            public void actionPerformed(ActionEvent e) {
@@ -116,18 +121,17 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
                                 .addComponent(structTreeScroll, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
         );
-        java.lang.System.out.println("HI!");
+
         DefaultMutableTreeNode root = new DefaultMutableTreeNode(project);
         // create the system nodes
         ArrayList<System> systems = project.getSystems();
-        java.lang.System.out.println("SYSTEMS: " + systems);
         DefaultMutableTreeNode[] systemNodes = new DefaultMutableTreeNode[systems.size()];
         if (systems != null) {
             for (int i = 0; i < systems.size(); i++) {
                 systemNodes[i] = new DefaultMutableTreeNode(systems.get(i));
                 ArrayList<Module> modules = systems.get(i).getModules();
                 DefaultMutableTreeNode[] moduleNodes = new DefaultMutableTreeNode[modules.size()];
-                for (int j  =0;j<modules.size();j++){
+                for (int j = 0; j < modules.size(); j++) {
                     moduleNodes[j] = new DefaultMutableTreeNode(modules.get(j));
                     systemNodes[i].add(moduleNodes[j]);
                 }
@@ -241,7 +245,11 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
 
     @Override
     public void update() {
-        // TODO
+//        prepareGUI();
+//        mainFrame = new MainFrame(userFacade);
+        prepareGUI();
+        mainFrame.getMainFrame().repaint();
+        mainFrame.getMainFrame().revalidate();
     }
 
     @Override
