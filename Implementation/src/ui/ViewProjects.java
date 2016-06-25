@@ -3,8 +3,7 @@ package ui;
 import access.PermissionType;
 import business_logic_facade.OperationFacade;
 import business_logic_facade.UserFacade;
-import resource.PhysicalResource;
-import resource.Resource;
+import project.Project;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,38 +13,38 @@ import java.awt.event.ActionListener;
 /**
  * Created by ppash on 6/24/2016.
  */
-public class ViewPhysicalResources extends PhysicalResourceObserver implements Visiblity {
+public class ViewProjects extends ProjectObserver implements Visiblity {
 
     private MainFrame mainFrame;
     private OperationFacade operationFacade;
 
-    private AddNewPhysicalResource addNewPhysicalResource;
+    private AddNewProject addNewProject;
 
-    private DefaultListModel<PhysicalResource> listModel;
-    private JList<PhysicalResource> resourceList;
+    private DefaultListModel<Project> listModel;
+    private JList<Project> projectList;
     private JScrollPane jScrollPane;
 
 
-    public ViewPhysicalResources(UserFacade currentUser) {
+    public ViewProjects(UserFacade currentUser) {
         mainFrame = new MainFrame(currentUser);
         operationFacade = new OperationFacade();
-        addNewPhysicalResource = new AddNewPhysicalResource();
-        addNewPhysicalResource.attach(this);
+        addNewProject = new AddNewProject();
+        addNewProject.attach(this);
         prepareGUI();
     }
 
     private void prepareGUI() {
-        mainFrame.getMainFrame().setTitle("مشاهده منابع فیزیکی");
-        JPanel addResourcesPanel = new JPanel(new GridBagLayout());
+        mainFrame.getMainFrame().setTitle("مشاهده پروژه‌های سازمان ");
+        JPanel addProjectsPanel = new JPanel(new GridBagLayout());
         GridBagConstraints cs = new GridBagConstraints();
         cs.fill = GridBagConstraints.HORIZONTAL;
 
-        JButton addNew = new JButton("افزودن منبع جدید");
-        if (mainFrame.getCurrentUser().getCurrentUserPermissions().get(PermissionType.canAddRemResource))
+        JButton addNew = new JButton("افزودن پروژه جدید");
+        if (mainFrame.getCurrentUser().getCurrentUserPermissions().get(PermissionType.canAddProject))
             addNew.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    addNewPhysicalResource.setVisible(true);
+                    addNewProject.setVisible(true);
                 }
             });
         else
@@ -54,16 +53,16 @@ public class ViewPhysicalResources extends PhysicalResourceObserver implements V
         cs.gridx = 0;
         cs.gridy = 0;
         cs.gridwidth = 1;
-        addResourcesPanel.add(addNew, cs);
-        mainFrame.getMainFrame().getContentPane().add(addResourcesPanel, BorderLayout.NORTH);
+        addProjectsPanel.add(addNew, cs);
+        mainFrame.getMainFrame().getContentPane().add(addProjectsPanel, BorderLayout.NORTH);
 
         ////////////////////
         listModel = new DefaultListModel<>();
-        for (Resource resource : operationFacade.getPhysicalResources())
-            listModel.addElement((PhysicalResource) resource);
-        resourceList = new JList<>(listModel);
+        for (Project project : operationFacade.getProjects())
+            listModel.addElement(project);
+        projectList = new JList<>(listModel);
         ////////////////////
-        jScrollPane = new JScrollPane(resourceList);
+        jScrollPane = new JScrollPane(projectList);
         mainFrame.getMainFrame().add(jScrollPane, BorderLayout.CENTER);
         mainFrame.getMainFrame().setResizable(true);
         mainFrame.getMainFrame().pack();
@@ -78,10 +77,10 @@ public class ViewPhysicalResources extends PhysicalResourceObserver implements V
     public void update() {
         mainFrame.getMainFrame().remove(jScrollPane);
         listModel = new DefaultListModel<>();
-        for (Resource resource : operationFacade.getPhysicalResources())
-            listModel.addElement((PhysicalResource) resource);
-        resourceList = new JList<>(listModel);
-        jScrollPane = new JScrollPane(resourceList);
+        for (Project project : operationFacade.getProjects())
+            listModel.addElement(project);
+        projectList = new JList<>(listModel);
+        jScrollPane = new JScrollPane(projectList);
         mainFrame.getMainFrame().add(jScrollPane, BorderLayout.CENTER);
         mainFrame.getMainFrame().repaint();
         mainFrame.getMainFrame().revalidate();
@@ -89,8 +88,8 @@ public class ViewPhysicalResources extends PhysicalResourceObserver implements V
 
     public static void main(String[] args) {
         UserFacade userFacade = new UserFacade();
-        userFacade.login("871539", "888");
-        ViewPhysicalResources viewPhysicalResources = new ViewPhysicalResources(userFacade);
-        viewPhysicalResources.setVisible(true);
+        userFacade.login("158481", "y");
+        ViewProjects viewProjects = new ViewProjects(userFacade);
+        viewProjects.setVisible(true);
     }
 }

@@ -1,7 +1,7 @@
 package ui;
 
 import access.PermissionType;
-import business_logic_facade.ResourceFacade;
+import business_logic_facade.OperationFacade;
 import business_logic_facade.UserFacade;
 import resource.InformationResource;
 import resource.Resource;
@@ -17,7 +17,7 @@ import java.awt.event.ActionListener;
 public class ViewInformationResources extends InformationResourceObserver implements Visiblity {
 
     private MainFrame mainFrame;
-    private ResourceFacade resourceFacade;
+    private OperationFacade operationFacade;
 
     private AddNewInformationResource addNewInformationResource;
 
@@ -28,7 +28,7 @@ public class ViewInformationResources extends InformationResourceObserver implem
 
     public ViewInformationResources(UserFacade currentUser) {
         mainFrame = new MainFrame(currentUser);
-        resourceFacade = new ResourceFacade();
+        operationFacade = new OperationFacade();
         addNewInformationResource = new AddNewInformationResource();
         addNewInformationResource.attach(this);
         prepareGUI();
@@ -59,7 +59,7 @@ public class ViewInformationResources extends InformationResourceObserver implem
 
         ////////////////////
         listModel = new DefaultListModel<>();
-        for (Resource resource : resourceFacade.getInformationResources())
+        for (Resource resource : operationFacade.getInformationResources())
             listModel.addElement((InformationResource) resource);
         resourceList = new JList<>(listModel);
         ////////////////////
@@ -78,7 +78,7 @@ public class ViewInformationResources extends InformationResourceObserver implem
     public void update() {
         mainFrame.getMainFrame().remove(jScrollPane);
         listModel = new DefaultListModel<>();
-        for (Resource resource : resourceFacade.getInformationResources())
+        for (Resource resource : operationFacade.getInformationResources())
             listModel.addElement((InformationResource) resource);
         resourceList = new JList<>(listModel);
         jScrollPane = new JScrollPane(resourceList);

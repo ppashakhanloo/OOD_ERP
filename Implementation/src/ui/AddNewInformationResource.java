@@ -1,6 +1,6 @@
 package ui;
 
-import business_logic_facade.ResourceFacade;
+import business_logic_facade.OperationFacade;
 import ui.utilities.FormUtility;
 import unit.Unit;
 
@@ -16,12 +16,12 @@ import java.util.ArrayList;
  */
 public class AddNewInformationResource extends MainDialog {
 
-    private ResourceFacade resourceFacade;
+    private OperationFacade operationFacade;
 
     ArrayList<InformationResourceObserver> observers;
 
     public AddNewInformationResource() {
-        resourceFacade = new ResourceFacade();
+        operationFacade = new OperationFacade();
         observers = new ArrayList<>();
         prepareGUI();
     }
@@ -56,7 +56,7 @@ public class AddNewInformationResource extends MainDialog {
 
         // JTextField ID
 
-        ArrayList<Unit> units = resourceFacade.getUnits();
+        ArrayList<Unit> units = operationFacade.getUnits();
         JComboBox<Unit> unitsCombo = new JComboBox<>();
         for (Unit unit : units)
             unitsCombo.addItem(unit);
@@ -68,7 +68,7 @@ public class AddNewInformationResource extends MainDialog {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                resourceFacade.addNewInformationResource(name.getText(), description.getText(), ((Unit)unitsCombo.getSelectedItem()).getID());
+                operationFacade.addNewInformationResource(name.getText(), description.getText(), ((Unit)unitsCombo.getSelectedItem()).getID());
                 notifyAllObservers();
                 setVisible(false);
             }

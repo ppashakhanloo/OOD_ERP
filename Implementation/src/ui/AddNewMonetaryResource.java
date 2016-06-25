@@ -1,6 +1,6 @@
 package ui;
 
-import business_logic_facade.ResourceFacade;
+import business_logic_facade.OperationFacade;
 import resource.QuantityUnit;
 import ui.utilities.FormUtility;
 import unit.Unit;
@@ -17,12 +17,12 @@ import java.util.*;
  */
 public class AddNewMonetaryResource extends MainDialog {
 
-    private ResourceFacade resourceFacade;
+    private OperationFacade operationFacade;
 
     ArrayList<MonetaryResourceObserver> observers;
 
     public AddNewMonetaryResource() {
-        resourceFacade = new ResourceFacade();
+        operationFacade = new OperationFacade();
         observers = new ArrayList<>();
         prepareGUI();
     }
@@ -92,13 +92,13 @@ public class AddNewMonetaryResource extends MainDialog {
         formUtility.addLabel("مقدار", form);
         formUtility.addLastField(amount, form);
 
-        java.util.List<QuantityUnit> quantityUnits = resourceFacade.getQuantityUnits();
+        java.util.List<QuantityUnit> quantityUnits = operationFacade.getQuantityUnits();
         JComboBox<QuantityUnit> quantityUnitsCombo = new JComboBox<>();
         quantityUnits.forEach(quantityUnitsCombo::addItem);
         formUtility.addLabel("واحد پول ", form);
         formUtility.addLastField(quantityUnitsCombo, form);
 
-        ArrayList<Unit> units = resourceFacade.getUnits();
+        ArrayList<Unit> units = operationFacade.getUnits();
         JComboBox<Unit> unitsCombo = new JComboBox<>();
 
         units.forEach(unitsCombo::addItem);
@@ -110,7 +110,7 @@ public class AddNewMonetaryResource extends MainDialog {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                resourceFacade.addNewMonetaryResource(getSelectedButtonText(buttonGroup), location.getText(),
+                operationFacade.addNewMonetaryResource(getSelectedButtonText(buttonGroup), location.getText(),
                         accountNumber.getText().equals("") ? "0" : accountNumber.getText(), (Integer) amount.getValue(), quantityUnitsCombo.getSelectedItem().toString(), ((Unit) unitsCombo.getSelectedItem()).getID());
                 notifyAllObservers();
                 setVisible(false);

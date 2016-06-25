@@ -133,19 +133,23 @@ public class MainFrame implements Visiblity {
 
     private void prepareProjectsMenu(Map<PermissionType, Boolean> permissionTypes) {
         JMenu projects = new JMenu("پروژه‌ها");
-        JMenuItem addNewProject = new JMenuItem("افزودن پروژه جدید");
         JMenuItem viewProjects = new JMenuItem("مشاهده پروژه‌ها");
+        viewProjects.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainFrame.setVisible(false);
+                ViewProjects viewUnits = new ViewProjects(currentUser);
+                viewProjects.setVisible(true);
+            }
+        });
 
         projects.add(viewProjects);
-        if (permissionTypes.get(PermissionType.canAddProject))
-            projects.add(addNewProject);
         if (projects.getItemCount() > 0)
             menuBar.add(projects);
     }
 
     private void prepareOrganizationMenu(Map<PermissionType, Boolean> permissionTypes) {
         JMenu organization = new JMenu("سازمان");
-        //JMenuItem addNewUnit = new JMenuItem("افزودن واحد جدید");
         JMenuItem viewUnits = new JMenuItem("مشاهده واحدها");
         viewUnits.addActionListener(new ActionListener() {
             @Override

@@ -1,6 +1,7 @@
 package ui;
 
 import business_logic_facade.OperationFacade;
+import project.Project;
 import ui.utilities.FormUtility;
 import unit.Unit;
 
@@ -14,30 +15,30 @@ import java.util.ArrayList;
 /**
  * Created by ppash on 6/24/2016.
  */
-public class AddNewPhysicalResource extends MainDialog {
+public class AddNewProject extends MainDialog {
 
     private OperationFacade operationFacade;
 
-    ArrayList<PhysicalResourceObserver> observers;
+    ArrayList<ProjectObserver> observers;
 
-    public AddNewPhysicalResource() {
+    public AddNewProject() {
         operationFacade = new OperationFacade();
         observers = new ArrayList<>();
         prepareGUI();
     }
 
-    public void attach(PhysicalResourceObserver observer){
+    public void attach(ProjectObserver observer) {
         observers.add(observer);
     }
 
-    public void notifyAllObservers(){
-        for (PhysicalResourceObserver observer : observers) {
+    public void notifyAllObservers() {
+        for (ProjectObserver observer : observers) {
             observer.update();
         }
     }
 
     private void prepareGUI() {
-        super.getMainDialog().setTitle("افزودن منبع فیزیکی");
+        super.getMainDialog().setTitle("افزودن پروژه جدید");
         JPanel form = new JPanel(new GridBagLayout());
 
         super.getMainDialog().getContentPane().setLayout(new BorderLayout());
@@ -46,33 +47,33 @@ public class AddNewPhysicalResource extends MainDialog {
         form.setLayout(new GridBagLayout());
         FormUtility formUtility = new FormUtility();
 
-        JTextField name = new JTextField(20);
+        JTextField firstName = new JTextField(20);
         formUtility.addLabel("نام ", form);
-        formUtility.addLastField(name, form);
+        formUtility.addLastField(firstName, form);
 
-        JTextField model = new JTextField(20);
-        formUtility.addLabel("مدل ", form);
-        formUtility.addLastField(model, form);
 
-        JTextField location = new JTextField(20);
-        formUtility.addLabel("محل ", form);
-        formUtility.addLastField(location, form);
-
-        // JTextField ID
-
-        ArrayList<Unit> units = operationFacade.getUnits();
-        JComboBox<Unit> unitsCombo = new JComboBox<>();
-        for (Unit unit : units)
-            unitsCombo.addItem(unit);
+        // واحدهای درگیر
+        DefaultListModel<Unit> listModel;
+        JList<Unit> unitList;
+        JScrollPane jScrollPane;
+        //////////////////////////////////////////////////// TODO
+        listModel = new DefaultListModel<>();
+        operationFacade.getUnits().forEach(listModel::addElement);
+        unitList = new JList<>(listModel);
+        ////////////////////
+        jScrollPane = new JScrollPane(unitList);
+        getMainDialog().add(jScrollPane, BorderLayout.CENTER);
 
         formUtility.addLabel("واحد ", form);
-        formUtility.addLastField(unitsCombo, form);
+        formUtility.addLastField(unitList, form);
+        //////////////////////////////////////////////////////
+
 
         JButton submit = new JButton("افزودن");
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                operationFacade.addNewPhysicalResource(name.getText(), model.getText(), location.getText(), ((Unit)unitsCombo.getSelectedItem()).getID());
+                operationFacade.addNewProject(firstName.getText(), lastName.getText(), expertise.getText(), password.getText(), ((Unit) unitsCombo.getSelectedItem()).getID());
                 notifyAllObservers();
                 setVisible(false);
             }
@@ -88,7 +89,7 @@ public class AddNewPhysicalResource extends MainDialog {
     public static void main(String[] args) {
 //        UserFacade userFacade = new UserFacade();
 //        userFacade.login("478837", "888");
-        AddNewPhysicalResource addNewPhysicalResource = new AddNewPhysicalResource();
-        addNewPhysicalResource.setVisible(true);
+        AddNewProject addNewProject = new AddNewProject();
+        addNewProject.setVisible(true);
     }
 }

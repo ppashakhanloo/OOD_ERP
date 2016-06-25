@@ -1,6 +1,6 @@
 package ui;
 
-import business_logic_facade.ResourceFacade;
+import business_logic_facade.OperationFacade;
 import ui.utilities.FormUtility;
 import unit.Unit;
 
@@ -16,12 +16,12 @@ import java.util.ArrayList;
  */
 public class AddNewHumanResource extends MainDialog {
 
-    private ResourceFacade resourceFacade;
+    private OperationFacade operationFacade;
 
     ArrayList<HumanResourceObserver> observers;
 
     public AddNewHumanResource() {
-        resourceFacade = new ResourceFacade();
+        operationFacade = new OperationFacade();
         observers = new ArrayList<>();
         prepareGUI();
     }
@@ -65,7 +65,7 @@ public class AddNewHumanResource extends MainDialog {
 
         // JTextField ID
 
-        ArrayList<Unit> units = resourceFacade.getUnits();
+        ArrayList<Unit> units = operationFacade.getUnits();
         JComboBox<Unit> unitsCombo = new JComboBox<>();
         for (Unit unit : units)
             unitsCombo.addItem(unit);
@@ -77,7 +77,7 @@ public class AddNewHumanResource extends MainDialog {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                resourceFacade.addNewHumanResource(firstName.getText(), lastName.getText(), expertise.getText(), password.getText(), ((Unit)unitsCombo.getSelectedItem()).getID());
+                operationFacade.addNewHumanResource(firstName.getText(), lastName.getText(), expertise.getText(), password.getText(), ((Unit)unitsCombo.getSelectedItem()).getID());
                 notifyAllObservers();
                 setVisible(false);
             }

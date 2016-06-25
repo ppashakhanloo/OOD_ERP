@@ -1,6 +1,8 @@
 package business_logic_facade;
 
 import access.AccessLevelFactory;
+import project.Project;
+import project.ProjectCatalogue;
 import resource.*;
 import unit.Unit;
 import unit.UnitCatalogue;
@@ -30,11 +32,17 @@ public class OperationFacade {
         return ResourceCatalogue.getInstance().getAll(ResourceType.MONETARY);
     }
 
+    public ArrayList<Project> getProjects() {
+        return ProjectCatalogue.getInstance().list();
+    }
+
     public ArrayList<Unit> getUnits() {
         return UnitCatalogue.getInstance().list();
     }
 
-    public List<QuantityUnit> getQuantityUnits() { return Arrays.asList(QuantityUnit.values()); }
+    public List<QuantityUnit> getQuantityUnits() {
+        return Arrays.asList(QuantityUnit.values());
+    }
 
     public void addNewHumanResource(String firstName, String lastName, String expertise, String password, String unitID) {
         // by default, set accessLevel to 3
@@ -43,19 +51,15 @@ public class OperationFacade {
     }
 
     public void addNewPhysicalResource(String name, String model, String location, String unitID) {
-        PhysicalResource physicalResource = new PhysicalResource(name, model, location);
-        ResourceCatalogue.getInstance().add(physicalResource, unitID, "");
+        ResourceCatalogue.getInstance().add(new PhysicalResource(name, model, location), unitID, "");
     }
 
     public void addNewInformationResource(String name, String description, String unitID) {
-        InformationResource informationResource = new InformationResource(name, description);
-        ResourceCatalogue.getInstance().add(informationResource, unitID, "");
+        ResourceCatalogue.getInstance().add(new InformationResource(name, description), unitID, "");
     }
 
-
     public void addNewUnit(String name) {
-        Unit unit = new Unit(name);
-        UnitCatalogue.getInstance().add(unit);
+        UnitCatalogue.getInstance().add(new Unit(name));
     }
 
     public void addNewMonetaryResource(String monetaryType, String location, String accountNumber, Integer amount, String quantityUnit, String unitID) {
@@ -64,4 +68,12 @@ public class OperationFacade {
                 new Quantity(amount, quantityUnit.equals("DOLLAR") ? QuantityUnit.DOLLAR : QuantityUnit.RIAL));
         ResourceCatalogue.getInstance().add(monetaryResource, unitID, "");
     }
+
+    // TODO
+    public void addNewProject(String firstName, String lastName, String expertise, String password, String unitID) {
+        // by default, set accessLevel to 3
+        HumanResource humanResource = new HumanResource(firstName, lastName, expertise, password, (new AccessLevelFactory()).getAccessLevel("3"));
+        ResourceCatalogue.getInstance().add(humanResource, unitID, "");
+    }
+
 }

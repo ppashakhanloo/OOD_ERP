@@ -1,7 +1,7 @@
 package ui;
 
 import access.PermissionType;
-import business_logic_facade.ResourceFacade;
+import business_logic_facade.OperationFacade;
 import business_logic_facade.UserFacade;
 import resource.HumanResource;
 import resource.Resource;
@@ -17,7 +17,7 @@ import java.awt.event.ActionListener;
 public class ViewHumanResources extends HumanResourceObserver implements Visiblity {
 
     private MainFrame mainFrame;
-    private ResourceFacade resourceFacade;
+    private OperationFacade operationFacade;
 
     private AddNewHumanResource addNewHumanResource;
 
@@ -28,7 +28,7 @@ public class ViewHumanResources extends HumanResourceObserver implements Visibli
 
     public ViewHumanResources(UserFacade currentUser) {
         mainFrame = new MainFrame(currentUser);
-        resourceFacade = new ResourceFacade();
+        operationFacade = new OperationFacade();
         addNewHumanResource = new AddNewHumanResource();
         addNewHumanResource.attach(this);
         prepareGUI();
@@ -59,7 +59,7 @@ public class ViewHumanResources extends HumanResourceObserver implements Visibli
 
         ////////////////////
         listModel = new DefaultListModel<>();
-        for (Resource resource : resourceFacade.getHumanResources())
+        for (Resource resource : operationFacade.getHumanResources())
             listModel.addElement((HumanResource) resource);
         resourceList = new JList<>(listModel);
         ////////////////////
@@ -78,7 +78,7 @@ public class ViewHumanResources extends HumanResourceObserver implements Visibli
     public void update() {
         mainFrame.getMainFrame().remove(jScrollPane);
         listModel = new DefaultListModel<>();
-        for (Resource resource : resourceFacade.getHumanResources())
+        for (Resource resource : operationFacade.getHumanResources())
             listModel.addElement((HumanResource) resource);
         resourceList = new JList<>(listModel);
         jScrollPane = new JScrollPane(resourceList);

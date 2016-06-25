@@ -1,9 +1,8 @@
 package ui;
 
 import access.PermissionType;
-import business_logic_facade.ResourceFacade;
+import business_logic_facade.OperationFacade;
 import business_logic_facade.UserFacade;
-import com.sun.org.apache.xpath.internal.SourceTree;
 import resource.MonetaryResource;
 import resource.Resource;
 
@@ -18,7 +17,7 @@ import java.awt.event.ActionListener;
 public class ViewMonetaryResources extends MonetaryResourceObserver implements Visiblity {
 
     private MainFrame mainFrame;
-    private ResourceFacade resourceFacade;
+    private OperationFacade operationFacade;
 
     private AddNewMonetaryResource addNewMonetaryResource;
 
@@ -29,7 +28,7 @@ public class ViewMonetaryResources extends MonetaryResourceObserver implements V
 
     public ViewMonetaryResources(UserFacade currentUser) {
         mainFrame = new MainFrame(currentUser);
-        resourceFacade = new ResourceFacade();
+        operationFacade = new OperationFacade();
         addNewMonetaryResource = new AddNewMonetaryResource();
         addNewMonetaryResource.attach(this);
         prepareGUI();
@@ -60,7 +59,7 @@ public class ViewMonetaryResources extends MonetaryResourceObserver implements V
 
         ////////////////////
         listModel = new DefaultListModel<>();
-        for (Resource resource : resourceFacade.getMonetaryResources())
+        for (Resource resource : operationFacade.getMonetaryResources())
             listModel.addElement((MonetaryResource) resource);
         resourceList = new JList<>(listModel);
         ////////////////////
@@ -79,7 +78,7 @@ public class ViewMonetaryResources extends MonetaryResourceObserver implements V
     public void update() {
         mainFrame.getMainFrame().remove(jScrollPane);
         listModel = new DefaultListModel<>();
-        for (Resource resource : resourceFacade.getMonetaryResources())
+        for (Resource resource : operationFacade.getMonetaryResources())
             listModel.addElement((MonetaryResource) resource);
         resourceList = new JList<>(listModel);
         jScrollPane = new JScrollPane(resourceList);

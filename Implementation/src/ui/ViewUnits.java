@@ -1,7 +1,7 @@
 package ui;
 
 import access.PermissionType;
-import business_logic_facade.ResourceFacade;
+import business_logic_facade.OperationFacade;
 import business_logic_facade.UserFacade;
 import ui.utilities.UnitObserver;
 import unit.Unit;
@@ -17,7 +17,7 @@ import java.awt.event.ActionListener;
 public class ViewUnits extends UnitObserver implements Visiblity {
 
     private MainFrame mainFrame;
-    private ResourceFacade resourceFacade;
+    private OperationFacade operationFacade;
 
     private AddNewUnit addNewUnit;
 
@@ -28,7 +28,7 @@ public class ViewUnits extends UnitObserver implements Visiblity {
 
     public ViewUnits(UserFacade currentUser) {
         mainFrame = new MainFrame(currentUser);
-        resourceFacade = new ResourceFacade();
+        operationFacade = new OperationFacade();
         addNewUnit = new AddNewUnit();
         addNewUnit.attach(this);
         prepareGUI();
@@ -59,7 +59,7 @@ public class ViewUnits extends UnitObserver implements Visiblity {
 
         ////////////////////
         listModel = new DefaultListModel<>();
-        for (Unit unit : resourceFacade.getUnits())
+        for (Unit unit : operationFacade.getUnits())
             listModel.addElement(unit);
         unitList = new JList<>(listModel);
         ////////////////////
@@ -78,7 +78,7 @@ public class ViewUnits extends UnitObserver implements Visiblity {
     public void update() {
         mainFrame.getMainFrame().remove(jScrollPane);
         listModel = new DefaultListModel<>();
-        for (Unit unit : resourceFacade.getUnits())
+        for (Unit unit : operationFacade.getUnits())
             listModel.addElement(unit);
         unitList = new JList<>(listModel);
         jScrollPane = new JScrollPane(unitList);

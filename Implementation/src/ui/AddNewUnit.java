@@ -1,9 +1,8 @@
 package ui;
 
-import business_logic_facade.ResourceFacade;
+import business_logic_facade.OperationFacade;
 import ui.utilities.FormUtility;
 import ui.utilities.UnitObserver;
-import unit.Unit;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -17,12 +16,12 @@ import java.util.ArrayList;
  */
 public class AddNewUnit extends MainDialog {
 
-    private ResourceFacade resourceFacade;
+    private OperationFacade operationFacade;
 
     ArrayList<UnitObserver> observers;
 
     public AddNewUnit() {
-        resourceFacade = new ResourceFacade();
+        operationFacade = new OperationFacade();
         observers = new ArrayList<>();
         prepareGUI();
     }
@@ -53,7 +52,7 @@ public class AddNewUnit extends MainDialog {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                resourceFacade.addNewUnit(name.getText());
+                operationFacade.addNewUnit(name.getText());
                 notifyAllObservers();
                 setVisible(false);
             }
