@@ -106,6 +106,20 @@ public class HumanResourceDAO extends ResourceDAO {
         return super.update(item);
     }
 
+    public ArrayList<Resource> getResourcesByProjectID(String pid) {
+        ArrayList<Resource> resources = new ArrayList<>();
+        try {
+            ResultSet rs = myStmt.executeQuery("SELECT * from human_resource inner join resource on human_resource.ResourceID = resource.ID AND ProjectID = "+"'" + pid + "'");
+            while(rs.next()){
+                resources.add(fillHumanResource(rs));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resources;
+    }
+
     @Override
     public ArrayList<Resource> list() {
         return listConditional(null);

@@ -122,6 +122,20 @@ public class InformationResourceDAO extends ResourceDAO {
 		return listConditional("name = " + "'" + name + "'");
 	}
 
+	public ArrayList<Resource> getResourcesByProjectID(String pid) {
+		ArrayList<Resource> resources = new ArrayList<>();
+		try {
+			ResultSet rs = myStmt.executeQuery("SELECT * from information_resource inner join resource on information_resource.ResourceID = resource.ID AND ProjectID = "+"'" + pid + "'");
+			while(rs.next()){
+				resources.add(fillInformationResource(rs));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return resources;
+	}
+
 	public static void main(String[] args) {
 		// InformationResourceDAO dao = new InformationResourceDAO();
 		// Resource res = new InformationResource("db", "db description");

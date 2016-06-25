@@ -37,8 +37,8 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
         projectFacade = new ProjectFacade();
         this.userFacade = currentUser;
         this.project = project;
-        addNewTechnology = new AddNewTechnology(project);
-        editProject = new EditProject(project, addNewTechnology);
+        addNewTechnology = new AddNewTechnology(userFacade, project);
+        editProject = new EditProject(project, addNewTechnology, currentUser);
         editProject.attach(this);
         addNewTechnology.attach(this);
 
@@ -84,12 +84,12 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
 
         JButton viewRes = new JButton("مشاهده منابع");
         // TODO
-//        viewRes.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                viewProjectResources.setVisible(true);
-//            }
-//        });
+        viewRes.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                (new ViewProjectResources(userFacade, project)).setVisible(true);
+            }
+        });
 
 
         JButton viewReqs = new JButton("مشاهده نیازمندی‌ها");
@@ -106,6 +106,7 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
         edit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                mainFrame.getMainFrame().setVisible(false);
                 editProject.setVisible(true);
             }
         });
@@ -253,17 +254,10 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
     @Override
     public void update() {
 
-        listModelTech = new DefaultListModel<>();
-        project.getTechnologies().forEach(listModelTech::addElement);
-        techList = new JList(listModelTech);
-        prepareGUI();
-        mainFrame.getMainFrame().repaint();
-        mainFrame.getMainFrame().revalidate();
     }
 
     @Override
     public void setVisible(boolean visible) {
         mainFrame.setVisible(true);
     }
-
 }

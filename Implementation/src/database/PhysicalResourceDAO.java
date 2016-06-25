@@ -134,6 +134,21 @@ public class PhysicalResourceDAO extends ResourceDAO {
 		return newRes;
 	}
 
+
+	public ArrayList<Resource> getResourcesByProjectID(String pid) {
+		ArrayList<Resource> resources = new ArrayList<>();
+		try {
+			ResultSet rs = myStmt.executeQuery("SELECT * from physical_resource inner join resource on physical_resource.ResourceID = resource.ID AND ProjectID = "+"'" + pid + "'");
+			while(rs.next()){
+				resources.add(fillPhysicalResource(rs));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return resources;
+	}
+
 	public static void main(String[] args) {
 		// PhysicalResourceDAO dao = new PhysicalResourceDAO();
 		// Resource res = new PhysicalResource("table", "nilper", "room202");

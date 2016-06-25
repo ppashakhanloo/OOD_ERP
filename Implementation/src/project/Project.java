@@ -1,11 +1,9 @@
 package project;
 
-import database.ProjectDAO;
-import database.ProjectRequirementDAO;
-import database.ResourceDAO;
-import database.SystemDAO;
+import database.*;
 import report.ProjectRequirement;
 import resource.HumanResource;
+import resource.PhysicalResource;
 import resource.Resource;
 import unit.Unit;
 
@@ -193,7 +191,10 @@ public class Project {
 	}
 
 	public ArrayList<Resource> getResources() {
-		ResourceDAO dao = ResourceDAO.getInstance();
-		return dao.getResourcesByProjectID(getID());
+		ArrayList<Resource> resources = new ArrayList<>(HumanResourceDAO.getInstance().getResourcesByProjectID(getID()));
+		resources.addAll(InformationResourceDAO.getInstance().getResourcesByProjectID(getID()));
+		resources.addAll(PhysicalResourceDAO.getInstance().getResourcesByProjectID(getID()));
+		resources.addAll(MonetaryResourceDAO.getInstance().getResourcesByProjectID(getID()));
+		return resources;
 	}
 }
