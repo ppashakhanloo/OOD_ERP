@@ -10,9 +10,9 @@ public class SystemDAO implements DAO<System> {
 
 	private Connection sqlConn;
 	private Statement myStmt;
-	private String url = "jdbc:mysql://localhost:3306/erp";
+	private String url = "jdbc:mysql://localhost:9999/erp";
 	private String user = "root";
-	private String password = "0440448182";
+	private String password = "28525336";
 
 	QueryGenerator generator = QueryGenerator.getInstance();
 
@@ -122,8 +122,7 @@ public class SystemDAO implements DAO<System> {
 			ResultSet rs = myStmt.executeQuery(generator.select("system", null,
 					"ProjectID = " + "'" + pid + "'"));
 			while (rs.next()) {
-					java.lang.System.out.println(rs.getString("ID"));
-					systems.add(fillSystem(rs));
+				systems.add(fillSystem(rs));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -162,9 +161,10 @@ public class SystemDAO implements DAO<System> {
 		return modules;
 	}
 
-	public static void main(String[] args) {
-		 SystemDAO dao = new SystemDAO();
-		java.lang.System.out.println(dao.getByProjectID("1"));
-	}
+	// public static void main(String[] args) {
+	// SystemDAO dao = new SystemDAO();
+	// //java.lang.System.out.println();
+	// java.lang.System.out.println(dao.getModules("1629336"));
+	// }
 
 }
