@@ -12,9 +12,9 @@ import java.util.ArrayList;
 public class ProjectDAO implements DAO<Project> {
 
 	private Connection sqlConn;
-	private String url = "jdbc:mysql://localhost:9999/erp";
+	private String url = "jdbc:mysql://localhost:3306/erp";
 	private String user = "root";
-	private String password = "28525336";
+	private String password = "0440448182";
 
 	private QueryGenerator generator = QueryGenerator.getInstance();
 

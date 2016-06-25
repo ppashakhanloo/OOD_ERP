@@ -3,6 +3,7 @@ package business_logic_facade;
 import project.Project;
 import project.ProjectCatalogue;
 import project.Technology;
+import report.ProjectRequirement;
 import resource.HumanResource;
 import resource.Resource;
 
@@ -39,5 +40,9 @@ public class ProjectFacade {
 
     public ArrayList<Resource> getProjectResources(String pid) {
         return ProjectCatalogue.getInstance().get(pid).getResources();
+    }
+
+    public ArrayList<ProjectRequirement> getProjectRequirements(String pid) {
+        return ProjectCatalogue.getInstance().get(pid).getRequirements();
     }
 }

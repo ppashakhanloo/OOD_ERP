@@ -93,13 +93,12 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
 
 
         JButton viewReqs = new JButton("مشاهده نیازمندی‌ها");
-        // TODO
-//        viewReqs.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                viewProjectRequirements.setVisible(true);
-//            }
-//        });
+        viewReqs.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                (new ViewProjectRequirements(userFacade, project)).setVisible(true);
+            }
+        });
 
 
         JButton edit = new JButton("ویرایش");
