@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by ppash on 6/24/2016.
  */
-public class ResourceFacade {
+public class OperationFacade {
 
     public ArrayList<Resource> getHumanResources() {
         return ResourceCatalogue.getInstance().getAll(ResourceType.HUMAN);
