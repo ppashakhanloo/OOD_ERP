@@ -36,5 +36,4 @@ public class UnitCatalogue {
         UnitDAO unitDAO = UnitDAO.getInstance();
         return unitDAO.list();
     }
-
 }

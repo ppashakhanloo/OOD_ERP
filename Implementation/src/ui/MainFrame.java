@@ -104,24 +104,24 @@ public class MainFrame implements Visiblity {
         });
 
         JMenuItem monetaryResources = new JMenuItem("منابع مالی");
-//        monetaryResources.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                mainFrame.setVisible(false);
-//                ViewMonetaryResources viewResources = new ViewMonetaryResources(currentUser);
-//                viewResources.setVisible(true);
-//            }
-//        });
+        monetaryResources.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainFrame.setVisible(false);
+                ViewMonetaryResources viewResources = new ViewMonetaryResources(currentUser);
+                viewResources.setVisible(true);
+            }
+        });
 
         JMenuItem informationResources = new JMenuItem("منابع اطلاعاتی");
-//        informationResources.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                mainFrame.setVisible(false);
-//                ViewInformationResources viewResources = new ViewInformationResources(currentUser);
-//                viewResources.setVisible(true);
-//            }
-//        });
+        informationResources.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainFrame.setVisible(false);
+                ViewInformationResources viewResources = new ViewInformationResources(currentUser);
+                viewResources.setVisible(true);
+            }
+        });
 
         resources.add(humanResources);
         resources.add(physicalResources);
@@ -145,13 +145,23 @@ public class MainFrame implements Visiblity {
 
     private void prepareOrganizationMenu(Map<PermissionType, Boolean> permissionTypes) {
         JMenu organization = new JMenu("سازمان");
-        JMenuItem addNewUnit = new JMenuItem("افزودن واحد جدید");
+        //JMenuItem addNewUnit = new JMenuItem("افزودن واحد جدید");
         JMenuItem viewUnits = new JMenuItem("مشاهده واحدها");
+        viewUnits.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainFrame.setVisible(false);
+                ViewUnits viewUnits = new ViewUnits(currentUser);
+                viewUnits.setVisible(true);
+            }
+        });
+
+
         JMenuItem userAccessLevels = new JMenuItem("سطح دسترسی کاربران");
         JMenuItem submitNewReq = new JMenuItem("ثبت نیازمندی جدید");
         organization.add(viewUnits);
-        if (permissionTypes.get(PermissionType.canAddUnit))
-            organization.add(addNewUnit);
+//        if (permissionTypes.get(PermissionType.canAddUnit))
+//            organization.add(addNewUnit);
         if (permissionTypes.get(PermissionType.canChangePermission))
             organization.add(userAccessLevels);
         if (permissionTypes.get(PermissionType.canAddRemReq))
