@@ -3,6 +3,7 @@ package ui.project;
 import business_logic_facade.OperationFacade;
 import business_logic_facade.ProjectFacade;
 import business_logic_facade.UserFacade;
+import project.Module;
 import project.Project;
 import project.System;
 import project.Technology;
@@ -124,6 +125,12 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
         if (systems != null) {
             for (int i = 0; i < systems.size(); i++) {
                 systemNodes[i] = new DefaultMutableTreeNode(systems.get(i));
+                ArrayList<Module> modules = systems.get(i).getModules();
+                DefaultMutableTreeNode[] moduleNodes = new DefaultMutableTreeNode[modules.size()];
+                for (int j  =0;j<modules.size();j++){
+                    moduleNodes[j] = new DefaultMutableTreeNode(modules.get(j));
+                    systemNodes[i].add(moduleNodes[j]);
+                }
                 root.add(systemNodes[i]);
             }
             DefaultTreeModel defaultTreeModel = new DefaultTreeModel(root);
