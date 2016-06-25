@@ -10,10 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * Created by ppash on 6/24/2016.
- */
-public class ViewProjects extends ProjectObserver implements Visiblity {
+class ViewProjects extends ProjectObserver implements Visibility {
 
     private MainFrame mainFrame;
     private OperationFacade operationFacade;
@@ -25,7 +22,7 @@ public class ViewProjects extends ProjectObserver implements Visiblity {
     private JScrollPane jScrollPane;
 
 
-    public ViewProjects(UserFacade currentUser) {
+    ViewProjects(UserFacade currentUser) {
         mainFrame = new MainFrame(currentUser);
         operationFacade = new OperationFacade();
         addNewProject = new AddNewProject();

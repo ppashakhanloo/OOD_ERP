@@ -11,10 +11,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * Created by ppash on 6/24/2016.
- */
-public class ViewUnits extends UnitObserver implements Visiblity {
+public class ViewUnits extends UnitObserver implements Visibility {
 
     private MainFrame mainFrame;
     private OperationFacade operationFacade;
@@ -26,7 +23,7 @@ public class ViewUnits extends UnitObserver implements Visiblity {
     private JScrollPane jScrollPane;
 
 
-    public ViewUnits(UserFacade currentUser) {
+    ViewUnits(UserFacade currentUser) {
         mainFrame = new MainFrame(currentUser);
         operationFacade = new OperationFacade();
         addNewUnit = new AddNewUnit();

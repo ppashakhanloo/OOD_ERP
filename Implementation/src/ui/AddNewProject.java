@@ -1,28 +1,21 @@
 package ui;
 
 import business_logic_facade.OperationFacade;
-import project.Project;
 import ui.utilities.FormUtility;
 import unit.Unit;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Date;
 
-/**
- * Created by ppash on 6/24/2016.
- */
-public class AddNewProject extends MainDialog {
+class AddNewProject extends MainDialog {
 
     private OperationFacade operationFacade;
 
-    ArrayList<ProjectObserver> observers;
+    private ArrayList<ProjectObserver> observers;
 
-    public AddNewProject() {
+    AddNewProject() {
         operationFacade = new OperationFacade();
         observers = new ArrayList<>();
         prepareGUI();
@@ -32,10 +25,8 @@ public class AddNewProject extends MainDialog {
         observers.add(observer);
     }
 
-    public void notifyAllObservers() {
-        for (ProjectObserver observer : observers) {
-            observer.update();
-        }
+    private void notifyAllObservers() {
+        observers.forEach(ProjectObserver::update);
     }
 
     private void prepareGUI() {

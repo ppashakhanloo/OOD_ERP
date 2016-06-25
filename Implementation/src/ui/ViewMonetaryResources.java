@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
 /**
  * Created by ppash on 6/24/2016.
  */
-public class ViewMonetaryResources extends MonetaryResourceObserver implements Visiblity {
+public class ViewMonetaryResources extends MonetaryResourceObserver implements Visibility {
 
     private MainFrame mainFrame;
     private OperationFacade operationFacade;

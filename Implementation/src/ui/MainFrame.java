@@ -9,21 +9,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Map;
 
-/**
- * Created by ppash on 6/24/2016.
- */
-public class MainFrame implements Visiblity {
+class MainFrame implements Visibility {
 
     private JFrame mainFrame;
     private UserFacade currentUser;
     private JMenuBar menuBar;
 
-    public MainFrame(UserFacade currentUser) {
+    MainFrame(UserFacade currentUser) {
         this.currentUser = currentUser;
         prepareGUI();
     }
 
-    protected JFrame getMainFrame() {
+    JFrame getMainFrame() {
         return mainFrame;
     }
 
@@ -204,7 +201,7 @@ public class MainFrame implements Visiblity {
         menuBar.add(user);
     }
 
-    public UserFacade getCurrentUser() {
+    UserFacade getCurrentUser() {
         return currentUser;
     }
 

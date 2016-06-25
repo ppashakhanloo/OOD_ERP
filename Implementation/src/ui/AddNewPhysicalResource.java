@@ -11,16 +11,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-/**
- * Created by ppash on 6/24/2016.
- */
-public class AddNewPhysicalResource extends MainDialog {
+class AddNewPhysicalResource extends MainDialog {
 
     private OperationFacade operationFacade;
 
-    ArrayList<PhysicalResourceObserver> observers;
+    private ArrayList<PhysicalResourceObserver> observers;
 
-    public AddNewPhysicalResource() {
+    AddNewPhysicalResource() {
         operationFacade = new OperationFacade();
         observers = new ArrayList<>();
         prepareGUI();
@@ -30,7 +27,7 @@ public class AddNewPhysicalResource extends MainDialog {
         observers.add(observer);
     }
 
-    public void notifyAllObservers(){
+    private void notifyAllObservers(){
         for (PhysicalResourceObserver observer : observers) {
             observer.update();
         }

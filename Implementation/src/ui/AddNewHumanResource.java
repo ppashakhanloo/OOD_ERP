@@ -11,26 +11,23 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-/**
- * Created by ppash on 6/24/2016.
- */
-public class AddNewHumanResource extends MainDialog {
+class AddNewHumanResource extends MainDialog {
 
     private OperationFacade operationFacade;
 
-    ArrayList<HumanResourceObserver> observers;
+    private ArrayList<HumanResourceObserver> observers;
 
-    public AddNewHumanResource() {
+    AddNewHumanResource() {
         operationFacade = new OperationFacade();
         observers = new ArrayList<>();
         prepareGUI();
     }
 
-    public void attach(HumanResourceObserver observer){
+    public void attach(HumanResourceObserver observer) {
         observers.add(observer);
     }
 
-    public void notifyAllObservers(){
+    private void notifyAllObservers() {
         for (HumanResourceObserver observer : observers) {
             observer.update();
         }
@@ -77,7 +74,7 @@ public class AddNewHumanResource extends MainDialog {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                operationFacade.addNewHumanResource(firstName.getText(), lastName.getText(), expertise.getText(), password.getText(), ((Unit)unitsCombo.getSelectedItem()).getID());
+                operationFacade.addNewHumanResource(firstName.getText(), lastName.getText(), expertise.getText(), password.getText(), ((Unit) unitsCombo.getSelectedItem()).getID());
                 notifyAllObservers();
                 setVisible(false);
             }

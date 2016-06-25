@@ -7,24 +7,16 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * Created by ppash on 6/24/2016.
- */
-public class LoginForm implements Visiblity {
+
+class LoginForm implements Visibility {
     private JFrame mainFrame;
-    private JMenuBar menuBar;
-    private JMenu help;
-    private JMenu register;
     private JTextField ID;
     private JTextField password;
-    private JLabel IDLabel;
-    private JLabel passwordLabel;
-    private JButton login;
     private JLabel errorLabel;
 
     private UserFacade userFacade;
 
-    public LoginForm() {
+    LoginForm() {
         userFacade = new UserFacade();
         prepareGUI();
     }
@@ -47,11 +39,11 @@ public class LoginForm implements Visiblity {
 
         ID = new JTextField(20);
         password = new JTextField(20);
-        passwordLabel = new JLabel("رمز");
-        IDLabel = new JLabel("شناسه");
+        JLabel passwordLabel = new JLabel("رمز");
+        JLabel IDLabel = new JLabel("شناسه");
         passwordLabel.setLabelFor(password);
         IDLabel.setLabelFor(ID);
-        login = new JButton("ورود");
+        JButton login = new JButton("ورود");
 
 
         login.addActionListener(new ActionListener() {
@@ -101,11 +93,9 @@ public class LoginForm implements Visiblity {
         JPanel bp = new JPanel();
         bp.add(login);
 
-
         JPanel ep = new JPanel();
         errorLabel = new JLabel("به سیستم مدیریت منابع سازمان خوش آمدید.");
         ep.add(errorLabel);
-
 
         mainFrame.getContentPane().add(ep, BorderLayout.NORTH);
         mainFrame.getContentPane().add(loginPanel, BorderLayout.CENTER);
@@ -117,15 +107,15 @@ public class LoginForm implements Visiblity {
 
     private void prepareMenuBar() {
         mainFrame = new JFrame("ورود");
-        menuBar = new JMenuBar();
-        help = new JMenu("راهنما");
-        register = new JMenu("ثبت‌نام");
+        JMenuBar menuBar = new JMenuBar();
+        JMenu help = new JMenu("راهنما");
+        JMenu register = new JMenu("ثبت‌نام");
         menuBar.add(help);
         menuBar.add(register);
         mainFrame.setJMenuBar(menuBar);
     }
 
     public static void main(String[] args) {
-        LoginForm loginForm = new LoginForm();
+//        LoginForm loginForm = new LoginForm();
     }
 }

@@ -11,26 +11,23 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-/**
- * Created by ppash on 6/24/2016.
- */
-public class AddNewInformationResource extends MainDialog {
+class AddNewInformationResource extends MainDialog {
 
     private OperationFacade operationFacade;
 
-    ArrayList<InformationResourceObserver> observers;
+    private ArrayList<InformationResourceObserver> observers;
 
-    public AddNewInformationResource() {
+    AddNewInformationResource() {
         operationFacade = new OperationFacade();
         observers = new ArrayList<>();
         prepareGUI();
     }
 
-    public void attach(InformationResourceObserver observer){
+    public void attach(InformationResourceObserver observer) {
         observers.add(observer);
     }
 
-    public void notifyAllObservers(){
+    private void notifyAllObservers() {
         for (InformationResourceObserver observer : observers) {
             observer.update();
         }
@@ -68,7 +65,7 @@ public class AddNewInformationResource extends MainDialog {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                operationFacade.addNewInformationResource(name.getText(), description.getText(), ((Unit)unitsCombo.getSelectedItem()).getID());
+                operationFacade.addNewInformationResource(name.getText(), description.getText(), ((Unit) unitsCombo.getSelectedItem()).getID());
                 notifyAllObservers();
                 setVisible(false);
             }

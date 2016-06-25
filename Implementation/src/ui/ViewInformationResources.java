@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
 /**
  * Created by ppash on 6/24/2016.
  */
-public class ViewInformationResources extends InformationResourceObserver implements Visiblity {
+public class ViewInformationResources extends InformationResourceObserver implements Visibility {
 
     private MainFrame mainFrame;
     private OperationFacade operationFacade;
