@@ -62,16 +62,13 @@ public class AddNewProject extends MainDialog {
         formUtility.addLastField(unitList, form);
         //////////////////////////////////////////////////////
 
-
-
         JButton submit = new JButton("افزودن");
-        submit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                operationFacade.addNewProject(name.getText(), unitList.getSelectedValuesList());
-                notifyAllObservers();
-                setVisible(false);
-            }
+        submit.addActionListener(e -> {
+            ArrayList<String> involvedUnits = new ArrayList<>();
+            for (Unit unit : unitList.getSelectedValuesList()) involvedUnits.add(unit.getID());
+            operationFacade.addNewProject(name.getText(), involvedUnits);
+            notifyAllObservers();
+            setVisible(false);
         });
 
         JButton cancel = new JButton("صرف‌نظر");

@@ -16,7 +16,7 @@ public class HumanResourceDAO extends ResourceDAO {
         super();
     }
 
-    public static HumanResourceDAO humanResourceDAO;
+    private static HumanResourceDAO humanResourceDAO;
 
     public static HumanResourceDAO getInstance() {
         if (humanResourceDAO == null)
@@ -80,7 +80,7 @@ public class HumanResourceDAO extends ResourceDAO {
             e.printStackTrace();
             return false;
         }
-        return super.remove(key) && true;
+        return super.remove(key);
     }
 
     @Override
@@ -103,7 +103,7 @@ public class HumanResourceDAO extends ResourceDAO {
             e.printStackTrace();
             return false;
         }
-        return super.update(item) && true;
+        return super.update(item);
     }
 
     @Override
@@ -176,7 +176,7 @@ public class HumanResourceDAO extends ResourceDAO {
         }
     }
 
-    protected Resource fillHumanResource(ResultSet rs) throws SQLException {
+    private Resource fillHumanResource(ResultSet rs) throws SQLException {
         String accessLevelID = rs.getString("AccessLevelID");
         Resource newRes = new HumanResource(rs.getString("firstName"), rs.getString("lastName"), rs.getString("expertise"),
                 rs.getString("password"), (new AccessLevelFactory()).getAccessLevel(accessLevelID));

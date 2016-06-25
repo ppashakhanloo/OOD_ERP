@@ -2,7 +2,7 @@ package access;
 
 import database.AccessLevelDAO;
 
-public class HighAccessLevel extends AccessLevel {
+class HighAccessLevel extends AccessLevel {
 
 	private static HighAccessLevel highAccessLevel;
 

@@ -2,7 +2,7 @@ package access;
 
 import database.AccessLevelDAO;
 
-public class MediumAccessLevel extends AccessLevel {
+class MediumAccessLevel extends AccessLevel {
 	private static MediumAccessLevel mediumAccessLevel;
 
 	private MediumAccessLevel() {

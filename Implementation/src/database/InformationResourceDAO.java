@@ -14,7 +14,7 @@ public class InformationResourceDAO extends ResourceDAO {
 		super();
 	}
 
-	public static InformationResourceDAO informationResourceDAO;
+	private static InformationResourceDAO informationResourceDAO;
 
 	public static InformationResourceDAO getInstance() {
 		if (informationResourceDAO == null)
@@ -84,7 +84,7 @@ public class InformationResourceDAO extends ResourceDAO {
 		return results;
 	}
 
-	protected Resource fillInformationResource(ResultSet rs) throws SQLException {
+	private Resource fillInformationResource(ResultSet rs) throws SQLException {
 		Resource newRes = new InformationResource(rs.getString("name"), rs.getString("description"));
 		newRes.setID(rs.getString("ResourceID"));
 		newRes.setAvailable(rs.getString("isAvailable").equals("1"));
@@ -100,7 +100,7 @@ public class InformationResourceDAO extends ResourceDAO {
 			e.printStackTrace();
 			return false;
 		}
-		return super.remove(key) && true;
+		return super.remove(key);
 	}
 
 	@Override
@@ -115,7 +115,7 @@ public class InformationResourceDAO extends ResourceDAO {
 			e.printStackTrace();
 			return false;
 		}
-		return super.update(item) && true;
+		return super.update(item);
 	}
 
 	public ArrayList<Resource> getByName(String name) {

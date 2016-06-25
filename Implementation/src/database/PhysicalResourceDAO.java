@@ -13,7 +13,7 @@ public class PhysicalResourceDAO extends ResourceDAO {
 		super();
 	}
 
-	public static PhysicalResourceDAO physicalResourceDAO;
+	private static PhysicalResourceDAO physicalResourceDAO;
 
 	public static PhysicalResourceDAO getInstance() {
 		if (physicalResourceDAO == null)
@@ -78,7 +78,7 @@ public class PhysicalResourceDAO extends ResourceDAO {
 			e.printStackTrace();
 			return false;
 		}
-		return super.remove(key) && true;
+		return super.remove(key);
 	}
 
 	@Override
@@ -95,7 +95,7 @@ public class PhysicalResourceDAO extends ResourceDAO {
 			e.printStackTrace();
 			return false;
 		}
-		return super.update(item) && true;
+		return super.update(item);
 	}
 
 	public ArrayList<Resource> getByName(String name) {
@@ -126,7 +126,7 @@ public class PhysicalResourceDAO extends ResourceDAO {
 		return results;
 	}
 
-	protected Resource fillPhysicalResource(ResultSet rs) throws SQLException {
+	private Resource fillPhysicalResource(ResultSet rs) throws SQLException {
 		Resource newRes = new PhysicalResource(rs.getString("name"), rs.getString("model"), rs.getString("location"));
 		newRes.setID(rs.getString("ResourceID"));
 		newRes.setAvailable(rs.getString("isAvailable").equals("1"));

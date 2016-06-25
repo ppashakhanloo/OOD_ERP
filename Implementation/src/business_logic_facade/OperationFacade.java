@@ -70,15 +70,11 @@ public class OperationFacade {
     }
 
     // TODO
-    public void addNewProject(String name, ArrayList<Unit> involvedUnits) {
+    public void addNewProject(String name, ArrayList<String> involvedUnits) {
         // by default, set accessLevel to 3
-
-        ResourceCatalogue.getInstance().add(humanResource, unitID, "");
-
         Project project = new Project();
         project.setName(name);
-        ProjectCatalogue.getInstance().add(project);
-
+        ProjectCatalogue.getInstance().add(project, involvedUnits);
     }
 
 }

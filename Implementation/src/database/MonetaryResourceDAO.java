@@ -11,7 +11,7 @@ public class MonetaryResourceDAO extends ResourceDAO {
         super();
     }
 
-    public static MonetaryResourceDAO monetaryResourceDAO;
+    private static MonetaryResourceDAO monetaryResourceDAO;
 
     public static MonetaryResourceDAO getInstance() {
         if (monetaryResourceDAO == null)
@@ -87,7 +87,7 @@ public class MonetaryResourceDAO extends ResourceDAO {
         return results;
     }
 
-    protected Resource fillMonetaryResource(ResultSet rs) throws SQLException {
+    private Resource fillMonetaryResource(ResultSet rs) throws SQLException {
         MonetaryType monetaryType = MonetaryType.CASH;
         switch (rs.getString("monetaryType")) {
             case "CASH":
@@ -124,7 +124,7 @@ public class MonetaryResourceDAO extends ResourceDAO {
             e.printStackTrace();
             return false;
         }
-        return super.remove(key) && true;
+        return super.remove(key);
     }
 
     @Override
@@ -148,7 +148,7 @@ public class MonetaryResourceDAO extends ResourceDAO {
             e.printStackTrace();
             return false;
         }
-        return super.update(item) && true;
+        return super.update(item);
     }
 
     public ArrayList<Resource> getByType(MonetaryType monetaryType) {
