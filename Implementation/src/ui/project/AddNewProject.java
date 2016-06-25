@@ -1,6 +1,8 @@
-package ui;
+package ui.project;
 
 import business_logic_facade.OperationFacade;
+import business_logic_facade.ProjectFacade;
+import ui.MainDialog;
 import ui.utilities.FormUtility;
 import unit.Unit;
 
@@ -12,11 +14,12 @@ import java.util.ArrayList;
 class AddNewProject extends MainDialog {
 
     private OperationFacade operationFacade;
-
+    private ProjectFacade projectFacade;
     private ArrayList<ProjectObserver> observers;
 
     AddNewProject() {
         operationFacade = new OperationFacade();
+        projectFacade = new ProjectFacade();
         observers = new ArrayList<>();
         prepareGUI();
     }
@@ -57,7 +60,7 @@ class AddNewProject extends MainDialog {
         submit.addActionListener(e -> {
             ArrayList<String> involvedUnits = new ArrayList<>();
             for (Unit unit : unitList.getSelectedValuesList()) involvedUnits.add(unit.getID());
-            operationFacade.addNewProject(name.getText(), involvedUnits);
+            projectFacade.addNewProject(name.getText(), involvedUnits);
             notifyAllObservers();
             setVisible(false);
         });

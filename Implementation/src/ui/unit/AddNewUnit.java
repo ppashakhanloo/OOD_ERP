@@ -1,8 +1,8 @@
-package ui;
+package ui.unit;
 
 import business_logic_facade.OperationFacade;
+import ui.MainDialog;
 import ui.utilities.FormUtility;
-import ui.utilities.UnitObserver;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -11,14 +11,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-/**
- * Created by ppash on 6/24/2016.
- */
+
 public class AddNewUnit extends MainDialog {
 
     private OperationFacade operationFacade;
 
-    ArrayList<UnitObserver> observers;
+    private ArrayList<UnitObserver> observers;
 
     public AddNewUnit() {
         operationFacade = new OperationFacade();
@@ -26,11 +24,11 @@ public class AddNewUnit extends MainDialog {
         prepareGUI();
     }
 
-    public void attach(UnitObserver observer){
+    public void attach(UnitObserver observer) {
         observers.add(observer);
     }
 
-    public void notifyAllObservers(){
+    public void notifyAllObservers() {
         observers.forEach(UnitObserver::update);
     }
 

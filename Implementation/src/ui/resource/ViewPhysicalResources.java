@@ -1,41 +1,40 @@
-package ui;
+package ui.resource;
 
 import access.PermissionType;
 import business_logic_facade.OperationFacade;
 import business_logic_facade.UserFacade;
-import resource.HumanResource;
+import resource.PhysicalResource;
 import resource.Resource;
+import ui.MainFrame;
+import ui.Visibility;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * Created by ppash on 6/24/2016.
- */
-public class ViewHumanResources extends HumanResourceObserver implements Visibility {
+public class ViewPhysicalResources extends PhysicalResourceObserver implements Visibility {
 
     private MainFrame mainFrame;
     private OperationFacade operationFacade;
 
-    private AddNewHumanResource addNewHumanResource;
+    private AddNewPhysicalResource addNewPhysicalResource;
 
-    private DefaultListModel<HumanResource> listModel;
-    private JList<HumanResource> resourceList;
+    private DefaultListModel<PhysicalResource> listModel;
+    private JList<PhysicalResource> resourceList;
     private JScrollPane jScrollPane;
 
 
-    public ViewHumanResources(UserFacade currentUser) {
+    public ViewPhysicalResources(UserFacade currentUser) {
         mainFrame = new MainFrame(currentUser);
         operationFacade = new OperationFacade();
-        addNewHumanResource = new AddNewHumanResource();
-        addNewHumanResource.attach(this);
+        addNewPhysicalResource = new AddNewPhysicalResource();
+        addNewPhysicalResource.attach(this);
         prepareGUI();
     }
 
     private void prepareGUI() {
-        mainFrame.getMainFrame().setTitle("مشاهده منابع انسانی");
+        mainFrame.getMainFrame().setTitle("مشاهده منابع فیزیکی");
         JPanel addResourcesPanel = new JPanel(new GridBagLayout());
         GridBagConstraints cs = new GridBagConstraints();
         cs.fill = GridBagConstraints.HORIZONTAL;
@@ -45,7 +44,7 @@ public class ViewHumanResources extends HumanResourceObserver implements Visibil
             addNew.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    addNewHumanResource.setVisible(true);
+                    addNewPhysicalResource.setVisible(true);
                 }
             });
         else
@@ -59,8 +58,8 @@ public class ViewHumanResources extends HumanResourceObserver implements Visibil
 
         ////////////////////
         listModel = new DefaultListModel<>();
-        for (Resource resource : operationFacade.getHumanResources())
-            listModel.addElement((HumanResource) resource);
+        for (Resource resource : operationFacade.getPhysicalResources())
+            listModel.addElement((PhysicalResource) resource);
         resourceList = new JList<>(listModel);
         ////////////////////
         jScrollPane = new JScrollPane(resourceList);
@@ -78,8 +77,8 @@ public class ViewHumanResources extends HumanResourceObserver implements Visibil
     public void update() {
         mainFrame.getMainFrame().remove(jScrollPane);
         listModel = new DefaultListModel<>();
-        for (Resource resource : operationFacade.getHumanResources())
-            listModel.addElement((HumanResource) resource);
+        for (Resource resource : operationFacade.getPhysicalResources())
+            listModel.addElement((PhysicalResource) resource);
         resourceList = new JList<>(listModel);
         jScrollPane = new JScrollPane(resourceList);
         mainFrame.getMainFrame().add(jScrollPane, BorderLayout.CENTER);
@@ -90,7 +89,7 @@ public class ViewHumanResources extends HumanResourceObserver implements Visibil
     public static void main(String[] args) {
         UserFacade userFacade = new UserFacade();
         userFacade.login("871539", "888");
-        ViewHumanResources viewHumanResources = new ViewHumanResources(userFacade);
-        viewHumanResources.setVisible(true);
+        ViewPhysicalResources viewPhysicalResources = new ViewPhysicalResources(userFacade);
+        viewPhysicalResources.setVisible(true);
     }
 }

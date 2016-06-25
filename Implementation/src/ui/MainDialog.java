@@ -2,10 +2,10 @@ package ui;
 
 import javax.swing.*;
 
-class MainDialog implements Visibility {
+public class MainDialog implements Visibility {
     private JDialog mainDialog;
 
-    MainDialog() {
+    public MainDialog() {
         mainDialog = new JDialog();
     }
 
@@ -14,7 +14,7 @@ class MainDialog implements Visibility {
         mainDialog.setVisible(visible);
     }
 
-    JDialog getMainDialog() {
+    public JDialog getMainDialog() {
         return mainDialog;
     }
 }

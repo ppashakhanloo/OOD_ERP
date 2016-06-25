@@ -1,51 +1,50 @@
-package ui;
+package ui.resource;
 
 import access.PermissionType;
 import business_logic_facade.OperationFacade;
 import business_logic_facade.UserFacade;
-import resource.InformationResource;
+import resource.MonetaryResource;
 import resource.Resource;
+import ui.MainFrame;
+import ui.Visibility;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * Created by ppash on 6/24/2016.
- */
-public class ViewInformationResources extends InformationResourceObserver implements Visibility {
+public class ViewMonetaryResources extends MonetaryResourceObserver implements Visibility {
 
     private MainFrame mainFrame;
     private OperationFacade operationFacade;
 
-    private AddNewInformationResource addNewInformationResource;
+    private AddNewMonetaryResource addNewMonetaryResource;
 
-    private DefaultListModel<InformationResource> listModel;
-    private JList<InformationResource> resourceList;
+    private DefaultListModel<MonetaryResource> listModel;
+    private JList<MonetaryResource> resourceList;
     private JScrollPane jScrollPane;
 
 
-    public ViewInformationResources(UserFacade currentUser) {
+    public ViewMonetaryResources(UserFacade currentUser) {
         mainFrame = new MainFrame(currentUser);
         operationFacade = new OperationFacade();
-        addNewInformationResource = new AddNewInformationResource();
-        addNewInformationResource.attach(this);
+        addNewMonetaryResource = new AddNewMonetaryResource();
+        addNewMonetaryResource.attach(this);
         prepareGUI();
     }
 
     private void prepareGUI() {
-        mainFrame.getMainFrame().setTitle("مشاهده منابع اطلاعاتی");
+        mainFrame.getMainFrame().setTitle("مشاهده منابع مالی");
         JPanel addResourcesPanel = new JPanel(new GridBagLayout());
         GridBagConstraints cs = new GridBagConstraints();
         cs.fill = GridBagConstraints.HORIZONTAL;
-        JButton addNew = new JButton("افزودن منبع جدید");
 
+        JButton addNew = new JButton("افزودن منبع جدید");
         if (mainFrame.getCurrentUser().getCurrentUserPermissions().get(PermissionType.canAddRemResource))
             addNew.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    addNewInformationResource.setVisible(true);
+                    addNewMonetaryResource.setVisible(true);
                 }
             });
         else
@@ -59,8 +58,8 @@ public class ViewInformationResources extends InformationResourceObserver implem
 
         ////////////////////
         listModel = new DefaultListModel<>();
-        for (Resource resource : operationFacade.getInformationResources())
-            listModel.addElement((InformationResource) resource);
+        for (Resource resource : operationFacade.getMonetaryResources())
+            listModel.addElement((MonetaryResource) resource);
         resourceList = new JList<>(listModel);
         ////////////////////
         jScrollPane = new JScrollPane(resourceList);
@@ -78,8 +77,8 @@ public class ViewInformationResources extends InformationResourceObserver implem
     public void update() {
         mainFrame.getMainFrame().remove(jScrollPane);
         listModel = new DefaultListModel<>();
-        for (Resource resource : operationFacade.getInformationResources())
-            listModel.addElement((InformationResource) resource);
+        for (Resource resource : operationFacade.getMonetaryResources())
+            listModel.addElement((MonetaryResource) resource);
         resourceList = new JList<>(listModel);
         jScrollPane = new JScrollPane(resourceList);
         mainFrame.getMainFrame().add(jScrollPane, BorderLayout.CENTER);
@@ -89,8 +88,8 @@ public class ViewInformationResources extends InformationResourceObserver implem
 
     public static void main(String[] args) {
         UserFacade userFacade = new UserFacade();
-        userFacade.login("871539", "888");
-        ViewInformationResources viewInformationResources = new ViewInformationResources(userFacade);
-        viewInformationResources.setVisible(true);
+        userFacade.login("158481", "y");
+        ViewMonetaryResources viewMonetaryResources = new ViewMonetaryResources(userFacade);
+        viewMonetaryResources.setVisible(true);
     }
 }

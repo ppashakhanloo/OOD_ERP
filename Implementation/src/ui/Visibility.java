@@ -1,5 +1,5 @@
 package ui;
 
-interface Visibility {
+public interface Visibility {
     void setVisible(boolean visible);
 }

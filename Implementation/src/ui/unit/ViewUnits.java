@@ -1,51 +1,49 @@
-package ui;
+package ui.unit;
 
 import access.PermissionType;
 import business_logic_facade.OperationFacade;
 import business_logic_facade.UserFacade;
-import resource.MonetaryResource;
-import resource.Resource;
+import ui.MainFrame;
+import ui.Visibility;
+import unit.Unit;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * Created by ppash on 6/24/2016.
- */
-public class ViewMonetaryResources extends MonetaryResourceObserver implements Visibility {
+public class ViewUnits extends UnitObserver implements Visibility {
 
     private MainFrame mainFrame;
     private OperationFacade operationFacade;
 
-    private AddNewMonetaryResource addNewMonetaryResource;
+    private AddNewUnit addNewUnit;
 
-    private DefaultListModel<MonetaryResource> listModel;
-    private JList<MonetaryResource> resourceList;
+    private DefaultListModel<Unit> listModel;
+    private JList<Unit> unitList;
     private JScrollPane jScrollPane;
 
 
-    public ViewMonetaryResources(UserFacade currentUser) {
+    public ViewUnits(UserFacade currentUser) {
         mainFrame = new MainFrame(currentUser);
         operationFacade = new OperationFacade();
-        addNewMonetaryResource = new AddNewMonetaryResource();
-        addNewMonetaryResource.attach(this);
+        addNewUnit = new AddNewUnit();
+        addNewUnit.attach(this);
         prepareGUI();
     }
 
     private void prepareGUI() {
-        mainFrame.getMainFrame().setTitle("مشاهده منابع مالی");
-        JPanel addResourcesPanel = new JPanel(new GridBagLayout());
+        mainFrame.getMainFrame().setTitle("مشاهده واحدهای سازمان");
+        JPanel addUnitsPanel = new JPanel(new GridBagLayout());
         GridBagConstraints cs = new GridBagConstraints();
         cs.fill = GridBagConstraints.HORIZONTAL;
 
-        JButton addNew = new JButton("افزودن منبع جدید");
-        if (mainFrame.getCurrentUser().getCurrentUserPermissions().get(PermissionType.canAddRemResource))
+        JButton addNew = new JButton("افزودن واحد جدید");
+        if (mainFrame.getCurrentUser().getCurrentUserPermissions().get(PermissionType.canAddUnit))
             addNew.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    addNewMonetaryResource.setVisible(true);
+                    addNewUnit.setVisible(true);
                 }
             });
         else
@@ -54,16 +52,16 @@ public class ViewMonetaryResources extends MonetaryResourceObserver implements V
         cs.gridx = 0;
         cs.gridy = 0;
         cs.gridwidth = 1;
-        addResourcesPanel.add(addNew, cs);
-        mainFrame.getMainFrame().getContentPane().add(addResourcesPanel, BorderLayout.NORTH);
+        addUnitsPanel.add(addNew, cs);
+        mainFrame.getMainFrame().getContentPane().add(addUnitsPanel, BorderLayout.NORTH);
 
         ////////////////////
         listModel = new DefaultListModel<>();
-        for (Resource resource : operationFacade.getMonetaryResources())
-            listModel.addElement((MonetaryResource) resource);
-        resourceList = new JList<>(listModel);
+        for (Unit unit : operationFacade.getUnits())
+            listModel.addElement(unit);
+        unitList = new JList<>(listModel);
         ////////////////////
-        jScrollPane = new JScrollPane(resourceList);
+        jScrollPane = new JScrollPane(unitList);
         mainFrame.getMainFrame().add(jScrollPane, BorderLayout.CENTER);
         mainFrame.getMainFrame().setResizable(true);
         mainFrame.getMainFrame().pack();
@@ -78,10 +76,10 @@ public class ViewMonetaryResources extends MonetaryResourceObserver implements V
     public void update() {
         mainFrame.getMainFrame().remove(jScrollPane);
         listModel = new DefaultListModel<>();
-        for (Resource resource : operationFacade.getMonetaryResources())
-            listModel.addElement((MonetaryResource) resource);
-        resourceList = new JList<>(listModel);
-        jScrollPane = new JScrollPane(resourceList);
+        for (Unit unit : operationFacade.getUnits())
+            listModel.addElement(unit);
+        unitList = new JList<>(listModel);
+        jScrollPane = new JScrollPane(unitList);
         mainFrame.getMainFrame().add(jScrollPane, BorderLayout.CENTER);
         mainFrame.getMainFrame().repaint();
         mainFrame.getMainFrame().revalidate();
@@ -89,8 +87,8 @@ public class ViewMonetaryResources extends MonetaryResourceObserver implements V
 
     public static void main(String[] args) {
         UserFacade userFacade = new UserFacade();
-        userFacade.login("158481", "y");
-        ViewMonetaryResources viewMonetaryResources = new ViewMonetaryResources(userFacade);
-        viewMonetaryResources.setVisible(true);
+        userFacade.login("871539", "888");
+        ViewUnits viewUnits = new ViewUnits(userFacade);
+        viewUnits.setVisible(true);
     }
 }

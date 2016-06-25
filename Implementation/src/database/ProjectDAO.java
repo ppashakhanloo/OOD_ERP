@@ -202,7 +202,7 @@ public class ProjectDAO implements DAO<Project> {
         return null;
     }
 
-    protected Project fillProject(ResultSet rs) throws SQLException {
+    private Project fillProject(ResultSet rs) throws SQLException {
         Project project = new Project(rs.getString("ID"), rs.getString("name"),
                 rs.getDate("developmentStart"), rs.getDate("developmentEnd"),
                 rs.getString("customerName"), rs.getInt("usersCount"));

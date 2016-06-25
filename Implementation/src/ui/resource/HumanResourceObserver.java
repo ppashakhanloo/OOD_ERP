@@ -1,4 +1,4 @@
-package ui;
+package ui.resource;
 
 abstract class HumanResourceObserver {
     protected AddNewHumanResource addNewHumanResource;

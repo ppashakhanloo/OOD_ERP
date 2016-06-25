@@ -1,7 +1,8 @@
-package ui;
+package ui.resource;
 
 import business_logic_facade.OperationFacade;
 import resource.QuantityUnit;
+import ui.MainDialog;
 import ui.utilities.FormUtility;
 import unit.Unit;
 

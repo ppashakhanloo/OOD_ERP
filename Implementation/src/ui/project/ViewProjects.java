@@ -1,19 +1,26 @@
-package ui;
+package ui.project;
 
 import access.PermissionType;
 import business_logic_facade.OperationFacade;
+import business_logic_facade.ProjectFacade;
 import business_logic_facade.UserFacade;
 import project.Project;
+import ui.MainFrame;
+import ui.Visibility;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-class ViewProjects extends ProjectObserver implements Visibility {
+public class ViewProjects extends ProjectObserver implements Visibility {
 
     private MainFrame mainFrame;
     private OperationFacade operationFacade;
+    private ProjectFacade projectFacade;
+
 
     private AddNewProject addNewProject;
 
@@ -21,10 +28,13 @@ class ViewProjects extends ProjectObserver implements Visibility {
     private JList<Project> projectList;
     private JScrollPane jScrollPane;
 
+    private ViewSingleProject viewSingleProject;
 
-    ViewProjects(UserFacade currentUser) {
+
+    public ViewProjects(UserFacade currentUser) {
         mainFrame = new MainFrame(currentUser);
         operationFacade = new OperationFacade();
+        projectFacade = new ProjectFacade();
         addNewProject = new AddNewProject();
         addNewProject.attach(this);
         prepareGUI();
@@ -55,9 +65,21 @@ class ViewProjects extends ProjectObserver implements Visibility {
 
         ////////////////////
         listModel = new DefaultListModel<>();
-        for (Project project : operationFacade.getProjects())
+        for (Project project : projectFacade.getProjects())
             listModel.addElement(project);
         projectList = new JList<>(listModel);
+
+        projectList.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                JList list = (JList) evt.getSource();
+                if (evt.getClickCount() == 2) {
+                    // Double-click detected
+                    viewSingleProject = new ViewSingleProject(mainFrame.getCurrentUser(), (Project) list.getSelectedValue());
+                    viewSingleProject.setVisible(true);
+                }
+            }
+        });
+
         ////////////////////
         jScrollPane = new JScrollPane(projectList);
         mainFrame.getMainFrame().add(jScrollPane, BorderLayout.CENTER);
@@ -74,7 +96,7 @@ class ViewProjects extends ProjectObserver implements Visibility {
     public void update() {
         mainFrame.getMainFrame().remove(jScrollPane);
         listModel = new DefaultListModel<>();
-        for (Project project : operationFacade.getProjects())
+        for (Project project : projectFacade.getProjects())
             listModel.addElement(project);
         projectList = new JList<>(listModel);
         jScrollPane = new JScrollPane(projectList);

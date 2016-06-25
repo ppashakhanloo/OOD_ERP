@@ -1,48 +1,50 @@
-package ui;
+package ui.resource;
 
 import access.PermissionType;
 import business_logic_facade.OperationFacade;
 import business_logic_facade.UserFacade;
-import ui.utilities.UnitObserver;
-import unit.Unit;
+import resource.InformationResource;
+import resource.Resource;
+import ui.MainFrame;
+import ui.Visibility;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ViewUnits extends UnitObserver implements Visibility {
+public class ViewInformationResources extends InformationResourceObserver implements Visibility {
 
     private MainFrame mainFrame;
     private OperationFacade operationFacade;
 
-    private AddNewUnit addNewUnit;
+    private AddNewInformationResource addNewInformationResource;
 
-    private DefaultListModel<Unit> listModel;
-    private JList<Unit> unitList;
+    private DefaultListModel<InformationResource> listModel;
+    private JList<InformationResource> resourceList;
     private JScrollPane jScrollPane;
 
 
-    ViewUnits(UserFacade currentUser) {
+    public ViewInformationResources(UserFacade currentUser) {
         mainFrame = new MainFrame(currentUser);
         operationFacade = new OperationFacade();
-        addNewUnit = new AddNewUnit();
-        addNewUnit.attach(this);
+        addNewInformationResource = new AddNewInformationResource();
+        addNewInformationResource.attach(this);
         prepareGUI();
     }
 
     private void prepareGUI() {
-        mainFrame.getMainFrame().setTitle("مشاهده واحدهای سازمان");
-        JPanel addUnitsPanel = new JPanel(new GridBagLayout());
+        mainFrame.getMainFrame().setTitle("مشاهده منابع اطلاعاتی");
+        JPanel addResourcesPanel = new JPanel(new GridBagLayout());
         GridBagConstraints cs = new GridBagConstraints();
         cs.fill = GridBagConstraints.HORIZONTAL;
+        JButton addNew = new JButton("افزودن منبع جدید");
 
-        JButton addNew = new JButton("افزودن واحد جدید");
-        if (mainFrame.getCurrentUser().getCurrentUserPermissions().get(PermissionType.canAddUnit))
+        if (mainFrame.getCurrentUser().getCurrentUserPermissions().get(PermissionType.canAddRemResource))
             addNew.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    addNewUnit.setVisible(true);
+                    addNewInformationResource.setVisible(true);
                 }
             });
         else
@@ -51,16 +53,16 @@ public class ViewUnits extends UnitObserver implements Visibility {
         cs.gridx = 0;
         cs.gridy = 0;
         cs.gridwidth = 1;
-        addUnitsPanel.add(addNew, cs);
-        mainFrame.getMainFrame().getContentPane().add(addUnitsPanel, BorderLayout.NORTH);
+        addResourcesPanel.add(addNew, cs);
+        mainFrame.getMainFrame().getContentPane().add(addResourcesPanel, BorderLayout.NORTH);
 
         ////////////////////
         listModel = new DefaultListModel<>();
-        for (Unit unit : operationFacade.getUnits())
-            listModel.addElement(unit);
-        unitList = new JList<>(listModel);
+        for (Resource resource : operationFacade.getInformationResources())
+            listModel.addElement((InformationResource) resource);
+        resourceList = new JList<>(listModel);
         ////////////////////
-        jScrollPane = new JScrollPane(unitList);
+        jScrollPane = new JScrollPane(resourceList);
         mainFrame.getMainFrame().add(jScrollPane, BorderLayout.CENTER);
         mainFrame.getMainFrame().setResizable(true);
         mainFrame.getMainFrame().pack();
@@ -75,10 +77,10 @@ public class ViewUnits extends UnitObserver implements Visibility {
     public void update() {
         mainFrame.getMainFrame().remove(jScrollPane);
         listModel = new DefaultListModel<>();
-        for (Unit unit : operationFacade.getUnits())
-            listModel.addElement(unit);
-        unitList = new JList<>(listModel);
-        jScrollPane = new JScrollPane(unitList);
+        for (Resource resource : operationFacade.getInformationResources())
+            listModel.addElement((InformationResource) resource);
+        resourceList = new JList<>(listModel);
+        jScrollPane = new JScrollPane(resourceList);
         mainFrame.getMainFrame().add(jScrollPane, BorderLayout.CENTER);
         mainFrame.getMainFrame().repaint();
         mainFrame.getMainFrame().revalidate();
@@ -87,7 +89,7 @@ public class ViewUnits extends UnitObserver implements Visibility {
     public static void main(String[] args) {
         UserFacade userFacade = new UserFacade();
         userFacade.login("871539", "888");
-        ViewUnits viewUnits = new ViewUnits(userFacade);
-        viewUnits.setVisible(true);
+        ViewInformationResources viewInformationResources = new ViewInformationResources(userFacade);
+        viewInformationResources.setVisible(true);
     }
 }
