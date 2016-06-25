@@ -1,5 +1,6 @@
 package ui;
 
+import access.PermissionType;
 import business_logic_facade.ResourceFacade;
 import business_logic_facade.UserFacade;
 import resource.HumanResource;
@@ -38,13 +39,18 @@ public class ViewHumanResources extends HumanResourceObserver implements Visibli
         JPanel addResourcesPanel = new JPanel(new GridBagLayout());
         GridBagConstraints cs = new GridBagConstraints();
         cs.fill = GridBagConstraints.HORIZONTAL;
+
         JButton addNew = new JButton("افزودن منبع جدید");
-        addNew.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                addNewHumanResource.setVisible(true);
-            }
-        });
+        if (mainFrame.getCurrentUser().getCurrentUserPermissions().get(PermissionType.canAddRemResource))
+            addNew.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    addNewHumanResource.setVisible(true);
+                }
+            });
+        else
+            addNew.setEnabled(false);
+
         cs.gridx = 0;
         cs.gridy = 0;
         cs.gridwidth = 1;
@@ -69,7 +75,7 @@ public class ViewHumanResources extends HumanResourceObserver implements Visibli
     }
 
     @Override
-    public void update(){
+    public void update() {
         mainFrame.getMainFrame().remove(jScrollPane);
         listModel = new DefaultListModel<>();
         for (Resource resource : resourceFacade.getHumanResources())

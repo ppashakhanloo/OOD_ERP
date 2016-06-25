@@ -190,6 +190,10 @@ public class MainFrame implements Visiblity {
         menuBar.add(user);
     }
 
+    public UserFacade getCurrentUser() {
+        return currentUser;
+    }
+
     @Override
     public void setVisible(boolean visible) {
         mainFrame.setVisible(true);
