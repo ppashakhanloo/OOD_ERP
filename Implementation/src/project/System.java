@@ -17,7 +17,7 @@ public class System {
 
 	public System(String id, String name) {
 		this.setID(id);
-		this.setName(name);
+		this.name = name;
 	}
 
 	private String generateNDigitID(int n) {
