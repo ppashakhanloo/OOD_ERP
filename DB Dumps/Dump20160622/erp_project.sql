@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `project`;
 CREATE TABLE `project` (
   `ID` varchar(255) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
-  `developentStart` date DEFAULT NULL,
+  `developmentStart` date DEFAULT NULL,
   `developmentEnd` date DEFAULT NULL,
   `customerName` varchar(255) DEFAULT NULL,
   `usersCount` int(11) DEFAULT NULL,
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-25  3:43:26
+-- Dump completed on 2016-06-25 16:06:25
