@@ -35,6 +35,8 @@ public class EditProject extends MainDialog {
     }
 
     private void prepareGUI(Project project, AddNewTechnology addNewTechnology) {
+
+        getMainDialog().setTitle("ویرایش اطلاعات پروژه");
         JLabel nameLbl = new JLabel("نام پروژه");
         JTextField name = new JTextField(project.getName());
 
@@ -154,9 +156,6 @@ public class EditProject extends MainDialog {
 //                                                                        .addComponent(addUnit)
                                                                                 .addGap(0, 9, Short.MAX_VALUE)))
                                                 )))));
-
-//        getMainDialog().setSize(400, 400);
-        getMainDialog().pack();
     }
 
     private void notifyAllObservers() {

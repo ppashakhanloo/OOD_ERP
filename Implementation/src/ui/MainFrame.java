@@ -52,7 +52,8 @@ public class MainFrame implements Visibility {
 
         mainFrame.setSize(400, 400);
 
-        mainFrame.setLocationRelativeTo(null);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        mainFrame.setLocation(dim.width / 2 - mainFrame.getSize().width / 2, dim.height / 2 - mainFrame.getSize().height / 2);
     }
 
     private void prepareMenuBar() {

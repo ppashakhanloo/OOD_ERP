@@ -1,12 +1,14 @@
 package ui;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class MainDialog implements Visibility {
     private JDialog mainDialog;
 
     public MainDialog() {
         mainDialog = new JDialog();
+        mainDialog.setLocationRelativeTo(null);
     }
 
     @Override
