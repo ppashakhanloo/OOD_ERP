@@ -6,12 +6,14 @@ import resource.ResourceStatus;
 import java.sql.*;
 import java.util.ArrayList;
 
+import project.Project;
+
 public class ResourceDAO {
 	protected Connection sqlConn;
 	protected Statement myStmt;
-	private String url = "jdbc:mysql://localhost:3306/erp";
+	private String url = "jdbc:mysql://localhost:9999/erp";
 	private String user = "root";
-	private String password = "0440448182";
+	private String password = "28525336";
 
 	private static ResourceDAO resourceDAO;
 	protected QueryGenerator queryGenerator;
@@ -93,6 +95,17 @@ public class ResourceDAO {
 	}
 
 	public Resource get(String key) {
+		String query = queryGenerator.select("resource", null, "ID = " + "'" + key
+				+ "'");
+		try {
+			Statement myStmt = sqlConn.createStatement();
+			ResultSet rs = myStmt.executeQuery(query);
+			if (rs.next()) {
+				return fillResource(rs);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 

@@ -11,9 +11,9 @@ public class RequirementDAO implements DAO<Requirement> {
 
 	private Connection sqlConn;
 	private Statement myStmt;
-	private String url = "jdbc:mysql://localhost:3306/erp";
+	private String url = "jdbc:mysql://localhost:9999/erp";
 	private String user = "root";
-	private String password = "0440448182";
+	private String password = "28525336";
 
 	QueryGenerator generator = QueryGenerator.getInstance();
 
@@ -46,7 +46,7 @@ public class RequirementDAO implements DAO<Requirement> {
 				+ "', '"
 				+ item.getDescription()
 				+ "', "
-				+ item.getProvideDate() + ", '" + rid + "', '" + uid + "'";
+				+ item.getProvideDate() + ", '" + rid + "', '" + uid + "');";
 		try {
 			myStmt.executeUpdate(query);
 		} catch (SQLException e) {
@@ -87,11 +87,12 @@ public class RequirementDAO implements DAO<Requirement> {
 		try {
 			ResultSet rs = myStmt.executeQuery(query);
 			ResourceDAO resourceDAO = ResourceDAO.getInstance();
-			return resourceDAO.get(rs.getString("ResourceID"));
+			if (rs.next())
+				return resourceDAO.get(rs.getString("ResourceID"));
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
 		}
+		return null;
 	}
 
 	public void setResource(String reqID, String ResourceID) {
@@ -175,4 +176,8 @@ public class RequirementDAO implements DAO<Requirement> {
 		return reqs;
 	}
 
+	// public static void main(String[] args) {
+	// RequirementDAO dao = RequirementDAO.getInstance();
+	// System.out.println(dao.getRequirementsByUnitID("1").get(0).getDescription());
+	// }
 }
