@@ -1,6 +1,9 @@
 package business_logic_facade;
 
 import access.AccessLevelFactory;
+import project.Project;
+import project.ProjectCatalogue;
+import project.Technology;
 import resource.*;
 import unit.Unit;
 import unit.UnitCatalogue;
