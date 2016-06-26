@@ -3,8 +3,8 @@ package project;
 import database.ProjectDAO;
 
 public class Technology {
-    String name;
-    String reason;
+    private String name;
+    private String reason;
 
     public String getName() {
         return name;

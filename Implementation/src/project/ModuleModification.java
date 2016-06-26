@@ -8,11 +8,11 @@ import java.util.Date;
 import java.util.Random;
 
 public class ModuleModification {
-	int ID_LENGTH = 6;
-	String ID;
-	String modificationType;
-	Date modificationStart;
-	Date modificationEnd;
+	private int ID_LENGTH = 6;
+	private String ID;
+	private String modificationType;
+	private Date modificationStart;
+	private Date modificationEnd;
 
 	public ModuleModification() {
 		this.ID = generateNDigitID(ID_LENGTH);
