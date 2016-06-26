@@ -44,7 +44,7 @@ CREATE TABLE `human_resource` (
 
 LOCK TABLES `human_resource` WRITE;
 /*!40000 ALTER TABLE `human_resource` DISABLE KEYS */;
-INSERT INTO `human_resource` VALUES ('sara','pasha','java','888','PENDING','100824','1',1);
+INSERT INTO `human_resource` VALUES ('sara','pasha','java','888','PENDING','100824','1',1),('slaam','khubi','na','12345','PENDING','783606','1',0);
 /*!40000 ALTER TABLE `human_resource` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -57,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-26  4:39:41
+-- Dump completed on 2016-06-26 20:55:07

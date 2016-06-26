@@ -38,7 +38,7 @@ CREATE TABLE `system` (
 
 LOCK TABLES `system` WRITE;
 /*!40000 ALTER TABLE `system` DISABLE KEYS */;
-INSERT INTO `system` VALUES ('1629336','11','1'),('2450164','null','1'),('6822360','null','1'),('8126810','null','1');
+INSERT INTO `system` VALUES ('1580769','salam','1'),('1629336','11','1'),('1916172','yehyeh','556917'),('2450164','null','1'),('6261820','chejoori','1'),('6535965','chetori?','1'),('6822360','null','1'),('7167898','hi','556917'),('8126810','null','1'),('8290894','sssss','450629'),('8403448','salam','1');
 /*!40000 ALTER TABLE `system` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-26  4:39:41
+-- Dump completed on 2016-06-26 20:55:06

@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `requirement`;
 CREATE TABLE `requirement` (
   `ID` varchar(255) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
-  `provideDate` date DEFAULT NULL,
+  `provideDate` varchar(8) DEFAULT NULL,
   `ResourceID` varchar(255) NOT NULL,
   `UnitID` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`),
@@ -54,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-26  4:39:40
+-- Dump completed on 2016-06-26 20:55:05
