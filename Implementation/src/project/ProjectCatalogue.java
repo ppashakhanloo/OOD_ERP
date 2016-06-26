@@ -33,6 +33,8 @@ public class ProjectCatalogue {
         return ProjectDAO.getInstance().update(project);
     }
 
+    public ArrayList<Technology> getTechnologies() { return ProjectDAO.getInstance().getAllTechnologies(); }
+
     public ArrayList<Project> list() {
         return ProjectDAO.getInstance().list();
     }
@@ -45,6 +47,12 @@ public class ProjectCatalogue {
                 .getByUsersCount(userCount);
         ArrayList<Project> devCountsProjects = projectDAO
                 .getByDevelopersCount(devCount);
+//        ArrayList<Project> oneTechProjects = new ArrayList<>();
+//        ArrayList<Project> techProjects = new ArrayList<>();
+//        for (Technology tech : techs) {
+//            oneTechProjects = projectDAO.getByTechnology(tech);
+//            oneTechProjects.forEach(project -> techProjects.add(project));
+//        }
         ArrayList<Project> techProjects = projectDAO.getByTechnology(tech);
         if (userCount >= 0) {
             if (devCount >= 0) {

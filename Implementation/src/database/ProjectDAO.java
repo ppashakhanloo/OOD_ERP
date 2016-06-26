@@ -317,21 +317,21 @@ public class ProjectDAO implements DAO<Project> {
 	}
 
 	public ArrayList<Project> getByTechnology(Technology tech) {
-		ArrayList<Project> projects = new ArrayList<>();
-		String query = generator.select("project_technology", null,
-				"Technologyname = " + "'" + tech.getName() + "'");
-		ResultSet rs;
-		try {
-			Statement myStmt = sqlConn.createStatement();
-			rs = myStmt.executeQuery(query);
-			while (rs.next()) {
-				projects.add(get(rs.getString("ProjectID")));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return projects;
-	}
+        ArrayList<Project> projects = new ArrayList<>();
+        String query = generator.select("project_technology", null,
+                "Technologyname = " + "'" + tech.getName() + "'");
+        try {
+            Statement myStmt = sqlConn.createStatement();
+            ResultSet rs = myStmt.executeQuery(query);
+            while (rs.next()) {
+                String ID = rs.getString("ProjectID");
+                projects.add(get(ID));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return projects;
+    }
 
 	@Override
 	public boolean update(Project item) {
@@ -371,6 +371,20 @@ public class ProjectDAO implements DAO<Project> {
 		return true;
 
 	}
+
+	public ArrayList<Technology> getAllTechnologies() {
+        ArrayList<Technology> technologies = new ArrayList<>();
+        try {
+        	Statement myStmt = sqlConn.createStatement();
+            ResultSet rs = myStmt.executeQuery("SELECT * FROM technology");
+            while (rs.next()) {
+                technologies.add(fillTechnology(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return technologies;
+    }
 
 	@Override
 	public ArrayList<Project> list() {

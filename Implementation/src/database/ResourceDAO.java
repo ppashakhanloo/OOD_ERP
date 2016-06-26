@@ -6,11 +6,8 @@ import resource.ResourceStatus;
 import java.sql.*;
 import java.util.ArrayList;
 
-import project.Project;
-
 public class ResourceDAO {
 	protected Connection sqlConn;
-	protected Statement myStmt;
 	private String url = "jdbc:mysql://localhost:3306/erp";
 	private String user = "root";
 	private String password = "0440448182";
@@ -21,7 +18,6 @@ public class ResourceDAO {
 	protected ResourceDAO() {
 		try {
 			sqlConn = DriverManager.getConnection(url, user, password);
-			myStmt = sqlConn.createStatement();
 			queryGenerator = QueryGenerator.getInstance();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -55,6 +51,7 @@ public class ResourceDAO {
 		String query = queryGenerator.insert("resource", colNames, values);
 
 		try {
+			Statement myStmt = sqlConn.createStatement();
 			myStmt.executeUpdate(query);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -68,6 +65,7 @@ public class ResourceDAO {
 		ArrayList<Resource> results = new ArrayList<>();
 		ResultSet rs;
 		try {
+			Statement myStmt = sqlConn.createStatement();
 			rs = myStmt.executeQuery(query);
 			while (rs.next()) {
 				Resource newRes = fillResource(rs);
@@ -81,6 +79,7 @@ public class ResourceDAO {
 
 	public boolean update(Resource item) {
 		try {
+			Statement myStmt = sqlConn.createStatement();
 			myStmt.executeUpdate(queryGenerator.update("resource",
 					"resourceStatus", item.getResourceStatus().toString(),
 					"ID = " + item.getID()));
@@ -95,8 +94,8 @@ public class ResourceDAO {
 	}
 
 	public Resource get(String key) {
-		String query = queryGenerator.select("resource", null, "ID = " + "'" + key
-				+ "'");
+		String query = queryGenerator.select("resource", null, "ID = " + "'"
+				+ key + "'");
 		try {
 			Statement myStmt = sqlConn.createStatement();
 			ResultSet rs = myStmt.executeQuery(query);
@@ -111,6 +110,7 @@ public class ResourceDAO {
 
 	public boolean remove(String key) {
 		try {
+			Statement myStmt = sqlConn.createStatement();
 			myStmt.executeUpdate(queryGenerator.delete("resource", "ID = "
 					+ key));
 		} catch (SQLException e) {

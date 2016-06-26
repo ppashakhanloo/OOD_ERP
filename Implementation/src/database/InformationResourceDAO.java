@@ -6,6 +6,7 @@ import resource.ResourceStatus;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class InformationResourceDAO extends ResourceDAO {
@@ -37,9 +38,11 @@ public class InformationResourceDAO extends ResourceDAO {
 		values.add(informationResourceItem.getDescription());
 		values.add(informationResourceItem.getID());
 
-		String query = queryGenerator.insert("information_resource", colNames, values);
+		String query = queryGenerator.insert("information_resource", colNames,
+				values);
 		System.out.println(query);
 		try {
+			Statement myStmt = sqlConn.createStatement();
 			myStmt.executeUpdate(query);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -51,7 +54,9 @@ public class InformationResourceDAO extends ResourceDAO {
 	@Override
 	public Resource get(String key) {
 		try {
-			ResultSet rs = myStmt.executeQuery("SELECT * from information_resource inner join resource on human_resource.ResourceID = resource.ID");
+			Statement myStmt = sqlConn.createStatement();
+			ResultSet rs = myStmt
+					.executeQuery("SELECT * from information_resource inner join resource on human_resource.ResourceID = resource.ID");
 			Resource newRes = null;
 			while (rs.next()) {
 				newRes = fillInformationResource(rs);
@@ -69,10 +74,12 @@ public class InformationResourceDAO extends ResourceDAO {
 	}
 
 	private ArrayList<Resource> listConditional(String cond) {
-		String query = "SELECT * from information_resource inner join resource on information_resource.ResourceID = resource.ID" + (cond == null ? "" : " WHERE " + cond);
+		String query = "SELECT * from information_resource inner join resource on information_resource.ResourceID = resource.ID"
+				+ (cond == null ? "" : " WHERE " + cond);
 		ArrayList<Resource> results = new ArrayList<>();
 		ResultSet rs;
 		try {
+			Statement myStmt = sqlConn.createStatement();
 			rs = myStmt.executeQuery(query);
 			while (rs.next()) {
 				Resource newRes = fillInformationResource(rs);
@@ -85,17 +92,21 @@ public class InformationResourceDAO extends ResourceDAO {
 	}
 
 	private Resource fillInformationResource(ResultSet rs) throws SQLException {
-		Resource newRes = new InformationResource(rs.getString("name"), rs.getString("description"));
+		Resource newRes = new InformationResource(rs.getString("name"),
+				rs.getString("description"));
 		newRes.setID(rs.getString("ResourceID"));
 		newRes.setAvailable(rs.getString("isAvailable").equals("1"));
-		newRes.setResourceStatus(rs.getString("resourceStatus").equals("IDLE") ? ResourceStatus.IDLE : ResourceStatus.BUSY);
+		newRes.setResourceStatus(rs.getString("resourceStatus").equals("IDLE") ? ResourceStatus.IDLE
+				: ResourceStatus.BUSY);
 		return newRes;
 	}
 
 	@Override
 	public boolean remove(String key) {
 		try {
-			myStmt.executeUpdate(queryGenerator.delete("information_resource", "ResourceID = " + key));
+			Statement myStmt = sqlConn.createStatement();
+			myStmt.executeUpdate(queryGenerator.delete("information_resource",
+					"ResourceID = " + key));
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
@@ -107,10 +118,13 @@ public class InformationResourceDAO extends ResourceDAO {
 	public boolean update(Resource item) {
 		InformationResource informationResourceItem = (InformationResource) item;
 		try {
-			myStmt.executeUpdate(queryGenerator.update("information_resource", "name",
-					informationResourceItem.getName(), "ResourceID = " + informationResourceItem.getID()));
-			myStmt.executeUpdate(queryGenerator.update("information_resource", "description",
-					informationResourceItem.getDescription(), "ResourceID = " + informationResourceItem.getID()));
+			Statement myStmt = sqlConn.createStatement();
+			myStmt.executeUpdate(queryGenerator.update("information_resource",
+					"name", informationResourceItem.getName(), "ResourceID = "
+							+ informationResourceItem.getID()));
+			myStmt.executeUpdate(queryGenerator.update("information_resource",
+					"description", informationResourceItem.getDescription(),
+					"ResourceID = " + informationResourceItem.getID()));
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
@@ -125,8 +139,11 @@ public class InformationResourceDAO extends ResourceDAO {
 	public ArrayList<Resource> getResourcesByProjectID(String pid) {
 		ArrayList<Resource> resources = new ArrayList<>();
 		try {
-			ResultSet rs = myStmt.executeQuery("SELECT * from information_resource inner join resource on information_resource.ResourceID = resource.ID AND ProjectID = "+"'" + pid + "'");
-			while(rs.next()){
+			Statement myStmt = sqlConn.createStatement();
+			ResultSet rs = myStmt
+					.executeQuery("SELECT * from information_resource inner join resource on information_resource.ResourceID = resource.ID AND ProjectID = "
+							+ "'" + pid + "'");
+			while (rs.next()) {
 				resources.add(fillInformationResource(rs));
 			}
 

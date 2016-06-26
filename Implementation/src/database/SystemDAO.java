@@ -9,7 +9,6 @@ import java.util.ArrayList;
 public class SystemDAO implements DAO<System> {
 
 	private Connection sqlConn;
-	private Statement myStmt;
 	private String url = "jdbc:mysql://localhost:3306/erp";
 	private String user = "root";
 	private String password = "0440448182";
@@ -21,7 +20,6 @@ public class SystemDAO implements DAO<System> {
 	private SystemDAO() {
 		try {
 			sqlConn = DriverManager.getConnection(url, user, password);
-			myStmt = sqlConn.createStatement();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -50,6 +48,7 @@ public class SystemDAO implements DAO<System> {
 		values.add(ProjectID);
 		String query = generator.insert("system", cols, values);
 		try {
+			Statement myStmt = sqlConn.createStatement();
 			myStmt.executeUpdate(query);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -63,6 +62,7 @@ public class SystemDAO implements DAO<System> {
 		String query = generator.select("system", null, "ID = " + "'" + key
 				+ "'");
 		try {
+			Statement myStmt = sqlConn.createStatement();
 			ResultSet rs = myStmt.executeQuery(query);
 			while (rs.next()) {
 				System newRes = fillSystem(rs);
@@ -83,6 +83,7 @@ public class SystemDAO implements DAO<System> {
 	public void remove(String key) {
 		String query = "DELETE FROM system WHERE ID = " + "'" + key + "'" + ";";
 		try {
+			Statement myStmt = sqlConn.createStatement();
 			myStmt.executeUpdate(query);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -92,6 +93,7 @@ public class SystemDAO implements DAO<System> {
 	@Override
 	public boolean update(System item) {
 		try {
+			Statement myStmt = sqlConn.createStatement();
 			myStmt.executeUpdate(generator.update("system", "name",
 					item.getName(), "ID = " + "'" + item.getID() + "'"));
 		} catch (SQLException e) {
@@ -105,6 +107,7 @@ public class SystemDAO implements DAO<System> {
 	public ArrayList<System> list() {
 		ArrayList<System> systems = new ArrayList<>();
 		try {
+			Statement myStmt = sqlConn.createStatement();
 			ResultSet rs = myStmt.executeQuery("SELECT * FROM system;");
 			while (rs.next()) {
 				System newSys = fillSystem(rs);
@@ -119,6 +122,7 @@ public class SystemDAO implements DAO<System> {
 	public ArrayList<System> getByProjectID(String pid) {
 		ArrayList<System> systems = new ArrayList<>();
 		try {
+			Statement myStmt = sqlConn.createStatement();
 			ResultSet rs = myStmt.executeQuery(generator.select("system", null,
 					"ProjectID = " + "'" + pid + "'"));
 			while (rs.next()) {
@@ -135,6 +139,7 @@ public class SystemDAO implements DAO<System> {
 		String query = generator.select("system", null, "name = " + "'" + name
 				+ "'");
 		try {
+			Statement myStmt = sqlConn.createStatement();
 			ResultSet rs = myStmt.executeQuery(query);
 			while (rs.next()) {
 				systems.add(fillSystem(rs));
@@ -151,6 +156,7 @@ public class SystemDAO implements DAO<System> {
 		String query = generator.select("module_system", null, "SystemID = "
 				+ "'" + sysID + "'");
 		try {
+			Statement myStmt = sqlConn.createStatement();
 			ResultSet rs = myStmt.executeQuery(query);
 			while (rs.next()) {
 				modules.add(moduleDAO.get(rs.getString("ModuleID")));

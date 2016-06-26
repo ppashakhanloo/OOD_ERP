@@ -31,6 +31,10 @@ public class OperationFacade {
         return UnitCatalogue.getInstance().list();
     }
 
+    public ArrayList<Technology> getTechnologies() { return  ProjectCatalogue.getInstance().getTechnologies(); }
+
+    public ArrayList<Project> search(Technology tech, int userCount, int devCount) { return  ProjectCatalogue.getInstance().search(tech, userCount, devCount); }
+
     public List<QuantityUnit> getQuantityUnits() {
         return Arrays.asList(QuantityUnit.values());
     }
