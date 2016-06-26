@@ -1,27 +1,36 @@
 package ui.project;
 
 import business_logic_facade.OperationFacade;
-import resource.QuantityUnit;
+import business_logic_facade.ProjectFacade;
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
+import resource.*;
 import ui.MainDialog;
 import ui.utilities.FormUtility;
-import unit.Unit;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Enumeration;
+import java.util.Properties;
 
 public class AddNewProjectRequirement extends MainDialog {
     private OperationFacade operationFacade;
+    private ProjectFacade projectFacade;
 
-    AddNewProjectRequirement() {
+    AddNewProjectRequirement(String pid) {
         operationFacade = new OperationFacade();
-        prepareGUI();
+        projectFacade = new ProjectFacade();
+        prepareGUI(pid);
     }
 
-    private void prepareGUI() {
+    private void prepareGUI(String pid) {
         super.getMainDialog().setTitle("افزودن نیازمندی جدید");
         JPanel form = new JPanel(new GridBagLayout());
 
@@ -58,7 +67,7 @@ public class AddNewProjectRequirement extends MainDialog {
 
 
         ///////////////////////// money - cash, non cash
-        JTextField amount = new JTextField(20);
+        JSpinner amount = new JSpinner();
         JLabel amountLabel = formUtility.addLabel("مبلغ ", form);
         formUtility.addLastField(amount, form);
         amount.setVisible(true);
@@ -84,7 +93,7 @@ public class AddNewProjectRequirement extends MainDialog {
 
         ///////////////// human
         JTextField exp = new JTextField(20);
-        JLabel expLabel = formUtility.addLabel("محل ", form);
+        JLabel expLabel = formUtility.addLabel("تخصص‌ها ", form);
         formUtility.addLastField(exp, form);
         exp.setVisible(false);
         expLabel.setVisible(false);
@@ -104,6 +113,28 @@ public class AddNewProjectRequirement extends MainDialog {
         modelLabel.setVisible(false);
         ///////////////////////
 
+        JCheckBox isEssential = new JCheckBox();
+        JLabel isEssentialLbl = formUtility.addLabel("نیازمندی ضروری است؟ ", form);
+        formUtility.addLastField(isEssential, form);
+
+        UtilDateModel dateModel = new UtilDateModel();
+        Properties p = new Properties();
+        p.put("text.today", "Today");
+        p.put("text.month", "Month");
+        p.put("text.year", "Year");
+        JDatePanelImpl datePanel = new JDatePanelImpl(dateModel, p);
+        JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+
+
+        datePicker.setBounds(220, 350, 120, 30);
+        JLabel dateLbl = formUtility.addLabel("آخرین مهلت تخصیص یافتن ", form);
+        formUtility.addLastField(datePicker, form);
+
+        JSpinner lengthOfPossession = new JSpinner(); // also for information
+        JLabel lopLbl = formUtility.addLabel("تعداد روز موردنیاز ", form);
+        formUtility.addLastField(lengthOfPossession, form);
+
+
         monetaryCash.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -111,8 +142,18 @@ public class AddNewProjectRequirement extends MainDialog {
                 amountLabel.setVisible(true);
                 unitLbl.setVisible(true);
                 quantityUnitsCombo.setVisible(true);
+                location.setVisible(false);
+                locationLabel.setVisible(false);
+                name.setVisible(false);
+                nameLabel.setVisible(false);
+                model.setVisible(false);
+                modelLabel.setVisible(false);
+                exp.setVisible(false);
+                expLabel.setVisible(false);
+                getMainDialog().pack();
                 getMainDialog().repaint();
                 getMainDialog().revalidate();
+
             }
         });
 
@@ -125,18 +166,35 @@ public class AddNewProjectRequirement extends MainDialog {
                 quantityUnitsCombo.setVisible(true);
                 location.setVisible(true);
                 locationLabel.setVisible(true);
+                name.setVisible(false);
+                nameLabel.setVisible(false);
+                model.setVisible(false);
+                modelLabel.setVisible(false);
+                exp.setVisible(false);
+                expLabel.setVisible(false);
+                getMainDialog().pack();
                 getMainDialog().repaint();
                 getMainDialog().revalidate();
+
             }
         });
 
         physical.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                amount.setVisible(false);
+                amountLabel.setVisible(false);
+                unitLbl.setVisible(false);
+                quantityUnitsCombo.setVisible(false);
+                location.setVisible(false);
+                locationLabel.setVisible(false);
                 name.setVisible(true);
                 nameLabel.setVisible(true);
                 model.setVisible(true);
                 modelLabel.setVisible(true);
+                exp.setVisible(false);
+                expLabel.setVisible(false);
+                getMainDialog().pack();
                 getMainDialog().repaint();
                 getMainDialog().revalidate();
             }
@@ -145,8 +203,19 @@ public class AddNewProjectRequirement extends MainDialog {
         human.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                amount.setVisible(false);
+                amountLabel.setVisible(false);
+                unitLbl.setVisible(false);
+                quantityUnitsCombo.setVisible(false);
+                location.setVisible(false);
+                locationLabel.setVisible(false);
+                name.setVisible(false);
+                nameLabel.setVisible(false);
+                model.setVisible(false);
+                modelLabel.setVisible(false);
                 exp.setVisible(true);
                 expLabel.setVisible(true);
+                getMainDialog().pack();
                 getMainDialog().repaint();
                 getMainDialog().revalidate();
             }
@@ -155,26 +224,51 @@ public class AddNewProjectRequirement extends MainDialog {
         information.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                amount.setVisible(false);
+                amountLabel.setVisible(false);
+                unitLbl.setVisible(false);
+                quantityUnitsCombo.setVisible(false);
+                location.setVisible(false);
+                locationLabel.setVisible(false);
                 name.setVisible(true);
                 nameLabel.setVisible(true);
+                model.setVisible(false);
+                modelLabel.setVisible(false);
+                exp.setVisible(false);
+                expLabel.setVisible(false);
+                getMainDialog().pack();
                 getMainDialog().repaint();
                 getMainDialog().revalidate();
             }
         });
 
-
+//boolean isEssential, String criticalProvideDate, String lengthOfPossession, String pid, Resource resource
         JButton submit = new JButton("افزودن");
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO
-                if (monetaryCash.isSelected())
-                    operationFacade.addNewMonetaryResource(getSelectedButtonText(buttonGroup), location.getText(),
-                            accountNumber.getText().equals("") ? "0" : accountNumber.getText(), (Integer) amount.getValue(), quantityUnitsCombo.getSelectedItem().toString(), ((Unit) unitsCombo.getSelectedItem()).getID());
-                else if (monetaryNonCash.isSelected())
-                else if (human.isSelected())
-                else if (information.isSelected())
-                else if (physical.isSelected())
+                Calendar cal = Calendar.getInstance();
+                cal.set(Calendar.YEAR, datePicker.getModel().getYear());
+                cal.set(Calendar.MONTH, datePicker.getModel().getMonth());
+                cal.set(Calendar.DAY_OF_MONTH, datePicker.getModel().getDay());
+                if (monetaryCash.isSelected()) {
+                    Resource resource = new MonetaryResource(MonetaryType.CASH, location.getText(), -1, new Quantity((Integer) amount.getValue(), QuantityUnit.valueOf(quantityUnitsCombo.getSelectedItem().toString())));
+                    projectFacade.addRequirementToProject(isEssential.isSelected(), cal.getTime(), lengthOfPossession.getValue().toString(), pid, resource);
+                } else if (monetaryNonCash.isSelected()) {
+                    Resource resource = new MonetaryResource(MonetaryType.NON_CASH, location.getText(), -1, new Quantity((Integer) amount.getValue(), QuantityUnit.valueOf(quantityUnitsCombo.getSelectedItem().toString())));
+                    projectFacade.addRequirementToProject(isEssential.isSelected(), cal.getTime(), lengthOfPossession.getValue().toString(), pid, resource);
+                } else if (human.isSelected()) {
+                    Resource resource = new HumanResource();
+                    ((HumanResource) resource).setExpertise(exp.getText());
+                    projectFacade.addRequirementToProject(isEssential.isSelected(), cal.getTime(), lengthOfPossession.getValue().toString(), pid, resource);
+                } else if (information.isSelected()) {
+                    Resource resource = new InformationResource(name.getText(), "");
+                    projectFacade.addRequirementToProject(isEssential.isSelected(), cal.getTime(), lengthOfPossession.getValue().toString(), pid, resource);
+                } else if (physical.isSelected()) {
+                    Resource resource = new PhysicalResource(name.getText(), model.getText(), "");
+                    projectFacade.addRequirementToProject(isEssential.isSelected(), cal.getTime(), lengthOfPossession.getValue().toString(), pid, resource);
+                }
 //                notifyAllObservers();
                 setVisible(false);
             }
@@ -198,6 +292,28 @@ public class AddNewProjectRequirement extends MainDialog {
         return null;
     }
 }
+
+class DateLabelFormatter extends JFormattedTextField.AbstractFormatter {
+
+    private String datePattern = "yyyy-MM-dd";
+    private SimpleDateFormat dateFormatter = new SimpleDateFormat(datePattern);
+
+    @Override
+    public Object stringToValue(String text) throws ParseException {
+        return dateFormatter.parseObject(text);
+    }
+
+    @Override
+    public String valueToString(Object value) throws ParseException {
+        if (value != null) {
+            Calendar cal = (Calendar) value;
+            return dateFormatter.format(cal.getTime());
+        }
+
+        return "";
+    }
+}
+
 
 //    public ProjectRequirement() {
 //super();

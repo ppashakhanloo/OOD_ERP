@@ -10,9 +10,9 @@ import java.util.Date;
 public class RequirementDAO implements DAO<Requirement> {
 
 	private Connection sqlConn;
-	private String url = "jdbc:mysql://localhost:9999/erp";
+	private String url = "jdbc:mysql://localhost:3306/erp";
 	private String user = "root";
-	private String password = "28525336";
+	private String password = "7284";
 
 	QueryGenerator generator = QueryGenerator.getInstance();
 
