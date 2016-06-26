@@ -16,27 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `unit`
+-- Table structure for table `module`
 --
 
-DROP TABLE IF EXISTS `unit`;
+DROP TABLE IF EXISTS `module`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `unit` (
+CREATE TABLE `module` (
   `ID` varchar(255) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
+  `developmentStart` date DEFAULT NULL,
+  `developmentEnd` date DEFAULT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `unit`
+-- Dumping data for table `module`
 --
 
-LOCK TABLES `unit` WRITE;
-/*!40000 ALTER TABLE `unit` DISABLE KEYS */;
-INSERT INTO `unit` VALUES ('1','Design'),('278288','Implementation'),('836936','Req Engineering'),('860349','salam');
-/*!40000 ALTER TABLE `unit` ENABLE KEYS */;
+LOCK TABLES `module` WRITE;
+/*!40000 ALTER TABLE `module` DISABLE KEYS */;
+INSERT INTO `module` VALUES ('1','ui',NULL,NULL),('2','db',NULL,NULL);
+/*!40000 ALTER TABLE `module` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

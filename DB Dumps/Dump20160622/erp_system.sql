@@ -16,27 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `unit`
+-- Table structure for table `system`
 --
 
-DROP TABLE IF EXISTS `unit`;
+DROP TABLE IF EXISTS `system`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `unit` (
+CREATE TABLE `system` (
   `ID` varchar(255) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
+  `ProjectID` varchar(255) NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `ProjectID` (`ProjectID`),
+  CONSTRAINT `system_ibfk_1` FOREIGN KEY (`ProjectID`) REFERENCES `project` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `unit`
+-- Dumping data for table `system`
 --
 
-LOCK TABLES `unit` WRITE;
-/*!40000 ALTER TABLE `unit` DISABLE KEYS */;
-INSERT INTO `unit` VALUES ('1','Design'),('278288','Implementation'),('836936','Req Engineering'),('860349','salam');
-/*!40000 ALTER TABLE `unit` ENABLE KEYS */;
+LOCK TABLES `system` WRITE;
+/*!40000 ALTER TABLE `system` DISABLE KEYS */;
+INSERT INTO `system` VALUES ('1629336','11','1'),('2450164','null','1'),('6822360','null','1'),('8126810','null','1');
+/*!40000 ALTER TABLE `system` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

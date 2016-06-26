@@ -16,27 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `unit`
+-- Table structure for table `module_modification`
 --
 
-DROP TABLE IF EXISTS `unit`;
+DROP TABLE IF EXISTS `module_modification`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `unit` (
+CREATE TABLE `module_modification` (
   `ID` varchar(255) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
+  `modificationType` varchar(255) DEFAULT NULL,
+  `modificationStart` date DEFAULT NULL,
+  `modificationEnd` date DEFAULT NULL,
+  `ModuleID` varchar(255) NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `ModuleID` (`ModuleID`),
+  CONSTRAINT `module_modification_ibfk_1` FOREIGN KEY (`ModuleID`) REFERENCES `module` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `unit`
+-- Dumping data for table `module_modification`
 --
 
-LOCK TABLES `unit` WRITE;
-/*!40000 ALTER TABLE `unit` DISABLE KEYS */;
-INSERT INTO `unit` VALUES ('1','Design'),('278288','Implementation'),('836936','Req Engineering'),('860349','salam');
-/*!40000 ALTER TABLE `unit` ENABLE KEYS */;
+LOCK TABLES `module_modification` WRITE;
+/*!40000 ALTER TABLE `module_modification` DISABLE KEYS */;
+/*!40000 ALTER TABLE `module_modification` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -48,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-26  4:39:41
+-- Dump completed on 2016-06-26  4:39:40

@@ -46,7 +46,7 @@ CREATE TABLE `access_level` (
 
 LOCK TABLES `access_level` WRITE;
 /*!40000 ALTER TABLE `access_level` DISABLE KEYS */;
-INSERT INTO `access_level` VALUES ('1',NULL,'1','1','1','1','1','1','1','1','1','1','0'),('2',NULL,'1','1','1','0','1','0','0','0','0','0','0'),('3',NULL,'1','1','1','0','0','0','0','0','0','0','0');
+INSERT INTO `access_level` VALUES ('1',NULL,'1','1','1','1','1','1','1','1','1','1','1'),('2',NULL,'1','1','1','1','1','0','0','0','0','0','0'),('3',NULL,'1','1','1','0','0','0','0','0','0','0','0');
 /*!40000 ALTER TABLE `access_level` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -59,4 +59,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-25  3:43:26
+-- Dump completed on 2016-06-26  4:39:42

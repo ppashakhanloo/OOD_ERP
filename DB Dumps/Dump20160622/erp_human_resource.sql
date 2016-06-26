@@ -44,7 +44,7 @@ CREATE TABLE `human_resource` (
 
 LOCK TABLES `human_resource` WRITE;
 /*!40000 ALTER TABLE `human_resource` DISABLE KEYS */;
-INSERT INTO `human_resource` VALUES ('y','y','yy','y','PENDING','158481','3',0),('h','h','h','h','PENDING','271346','3',0),('p','p','p','888','PENDING','306241','3',0),('yah','yah','hay','888','PENDING','381250','3',0),('heyh','joi','iiji','jio','PENDING','637217','3',0),('a','b','c','v','PENDING','705087','3',0),('yes','yes','yes','888','PENDING','822952','3',0),('yay','yay','yay','888','PENDING','861735','3',0),('pardis','pasha','android, java','888','PENDING','871539','2',1),('hi','how','are','888','PENDING','889547','3',0),('yes','no','yrd','ooo','PENDING','896974','3',0);
+INSERT INTO `human_resource` VALUES ('sara','pasha','java','888','PENDING','100824','1',1);
 /*!40000 ALTER TABLE `human_resource` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -57,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-25  3:43:26
+-- Dump completed on 2016-06-26  4:39:41

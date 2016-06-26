@@ -16,27 +16,36 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `unit`
+-- Table structure for table `project_requirement`
 --
 
-DROP TABLE IF EXISTS `unit`;
+DROP TABLE IF EXISTS `project_requirement`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `unit` (
+CREATE TABLE `project_requirement` (
   `ID` varchar(255) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
+  `provideDate` date DEFAULT NULL,
+  `releaseDate` date DEFAULT NULL,
+  `isEssential` tinyint(4) DEFAULT NULL,
+  `criticalProvideDate` date DEFAULT NULL,
+  `lengthOfPossession` int(10) DEFAULT NULL,
+  `ResourceID` varchar(255) NOT NULL,
+  `ProjectID` varchar(255) NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `ResourceID` (`ResourceID`),
+  KEY `ProjectID` (`ProjectID`),
+  CONSTRAINT `project_requirement_ibfk_1` FOREIGN KEY (`ResourceID`) REFERENCES `resource` (`ID`),
+  CONSTRAINT `project_requirement_ibfk_2` FOREIGN KEY (`ProjectID`) REFERENCES `project` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `unit`
+-- Dumping data for table `project_requirement`
 --
 
-LOCK TABLES `unit` WRITE;
-/*!40000 ALTER TABLE `unit` DISABLE KEYS */;
-INSERT INTO `unit` VALUES ('1','Design'),('278288','Implementation'),('836936','Req Engineering'),('860349','salam');
-/*!40000 ALTER TABLE `unit` ENABLE KEYS */;
+LOCK TABLES `project_requirement` WRITE;
+/*!40000 ALTER TABLE `project_requirement` DISABLE KEYS */;
+/*!40000 ALTER TABLE `project_requirement` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

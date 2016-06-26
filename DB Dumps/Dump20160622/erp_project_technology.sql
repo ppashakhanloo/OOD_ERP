@@ -16,27 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `unit`
+-- Table structure for table `project_technology`
 --
 
-DROP TABLE IF EXISTS `unit`;
+DROP TABLE IF EXISTS `project_technology`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `unit` (
-  `ID` varchar(255) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
+CREATE TABLE `project_technology` (
+  `ProjectID` varchar(255) NOT NULL,
+  `Technologyname` varchar(255) NOT NULL,
+  PRIMARY KEY (`ProjectID`,`Technologyname`),
+  KEY `Technologyname` (`Technologyname`),
+  CONSTRAINT `project_technology_ibfk_1` FOREIGN KEY (`ProjectID`) REFERENCES `project` (`ID`),
+  CONSTRAINT `project_technology_ibfk_2` FOREIGN KEY (`Technologyname`) REFERENCES `technology` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `unit`
+-- Dumping data for table `project_technology`
 --
 
-LOCK TABLES `unit` WRITE;
-/*!40000 ALTER TABLE `unit` DISABLE KEYS */;
-INSERT INTO `unit` VALUES ('1','Design'),('278288','Implementation'),('836936','Req Engineering'),('860349','salam');
-/*!40000 ALTER TABLE `unit` ENABLE KEYS */;
+LOCK TABLES `project_technology` WRITE;
+/*!40000 ALTER TABLE `project_technology` DISABLE KEYS */;
+/*!40000 ALTER TABLE `project_technology` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -48,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-26  4:39:41
+-- Dump completed on 2016-06-26  4:39:42
