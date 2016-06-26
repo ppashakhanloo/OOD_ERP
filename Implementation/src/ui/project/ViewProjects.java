@@ -107,7 +107,7 @@ public class ViewProjects extends ProjectObserver implements Visibility {
 
     public static void main(String[] args) {
         UserFacade userFacade = new UserFacade();
-        userFacade.login("158481", "y");
+        userFacade.login("100824", "888");
         ViewProjects viewProjects = new ViewProjects(userFacade);
         viewProjects.setVisible(true);
     }

@@ -38,8 +38,8 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
         this.userFacade = currentUser;
         this.project = project;
         addNewTechnology = new AddNewTechnology(userFacade, project);
-        editProject = new EditProject(project, addNewTechnology, currentUser);
-        editProject.attach(this);
+//        editProject = new EditProject(project, addNewTechnology, currentUser);
+//        editProject.attach(this);
         addNewTechnology.attach(this);
 
         prepareGUI();
@@ -106,6 +106,7 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainFrame.getMainFrame().setVisible(false);
+                editProject = new EditProject(project, addNewTechnology, userFacade);
                 editProject.setVisible(true);
             }
         });

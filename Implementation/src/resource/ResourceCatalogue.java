@@ -72,8 +72,14 @@ public class ResourceCatalogue {
     }
 
     public Resource get(String ID) {
-        ResourceDAO resourceDAO = ResourceDAO.getInstance();
-        return resourceDAO.get(ID);
+        Resource resource = HumanResourceDAO.getInstance().get(ID);
+        if (resource == null)
+            resource = InformationResourceDAO.getInstance().get(ID);
+        if (resource == null)
+            resource = PhysicalResourceDAO.getInstance().get(ID);
+        if (resource == null)
+            resource = MonetaryResourceDAO.getInstance().get(ID);
+        return resource;
     }
 
     public ArrayList<Resource> getAll(ResourceType resourceType) {

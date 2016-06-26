@@ -29,6 +29,10 @@ public class ProjectCatalogue {
         return ProjectDAO.getInstance().get(ID);
     }
 
+    public boolean update(Project project) {
+        return ProjectDAO.getInstance().update(project);
+    }
+
     public ArrayList<Project> list() {
         return ProjectDAO.getInstance().list();
     }
