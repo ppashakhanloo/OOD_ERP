@@ -1,8 +1,6 @@
 package business_logic_facade;
 
 import access.AccessLevelFactory;
-import project.Project;
-import project.ProjectCatalogue;
 import resource.*;
 import unit.Unit;
 import unit.UnitCatalogue;
@@ -11,9 +9,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by ppash on 6/24/2016.
- */
 public class OperationFacade {
 
     public ArrayList<Resource> getHumanResources() {

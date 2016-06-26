@@ -3,6 +3,7 @@ package business_logic_facade;
 import project.*;
 import project.System;
 import report.ProjectRequirement;
+import report.ProjectRequirementCatalogue;
 import resource.HumanResource;
 import resource.Resource;
 import resource.ResourceCatalogue;
@@ -34,10 +35,6 @@ public class ProjectFacade {
         ProjectCatalogue.getInstance().get(pid).addTechnology(new Technology(name, reason));
     }
 
-//    public void addInvolvedUnit(String uid, String pid) {
-//        ProjectCatalogue.getInstance().get(pid).
-//    }
-
     public ArrayList<Resource> getProjectResources(String pid) {
         return ProjectCatalogue.getInstance().get(pid).getResources();
     }
@@ -66,5 +63,11 @@ public class ProjectFacade {
         for (String id : developersID)
             newModule.addDeveloper((HumanResource) ResourceCatalogue.getInstance().get(id));
         // TODO add resources
+    }
+
+//    public boolean addProjectRequirement(ProjectRequirement item, String projectID,
+//                                         String resourceID) {
+    public void addRequirementToProject(, String pid, Resource resource) {
+        ProjectRequirementCatalogue.getInstance().addProjectRequirement(projectRequirement, pid, resource);
     }
 }

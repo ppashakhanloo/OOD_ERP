@@ -1,7 +1,6 @@
 package ui;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class MainDialog implements Visibility {
     private JDialog mainDialog;

@@ -41,16 +41,9 @@ public class EditProject extends MainDialog {
         JTextField name = new JTextField(project.getName());
 
         JLabel managerLbl = new JLabel("مدیر پروژه");
-//        JTextField managerName = new JTextField((projectFacade.getProjectManager(project.getID()) == null)
-//                ? "تعیین نشده"
-//                : projectFacade.getProjectManager(project.getID()).getFirstName() + " " + projectFacade.getProjectManager(project.getID()).getLastName());
-
         ArrayList<Resource> humanResources = operationFacade.getHumanResources();
         JComboBox<HumanResource> manCombo = new JComboBox<>();
-        for (Resource resource : humanResources) {
-            manCombo.addItem((HumanResource) resource);
-        }
-
+        for (Resource resource : humanResources) manCombo.addItem((HumanResource) resource);
 
         JLabel usersCountLbl = new JLabel("تعداد کاربران");
         JSpinner usersCount = new JSpinner();
@@ -156,6 +149,7 @@ public class EditProject extends MainDialog {
 //                                                                        .addComponent(addUnit)
                                                                                 .addGap(0, 9, Short.MAX_VALUE)))
                                                 )))));
+        getMainDialog().pack();
     }
 
     private void notifyAllObservers() {
