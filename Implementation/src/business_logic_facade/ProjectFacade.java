@@ -71,13 +71,12 @@ public class ProjectFacade {
 //                                         String resourceID) {
     public void addRequirementToProject(boolean isEssential, java.util.Date criticalProvideDate, String lengthOfPossession, String pid, Resource resource) {
         ProjectRequirement projectRequirement = new ProjectRequirement();
+        //
         projectRequirement.setEssential(isEssential);
-        java.lang.System.out.println("DATE: " + criticalProvideDate);
         Properties p = new Properties();
         p.put("text.today", "Today");
         p.put("text.month", "Month");
         p.put("text.year", "Year");
-        java.lang.System.out.println("DATE: " + criticalProvideDate);
         projectRequirement.setCriticalProvideDate(criticalProvideDate);
         projectRequirement.setLengthOfPossession(Integer.valueOf(lengthOfPossession));
 

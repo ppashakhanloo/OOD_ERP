@@ -148,7 +148,7 @@ public class EstimateResources implements Visibility {
 
     public static void main(String[] args) {
         UserFacade userFacade = new UserFacade();
-        userFacade.login("2", "1234");
+        userFacade.login("100824", "888");
         EstimateResources er = new EstimateResources(userFacade);
         er.setVisible(true);
     }

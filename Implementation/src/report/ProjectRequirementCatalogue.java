@@ -2,6 +2,7 @@ package report;
 
 import java.util.ArrayList;
 
+import database.ResourceDAO;
 import project.Project;
 import resource.Resource;
 import database.ProjectRequirementDAO;
@@ -37,6 +38,7 @@ public class ProjectRequirementCatalogue {
 
     public boolean addProjectRequirement(ProjectRequirement item, String projectID,
                                          String resourceID) {
+
         return ProjectRequirementDAO.getInstance().add(item, projectID, resourceID);
     }
 
