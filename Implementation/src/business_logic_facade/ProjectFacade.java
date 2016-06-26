@@ -8,7 +8,9 @@ import resource.HumanResource;
 import resource.Resource;
 import resource.ResourceCatalogue;
 
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Properties;
 
 public class ProjectFacade {
 
@@ -65,9 +67,22 @@ public class ProjectFacade {
         // TODO add resources
     }
 
-//    public boolean addProjectRequirement(ProjectRequirement item, String projectID,
+    //    public boolean addProjectRequirement(ProjectRequirement item, String projectID,
 //                                         String resourceID) {
-    public void addRequirementToProject(, String pid, Resource resource) {
-        ProjectRequirementCatalogue.getInstance().addProjectRequirement(projectRequirement, pid, resource);
+    public void addRequirementToProject(boolean isEssential, java.util.Date criticalProvideDate, String lengthOfPossession, String pid, Resource resource) {
+        ProjectRequirement projectRequirement = new ProjectRequirement();
+        projectRequirement.setEssential(isEssential);
+        java.lang.System.out.println("DATE: " + criticalProvideDate);
+        Properties p = new Properties();
+        p.put("text.today", "Today");
+        p.put("text.month", "Month");
+        p.put("text.year", "Year");
+        java.lang.System.out.println("DATE: " + criticalProvideDate);
+        projectRequirement.setCriticalProvideDate(criticalProvideDate);
+        projectRequirement.setLengthOfPossession(Integer.valueOf(lengthOfPossession));
+
+        ResourceCatalogue.getInstance().add(resource, "", pid);
+
+        ProjectRequirementCatalogue.getInstance().addProjectRequirement(projectRequirement, pid, resource.getID());
     }
 }

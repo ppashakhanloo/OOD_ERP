@@ -46,7 +46,8 @@ public class ViewProjectRequirements extends ProjectObserver implements Visibili
             addNew.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-//                    addNewProject.setVisible(true);
+                    AddNewProjectRequirement addNewProjectRequirement = new AddNewProjectRequirement(project.getID());
+                    addNewProjectRequirement.setVisible(true);
                 }
             });
         else
