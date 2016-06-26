@@ -9,7 +9,6 @@ import java.util.ArrayList;
 public class ModuleModificationDAO implements DAO<ModuleModification> {
 
 	private Connection sqlConn;
-	private Statement myStmt;
 	private String url = "jdbc:mysql://localhost:9999/erp";
 	private String user = "root";
 	private String password = "28525336";
@@ -21,7 +20,6 @@ public class ModuleModificationDAO implements DAO<ModuleModification> {
 	private ModuleModificationDAO() {
 		try {
 			sqlConn = DriverManager.getConnection(url, user, password);
-			myStmt = sqlConn.createStatement();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -49,6 +47,7 @@ public class ModuleModificationDAO implements DAO<ModuleModification> {
 				+ ", "
 				+ item.getModificationEnd() + ", '" + moduleID + "');";
 		try {
+			Statement myStmt = sqlConn.createStatement();
 			myStmt.executeUpdate(query);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -68,6 +67,7 @@ public class ModuleModificationDAO implements DAO<ModuleModification> {
 		String query = generator.insert("modulemodification_humanresource",
 				colNames, values);
 		try {
+			Statement myStmt = sqlConn.createStatement();
 			myStmt.executeUpdate(query);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -82,6 +82,7 @@ public class ModuleModificationDAO implements DAO<ModuleModification> {
 		String query = generator.select("modulemodification_humanresource",
 				null, "ModuleModificationID = " + modID);
 		try {
+			Statement myStmt = sqlConn.createStatement();
 			ResultSet rs = myStmt.executeQuery(query);
 			while (rs.next()) {
 				modifiers.add((HumanResource) hrDAO.get(rs
@@ -98,6 +99,7 @@ public class ModuleModificationDAO implements DAO<ModuleModification> {
 		String query = generator.select("module_modification", null, "ID = "
 				+ "'" + key + "'");
 		try {
+			Statement myStmt = sqlConn.createStatement();
 			ResultSet rs = myStmt.executeQuery(query);
 			if (rs.next())
 				return fillModuleModification(rs);
@@ -119,6 +121,7 @@ public class ModuleModificationDAO implements DAO<ModuleModification> {
 		String query = "DELETE FROM module_modification WHERE ID = " + "'"
 				+ key + "'" + ";";
 		try {
+			Statement myStmt = sqlConn.createStatement();
 			myStmt.executeUpdate(query);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -128,6 +131,7 @@ public class ModuleModificationDAO implements DAO<ModuleModification> {
 	@Override
 	public boolean update(ModuleModification item) {
 		try {
+			Statement myStmt = sqlConn.createStatement();
 			myStmt.executeUpdate(generator.update("module_modification",
 					"modificationType", item.getModificationType(), "ID = "
 							+ "'" + item.getID() + "'"));
@@ -152,6 +156,7 @@ public class ModuleModificationDAO implements DAO<ModuleModification> {
 	public ArrayList<ModuleModification> list() {
 		ArrayList<ModuleModification> modules = new ArrayList<>();
 		try {
+			Statement myStmt = sqlConn.createStatement();
 			ResultSet rs = myStmt
 					.executeQuery("SELECT * FROM module_modification;");
 			while (rs.next()) {
@@ -169,6 +174,7 @@ public class ModuleModificationDAO implements DAO<ModuleModification> {
 		String query = generator.select("module_modification", null,
 				"ModuleID = " + "'" + key + "'");
 		try {
+			Statement myStmt = sqlConn.createStatement();
 			ResultSet rs = myStmt.executeQuery(query);
 			while (rs.next()) {
 				mods.add(fillModuleModification(rs));

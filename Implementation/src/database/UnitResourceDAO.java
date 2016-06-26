@@ -10,7 +10,6 @@ import java.util.ArrayList;
 public class UnitResourceDAO implements DAO<UnitResource> {
 
 	private Connection sqlConn;
-	private Statement myStmt;
 	private String url = "jdbc:mysql://localhost:3306/erp";
 	private String user = "root";
 	private String password = "0440448182";
@@ -22,7 +21,6 @@ public class UnitResourceDAO implements DAO<UnitResource> {
 	private UnitResourceDAO() {
 		try {
 			sqlConn = DriverManager.getConnection(url, user, password);
-			myStmt = sqlConn.createStatement();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -41,6 +39,7 @@ public class UnitResourceDAO implements DAO<UnitResource> {
 		String query = generator.select("unit_resource", null, "UnitID = "
 				+ "'" + uid + "'");
 		try {
+			Statement myStmt = sqlConn.createStatement();
 			ResultSet rs = myStmt.executeQuery(query);
 			while (rs.next()) {
 				unitResources.add(resourceDAO.get(rs.getString("ResourceID")));
@@ -57,6 +56,7 @@ public class UnitResourceDAO implements DAO<UnitResource> {
 		String query = generator.select("unit_resource", null, "UnitID = "
 				+ "'" + uid + "'");
 		try {
+			Statement myStmt = sqlConn.createStatement();
 			ResultSet rs = myStmt.executeQuery(query);
 			while (rs.next()) {
 				Resource tmp = resourceDAO.get(rs.getString("ResourceID"));
@@ -74,6 +74,7 @@ public class UnitResourceDAO implements DAO<UnitResource> {
 		String query = generator.select("unit_resource", null, "ID = " + "'"
 				+ key + "'");
 		try {
+			Statement myStmt = sqlConn.createStatement();
 			ResultSet rs = myStmt.executeQuery(query);
 			ResourceDAO dao = ResourceDAO.getInstance();
 			return dao.get(rs.getString("ResourceID"));
@@ -87,6 +88,7 @@ public class UnitResourceDAO implements DAO<UnitResource> {
 		String query = generator.select("unit_resource", null, "ID = " + "'"
 				+ key + "'");
 		try {
+			Statement myStmt = sqlConn.createStatement();
 			ResultSet rs = myStmt.executeQuery(query);
 			UnitDAO dao = UnitDAO.getInstance();
 			return dao.get(rs.getString("UnitID"));

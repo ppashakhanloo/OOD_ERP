@@ -8,7 +8,6 @@ import java.util.Map;
 
 public class AccessLevelDAO {
 	protected Connection sqlConn;
-	protected Statement myStmt;
 	private String url = "jdbc:mysql://localhost:3306/erp";
 	private String user = "root";
 	private String password = "0440448182";
@@ -19,7 +18,6 @@ public class AccessLevelDAO {
 	private AccessLevelDAO() {
 		try {
 			sqlConn = DriverManager.getConnection(url, user, password);
-			myStmt = sqlConn.createStatement();
 			queryGenerator = QueryGenerator.getInstance();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -37,6 +35,7 @@ public class AccessLevelDAO {
 		HashMap<PermissionType, Boolean> permitTypes = new HashMap<>();
 		ResultSet rs;
 		try {
+			Statement myStmt = sqlConn.createStatement();
 			rs = myStmt.executeQuery(queryGenerator.select("access_level", null, "ID = " + ID));
 			while (rs.next()) {
 				permitTypes.put(PermissionType.canAddProject, rs.getString("canAddProject").equals("1"));

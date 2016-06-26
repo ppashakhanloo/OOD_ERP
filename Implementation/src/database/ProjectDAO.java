@@ -375,6 +375,7 @@ public class ProjectDAO implements DAO<Project> {
 	public ArrayList<Technology> getAllTechnologies() {
         ArrayList<Technology> technologies = new ArrayList<>();
         try {
+        	Statement myStmt = sqlConn.createStatement();
             ResultSet rs = myStmt.executeQuery("SELECT * FROM technology");
             while (rs.next()) {
                 technologies.add(fillTechnology(rs));

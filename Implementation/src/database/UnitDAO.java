@@ -8,7 +8,6 @@ import java.util.ArrayList;
 public class UnitDAO implements DAO<Unit> {
 
 	private Connection sqlConn;
-	private Statement myStmt;
 	private String url = "jdbc:mysql://localhost:3306/erp";
 	private String user = "root";
 	private String password = "0440448182";
@@ -20,7 +19,6 @@ public class UnitDAO implements DAO<Unit> {
 	private UnitDAO() {
 		try {
 			sqlConn = DriverManager.getConnection(url, user, password);
-			myStmt = sqlConn.createStatement();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -42,6 +40,7 @@ public class UnitDAO implements DAO<Unit> {
 		values.add(item.getID());
 		values.add(item.getName());
 		try {
+			Statement myStmt = sqlConn.createStatement();
 			myStmt.executeUpdate(generator.insert("unit", colNames, values));
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -55,6 +54,7 @@ public class UnitDAO implements DAO<Unit> {
 		String query = generator
 				.select("unit", null, "ID = " + "'" + key + "'");
 		try {
+			Statement myStmt = sqlConn.createStatement();
 			ResultSet rs = myStmt.executeQuery(query);
 			if (rs.next()) {
 				return fillUnit(rs);
@@ -71,6 +71,7 @@ public class UnitDAO implements DAO<Unit> {
 				+ "'");
 		ResultSet rs;
 		try {
+			Statement myStmt = sqlConn.createStatement();
 			rs = myStmt.executeQuery(query);
 			while (rs.next()) {
 				units.add(fillUnit(rs));
@@ -93,6 +94,7 @@ public class UnitDAO implements DAO<Unit> {
 	@Override
 	public void remove(String key) {
 		try {
+			Statement myStmt = sqlConn.createStatement();
 			myStmt.executeUpdate(generator.delete("unit", "ID = " + "'" + key
 					+ "'"));
 		} catch (SQLException e) {
@@ -104,6 +106,7 @@ public class UnitDAO implements DAO<Unit> {
 	@Override
 	public boolean update(Unit item) {
 		try {
+			Statement myStmt = sqlConn.createStatement();
 			myStmt.executeUpdate(generator.update("unit", "name",
 					item.getName(), "ID = " + "'" + item.getID() + "'"));
 		} catch (SQLException e) {
@@ -117,6 +120,7 @@ public class UnitDAO implements DAO<Unit> {
 	public ArrayList<Unit> list() {
 		ArrayList<Unit> units = new ArrayList<>();
 		try {
+			Statement myStmt = sqlConn.createStatement();
 			ResultSet rs = myStmt.executeQuery("SELECT * FROM unit;");
 			while (rs.next()) {
 				Unit newUnit = fillUnit(rs);
@@ -127,8 +131,8 @@ public class UnitDAO implements DAO<Unit> {
 		}
 		return units;
 	}
-	//public static void main(String[] args) {
-	//	UnitDAO dao = UnitDAO.getInstance();
-	//	System.out.println(dao.update(new Unit("1", "test")));
-	//}
+	// public static void main(String[] args) {
+	// UnitDAO dao = UnitDAO.getInstance();
+	// System.out.println(dao.update(new Unit("1", "test")));
+	// }
 }
