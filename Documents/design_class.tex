@@ -2,12 +2,14 @@
 در این فصل نمودارهای کلاس طراحی همراه با جزییات آن‌ها آورده شده است. به علت جلوگیری از ناخوانا شدن، از مکانیزم بسته‌بندی
 \LTRfootnote{Packaging}
 استفاده شده است. در هر بسته چند کلاس مرتبط به همراه ارتباطهایشان با کلاس‌های بیرونی قابل مشاهده است.
+\begin{landscape}
 \section{بسته پروژه}
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.45]{img/class-design/ProjectPackage}
-	\caption{صفحه ورود}
+	\includegraphics[scale=0.4]{img/class-design/ProjectPackage}
+	\caption{بسته پروژه}
 \end{figure}
+
 
 \section{بسته منبع}
 \begin{figure}[H]
@@ -15,6 +17,7 @@
 	\includegraphics[scale=0.45]{img/class-design/ResourcePackage}
 	\caption{بسته منیع}
 \end{figure}
+
 
 \section{بسته واحد}
 \begin{figure}[H]
@@ -37,14 +40,16 @@
 	\caption{بسته دسترسی}
 \end{figure}
 
-\begin{landscape}
+\newpage
 \section{بسته پایگاه‌داده}
 از آن‌جایی که کلاس قالب
 \LTRfootnote{Template}
  DAO یک واسط است، لازم است که توابع آن در همه‌ی کلاس‌هایی که به آن bind می‌شوند پیاده‌سازی شود. اما با توجه به ملاحظات مربوط به خوانایی و قرارگیری در مستند، از تکرار آن‌ها در کلاس‌های با پسوند DAO خودداری شده است.
+ \\
+ همچنین، کلاسی تحت نام QueryGenerator استفاده شده است که Singleton است و توابع موجود در دیگر کلاس‌های این بسته از آن استفاده کرده‌اند تا نیازی نباشد هربار پرسمان SQL به طور کامل نوشته شود. ارتباط‌های از نوع use که بین این کلاس و دیگر کلاس‌ها وجود دارد، جهت خوانایی آورده نشده است.
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.45]{img/class-design/DatabasePackage}
+	\includegraphics[scale=0.4]{img/class-design/DatabasePackage}
 	\caption{بسته پایگاه‌داده}
 \end{figure}
 \end{landscape}
