@@ -1,0 +1,205 @@
+\BOOKMARK [0][-]{chapter.1}{مقدمات}{}% 1
+\BOOKMARK [1][-]{section.1.1}{شرح مستندات}{chapter.1}% 2
+\BOOKMARK [2][-]{subsection.1.1.1}{سند ریسک‌ها و نیازمندی‌ها}{section.1.1}% 3
+\BOOKMARK [2][-]{subsection.1.1.2}{سند موارد کاربرد}{section.1.1}% 4
+\BOOKMARK [2][-]{subsection.1.1.3}{کارت‌های CRC}{section.1.1}% 5
+\BOOKMARK [2][-]{subsection.1.1.4}{نمودارهای فعالیت}{section.1.1}% 6
+\BOOKMARK [2][-]{subsection.1.1.5}{نمونه‌ی واسط کاربری}{section.1.1}% 7
+\BOOKMARK [2][-]{subsection.1.1.6}{نمودار کلاس‌های تحلیل}{section.1.1}% 8
+\BOOKMARK [2][-]{subsection.1.1.7}{نمودار بسته}{section.1.1}% 9
+\BOOKMARK [2][-]{subsection.1.1.8}{نمودارهای توالی تحلیل}{section.1.1}% 10
+\BOOKMARK [2][-]{subsection.1.1.9}{ نمودار مولفه}{section.1.1}% 11
+\BOOKMARK [2][-]{subsection.1.1.10}{نمودار کلاس‌های طراحی}{section.1.1}% 12
+\BOOKMARK [2][-]{subsection.1.1.11}{نمودار توالی طراحی}{section.1.1}% 13
+\BOOKMARK [2][-]{subsection.1.1.12}{واژه‌نامه}{section.1.1}% 14
+\BOOKMARK [1][-]{section.1.2}{شرح سیستم برنامه‌ریزی منابع سازمانی}{chapter.1}% 15
+\BOOKMARK [0][-]{chapter.2}{فهرست اولویت‌بندی‌شده نیازمندی‌ها}{}% 16
+\BOOKMARK [1][-]{section.2.1}{زیرسیستم تولید و نگه‌داری}{chapter.2}% 17
+\BOOKMARK [1][-]{section.2.2}{زیرسیستم توزیع}{chapter.2}% 18
+\BOOKMARK [1][-]{section.2.3}{زیرسیستم گزارش‌گیری}{chapter.2}% 19
+\BOOKMARK [1][-]{section.2.4}{زیرسیستم پیش‌بینی}{chapter.2}% 20
+\BOOKMARK [1][-]{section.2.5}{زیرسیستم کاربری}{chapter.2}% 21
+\BOOKMARK [1][-]{section.2.6}{زیرسیستم پشتیبانی}{chapter.2}% 22
+\BOOKMARK [1][-]{section.2.7}{Requirements\040Significant\040Architecturally}{chapter.2}% 23
+\BOOKMARK [1][-]{section.2.8}{توضیحاتی راجع به Baseline Architectural Executable}{chapter.2}% 24
+\BOOKMARK [0][-]{chapter.3}{فهرست ‌اولویت‌بندی‌شده ریسک‌ها}{}% 25
+\BOOKMARK [1][-]{section.3.1}{فهرست ریسک‌ها}{chapter.3}% 26
+\BOOKMARK [2][-]{subsection.3.1.1}{ریسک‌های مربوط به محدوده و نیازمندی‌ها}{section.3.1}% 27
+\BOOKMARK [2][-]{subsection.3.1.2}{ریسک‌های مربوط به زمان‌بندی}{section.3.1}% 28
+\BOOKMARK [2][-]{subsection.3.1.3}{ریسک‌های مربوط به مدیریت تغییرات}{section.3.1}% 29
+\BOOKMARK [2][-]{subsection.3.1.4}{ریسک‌های مربوط به ارتباطات}{section.3.1}% 30
+\BOOKMARK [2][-]{subsection.3.1.5}{ریسک‌های مربوط به نیروی انسانی}{section.3.1}% 31
+\BOOKMARK [2][-]{subsection.3.1.6}{ریسک‌های تکنیکی}{section.3.1}% 32
+\BOOKMARK [1][-]{section.3.2}{اولویت‌بندی ریسک‌ها}{chapter.3}% 33
+\BOOKMARK [0][-]{chapter.4}{سند موارد کاربرد}{}% 34
+\BOOKMARK [1][-]{section.4.1}{توصیف کنش‌گرها}{chapter.4}% 35
+\BOOKMARK [1][-]{section.4.2}{نمودارهای موارد کاربرد}{chapter.4}% 36
+\BOOKMARK [2][-]{subsection.4.2.1}{زیرسیستم تولید و نگهداری}{section.4.2}% 37
+\BOOKMARK [2][-]{subsection.4.2.2}{زیرسیستم توزیع}{section.4.2}% 38
+\BOOKMARK [2][-]{subsection.4.2.3}{زیرسیستم گزارش‌گیری}{section.4.2}% 39
+\BOOKMARK [2][-]{subsection.4.2.4}{زیرسیستم پیش‌بینی}{section.4.2}% 40
+\BOOKMARK [2][-]{subsection.4.2.5}{زیرسیستم کاربری}{section.4.2}% 41
+\BOOKMARK [2][-]{subsection.4.2.6}{زیرسیستم پشتیبانی}{section.4.2}% 42
+\BOOKMARK [1][-]{section.4.3}{توصیف موارد کاربرد}{chapter.4}% 43
+\BOOKMARK [2][-]{subsection.4.3.1}{زیرسیستم تولید و نگهداری}{section.4.3}% 44
+\BOOKMARK [2][-]{subsection.4.3.2}{زیرسیستم توزیع}{section.4.3}% 45
+\BOOKMARK [2][-]{subsection.4.3.3}{زیرسیستم گزارش‌گیری}{section.4.3}% 46
+\BOOKMARK [2][-]{subsection.4.3.4}{زیرسیستم پیش‌بینی}{section.4.3}% 47
+\BOOKMARK [2][-]{subsection.4.3.5}{زیرسیستم کاربری}{section.4.3}% 48
+\BOOKMARK [2][-]{subsection.4.3.6}{زیرسیستم پشتیبانی}{section.4.3}% 49
+\BOOKMARK [0][-]{chapter.5}{کارت‌های CRC}{}% 50
+\BOOKMARK [1][-]{section.5.1}{منبع}{chapter.5}% 51
+\BOOKMARK [1][-]{section.5.2}{کاتالوگ منبع}{chapter.5}% 52
+\BOOKMARK [1][-]{section.5.3}{منبع انسانی}{chapter.5}% 53
+\BOOKMARK [1][-]{section.5.4}{منبع اطلاعاتی}{chapter.5}% 54
+\BOOKMARK [1][-]{section.5.5}{منبع مالی}{chapter.5}% 55
+\BOOKMARK [1][-]{section.5.6}{منبع فیزیکی}{chapter.5}% 56
+\BOOKMARK [1][-]{section.5.7}{پروژه}{chapter.5}% 57
+\BOOKMARK [1][-]{section.5.8}{کاتالوگ پروژه}{chapter.5}% 58
+\BOOKMARK [1][-]{section.5.9}{سیستم}{chapter.5}% 59
+\BOOKMARK [1][-]{section.5.10}{ماژول}{chapter.5}% 60
+\BOOKMARK [1][-]{section.5.11}{تغییر ماژول}{chapter.5}% 61
+\BOOKMARK [1][-]{section.5.12}{واحد}{chapter.5}% 62
+\BOOKMARK [1][-]{section.5.13}{کاتالوگ واحد سازمان}{chapter.5}% 63
+\BOOKMARK [1][-]{section.5.14}{نیازمندی}{chapter.5}% 64
+\BOOKMARK [1][-]{section.5.15}{منبع_واحد}{chapter.5}% 65
+\BOOKMARK [1][-]{section.5.16}{سطح دسترسی}{chapter.5}% 66
+\BOOKMARK [1][-]{section.5.17}{‌دسترسی سطح بالا}{chapter.5}% 67
+\BOOKMARK [1][-]{section.5.18}{‌دسترسی سطح میانی}{chapter.5}% 68
+\BOOKMARK [1][-]{section.5.19}{‌دسترسی سطح پایین}{chapter.5}% 69
+\BOOKMARK [1][-]{section.5.20}{‌نیازمندی_پروژه}{chapter.5}% 70
+\BOOKMARK [1][-]{section.5.21}{کاتالوگ نیازمندی_پروژه}{chapter.5}% 71
+\BOOKMARK [0][-]{chapter.6}{نمودارهای فعالیت}{}% 72
+\BOOKMARK [1][-]{section.6.1}{اضافه کردن پروژه}{chapter.6}% 73
+\BOOKMARK [1][-]{section.6.2}{اضافه کردن سیستم به پروژه}{chapter.6}% 74
+\BOOKMARK [1][-]{section.6.3}{اضافه کردن ماژول به سیستم}{chapter.6}% 75
+\BOOKMARK [1][-]{section.6.4}{اضافه کردن منبع به واحد سازمان}{chapter.6}% 76
+\BOOKMARK [1][-]{section.6.5}{افزودن واحد به سازمان}{chapter.6}% 77
+\BOOKMARK [1][-]{section.6.6}{انتخاب منبع}{chapter.6}% 78
+\BOOKMARK [1][-]{section.6.7}{تخصیص منبع به پروژه}{chapter.6}% 79
+\BOOKMARK [1][-]{section.6.8}{تعیین سطح دسترسی کاربر دیگر}{chapter.6}% 80
+\BOOKMARK [1][-]{section.6.9}{تعیین عملیات مجاز یک سطح دسترسی}{chapter.6}% 81
+\BOOKMARK [1][-]{section.6.10}{تغییر سطح دسترسی کاربر دیگر}{chapter.6}% 82
+\BOOKMARK [1][-]{section.6.11}{تغییر مشخصات یک منبع}{chapter.6}% 83
+\BOOKMARK [1][-]{section.6.12}{تهیه نسخه پشتیبان سیستم برنامه ریزی}{chapter.6}% 84
+\BOOKMARK [1][-]{section.6.13}{ثبت تعداد استفاده‌کنندگان پروژه نرم‌افزاری}{chapter.6}% 85
+\BOOKMARK [1][-]{section.6.14}{ثبت تغییر ماژول یک سیستم}{chapter.6}% 86
+\BOOKMARK [1][-]{section.6.15}{ثبت تکنولوژی مورد استفاده پروژه نرم‌افزاری}{chapter.6}% 87
+\BOOKMARK [1][-]{section.6.16}{ثبت‌نام در سیستم برنامه‌ریزی}{chapter.6}% 88
+\BOOKMARK [1][-]{section.6.17}{ثبت نیازمندی کنونی واحد سازمان}{chapter.6}% 89
+\BOOKMARK [1][-]{section.6.18}{اضافه کردن نیازمندی به پروژه}{chapter.6}% 90
+\BOOKMARK [1][-]{section.6.19}{جستجو در پروژه‌ها برای تخمین منبع}{chapter.6}% 91
+\BOOKMARK [1][-]{section.6.20}{جستجو در پروژه‌ها برای یافتن نیازمندی‌های ضروری}{chapter.6}% 92
+\BOOKMARK [1][-]{section.6.21}{خروج از سیستم}{chapter.6}% 93
+\BOOKMARK [1][-]{section.6.22}{دریافت گزارش جریان چرخشی مصرف منابع موجود}{chapter.6}% 94
+\BOOKMARK [1][-]{section.6.23}{دریافت گزارش منابع موجود}{chapter.6}% 95
+\BOOKMARK [1][-]{section.6.24}{دریافت گزارش منابع مورد نیاز}{chapter.6}% 96
+\BOOKMARK [1][-]{section.6.25}{مشاهده پروژه}{chapter.6}% 97
+\BOOKMARK [1][-]{section.6.26}{مشاهده فهرست پروژه‌ها}{chapter.6}% 98
+\BOOKMARK [1][-]{section.6.27}{مشاهده فهرست منابع یک واحد}{chapter.6}% 99
+\BOOKMARK [1][-]{section.6.28}{مشاهده فهرست نیازمندی‌های یک واحد}{chapter.6}% 100
+\BOOKMARK [1][-]{section.6.29}{مشاهده مشخصات یک منبع}{chapter.6}% 101
+\BOOKMARK [1][-]{section.6.30}{ورود به سیستم}{chapter.6}% 102
+\BOOKMARK [1][-]{section.6.31}{ورود مشخصات منبع}{chapter.6}% 103
+\BOOKMARK [0][-]{chapter.7}{نمونه اولیه واسط کاربری}{}% 104
+\BOOKMARK [1][-]{section.7.1}{صفحات نخست}{chapter.7}% 105
+\BOOKMARK [1][-]{section.7.2}{صفحات مربوط به سازمان}{chapter.7}% 106
+\BOOKMARK [1][-]{section.7.3}{صفحات مربوط به پروژه}{chapter.7}% 107
+\BOOKMARK [1][-]{section.7.4}{صفحات مربوط به منابع}{chapter.7}% 108
+\BOOKMARK [1][-]{section.7.5}{صفحات مربوط به گزارش‌گیری}{chapter.7}% 109
+\BOOKMARK [1][-]{section.7.6}{صفحات مربوط به پیش‌بینی}{chapter.7}% 110
+\BOOKMARK [0][-]{chapter.8}{نمودار کلاس‌های تحلیل}{}% 111
+\BOOKMARK [0][-]{chapter.9}{نمودار بسته}{}% 112
+\BOOKMARK [1][-]{section.9.1}{نمای کلی بسته‌ها}{chapter.9}% 113
+\BOOKMARK [1][-]{section.9.2}{بسته‌ی Project}{chapter.9}% 114
+\BOOKMARK [1][-]{section.9.3}{بسته‌ی Resource}{chapter.9}% 115
+\BOOKMARK [1][-]{section.9.4}{بسته‌ی Unit}{chapter.9}% 116
+\BOOKMARK [1][-]{section.9.5}{بسته‌ی Report}{chapter.9}% 117
+\BOOKMARK [1][-]{section.9.6}{بسته‌ی Access}{chapter.9}% 118
+\BOOKMARK [0][-]{chapter.10}{نمودارهای توالی تحلیل}{}% 119
+\BOOKMARK [1][-]{section.10.1}{اضافه کردن پروژه}{chapter.10}% 120
+\BOOKMARK [1][-]{section.10.2}{اضافه کردن سیستم به پروژه}{chapter.10}% 121
+\BOOKMARK [1][-]{section.10.3}{اضافه کردن ماژول به سیستم}{chapter.10}% 122
+\BOOKMARK [1][-]{section.10.4}{اضافه کردن منبع به واحد سازمان}{chapter.10}% 123
+\BOOKMARK [1][-]{section.10.5}{افزودن واحد به سازمان}{chapter.10}% 124
+\BOOKMARK [1][-]{section.10.6}{انتخاب منبع}{chapter.10}% 125
+\BOOKMARK [1][-]{section.10.7}{تخصیص منبع به پروژه}{chapter.10}% 126
+\BOOKMARK [1][-]{section.10.8}{تعیین سطح دسترسی کاربر دیگر}{chapter.10}% 127
+\BOOKMARK [1][-]{section.10.9}{تعیین عملیات مجاز یک سطح دسترسی}{chapter.10}% 128
+\BOOKMARK [1][-]{section.10.10}{تغییر سطح دسترسی کاربر دیگر}{chapter.10}% 129
+\BOOKMARK [1][-]{section.10.11}{تغییر مشخصات یک منبع}{chapter.10}% 130
+\BOOKMARK [1][-]{section.10.12}{ثبت تعداد استفاده‌کنندگان پروژه نرم‌افزاری}{chapter.10}% 131
+\BOOKMARK [1][-]{section.10.13}{ثبت تغییر ماژول یک سیستم}{chapter.10}% 132
+\BOOKMARK [1][-]{section.10.14}{ثبت تکنولوژی مورد استفاده پروژه نرم‌افزاری}{chapter.10}% 133
+\BOOKMARK [1][-]{section.10.15}{ثبت نام در سیستم برنامه‌ریزی}{chapter.10}% 134
+\BOOKMARK [1][-]{section.10.16}{ثبت نیازمندی کنونی واحد سازمان}{chapter.10}% 135
+\BOOKMARK [1][-]{section.10.17}{اضافه کردن نیازمندی به پروژه}{chapter.10}% 136
+\BOOKMARK [1][-]{section.10.18}{جستجو در پروژه‌ها برای تخمین منبع}{chapter.10}% 137
+\BOOKMARK [1][-]{section.10.19}{جستجو در پروژه‌ها برای یافتن نیازمندی‌های ضروری}{chapter.10}% 138
+\BOOKMARK [1][-]{section.10.20}{خروج از سیستم}{chapter.10}% 139
+\BOOKMARK [1][-]{section.10.21}{دریافت گزارش جریان چرخشی مصرف منابع موجود}{chapter.10}% 140
+\BOOKMARK [1][-]{section.10.22}{دریافت گزارش منابع موجود}{chapter.10}% 141
+\BOOKMARK [1][-]{section.10.23}{دریافت گزارش منابع مورد نیاز}{chapter.10}% 142
+\BOOKMARK [1][-]{section.10.24}{مشاهده پروژه}{chapter.10}% 143
+\BOOKMARK [1][-]{section.10.25}{مشاهده فهرست پروژه‌ها}{chapter.10}% 144
+\BOOKMARK [1][-]{section.10.26}{مشاهده فهرست منابع یک واحد}{chapter.10}% 145
+\BOOKMARK [1][-]{section.10.27}{مشاهده فهرست نیازمندی‌های یک واحد}{chapter.10}% 146
+\BOOKMARK [1][-]{section.10.28}{مشاهده مشخصات یک منبع}{chapter.10}% 147
+\BOOKMARK [1][-]{section.10.29}{ورود به سیستم}{chapter.10}% 148
+\BOOKMARK [0][-]{chapter.11}{نمودار مولفه}{}% 149
+\BOOKMARK [0][-]{chapter.12}{نمودارهای کلاس طراحی}{}% 150
+\BOOKMARK [1][-]{section.12.1}{بسته پروژه}{chapter.12}% 151
+\BOOKMARK [1][-]{section.12.2}{بسته منبع}{chapter.12}% 152
+\BOOKMARK [1][-]{section.12.3}{بسته واحد}{chapter.12}% 153
+\BOOKMARK [1][-]{section.12.4}{بسته گزارش}{chapter.12}% 154
+\BOOKMARK [1][-]{section.12.5}{بسته دسترسی}{chapter.12}% 155
+\BOOKMARK [1][-]{section.12.6}{بسته پایگاه‌داده}{chapter.12}% 156
+\BOOKMARK [1][-]{section.12.7}{کلاس‌های واسط کاربری}{chapter.12}% 157
+\BOOKMARK [2][-]{subsection.12.7.1}{نمای کلی کلاس‌های واسط کاربری}{section.12.7}% 158
+\BOOKMARK [2][-]{subsection.12.7.2}{جزییات کلاس‌های واسط کاربری}{section.12.7}% 159
+\BOOKMARK [0][-]{chapter.13}{نمودارهای توالی طراحی}{}% 160
+\BOOKMARK [1][-]{section.13.1}{اضافه کردن پروژه}{chapter.13}% 161
+\BOOKMARK [1][-]{section.13.2}{اضافه کردن سیستم به پروژه}{chapter.13}% 162
+\BOOKMARK [1][-]{section.13.3}{اضافه کردن ماژول به سیستم}{chapter.13}% 163
+\BOOKMARK [1][-]{section.13.4}{اضافه کردن منبع به واحد سازمان}{chapter.13}% 164
+\BOOKMARK [1][-]{section.13.5}{افزودن واحد به سازمان}{chapter.13}% 165
+\BOOKMARK [1][-]{section.13.6}{تخصیص منبع به پروژه}{chapter.13}% 166
+\BOOKMARK [1][-]{section.13.7}{تعیین سطح دسترسی کاربر دیگر}{chapter.13}% 167
+\BOOKMARK [1][-]{section.13.8}{تعیین عملیات مجاز یک سطح دسترسی}{chapter.13}% 168
+\BOOKMARK [1][-]{section.13.9}{تغییر سطح دسترسی کاربر دیگر}{chapter.13}% 169
+\BOOKMARK [1][-]{section.13.10}{تغییر مشخصات یک منبع}{chapter.13}% 170
+\BOOKMARK [1][-]{section.13.11}{ثبت تعداد استفاده‌کنندگان پروژه نرم‌افزاری}{chapter.13}% 171
+\BOOKMARK [1][-]{section.13.12}{ثبت تغییر ماژول یک سیستم}{chapter.13}% 172
+\BOOKMARK [1][-]{section.13.13}{ثبت تکنولوژی مورد استفاده پروژه نرم‌افزاری}{chapter.13}% 173
+\BOOKMARK [1][-]{section.13.14}{ثبت نام در سیستم برنامه‌ریزی}{chapter.13}% 174
+\BOOKMARK [1][-]{section.13.15}{ثبت نیازمندی کنونی واحد سازمان}{chapter.13}% 175
+\BOOKMARK [1][-]{section.13.16}{اضافه کردن نیازمندی به پروژه}{chapter.13}% 176
+\BOOKMARK [1][-]{section.13.17}{جستجو در پروژه‌ها برای تخمین منبع}{chapter.13}% 177
+\BOOKMARK [1][-]{section.13.18}{جستجو در پروژه‌ها برای یافتن نیازمندی‌های ضروری}{chapter.13}% 178
+\BOOKMARK [1][-]{section.13.19}{خروج از سیستم}{chapter.13}% 179
+\BOOKMARK [1][-]{section.13.20}{دریافت گزارش جریان چرخشی مصرف منابع موجود}{chapter.13}% 180
+\BOOKMARK [1][-]{section.13.21}{دریافت گزارش منابع موجود}{chapter.13}% 181
+\BOOKMARK [1][-]{section.13.22}{دریافت گزارش منابع مورد نیاز}{chapter.13}% 182
+\BOOKMARK [1][-]{section.13.23}{مشاهده پروژه}{chapter.13}% 183
+\BOOKMARK [1][-]{section.13.24}{مشاهده فهرست پروژه‌ها}{chapter.13}% 184
+\BOOKMARK [1][-]{section.13.25}{مشاهده فهرست منابع یک واحد}{chapter.13}% 185
+\BOOKMARK [1][-]{section.13.26}{مشاهده فهرست نیازمندی‌های یک واحد}{chapter.13}% 186
+\BOOKMARK [1][-]{section.13.27}{مشاهده مشخصات یک منبع}{chapter.13}% 187
+\BOOKMARK [1][-]{section.13.28}{ورود به سیستم}{chapter.13}% 188
+\BOOKMARK [0][-]{chapter.14}{شمای پایگاه داده}{}% 189
+\BOOKMARK [0][-]{section*.299}{پیوست‌ها}{}% 190
+\BOOKMARK [0][-]{پیوست.alph1.Alph1}{سابقه تغییرات مستند}{}% 191
+\BOOKMARK [0][-]{پیوست.alph1.Alph2}{واژه‌نامه}{}% 192
+\BOOKMARK [0][-]{پیوست.alph1.Alph3}{برنامه زمان‌بندی فازها}{}% 193
+\BOOKMARK [1][-]{section.alph1.Alph3.1}{تحلیل مقدماتی}{پیوست.alph1.Alph3}% 194
+\BOOKMARK [1][-]{section.alph1.Alph3.2}{تحلیل تفصیلی، تکرار اول}{پیوست.alph1.Alph3}% 195
+\BOOKMARK [1][-]{section.alph1.Alph3.3}{تحلیل تفصیلی، تکرار دوم}{پیوست.alph1.Alph3}% 196
+\BOOKMARK [1][-]{section.alph1.Alph3.4}{تحلیل تفصیلی، تکرار سوم}{پیوست.alph1.Alph3}% 197
+\BOOKMARK [1][-]{section.alph1.Alph3.5}{ساخت، تکرار اول}{پیوست.alph1.Alph3}% 198
+\BOOKMARK [1][-]{section.alph1.Alph3.6}{ساخت، تکرار دوم}{پیوست.alph1.Alph3}% 199
+\BOOKMARK [1][-]{section.alph1.Alph3.7}{گذار}{پیوست.alph1.Alph3}% 200
+\BOOKMARK [0][-]{پیوست.alph1.Alph4}{الگوهای طراحی اعمال شده}{}% 201
+\BOOKMARK [1][-]{section.alph1.Alph4.1}{Factory}{پیوست.alph1.Alph4}% 202
+\BOOKMARK [1][-]{section.alph1.Alph4.2}{Singleton}{پیوست.alph1.Alph4}% 203
+\BOOKMARK [1][-]{section.alph1.Alph4.3}{Observer}{پیوست.alph1.Alph4}% 204
+\BOOKMARK [1][-]{section.alph1.Alph4.4}{Façade}{پیوست.alph1.Alph4}% 205
