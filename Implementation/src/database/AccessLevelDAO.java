@@ -10,7 +10,7 @@ public class AccessLevelDAO {
 	protected Connection sqlConn;
 	private String url = "jdbc:mysql://localhost:3306/erp";
 	private String user = "root";
-	private String password = "0440448182";
+	private String password = "7284";
 
 	private static AccessLevelDAO accessLevelDAO;
 	protected QueryGenerator queryGenerator;
@@ -54,7 +54,7 @@ public class AccessLevelDAO {
 				permitTypes.put(PermissionType.canGetResourceAttributes,
 						rs.getString("canGetResourceAttributes").equals("1"));
 				permitTypes.put(PermissionType.canSearch, rs.getString("canSearch").equals("1"));
-				permitTypes.put(PermissionType.canAddUnit, rs.getString("canAddUnit").equals("1"));
+//				permitTypes.put(PermissionType.canAddUnit, rs.getString("canAddUnit").equals("1"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
