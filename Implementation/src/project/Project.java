@@ -13,13 +13,13 @@ import java.util.Date;
 import java.util.Random;
 
 public class Project {
-    String ID;
-    String name;
-    Date developmentStart;
-    Date developmentEnd;
-    String customerName;
-    int usersCount;
-    int ID_LENGTH = 6;
+    private String ID;
+    private String name;
+    private Date developmentStart;
+    private Date developmentEnd;
+    private String customerName;
+    private int usersCount;
+    private int ID_LENGTH = 6;
 
     public Project() {
         setID(generateNDigitID(ID_LENGTH));

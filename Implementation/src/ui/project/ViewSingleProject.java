@@ -4,7 +4,6 @@ import business_logic_facade.OperationFacade;
 import business_logic_facade.ProjectFacade;
 import business_logic_facade.UserFacade;
 import project.Module;
-import project.Project;
 import project.System;
 import project.Technology;
 import ui.MainFrame;
@@ -14,33 +13,33 @@ import unit.Unit;
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 
 public class ViewSingleProject extends ProjectObserver implements Visibility {
     private MainFrame mainFrame;
-    private OperationFacade operationFacade;
+    //    private OperationFacade operationFacade;
     private ProjectFacade projectFacade;
-    private Project project;
     private EditProject editProject;
     private AddNewTechnology addNewTechnology;
     private UserFacade userFacade;
 
-    DefaultListModel<Technology> listModelTech;
-    JList<Technology> techList;
+    private DefaultListModel<Technology> listModelTech;
+    private JList<Technology> techList;
 
+    private String pid;
 
-    public ViewSingleProject(UserFacade currentUser, Project project) {
+    public ViewSingleProject(UserFacade currentUser, String pid) {
         mainFrame = new MainFrame(currentUser);
-        operationFacade = new OperationFacade();
+//        operationFacade = new OperationFacade();
         projectFacade = new ProjectFacade();
         this.userFacade = currentUser;
-        this.project = project;
-        addNewTechnology = new AddNewTechnology(userFacade, project);
+//        this.project = project;
+        addNewTechnology = new AddNewTechnology(userFacade, projectFacade.getProject(pid));
 //        editProject = new EditProject(project, addNewTechnology, currentUser);
 //        editProject.attach(this);
         addNewTechnology.attach(this);
+        this.pid = pid;
 
         prepareGUI();
     }
@@ -48,46 +47,46 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
     private void prepareGUI() {
 
         JLabel nameLbl = new JLabel("نام پروژه");
-        JTextField name = new JTextField(project.getName());
+        JTextField name = new JTextField(projectFacade.getProject(pid).getName());
         name.setEditable(false);
 
         JLabel managerLbl = new JLabel("مدیر پروژه");
-        JTextField managerName = new JTextField((projectFacade.getProjectManager(project.getID()) == null)
+        JTextField managerName = new JTextField((projectFacade.getProjectManager(pid) == null)
                 ? "تعیین نشده"
-                : projectFacade.getProjectManager(project.getID()).getFirstName() + " " + projectFacade.getProjectManager(project.getID()).getLastName());
+                : projectFacade.getProjectManager(pid).getFirstName() + " " + projectFacade.getProjectManager(pid).getLastName());
         managerName.setEditable(false);
 
         JLabel usersCountLbl = new JLabel("تعداد کاربران");
         JSpinner usersCount = new JSpinner();
-        usersCount.setValue(project.getUsersCount());
+        usersCount.setValue(projectFacade.getProject(pid).getUsersCount());
         usersCount.setEnabled(false);
 
 
         JPanel structPanel = new JPanel();
         JScrollPane structTreeScroll = new JScrollPane();
         JTree structTree = new JTree();
+        structTree.addMouseListener(new PopClickListener());
 
 
         JPanel techPanel = new JPanel();
         JScrollPane techListScroll = new JScrollPane();
         listModelTech = new DefaultListModel<>();
-        project.getTechnologies().forEach(listModelTech::addElement);
+        projectFacade.getProject(pid).getTechnologies().forEach(listModelTech::addElement);
         techList = new JList(listModelTech);
 
 
         JPanel unitsPanel = new JPanel();
         DefaultListModel<Unit> listModelUnit = new DefaultListModel<>();
         JScrollPane unitListScroll = new JScrollPane();
-        project.getInvolvedUnits().forEach(listModelUnit::addElement);
+        projectFacade.getProject(pid).getInvolvedUnits().forEach(listModelUnit::addElement);
         JList<Unit> unitList = new JList(listModelUnit);
 
 
         JButton viewRes = new JButton("مشاهده منابع");
-        // TODO
         viewRes.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                (new ViewProjectResources(userFacade, project)).setVisible(true);
+                (new ViewProjectResources(userFacade, projectFacade.getProject(pid))).setVisible(true);
             }
         });
 
@@ -96,17 +95,16 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
         viewReqs.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                (new ViewProjectRequirements(userFacade, project)).setVisible(true);
+                (new ViewProjectRequirements(userFacade, projectFacade.getProject(pid))).setVisible(true);
             }
         });
-
 
         JButton edit = new JButton("ویرایش");
         edit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainFrame.getMainFrame().setVisible(false);
-                editProject = new EditProject(project, addNewTechnology, userFacade);
+                editProject = new EditProject(projectFacade.getProject(pid), addNewTechnology, userFacade);
                 editProject.setVisible(true);
             }
         });
@@ -130,9 +128,9 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
                                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        DefaultMutableTreeNode root = new DefaultMutableTreeNode(project);
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode(projectFacade.getProject(pid));
         // create the system nodes
-        ArrayList<System> systems = project.getSystems();
+        ArrayList<System> systems = projectFacade.getProject(pid).getSystems();
         DefaultMutableTreeNode[] systemNodes = new DefaultMutableTreeNode[systems.size()];
         if (systems != null) {
             for (int i = 0; i < systems.size(); i++) {
@@ -260,4 +258,53 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
     public void setVisible(boolean visible) {
         mainFrame.setVisible(true);
     }
+
+    class AddSystemModule extends JPopupMenu {
+        private JMenuItem addSystem;
+        private JMenuItem addModule;
+
+        public AddSystemModule(UserFacade userFacade, String pid) {
+            addSystem = new JMenuItem("افزودن سیستم جدید");
+            addSystem.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    AddNewSystem addNewSystem = new AddNewSystem(userFacade, pid);
+                    java.lang.System.out.println("I WANT TO ADD SYSTEM TO PROJECT " + pid);
+                    addNewSystem.setVisible(true);
+                    mainFrame.getMainFrame().setVisible(false);
+                }
+            });
+            addModule = new JMenuItem("افزودن ماژول جدید");
+            addModule.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    AddNewModule addNewModule = new AddNewModule(userFacade, pid);
+                    addNewModule.setVisible(true);
+                    java.lang.System.out.println("I WANT TO ADD MODULE TO PROJECT " + pid);
+                    mainFrame.getMainFrame().setVisible(false);
+                }
+            });
+
+            add(addSystem);
+            add(addModule);
+        }
+    }
+
+    class PopClickListener extends MouseAdapter {
+        public void mousePressed(MouseEvent e) {
+            if (e.isPopupTrigger())
+                doPop(e);
+        }
+
+        public void mouseReleased(MouseEvent e) {
+            if (e.isPopupTrigger())
+                doPop(e);
+        }
+
+        private void doPop(MouseEvent e) {
+            AddSystemModule menu = new AddSystemModule(userFacade, pid);
+            menu.show(e.getComponent(), e.getX(), e.getY());
+        }
+    }
 }
+

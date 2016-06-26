@@ -7,70 +7,77 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class System {
-	int ID_LENGTH = 6;
-	String ID;
-	String name;
+    private int ID_LENGTH = 6;
+    private String ID;
+    private String name;
 
-	public System() {
-		this.setID(generateNDigitID(ID_LENGTH));
-	}
+    public System() {
+        this.setID(generateNDigitID(ID_LENGTH));
+    }
 
-	public System(String id, String name) {
-		this.setID(id);
-		this.name = name;
-	}
+    public System(String id, String name) {
+        this.setID(id);
+        this.name = name;
+    }
 
-	private String generateNDigitID(int n) {
-		Random random = new Random();
-		return Integer.toString((int) (Math.pow(10, n) + random.nextFloat() * 9
-				* Math.pow(10, n)));
-	}
+    public System(String name) {
+        this.setID(generateNDigitID(ID_LENGTH));
+        this.name = name;
+    }
 
-	public void removeModule(Module module) {
-		ModuleDAO moduleDAO = ModuleDAO.getInstance();
-		moduleDAO.remove(module.getID());
-	}
+    private String generateNDigitID(int n) {
+        Random random = new Random();
+        return Integer.toString((int) (Math.pow(10, n) + random.nextFloat() * 9
+                * Math.pow(10, n)));
+    }
 
-	public int getModulesCount() {
-		SystemDAO systemDAO = SystemDAO.getInstance();
-		return systemDAO.getModules(getID()).size();
-	}
+    public void removeModule(Module module) {
+        ModuleDAO moduleDAO = ModuleDAO.getInstance();
+        moduleDAO.remove(module.getID());
+    }
 
-	public ArrayList<Module> getModules() {
-		SystemDAO systemDAO = SystemDAO.getInstance();
-		return systemDAO.getModules(getID());
-	}
+    public int getModulesCount() {
+        SystemDAO systemDAO = SystemDAO.getInstance();
+        return systemDAO.getModules(getID()).size();
+    }
 
-	public Module getModule(String id) {
-		ModuleDAO moduleDAO = ModuleDAO.getInstance();
-		return moduleDAO.get(id);
-	}
+    public ArrayList<Module> getModules() {
+        SystemDAO systemDAO = SystemDAO.getInstance();
+        return systemDAO.getModules(getID());
+    }
 
-	public boolean addModule(Module module) {
-		ModuleDAO moduleDAO = ModuleDAO.getInstance();
-		return moduleDAO.add(module, getID());
-	}
+    public Module getModule(String id) {
+        return ModuleDAO.getInstance().get(id);
+    }
 
-	public String getID() {
-		return ID;
-	}
+    public boolean addModule(Module module) {
+        return ModuleDAO.getInstance().add(module, getID());
+    }
 
-	private void setID(String iD) {
-		ID = iD;
-	}
+    public String getID() {
+        return ID;
+    }
 
-	public String getName() {
-		return name;
-	}
+    private void setID(String iD) {
+        ID = iD;
+    }
 
-	public boolean setName(String name) {
-		this.name = name;
-		SystemDAO sysDAO = SystemDAO.getInstance();
-		return sysDAO.update(new System(getID(), name));
-	}
+    public String getName() {
+        return name;
+    }
 
-	public static void main(String[] args) {
+    public boolean setName(String name) {
+        this.name = name;
+        SystemDAO sysDAO = SystemDAO.getInstance();
+        return sysDAO.update(new System(getID(), name));
+    }
 
-	}
+    @Override
+    public String toString() {
+        return "ID=" + ID + ", name=" + name;
+    }
 
+    public static void main(String[] args) {
+
+    }
 }

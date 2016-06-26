@@ -76,11 +76,18 @@ public class EditProject extends MainDialog {
         edit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                java.lang.System.out.println("SAVE CHANGES: " + projectFacade);
+                java.lang.System.out.println("NAME: " + name.getText());
+                java.lang.System.out.println("MANAGER ID: " + ((HumanResource) manCombo.getSelectedItem()).getID());
+                java.lang.System.out.println("USER COUNT: " + (int) usersCount.getValue());
+                java.lang.System.out.println("PROJECT ID: " + project.getID());
+
                 projectFacade.updateProject(name.getText(),
-                        ((HumanResource)manCombo.getSelectedItem()).getID(),
+                        ((HumanResource) manCombo.getSelectedItem()).getID(),
                         (int) usersCount.getValue(),
                         project.getID());
-                ViewSingleProject viewSingleProject = new ViewSingleProject(userFacade, projectFacade.getProject(project.getID()));
+                java.lang.System.out.println("END");
+                ViewSingleProject viewSingleProject = new ViewSingleProject(userFacade, project.getID());
                 viewSingleProject.setVisible(true);
                 getMainDialog().setVisible(false);
             }

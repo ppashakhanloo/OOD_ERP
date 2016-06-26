@@ -21,7 +21,6 @@ public class ViewProjects extends ProjectObserver implements Visibility {
     private OperationFacade operationFacade;
     private ProjectFacade projectFacade;
 
-
     private AddNewProject addNewProject;
 
     private DefaultListModel<Project> listModel;
@@ -74,7 +73,7 @@ public class ViewProjects extends ProjectObserver implements Visibility {
                 JList list = (JList) evt.getSource();
                 if (evt.getClickCount() == 2) {
                     // Double-click detected
-                    viewSingleProject = new ViewSingleProject(mainFrame.getCurrentUser(), (Project) list.getSelectedValue());
+                    viewSingleProject = new ViewSingleProject(mainFrame.getCurrentUser(), ((Project) list.getSelectedValue()).getID());
                     viewSingleProject.setVisible(true);
                 }
             }

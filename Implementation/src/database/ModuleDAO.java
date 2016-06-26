@@ -12,9 +12,9 @@ public class ModuleDAO implements DAO<Module> {
 
     private Connection sqlConn;
     private Statement myStmt;
-    private String url = "jdbc:mysql://localhost:9999/erp";
+    private String url = "jdbc:mysql://localhost:3306/erp";
     private String user = "root";
-    private String password = "28525336";
+    private String password = "0440448182";
 
     private QueryGenerator generator = QueryGenerator.getInstance();
 
@@ -202,10 +202,11 @@ public class ModuleDAO implements DAO<Module> {
         colNames.add("HumanResourceID");
         values.add(modID);
         values.add(developer.getID());
-        String query = generator.insert("module_humanresource", colNames,
-                values);
         try {
-            myStmt.executeUpdate(query);
+            System.out.println("QUERY: " + generator.insert("module_humanresource", colNames,
+                    values));
+            myStmt.executeUpdate(generator.insert("module_humanresource", colNames,
+                    values));
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -213,10 +214,10 @@ public class ModuleDAO implements DAO<Module> {
         }
         return true;
     }
-	// public static void main(String[] args) {
-	// ModuleDAO dao = ModuleDAO.getInstance();
-	// HumanResourceDAO hr = HumanResourceDAO.getInstance();
-	// dao.addDeveloper("A1", (HumanResource) hr.get("2"));
-	// System.out.println(dao.getDevelopers("A1").get(0).getFirstName());
-	// }
+    // public static void main(String[] args) {
+    // ModuleDAO dao = ModuleDAO.getInstance();
+    // HumanResourceDAO hr = HumanResourceDAO.getInstance();
+    // dao.addDeveloper("A1", (HumanResource) hr.get("2"));
+    // System.out.println(dao.getDevelopers("A1").get(0).getFirstName());
+    // }
 }

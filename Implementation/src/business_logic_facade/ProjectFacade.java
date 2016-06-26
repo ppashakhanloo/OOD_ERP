@@ -1,9 +1,7 @@
 package business_logic_facade;
 
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
-import project.Project;
-import project.ProjectCatalogue;
-import project.Technology;
+import project.*;
+import project.System;
 import report.ProjectRequirement;
 import resource.HumanResource;
 import resource.Resource;
@@ -49,9 +47,24 @@ public class ProjectFacade {
     }
 
     public void updateProject(String name, String managerID, int usersCount, String pid) {
-        if (!managerID.equals(ProjectCatalogue.getInstance().get(pid).getProjectManager().getID()))
+        if (ProjectCatalogue.getInstance().get(pid).getProjectManager() == null)
+            ProjectCatalogue.getInstance().get(pid).setProjectManager((HumanResource) ResourceCatalogue.getInstance().get(managerID));
+        else if (!managerID.equals(ProjectCatalogue.getInstance().get(pid).getProjectManager().getID()))
             ProjectCatalogue.getInstance().get(pid).setProjectManager((HumanResource) ResourceCatalogue.getInstance().get(managerID));
         ProjectCatalogue.getInstance().get(pid).setName(name);
         ProjectCatalogue.getInstance().get(pid).setUsersCount(usersCount);
+    }
+
+    public void addNewSystem(String name, String pid) {
+        ProjectCatalogue.getInstance().get(pid).addSystem(new System(name));
+    }
+
+    public void addNewModule(String name, String sid, String pid, ArrayList<String> resourceID, ArrayList<String> developersID) {
+        Module newModule = new Module();
+        ProjectCatalogue.getInstance().get(pid).getSystem(sid).addModule(newModule);
+        newModule.setName(name);
+        for (String id : developersID)
+            newModule.addDeveloper((HumanResource) ResourceCatalogue.getInstance().get(id));
+        // TODO add resources
     }
 }

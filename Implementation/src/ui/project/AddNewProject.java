@@ -46,6 +46,7 @@ class AddNewProject extends MainDialog {
         formUtility.addLabel("نام پروژه ", form);
         formUtility.addLastField(name, form);
 
+        //////////////////////////////////////////////////////
         DefaultListModel<Unit> listModel = new DefaultListModel<>();
         operationFacade.getUnits().forEach(listModel::addElement);
         JList<Unit> unitList = new JList<>(listModel);

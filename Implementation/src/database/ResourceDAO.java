@@ -11,9 +11,9 @@ import project.Project;
 public class ResourceDAO {
 	protected Connection sqlConn;
 	protected Statement myStmt;
-	private String url = "jdbc:mysql://localhost:9999/erp";
+	private String url = "jdbc:mysql://localhost:3306/erp";
 	private String user = "root";
-	private String password = "28525336";
+	private String password = "0440448182";
 
 	private static ResourceDAO resourceDAO;
 	protected QueryGenerator queryGenerator;

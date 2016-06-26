@@ -65,6 +65,7 @@ public class ProjectDAO implements DAO<Project> {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		System.out.println("RETURNING NULL...");
 		return null;
 	}
 
