@@ -100,32 +100,98 @@ public class UnitResourceDAO implements DAO<UnitResource> {
 
 	@Override
 	public boolean add(UnitResource item) {
-		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public boolean add(UnitResource item, String resourceID, String uid) {
+		String query = "INSERT INTO unit_resource (ID, additionDate, removeDate, ResourceID, UnitID) VALUES('"
+				+ item.getID()
+				+ "', "
+				+ item.getAdditionDate()
+				+ ", "
+				+ item.getRemoveDate()
+				+ ", '"
+				+ resourceID
+				+ "', '"
+				+ uid
+				+ "');";
+		try {
+			Statement myStmt = sqlConn.createStatement();
+			myStmt.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 
 	@Override
 	public UnitResource get(String key) {
-		// TODO Auto-generated method stub
+		String query = generator.select("unit_resource", null, "ID = " + "'"
+				+ key + "'");
+		try {
+			Statement myStmt = sqlConn.createStatement();
+			ResultSet rs = myStmt.executeQuery(query);
+			while (rs.next()) {
+				return fillUnitRes(rs);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
+	}
+
+	private UnitResource fillUnitRes(ResultSet rs) throws SQLException {
+		UnitResource tmp = new UnitResource(rs.getString("ID"),
+				rs.getDate("additionDate"), rs.getDate("removeDate"));
+		return tmp;
 	}
 
 	@Override
 	public void remove(String key) {
-		// TODO Auto-generated method stub
+		String query = "DELETE FROM unit_resource WHERE ID = " + "'" + key
+				+ "'" + ";";
+		try {
+			Statement myStmt = sqlConn.createStatement();
+			myStmt.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 	}
 
 	@Override
 	public boolean update(UnitResource item) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			Statement myStmt = sqlConn.createStatement();
+			myStmt.executeUpdate("UPDATE unit_resource SET additionDate  = "
+					+ item.getAdditionDate() + " WHERE ID = " + "'"
+					+ item.getID() + "'");
+			myStmt.executeUpdate("UPDATE unit_resource SET removeDate  = "
+					+ item.getRemoveDate() + " WHERE ID = " + "'"
+					+ item.getID() + "'");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+
 	}
 
 	@Override
 	public ArrayList<UnitResource> list() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<UnitResource> systems = new ArrayList<>();
+		try {
+			Statement myStmt = sqlConn.createStatement();
+			ResultSet rs = myStmt.executeQuery("SELECT * FROM unit_resource;");
+			while (rs.next()) {
+				UnitResource newSys = fillUnitRes(rs);
+				systems.add(newSys);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return systems;
 	}
 
 }
