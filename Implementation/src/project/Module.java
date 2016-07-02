@@ -3,14 +3,13 @@ package project;
 import database.ModuleDAO;
 import database.ModuleModificationDAO;
 import resource.HumanResource;
+import utility.Identifiable;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Random;
 
-public class Module {
+public class Module extends Identifiable {
 
-    int ID_LENGTH = 6;
     private String ID;
     private String name;
     private Date developmentStart;
@@ -26,12 +25,6 @@ public class Module {
         this.name = name;
         this.developmentStart = developmentStart;
         this.developmentEnd = developmentEnd;
-    }
-
-    private String generateNDigitID(int n) {
-        Random random = new Random();
-        return Integer.toString((int) (Math.pow(10, n - 1) + random.nextFloat()
-                * 9 * Math.pow(10, n - 1)));
     }
 
     public ArrayList<ModuleModification> getModuleModifications() {

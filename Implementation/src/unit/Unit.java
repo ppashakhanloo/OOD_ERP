@@ -4,13 +4,13 @@ import database.RequirementDAO;
 import database.UnitDAO;
 import database.UnitResourceDAO;
 import resource.Resource;
+import utility.Identifiable;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Unit {
+public class Unit extends Identifiable {
 
-    private int ID_LENGTH = 6;
     private String ID;
     private String name;
 
@@ -26,12 +26,6 @@ public class Unit {
     public Unit(String name) {
         setID(generateNDigitID(ID_LENGTH));
         this.name = name;
-    }
-
-    private String generateNDigitID(int n) {
-        Random random = new Random();
-        return Integer.toString((int) (Math.pow(10, n - 1) + random.nextFloat()
-                * 9 * Math.pow(10, n - 1)));
     }
 
     public ArrayList<Requirement> getRequirements() {

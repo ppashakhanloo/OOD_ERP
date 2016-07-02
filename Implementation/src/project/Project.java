@@ -5,19 +5,19 @@ import report.ProjectRequirement;
 import resource.HumanResource;
 import resource.Resource;
 import unit.Unit;
+import utility.Identifiable;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Random;
 
-public class Project {
+public class Project extends Identifiable {
     private String ID;
     private String name;
     private Date developmentStart;
     private Date developmentEnd;
     private String customerName;
     private int usersCount;
-    private int ID_LENGTH = 6;
+
 
     public Project() {
         setID(generateNDigitID(ID_LENGTH));
@@ -43,12 +43,6 @@ public class Project {
         this.developmentEnd = developmentEnd;
         this.customerName = customerName;
         this.usersCount = usersCount;
-    }
-
-    private String generateNDigitID(int n) {
-        Random random = new Random();
-        return Integer.toString((int) (Math.pow(10, n - 1) + random.nextFloat()
-                * 9 * Math.pow(10, n - 1)));
     }
 
     public boolean addSystem(System system) {

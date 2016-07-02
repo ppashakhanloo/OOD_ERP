@@ -2,12 +2,12 @@ package project;
 
 import database.ModuleDAO;
 import database.SystemDAO;
+import utility.Identifiable;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class System {
-    private int ID_LENGTH = 6;
+public class System extends Identifiable {
     private String ID;
     private String name;
 
@@ -23,12 +23,6 @@ public class System {
     public System(String name) {
         this.setID(generateNDigitID(ID_LENGTH));
         this.name = name;
-    }
-
-    private String generateNDigitID(int n) {
-        Random random = new Random();
-        return Integer.toString((int) (Math.pow(10, n) + random.nextFloat() * 9
-                * Math.pow(10, n)));
     }
 
     public void removeModule(Module module) {

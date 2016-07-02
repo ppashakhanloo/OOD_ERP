@@ -1,8 +1,9 @@
 package project;
 
 import database.ProjectDAO;
+import utility.Identifiable;
 
-public class Technology {
+public class Technology extends Identifiable {
     private String name;
     private String reason;
 

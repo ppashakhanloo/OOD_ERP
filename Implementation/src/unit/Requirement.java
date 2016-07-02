@@ -2,13 +2,13 @@ package unit;
 
 import database.RequirementDAO;
 import resource.Resource;
+import utility.Identifiable;
 
 import java.util.Date;
 import java.util.Random;
 
-public class Requirement {
+public class Requirement extends Identifiable {
 
-    private int ID_LENGTH = 6;
     private String ID;
     private String description;
     private Date provideDate;
@@ -21,12 +21,6 @@ public class Requirement {
         setID(iD);
         this.description = description;
         this.provideDate = provideDate;
-    }
-
-    private String generateNDigitID(int n) {
-        Random random = new Random();
-        return Integer.toString((int) (Math.pow(10, n - 1) + random.nextFloat()
-                * 9 * Math.pow(10, n - 1)));
     }
 
     public Resource getResource() {

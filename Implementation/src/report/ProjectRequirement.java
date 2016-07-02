@@ -3,13 +3,13 @@ package report;
 import database.ProjectRequirementDAO;
 import project.Project;
 import resource.Resource;
+import utility.Identifiable;
 
 import java.util.Date;
 import java.util.Random;
 
-public class ProjectRequirement {
+public class ProjectRequirement extends Identifiable {
     private String ID;
-    private int ID_LENGTH = 6;
     private Date provideDate;
     private Date releaseDate;
     private boolean isEssential;
@@ -32,12 +32,6 @@ public class ProjectRequirement {
         this.isEssential = isEssential;
         this.criticalProvideDate = criticalProvideDate;
         this.lengthOfPossession = lengthOfPossession;
-    }
-
-    private String generateNDigitID(int n) {
-        Random random = new Random();
-        return Integer.toString((int) (Math.pow(10, n - 1) + random.nextFloat()
-                * 9 * Math.pow(10, n - 1)));
     }
 
     public String getID() {

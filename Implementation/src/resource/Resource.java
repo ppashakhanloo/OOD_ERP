@@ -1,9 +1,10 @@
 package resource;
 
+import utility.Identifiable;
+
 import java.util.Random;
 
-public class Resource {
-    private int ID_LENGTH = 6;
+public class Resource extends Identifiable {
     private ResourceStatus resourceStatus;
     private boolean isAvailable;
     private String ID;
@@ -14,11 +15,6 @@ public class Resource {
 
     public void setID(String ID) {
         this.ID = ID;
-    }
-
-    private String generateNDigitID(int n) {
-        Random random = new Random();
-        return Integer.toString((int) (Math.pow(10, n - 1) + random.nextFloat() * 9 * Math.pow(10, n - 1)));
     }
 
     public Resource() {
