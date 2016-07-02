@@ -1,22 +1,18 @@
 package database;
 
 import report.UnitResource;
-import resource.InformationResource;
-import resource.MonetaryResource;
 import resource.Resource;
 import unit.Unit;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-public class UnitResourceDAO implements DAO<UnitResource> {
+public class UnitResourceDAO {
 
     private Connection sqlConn;
     private String url = "jdbc:mysql://localhost:3306/erp";
     private String user = "root";
     private String password = "";
-
-    QueryGenerator generator = QueryGenerator.getInstance();
 
     private static UnitResourceDAO unitResourceDAO;
 
@@ -37,20 +33,23 @@ public class UnitResourceDAO implements DAO<UnitResource> {
 
     public ArrayList<Resource> getResourceByUnitID(String uid) {
         ArrayList<Resource> unitResources = new ArrayList<>();
-        String query = generator.select("unit_resource", null, "UnitID = "
-                + "'" + uid + "'");
+
         try {
             Statement myStmt = sqlConn.createStatement();
-            ResultSet rs = myStmt.executeQuery(query);
+            ResultSet rs = myStmt.executeQuery(QueryGenerator.getInstance().select("unit_resource", null, "UnitID = "
+                    + "'" + uid + "'"));
+
             while (rs.next()) {
-                Resource resource = HumanResourceDAO.getInstance().get(rs.getString("ResourceID"));
+                String resourceID = rs.getString("ResourceID");
+                Resource resource = HumanResourceDAO.getInstance().get(resourceID);
                 if (resource == null)
-                    resource = PhysicalResourceDAO.getInstance().get(rs.getString("ResourceID"));
+                    resource = PhysicalResourceDAO.getInstance().get(resourceID);
                 if (resource == null)
-                    resource = InformationResourceDAO.getInstance().get(rs.getString("ResourceID"));
+                    resource = InformationResourceDAO.getInstance().get(resourceID);
                 if (resource == null)
-                    resource = MonetaryResourceDAO.getInstance().get(rs.getString("ResourceID"));
+                    resource = MonetaryResourceDAO.getInstance().get(resourceID);
                 unitResources.add(resource);
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -60,13 +59,12 @@ public class UnitResourceDAO implements DAO<UnitResource> {
 
     public ArrayList<Resource> getAvailableResourceByUnitID(String uid) {
         ArrayList<Resource> unitResources = new ArrayList<>();
-        String query = generator.select("unit_resource", null, "UnitID = "
+        String query = QueryGenerator.getInstance().select("unit_resource", null, "UnitID = "
                 + "'" + uid + "'");
         try {
             Statement myStmt = sqlConn.createStatement();
             ResultSet rs = myStmt.executeQuery(query);
             while (rs.next()) {
-//                Resource tmp = resourceDAO.get(rs.getString("ResourceID"));
                 Resource tmp = HumanResourceDAO.getInstance().get(rs.getString("ResourceID"));
                 if (tmp == null)
                     tmp = PhysicalResourceDAO.getInstance().get(rs.getString("ResourceID"));
@@ -86,7 +84,7 @@ public class UnitResourceDAO implements DAO<UnitResource> {
     }
 
     public Resource getResource(String key) {
-        String query = generator.select("unit_resource", null, "ID = " + "'"
+        String query = QueryGenerator.getInstance().select("unit_resource", null, "ID = " + "'"
                 + key + "'");
         try {
             Statement myStmt = sqlConn.createStatement();
@@ -100,7 +98,7 @@ public class UnitResourceDAO implements DAO<UnitResource> {
     }
 
     public Unit getUnit(String key) {
-        String query = generator.select("unit_resource", null, "ID = " + "'"
+        String query = QueryGenerator.getInstance().select("unit_resource", null, "ID = " + "'"
                 + key + "'");
         try {
             Statement myStmt = sqlConn.createStatement();
@@ -113,23 +111,20 @@ public class UnitResourceDAO implements DAO<UnitResource> {
         }
     }
 
-    @Override
-    public boolean add(UnitResource item) {
-        return false;
-    }
+    // UnitResource(new Date(), null, UnitCatalogue.getInstance().get(unitID)), resource.getID());
+    public boolean add(UnitResource item, String resourceID) {
 
-    public boolean add(UnitResource item, String resourceID, String uid) {
-        String query = "INSERT INTO unit_resource (ID, additionDate, removeDate, ResourceID, UnitID) VALUES('"
-                + item.getID()
-                + "', "
-                + item.getAdditionDate()
+        String query = "INSERT INTO unit_resource (ID, additionDate, removeDate, ResourceID, UnitID) VALUES("
+                + "'" + item.getID() + "'"
                 + ", "
-                + item.getRemoveDate()
-                + ", '"
-                + resourceID
-                + "', '"
-                + uid
-                + "');";
+                + "'" + item.getAdditionDate() + "'"
+                + ", "
+                + "'" + item.getRemoveDate() + "'"
+                + ", "
+                + "'" + resourceID + "'"
+                + ", "
+                + "'" + item.getUnit().getID() + "'"
+                + ");";
         try {
             Statement myStmt = sqlConn.createStatement();
             myStmt.executeUpdate(query);
@@ -140,9 +135,8 @@ public class UnitResourceDAO implements DAO<UnitResource> {
         return true;
     }
 
-    @Override
     public UnitResource get(String key) {
-        String query = generator.select("unit_resource", null, "ID = " + "'"
+        String query = QueryGenerator.getInstance().select("unit_resource", null, "ID = " + "'"
                 + key + "'");
         try {
             Statement myStmt = sqlConn.createStatement();
@@ -158,10 +152,9 @@ public class UnitResourceDAO implements DAO<UnitResource> {
 
     private UnitResource fillUnitRes(ResultSet rs) throws SQLException {
         return new UnitResource(rs.getString("ID"),
-                rs.getDate("additionDate"), rs.getDate("removeDate"));
+                rs.getDate("additionDate"), rs.getDate("removeDate"), UnitDAO.getInstance().get(rs.getString("UnitID")));
     }
 
-    @Override
     public void remove(String key) {
         String query = "DELETE FROM unit_resource WHERE ID = " + "'" + key
                 + "'" + ";";
@@ -174,7 +167,6 @@ public class UnitResourceDAO implements DAO<UnitResource> {
 
     }
 
-    @Override
     public boolean update(UnitResource item) {
         try {
             Statement myStmt = sqlConn.createStatement();
@@ -192,7 +184,6 @@ public class UnitResourceDAO implements DAO<UnitResource> {
 
     }
 
-    @Override
     public ArrayList<UnitResource> list() {
         ArrayList<UnitResource> systems = new ArrayList<>();
         try {

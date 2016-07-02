@@ -27,8 +27,8 @@ public class HumanResourceDAO extends ResourceDAO {
     }
 
     @Override
-    public boolean add(Resource item, String unitID, String projectID) {
-        super.add(item, unitID, projectID);
+    public boolean add(Resource item, String projectID) {
+        super.add(item, projectID);
         HumanResource humanResourceItem = (HumanResource) item;
 
         ArrayList<String> colNames = new ArrayList<>();
@@ -49,11 +49,10 @@ public class HumanResourceDAO extends ResourceDAO {
         values.add(humanResourceItem.getID());
         values.add(humanResourceItem.getAccessLevel().getAccessLevelType().toString());
 
-        String query = QueryGenerator.getInstance()
-                .insert("human_resource", colNames, values);
         try {
             Statement myStmt = sqlConn.createStatement();
-            myStmt.executeUpdate(query);
+            myStmt.executeUpdate(QueryGenerator.getInstance()
+                    .insert("human_resource", colNames, values));
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -66,7 +65,7 @@ public class HumanResourceDAO extends ResourceDAO {
         try {
             Statement myStmt = sqlConn.createStatement();
             ResultSet rs = myStmt
-                    .executeQuery("SELECT * from human_resource inner join resource on human_resource.ResourceID = resource.ID");
+                    .executeQuery("SELECT * from human_resource inner join resource on human_resource.ResourceID = resource.ID AND human_resource.ResourceID = " + "'" + key + "'");
             Resource newRes = null;
             while (rs.next()) {
                 newRes = fillHumanResource(rs);
@@ -237,7 +236,7 @@ public class HumanResourceDAO extends ResourceDAO {
         // System.out.println(dao.authenticate("102664", "989"));
         Resource res = new HumanResource("sara", "pasha", "java", "888",
                 (new AccessLevelFactory()).getAccessLevel(AccessLevelType.Medium));
-        System.out.println("ADDED: " + dao.add(res, "1", ""));
+        System.out.println("ADDED: " + dao.add(res, ""));
         // HumanResource oldRes = (HumanResource) dao.get(res.getID());
         // System.out.println("OLD: " + oldRes);
         // System.out.println("ID: " + oldRes.getID());

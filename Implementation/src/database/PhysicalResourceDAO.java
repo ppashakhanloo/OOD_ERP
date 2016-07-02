@@ -23,8 +23,8 @@ public class PhysicalResourceDAO extends ResourceDAO {
     }
 
     @Override
-    public boolean add(Resource item, String unitID, String projectID) {
-        super.add(item, unitID, projectID);
+    public boolean add(Resource item, String projectID) {
+        super.add(item, projectID);
         PhysicalResource physicalResourceItem = (PhysicalResource) item;
 
         ArrayList<String> colNames = new ArrayList<>();
@@ -41,7 +41,6 @@ public class PhysicalResourceDAO extends ResourceDAO {
 
         String query = QueryGenerator.getInstance().insert("physical_resource", colNames,
                 values);
-        System.out.println(query);
         try {
             Statement myStmt = sqlConn.createStatement();
             myStmt.executeUpdate(query);
@@ -57,7 +56,7 @@ public class PhysicalResourceDAO extends ResourceDAO {
         try {
             Statement myStmt = sqlConn.createStatement();
             ResultSet rs = myStmt
-                    .executeQuery("SELECT * from physical_resource inner join resource on human_resource.ResourceID = resource.ID");
+                    .executeQuery("SELECT * from physical_resource inner join resource on physical_resource.ResourceID = resource.ID AND physical_resource.ResourceID = " + "'" + key + "'");
             Resource newRes = null;
             while (rs.next()) {
                 newRes = fillPhysicalResource(rs);

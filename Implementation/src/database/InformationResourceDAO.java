@@ -24,8 +24,8 @@ public class InformationResourceDAO extends ResourceDAO {
     }
 
     @Override
-    public boolean add(Resource item, String unitID, String projectID) {
-        super.add(item, unitID, projectID);
+    public boolean add(Resource item, String projectID) {
+        super.add(item, projectID);
         InformationResource informationResourceItem = (InformationResource) item;
 
         ArrayList<String> colNames = new ArrayList<>();
@@ -40,7 +40,6 @@ public class InformationResourceDAO extends ResourceDAO {
 
         String query = QueryGenerator.getInstance().insert("information_resource", colNames,
                 values);
-        System.out.println(query);
         try {
             Statement myStmt = sqlConn.createStatement();
             myStmt.executeUpdate(query);
@@ -56,7 +55,7 @@ public class InformationResourceDAO extends ResourceDAO {
         try {
             Statement myStmt = sqlConn.createStatement();
             ResultSet rs = myStmt
-                    .executeQuery("SELECT * from information_resource inner join resource on human_resource.ResourceID = resource.ID");
+                    .executeQuery("SELECT * from information_resource inner join resource on information_resource.ResourceID = resource.ID AND information_resource.ResourceID = " + "'" + key + "'");
             Resource newRes = null;
             while (rs.next()) {
                 newRes = fillInformationResource(rs);

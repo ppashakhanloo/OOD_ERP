@@ -1,9 +1,11 @@
 package resource;
 
 import database.*;
-import unit.Unit;
+import report.UnitResource;
+import unit.UnitCatalogue;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ResourceCatalogue {
 
@@ -21,15 +23,19 @@ public class ResourceCatalogue {
     }
 
     public boolean add(Resource resource, String unitID, String projectID) {
-        if (resource instanceof HumanResource)
-            return HumanResourceDAO.getInstance().add(resource, unitID, projectID);
-        else if (resource instanceof PhysicalResource)
-            return PhysicalResourceDAO.getInstance().add(resource, unitID, projectID);
-        else if (resource instanceof InformationResource)
-            return InformationResourceDAO.getInstance().add(resource, unitID, projectID);
-        else if (resource instanceof MonetaryResource)
-            return MonetaryResourceDAO.getInstance().add(resource, unitID, projectID);
-        return false;
+        boolean add1 = false;
+        if (resource instanceof HumanResource) {
+            add1 = HumanResourceDAO.getInstance().add(resource, projectID);
+        } else if (resource instanceof PhysicalResource) {
+            add1 = PhysicalResourceDAO.getInstance().add(resource, projectID);
+        } else if (resource instanceof InformationResource) {
+            add1 = InformationResourceDAO.getInstance().add(resource, projectID);
+        } else if (resource instanceof MonetaryResource) {
+            add1 = MonetaryResourceDAO.getInstance().add(resource, projectID);
+        }
+
+        boolean add2 = UnitResourceDAO.getInstance().add(new UnitResource(new Date(), null, UnitCatalogue.getInstance().get(unitID)), resource.getID());
+        return add1 && add2;
     }
 
     public void remove(Resource resource) {
@@ -87,31 +93,27 @@ public class ResourceCatalogue {
 
         switch (resourceType) {
             case HUMAN:
-                for (Resource resource : realResources) {
+                for (Resource resource : realResources)
                     if (resource instanceof HumanResource)
                         resources.add(resource);
-                }
-                break;
+                return resources;
             case INFORMATION:
-                for (Resource resource : realResources) {
+                for (Resource resource : realResources)
                     if (resource instanceof InformationResource)
                         resources.add(resource);
-                }
-                break;
+                return resources;
             case MONETARY:
-                for (Resource resource : realResources) {
+                for (Resource resource : realResources)
                     if (resource instanceof MonetaryResource)
                         resources.add(resource);
-                }
-                break;
+                return resources;
             case PHYSICAL:
-                for (Resource resource : realResources) {
+                for (Resource resource : realResources)
                     if (resource instanceof PhysicalResource)
                         resources.add(resource);
-                }
-                break;
+                return resources;
         }
-        return resources;
+        return null;
     }
 
     public HumanResource humanResourceLogin(String ID, String password) {

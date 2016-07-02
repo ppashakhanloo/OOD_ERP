@@ -24,7 +24,7 @@ public class ViewHumanResources extends HumanResourceObserver implements Visibil
     private DefaultListModel<HumanResource> listModel;
     private JList<HumanResource> resourceList;
     private JScrollPane jScrollPane;
-
+    private JPanel panel2;
 
     public ViewHumanResources(UserFacade currentUser) {
         mainFrame = new MainFrame(currentUser);
@@ -63,7 +63,7 @@ public class ViewHumanResources extends HumanResourceObserver implements Visibil
         panel1.add(innerPanel);
         mainFrame.getMainFrame().add(panel1);
         ////////////////////
-        JPanel panel2 = new JPanel(new GridLayout(1, 1));
+        panel2 = new JPanel(new GridLayout(1, 1));
         listModel = new DefaultListModel<>();
         for (Resource resource : OperationFacade.getInstance().getHumanResources())
             listModel.addElement((HumanResource) resource);
@@ -74,24 +74,25 @@ public class ViewHumanResources extends HumanResourceObserver implements Visibil
         unitsCombo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                panel2.removeAll();
+                listModel = new DefaultListModel<>();
                 if (unitsCombo.getSelectedItem() == null) {
-                    listModel = new DefaultListModel<>();
-                    for (Resource resource : OperationFacade.getInstance().getHumanResources())
+                    for (Resource resource : OperationFacade.getInstance().getHumanResources()) {
                         listModel.addElement((HumanResource) resource);
-                    mainFrame.getMainFrame().repaint();
-                    mainFrame.getMainFrame().revalidate();
+                    }
                 } else {
-                    listModel = new DefaultListModel<>();
                     for (Resource resource : ((Unit) unitsCombo.getSelectedItem()).getResources())
-                        if (resource instanceof HumanResource)
+                        if (resource instanceof HumanResource) {
                             listModel.addElement((HumanResource) resource);
-                    mainFrame.getMainFrame().repaint();
-                    mainFrame.getMainFrame().revalidate();
+                        }
                 }
+                resourceList = new JList<>(listModel);
+                panel2.add(new JScrollPane(resourceList));
+                mainFrame.getMainFrame().repaint();
+                mainFrame.getMainFrame().revalidate();
             }
         });
 
-//        mainFrame.getMainFrame().setResizable(true);
         mainFrame.getMainFrame().pack();
     }
 
@@ -102,7 +103,8 @@ public class ViewHumanResources extends HumanResourceObserver implements Visibil
 
     @Override
     public void update() {
-        mainFrame.getMainFrame().remove(jScrollPane);
+//        mainFrame.getMainFrame().remove(jScrollPane);
+        panel2.removeAll();
         listModel = new DefaultListModel<>();
         for (Resource resource : OperationFacade.getInstance().getHumanResources())
             listModel.addElement((HumanResource) resource);

@@ -12,6 +12,8 @@ public class UnitResource {
     private int ID_LENGTH = 6;
     private Date additionDate;
     private Date removeDate;
+    private Unit unit;
+    private Resource resource;
 
     public UnitResource() {
         setID(generateNDigitID(ID_LENGTH));
@@ -23,10 +25,22 @@ public class UnitResource {
                 * 9 * Math.pow(10, n - 1)));
     }
 
-    public UnitResource(String iD, Date additionDate, Date removeDate) {
+    public UnitResource(String iD, Date additionDate, Date removeDate, Unit unit) {
         setID(iD);
         this.additionDate = additionDate;
         this.removeDate = removeDate;
+        this.unit = unit;
+    }
+
+    public UnitResource(Date additionDate, Date removeDate, Unit unit) {
+        setID(generateNDigitID(ID_LENGTH));
+        this.additionDate = additionDate;
+        this.removeDate = removeDate;
+        this.unit = unit;
+    }
+
+    public void setResource(Resource resource) {
+        this.resource = resource;
     }
 
     public String getID() {
@@ -45,7 +59,7 @@ public class UnitResource {
         this.additionDate = additionDate;
         UnitResourceDAO dao = UnitResourceDAO.getInstance();
         return dao
-                .update(new UnitResource(null, additionDate, getRemoveDate()));
+                .update(new UnitResource(null, additionDate, getRemoveDate(), getUnit()));
     }
 
     public Date getRemoveDate() {
@@ -54,19 +68,20 @@ public class UnitResource {
 
     public boolean setRemoveDate(Date removeDate) {
         this.removeDate = removeDate;
-        UnitResourceDAO dao = UnitResourceDAO.getInstance();
-        return dao
-                .update(new UnitResource(null, getAdditionDate(), removeDate));
+        return UnitResourceDAO.getInstance()
+                .update(new UnitResource(null, getAdditionDate(), removeDate, getUnit()));
     }
 
     public Resource getResource() {
-        UnitResourceDAO dao = UnitResourceDAO.getInstance();
-        return dao.getResource(getID());
+        return this.resource;
     }
 
     public Unit getUnit() {
-        UnitResourceDAO dao = UnitResourceDAO.getInstance();
-        return dao.getUnit(getID());
+        return this.unit;
+    }
+
+    public void setUnit(Unit unit) {
+        this.unit = unit;
     }
 
 }

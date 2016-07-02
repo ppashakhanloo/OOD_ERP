@@ -29,7 +29,7 @@ class ResourceDAO {
         return resourceDAO;
     }
 
-    public boolean add(Resource item, String unitID, String projectID) {
+    public boolean add(Resource item, String projectID) {
         int isAvailable = 0;
         if (item.isAvailable())
             isAvailable = 1;
@@ -38,19 +38,15 @@ class ResourceDAO {
         colNames.add("ID");
         colNames.add("resourceStatus");
         colNames.add("isAvailable");
-        colNames.add("UnitID");
-        // colNames.add("ProjectID");
+
         ArrayList<String> values = new ArrayList<>();
         values.add(item.getID());
         values.add(item.getResourceStatus().toString());
         values.add(Integer.toString(isAvailable));
-        values.add(unitID);
-        // values.add(projectID);
-        String query = QueryGenerator.getInstance().insert("resource", colNames, values);
 
         try {
             Statement myStmt = sqlConn.createStatement();
-            myStmt.executeUpdate(query);
+            myStmt.executeUpdate(QueryGenerator.getInstance().insert("resource", colNames, values));
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
