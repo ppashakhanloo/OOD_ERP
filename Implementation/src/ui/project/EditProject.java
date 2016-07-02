@@ -134,6 +134,7 @@ public class EditProject extends MainDialog {
                                                                                 .addGap(0, 9, Short.MAX_VALUE)))
                                                 )))));
         getMainDialog().pack();
+        super.getMainDialog().setLocationRelativeTo(null);
     }
 
     private void notifyAllObservers() {

@@ -83,6 +83,7 @@ public class SinglePhysicalResource extends MainDialog implements Visibility {
 
         form.setBorder(new EmptyBorder(10, 10, 10, 10));
         super.getMainDialog().pack();
+        super.getMainDialog().setLocationRelativeTo(null);
     }
 
     @Override

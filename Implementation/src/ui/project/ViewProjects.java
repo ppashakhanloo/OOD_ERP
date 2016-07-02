@@ -78,6 +78,7 @@ public class ViewProjects extends ProjectObserver implements Visibility {
         mainFrame.getMainFrame().add(jScrollPane, BorderLayout.CENTER);
         mainFrame.getMainFrame().setResizable(true);
         mainFrame.getMainFrame().pack();
+        mainFrame.getMainFrame().setLocationRelativeTo(null);
     }
 
     @Override

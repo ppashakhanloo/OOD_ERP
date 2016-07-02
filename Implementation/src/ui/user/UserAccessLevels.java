@@ -65,6 +65,7 @@ public class UserAccessLevels implements Visibility {
         form.add(cancel);
         mainFrame.getMainFrame().add(form);
         mainFrame.getMainFrame().pack();
+        mainFrame.getMainFrame().setLocationRelativeTo(null);
     }
 
 

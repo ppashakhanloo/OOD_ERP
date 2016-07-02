@@ -116,6 +116,7 @@ public class ViewMonetaryResources extends MonetaryResourceObserver implements V
         });
 
         mainFrame.getMainFrame().pack();
+        mainFrame.getMainFrame().setLocationRelativeTo(null);
     }
 
     @Override

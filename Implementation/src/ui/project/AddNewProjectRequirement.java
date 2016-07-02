@@ -147,6 +147,7 @@ public class AddNewProjectRequirement extends MainDialog {
                 exp.setVisible(false);
                 expLabel.setVisible(false);
                 getMainDialog().pack();
+                getMainDialog().setLocationRelativeTo(null);
                 getMainDialog().repaint();
                 getMainDialog().revalidate();
 
@@ -169,6 +170,7 @@ public class AddNewProjectRequirement extends MainDialog {
                 exp.setVisible(false);
                 expLabel.setVisible(false);
                 getMainDialog().pack();
+                getMainDialog().setLocationRelativeTo(null);
                 getMainDialog().repaint();
                 getMainDialog().revalidate();
 
@@ -191,6 +193,7 @@ public class AddNewProjectRequirement extends MainDialog {
                 exp.setVisible(false);
                 expLabel.setVisible(false);
                 getMainDialog().pack();
+                getMainDialog().setLocationRelativeTo(null);
                 getMainDialog().repaint();
                 getMainDialog().revalidate();
             }
@@ -212,6 +215,7 @@ public class AddNewProjectRequirement extends MainDialog {
                 exp.setVisible(true);
                 expLabel.setVisible(true);
                 getMainDialog().pack();
+                getMainDialog().setLocationRelativeTo(null);
                 getMainDialog().repaint();
                 getMainDialog().revalidate();
             }
@@ -233,6 +237,7 @@ public class AddNewProjectRequirement extends MainDialog {
                 exp.setVisible(false);
                 expLabel.setVisible(false);
                 getMainDialog().pack();
+                getMainDialog().setLocationRelativeTo(null);
                 getMainDialog().repaint();
                 getMainDialog().revalidate();
             }
@@ -275,6 +280,7 @@ public class AddNewProjectRequirement extends MainDialog {
 
         form.setBorder(new EmptyBorder(10, 10, 10, 10));
         super.getMainDialog().pack();
+        super.getMainDialog().setLocationRelativeTo(null);
     }
 
     private String getSelectedButtonText(ButtonGroup buttonGroup) {

@@ -107,6 +107,7 @@ public class LoginForm implements Visibility {
         mainFrame.setLocationRelativeTo(null);
         mainFrame.pack();
         mainFrame.setResizable(false);
+        mainFrame.setLocationRelativeTo(null);
     }
 
     private void prepareMenuBar() {

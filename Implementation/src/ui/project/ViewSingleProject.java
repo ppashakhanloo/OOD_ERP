@@ -239,6 +239,7 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
         );
 
         mainFrame.getMainFrame().pack();
+        mainFrame.getMainFrame().setLocationRelativeTo(null);
     }
 
     @Override

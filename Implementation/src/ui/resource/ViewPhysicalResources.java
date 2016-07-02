@@ -116,6 +116,7 @@ public class ViewPhysicalResources extends PhysicalResourceObserver implements V
         });
 
         mainFrame.getMainFrame().pack();
+        mainFrame.getMainFrame().setLocationRelativeTo(null);
     }
 
     @Override

@@ -68,6 +68,7 @@ public class ViewProjectResources extends ProjectObserver implements Visibility 
 
         mainFrame.getMainFrame().setResizable(true);
         mainFrame.getMainFrame().pack();
+        mainFrame.getMainFrame().setLocationRelativeTo(null);
     }
 
     @Override

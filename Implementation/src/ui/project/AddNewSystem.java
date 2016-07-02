@@ -54,6 +54,7 @@ public class AddNewSystem extends MainDialog {
 
         form.setBorder(new EmptyBorder(10, 10, 10, 10));
         super.getMainDialog().pack();
+        super.getMainDialog().setLocationRelativeTo(null);
     }
 
     public static void main(String[] args) {

@@ -116,6 +116,7 @@ public class ViewHumanResources extends HumanResourceObserver implements Visibil
         });
 
         mainFrame.getMainFrame().pack();
+        mainFrame.getMainFrame().setLocationRelativeTo(null);
     }
 
     @Override

@@ -64,6 +64,7 @@ public class ViewProjectRequirements extends ProjectObserver implements Visibili
         mainFrame.getMainFrame().setResizable(true);
         System.out.println("**************END taghriban*************");
         mainFrame.getMainFrame().pack();
+        mainFrame.getMainFrame().setLocationRelativeTo(null);
         System.out.println("**************END taghriban*************");
     }
 

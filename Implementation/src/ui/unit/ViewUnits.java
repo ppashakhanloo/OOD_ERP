@@ -63,6 +63,7 @@ public class ViewUnits extends UnitObserver implements Visibility {
         mainFrame.getMainFrame().add(jScrollPane, BorderLayout.CENTER);
         mainFrame.getMainFrame().setResizable(true);
         mainFrame.getMainFrame().pack();
+        mainFrame.getMainFrame().setLocationRelativeTo(null);
     }
 
     @Override

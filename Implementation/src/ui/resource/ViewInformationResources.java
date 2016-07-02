@@ -116,6 +116,7 @@ public class ViewInformationResources extends InformationResourceObserver implem
         });
 
         mainFrame.getMainFrame().pack();
+        mainFrame.getMainFrame().setLocationRelativeTo(null);
     }
 
     @Override
