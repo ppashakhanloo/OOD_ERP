@@ -21,12 +21,8 @@ import java.util.Enumeration;
 import java.util.Properties;
 
 public class AddNewProjectRequirement extends MainDialog {
-    private OperationFacade operationFacade;
-    private ProjectFacade projectFacade;
 
     AddNewProjectRequirement(String pid) {
-        operationFacade = new OperationFacade();
-        projectFacade = new ProjectFacade();
         prepareGUI(pid);
     }
 
@@ -73,7 +69,7 @@ public class AddNewProjectRequirement extends MainDialog {
         amount.setVisible(true);
         amountLabel.setVisible(true);
         //////////////////////////
-        java.util.List<QuantityUnit> quantityUnits = operationFacade.getQuantityUnits();
+        java.util.List<QuantityUnit> quantityUnits = OperationFacade.getInstance().getQuantityUnits();
         JComboBox<QuantityUnit> quantityUnitsCombo = new JComboBox<>();
         quantityUnits.forEach(quantityUnitsCombo::addItem);
         JLabel unitLbl = formUtility.addLabel("واحد پول ", form);
@@ -254,20 +250,20 @@ public class AddNewProjectRequirement extends MainDialog {
                 cal.set(Calendar.DAY_OF_MONTH, datePicker.getModel().getDay());
                 if (monetaryCash.isSelected()) {
                     Resource resource = new MonetaryResource(MonetaryType.CASH, location.getText(), -1, new Quantity((Integer) amount.getValue(), QuantityUnit.valueOf(quantityUnitsCombo.getSelectedItem().toString())));
-                    projectFacade.addRequirementToProject(isEssential.isSelected(), cal.getTime(), lengthOfPossession.getValue().toString(), pid, resource);
+                    ProjectFacade.getInstance().addRequirementToProject(isEssential.isSelected(), cal.getTime(), lengthOfPossession.getValue().toString(), pid, resource);
                 } else if (monetaryNonCash.isSelected()) {
                     Resource resource = new MonetaryResource(MonetaryType.NON_CASH, location.getText(), -1, new Quantity((Integer) amount.getValue(), QuantityUnit.valueOf(quantityUnitsCombo.getSelectedItem().toString())));
-                    projectFacade.addRequirementToProject(isEssential.isSelected(), cal.getTime(), lengthOfPossession.getValue().toString(), pid, resource);
+                    ProjectFacade.getInstance().addRequirementToProject(isEssential.isSelected(), cal.getTime(), lengthOfPossession.getValue().toString(), pid, resource);
                 } else if (human.isSelected()) {
                     Resource resource = new HumanResource();
                     ((HumanResource) resource).setExpertise(exp.getText());
-                    projectFacade.addRequirementToProject(isEssential.isSelected(), cal.getTime(), lengthOfPossession.getValue().toString(), pid, resource);
+                    ProjectFacade.getInstance().addRequirementToProject(isEssential.isSelected(), cal.getTime(), lengthOfPossession.getValue().toString(), pid, resource);
                 } else if (information.isSelected()) {
                     Resource resource = new InformationResource(name.getText(), "");
-                    projectFacade.addRequirementToProject(isEssential.isSelected(), cal.getTime(), lengthOfPossession.getValue().toString(), pid, resource);
+                    ProjectFacade.getInstance().addRequirementToProject(isEssential.isSelected(), cal.getTime(), lengthOfPossession.getValue().toString(), pid, resource);
                 } else if (physical.isSelected()) {
                     Resource resource = new PhysicalResource(name.getText(), model.getText(), "");
-                    projectFacade.addRequirementToProject(isEssential.isSelected(), cal.getTime(), lengthOfPossession.getValue().toString(), pid, resource);
+                    ProjectFacade.getInstance().addRequirementToProject(isEssential.isSelected(), cal.getTime(), lengthOfPossession.getValue().toString(), pid, resource);
                 }
 //                notifyAllObservers();
                 setVisible(false);

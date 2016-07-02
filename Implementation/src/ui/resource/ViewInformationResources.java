@@ -16,7 +16,6 @@ import java.awt.event.ActionListener;
 public class ViewInformationResources extends InformationResourceObserver implements Visibility {
 
     private MainFrame mainFrame;
-    private OperationFacade operationFacade;
 
     private AddNewInformationResource addNewInformationResource;
 
@@ -27,7 +26,6 @@ public class ViewInformationResources extends InformationResourceObserver implem
 
     public ViewInformationResources(UserFacade currentUser) {
         mainFrame = new MainFrame(currentUser);
-        operationFacade = new OperationFacade();
         addNewInformationResource = new AddNewInformationResource();
         addNewInformationResource.attach(this);
         prepareGUI();
@@ -58,7 +56,7 @@ public class ViewInformationResources extends InformationResourceObserver implem
 
         ////////////////////
         listModel = new DefaultListModel<>();
-        for (Resource resource : operationFacade.getInformationResources())
+        for (Resource resource : OperationFacade.getInstance().getInformationResources())
             listModel.addElement((InformationResource) resource);
         resourceList = new JList<>(listModel);
         ////////////////////
@@ -77,7 +75,7 @@ public class ViewInformationResources extends InformationResourceObserver implem
     public void update() {
         mainFrame.getMainFrame().remove(jScrollPane);
         listModel = new DefaultListModel<>();
-        for (Resource resource : operationFacade.getInformationResources())
+        for (Resource resource : OperationFacade.getInstance().getInformationResources())
             listModel.addElement((InformationResource) resource);
         resourceList = new JList<>(listModel);
         jScrollPane = new JScrollPane(resourceList);

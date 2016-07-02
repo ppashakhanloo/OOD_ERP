@@ -3,6 +3,8 @@ package ui;
 import business_logic_facade.UserFacade;
 
 import javax.swing.*;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -110,12 +112,28 @@ class LoginForm implements Visibility {
         JMenuBar menuBar = new JMenuBar();
         JMenu help = new JMenu("راهنما");
         JMenu register = new JMenu("ثبت‌نام");
+        register.addMenuListener(new MenuListener() {
+            @Override
+            public void menuSelected(MenuEvent e) {
+                new RegisterForm().setVisible(true);
+            }
+
+            @Override
+            public void menuDeselected(MenuEvent e) {
+
+            }
+
+            @Override
+            public void menuCanceled(MenuEvent e) {
+
+            }
+        });
         menuBar.add(help);
         menuBar.add(register);
         mainFrame.setJMenuBar(menuBar);
     }
 
     public static void main(String[] args) {
-//        LoginForm loginForm = new LoginForm();
+        new LoginForm().setVisible(true);
     }
 }

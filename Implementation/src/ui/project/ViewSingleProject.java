@@ -1,6 +1,5 @@
 package ui.project;
 
-import business_logic_facade.OperationFacade;
 import business_logic_facade.ProjectFacade;
 import business_logic_facade.UserFacade;
 import project.Module;
@@ -18,8 +17,6 @@ import java.util.ArrayList;
 
 public class ViewSingleProject extends ProjectObserver implements Visibility {
     private MainFrame mainFrame;
-    //    private OperationFacade operationFacade;
-    private ProjectFacade projectFacade;
     private EditProject editProject;
     private AddNewTechnology addNewTechnology;
     private UserFacade userFacade;
@@ -31,13 +28,8 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
 
     public ViewSingleProject(UserFacade currentUser, String pid) {
         mainFrame = new MainFrame(currentUser);
-//        operationFacade = new OperationFacade();
-        projectFacade = new ProjectFacade();
         this.userFacade = currentUser;
-//        this.project = project;
-        addNewTechnology = new AddNewTechnology(userFacade, projectFacade.getProject(pid));
-//        editProject = new EditProject(project, addNewTechnology, currentUser);
-//        editProject.attach(this);
+        addNewTechnology = new AddNewTechnology(ProjectFacade.getInstance().getProject(pid));
         addNewTechnology.attach(this);
         this.pid = pid;
 
@@ -47,18 +39,18 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
     private void prepareGUI() {
 
         JLabel nameLbl = new JLabel("نام پروژه");
-        JTextField name = new JTextField(projectFacade.getProject(pid).getName());
+        JTextField name = new JTextField(ProjectFacade.getInstance().getProject(pid).getName());
         name.setEditable(false);
 
         JLabel managerLbl = new JLabel("مدیر پروژه");
-        JTextField managerName = new JTextField((projectFacade.getProjectManager(pid) == null)
+        JTextField managerName = new JTextField((ProjectFacade.getInstance().getProjectManager(pid) == null)
                 ? "تعیین نشده"
-                : projectFacade.getProjectManager(pid).getFirstName() + " " + projectFacade.getProjectManager(pid).getLastName());
+                : ProjectFacade.getInstance().getProjectManager(pid).getFirstName() + " " + ProjectFacade.getInstance().getProjectManager(pid).getLastName());
         managerName.setEditable(false);
 
         JLabel usersCountLbl = new JLabel("تعداد کاربران");
         JSpinner usersCount = new JSpinner();
-        usersCount.setValue(projectFacade.getProject(pid).getUsersCount());
+        usersCount.setValue(ProjectFacade.getInstance().getProject(pid).getUsersCount());
         usersCount.setEnabled(false);
 
 
@@ -71,14 +63,14 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
         JPanel techPanel = new JPanel();
         JScrollPane techListScroll = new JScrollPane();
         listModelTech = new DefaultListModel<>();
-        projectFacade.getProject(pid).getTechnologies().forEach(listModelTech::addElement);
+        ProjectFacade.getInstance().getProject(pid).getTechnologies().forEach(listModelTech::addElement);
         techList = new JList(listModelTech);
 
 
         JPanel unitsPanel = new JPanel();
         DefaultListModel<Unit> listModelUnit = new DefaultListModel<>();
         JScrollPane unitListScroll = new JScrollPane();
-        projectFacade.getProject(pid).getInvolvedUnits().forEach(listModelUnit::addElement);
+        ProjectFacade.getInstance().getProject(pid).getInvolvedUnits().forEach(listModelUnit::addElement);
         JList<Unit> unitList = new JList(listModelUnit);
 
 
@@ -86,7 +78,7 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
         viewRes.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                (new ViewProjectResources(userFacade, projectFacade.getProject(pid))).setVisible(true);
+                (new ViewProjectResources(userFacade, ProjectFacade.getInstance().getProject(pid))).setVisible(true);
             }
         });
 
@@ -95,7 +87,7 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
         viewReqs.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                (new ViewProjectRequirements(userFacade, projectFacade.getProject(pid))).setVisible(true);
+                (new ViewProjectRequirements(userFacade, ProjectFacade.getInstance().getProject(pid))).setVisible(true);
             }
         });
 
@@ -104,7 +96,7 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainFrame.getMainFrame().setVisible(false);
-                editProject = new EditProject(projectFacade.getProject(pid), addNewTechnology, userFacade);
+                editProject = new EditProject(ProjectFacade.getInstance().getProject(pid), addNewTechnology, userFacade);
                 editProject.setVisible(true);
             }
         });
@@ -128,9 +120,9 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
                                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        DefaultMutableTreeNode root = new DefaultMutableTreeNode(projectFacade.getProject(pid));
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode(ProjectFacade.getInstance().getProject(pid));
         // create the system nodes
-        ArrayList<System> systems = projectFacade.getProject(pid).getSystems();
+        ArrayList<System> systems = ProjectFacade.getInstance().getProject(pid).getSystems();
         DefaultMutableTreeNode[] systemNodes = new DefaultMutableTreeNode[systems.size()];
         if (systems != null) {
             for (int i = 0; i < systems.size(); i++) {

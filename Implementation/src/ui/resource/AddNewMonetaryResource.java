@@ -16,12 +16,9 @@ import java.util.Enumeration;
 
 class AddNewMonetaryResource extends MainDialog {
 
-    private OperationFacade operationFacade;
-
     private ArrayList<MonetaryResourceObserver> observers;
 
     AddNewMonetaryResource() {
-        operationFacade = new OperationFacade();
         observers = new ArrayList<>();
         prepareGUI();
     }
@@ -91,13 +88,13 @@ class AddNewMonetaryResource extends MainDialog {
         formUtility.addLabel("مقدار", form);
         formUtility.addLastField(amount, form);
 
-        java.util.List<QuantityUnit> quantityUnits = operationFacade.getQuantityUnits();
+        java.util.List<QuantityUnit> quantityUnits = OperationFacade.getInstance().getQuantityUnits();
         JComboBox<QuantityUnit> quantityUnitsCombo = new JComboBox<>();
         quantityUnits.forEach(quantityUnitsCombo::addItem);
         formUtility.addLabel("واحد پول ", form);
         formUtility.addLastField(quantityUnitsCombo, form);
 
-        ArrayList<Unit> units = operationFacade.getUnits();
+        ArrayList<Unit> units = OperationFacade.getInstance().getUnits();
         JComboBox<Unit> unitsCombo = new JComboBox<>();
 
         units.forEach(unitsCombo::addItem);
@@ -109,7 +106,7 @@ class AddNewMonetaryResource extends MainDialog {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                operationFacade.addNewMonetaryResource(getSelectedButtonText(buttonGroup), location.getText(),
+                OperationFacade.getInstance().addNewMonetaryResource(getSelectedButtonText(buttonGroup), location.getText(),
                         accountNumber.getText().equals("") ? "0" : accountNumber.getText(), (Integer) amount.getValue(), quantityUnitsCombo.getSelectedItem().toString(), ((Unit) unitsCombo.getSelectedItem()).getID());
                 notifyAllObservers();
                 setVisible(false);

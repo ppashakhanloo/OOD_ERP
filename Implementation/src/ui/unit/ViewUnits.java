@@ -15,7 +15,6 @@ import java.awt.event.ActionListener;
 public class ViewUnits extends UnitObserver implements Visibility {
 
     private MainFrame mainFrame;
-    private OperationFacade operationFacade;
 
     private AddNewUnit addNewUnit;
 
@@ -26,7 +25,6 @@ public class ViewUnits extends UnitObserver implements Visibility {
 
     public ViewUnits(UserFacade currentUser) {
         mainFrame = new MainFrame(currentUser);
-        operationFacade = new OperationFacade();
         addNewUnit = new AddNewUnit();
         addNewUnit.attach(this);
         prepareGUI();
@@ -57,7 +55,7 @@ public class ViewUnits extends UnitObserver implements Visibility {
 
         ////////////////////
         listModel = new DefaultListModel<>();
-        for (Unit unit : operationFacade.getUnits())
+        for (Unit unit : OperationFacade.getInstance().getUnits())
             listModel.addElement(unit);
         unitList = new JList<>(listModel);
         ////////////////////
@@ -76,7 +74,7 @@ public class ViewUnits extends UnitObserver implements Visibility {
     public void update() {
         mainFrame.getMainFrame().remove(jScrollPane);
         listModel = new DefaultListModel<>();
-        for (Unit unit : operationFacade.getUnits())
+        for (Unit unit : OperationFacade.getInstance().getUnits())
             listModel.addElement(unit);
         unitList = new JList<>(listModel);
         jScrollPane = new JScrollPane(unitList);

@@ -13,13 +13,9 @@ import java.util.ArrayList;
 
 class AddNewProject extends MainDialog {
 
-    private OperationFacade operationFacade;
-    private ProjectFacade projectFacade;
     private ArrayList<ProjectObserver> observers;
 
     AddNewProject() {
-        operationFacade = new OperationFacade();
-        projectFacade = new ProjectFacade();
         observers = new ArrayList<>();
         prepareGUI();
     }
@@ -48,7 +44,7 @@ class AddNewProject extends MainDialog {
 
         //////////////////////////////////////////////////////
         DefaultListModel<Unit> listModel = new DefaultListModel<>();
-        operationFacade.getUnits().forEach(listModel::addElement);
+        OperationFacade.getInstance().getUnits().forEach(listModel::addElement);
         JList<Unit> unitList = new JList<>(listModel);
         unitList.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         unitList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
@@ -61,7 +57,7 @@ class AddNewProject extends MainDialog {
         submit.addActionListener(e -> {
             ArrayList<String> involvedUnits = new ArrayList<>();
             for (Unit unit : unitList.getSelectedValuesList()) involvedUnits.add(unit.getID());
-            projectFacade.addNewProject(name.getText(), involvedUnits);
+            ProjectFacade.getInstance().addNewProject(name.getText(), involvedUnits);
             notifyAllObservers();
             setVisible(false);
         });

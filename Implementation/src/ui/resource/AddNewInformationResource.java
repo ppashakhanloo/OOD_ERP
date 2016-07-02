@@ -14,12 +14,9 @@ import java.util.ArrayList;
 
 class AddNewInformationResource extends MainDialog {
 
-    private OperationFacade operationFacade;
-
     private ArrayList<InformationResourceObserver> observers;
 
     AddNewInformationResource() {
-        operationFacade = new OperationFacade();
         observers = new ArrayList<>();
         prepareGUI();
     }
@@ -54,7 +51,7 @@ class AddNewInformationResource extends MainDialog {
 
         // JTextField ID
 
-        ArrayList<Unit> units = operationFacade.getUnits();
+        ArrayList<Unit> units = OperationFacade.getInstance().getUnits();
         JComboBox<Unit> unitsCombo = new JComboBox<>();
         for (Unit unit : units)
             unitsCombo.addItem(unit);
@@ -66,7 +63,7 @@ class AddNewInformationResource extends MainDialog {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                operationFacade.addNewInformationResource(name.getText(), description.getText(), ((Unit) unitsCombo.getSelectedItem()).getID());
+                OperationFacade.getInstance().addNewInformationResource(name.getText(), description.getText(), ((Unit) unitsCombo.getSelectedItem()).getID());
                 notifyAllObservers();
                 setVisible(false);
             }

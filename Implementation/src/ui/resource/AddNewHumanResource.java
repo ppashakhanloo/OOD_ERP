@@ -14,12 +14,9 @@ import java.util.ArrayList;
 
 class AddNewHumanResource extends MainDialog {
 
-    private OperationFacade operationFacade;
-
     private ArrayList<HumanResourceObserver> observers;
 
     AddNewHumanResource() {
-        operationFacade = new OperationFacade();
         observers = new ArrayList<>();
         prepareGUI();
     }
@@ -63,7 +60,7 @@ class AddNewHumanResource extends MainDialog {
 
         // JTextField ID
 
-        ArrayList<Unit> units = operationFacade.getUnits();
+        ArrayList<Unit> units = OperationFacade.getInstance().getUnits();
         JComboBox<Unit> unitsCombo = new JComboBox<>();
         for (Unit unit : units)
             unitsCombo.addItem(unit);
@@ -75,7 +72,7 @@ class AddNewHumanResource extends MainDialog {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                operationFacade.addNewHumanResource(firstName.getText(), lastName.getText(), expertise.getText(), password.getText(), ((Unit) unitsCombo.getSelectedItem()).getID());
+                OperationFacade.getInstance().addNewHumanResource(firstName.getText(), lastName.getText(), expertise.getText(), password.getText(), ((Unit) unitsCombo.getSelectedItem()).getID());
                 notifyAllObservers();
                 setVisible(false);
             }

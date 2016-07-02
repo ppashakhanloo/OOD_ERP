@@ -8,11 +8,21 @@ import resource.HumanResource;
 import resource.Resource;
 import resource.ResourceCatalogue;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Properties;
 
 public class ProjectFacade {
+
+    private static ProjectFacade projectFacade;
+
+    private ProjectFacade() {
+    }
+
+    public static ProjectFacade getInstance() {
+        if (projectFacade == null)
+            projectFacade = new ProjectFacade();
+        return projectFacade;
+    }
 
     public void addNewProject(String name, ArrayList<String> involvedUnits) {
         // by default, set accessLevel to 3

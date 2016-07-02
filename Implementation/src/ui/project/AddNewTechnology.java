@@ -1,13 +1,9 @@
 package ui.project;
 
-import business_logic_facade.OperationFacade;
 import business_logic_facade.ProjectFacade;
-import business_logic_facade.UserFacade;
 import project.Project;
 import ui.MainDialog;
-import ui.project.ProjectObserver;
 import ui.utilities.FormUtility;
-import unit.Unit;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -18,13 +14,9 @@ import java.util.ArrayList;
 
 class AddNewTechnology extends MainDialog {
 
-    private ProjectFacade projectFacade;
-    private UserFacade userFacade;
     private ArrayList<ProjectObserver> observers;
 
-    AddNewTechnology(UserFacade userFacade, Project project) {
-        projectFacade = new ProjectFacade();
-        this.userFacade = userFacade;
+    AddNewTechnology(Project project) {
         observers = new ArrayList<>();
         prepareGUI(project);
     }
@@ -60,7 +52,7 @@ class AddNewTechnology extends MainDialog {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                projectFacade.addNewTechnology(name.getText(), reason.getText(), project.getID());
+                ProjectFacade.getInstance().addNewTechnology(name.getText(), reason.getText(), project.getID());
                 setVisible(false);
                 notifyAllObservers();
             }

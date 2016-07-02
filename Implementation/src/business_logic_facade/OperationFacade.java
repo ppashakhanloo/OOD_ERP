@@ -14,6 +14,17 @@ import java.util.List;
 
 public class OperationFacade {
 
+    private OperationFacade() {
+    }
+
+    private static OperationFacade operationFacade;
+
+    public static OperationFacade getInstance() {
+        if (operationFacade == null)
+            operationFacade = new OperationFacade();
+        return operationFacade;
+    }
+
     public ArrayList<Resource> getHumanResources() {
         return ResourceCatalogue.getInstance().getAll(ResourceType.HUMAN);
     }
@@ -34,9 +45,13 @@ public class OperationFacade {
         return UnitCatalogue.getInstance().list();
     }
 
-    public ArrayList<Technology> getTechnologies() { return  ProjectCatalogue.getInstance().getTechnologies(); }
+    public ArrayList<Technology> getTechnologies() {
+        return ProjectCatalogue.getInstance().getTechnologies();
+    }
 
-    public ArrayList<Project> search(Technology tech, int userCount, int devCount) { return  ProjectCatalogue.getInstance().search(tech, userCount, devCount); }
+    public ArrayList<Project> search(Technology tech, int userCount, int devCount) {
+        return ProjectCatalogue.getInstance().search(tech, userCount, devCount);
+    }
 
     public List<QuantityUnit> getQuantityUnits() {
         return Arrays.asList(QuantityUnit.values());

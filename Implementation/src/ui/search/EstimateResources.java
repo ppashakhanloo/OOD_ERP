@@ -18,13 +18,11 @@ import java.util.ArrayList;
  * Created by Mozhdeh on 6/26/2016.
  */
 public class EstimateResources implements Visibility {
-    private OperationFacade operationFacade;
 
     private MainFrame mainFrame;
 
     public EstimateResources(UserFacade currentUser) {
         mainFrame = new MainFrame(currentUser);
-        operationFacade = new OperationFacade();
         prepareGUI();
     }
 
@@ -42,7 +40,7 @@ public class EstimateResources implements Visibility {
         DefaultListModel<Technology> listModelTech = new DefaultListModel<>();
         JList<Technology> techList = new JList(listModelTech);
         JScrollPane techListScroll = new JScrollPane(techList);
-        ArrayList<Technology> techs = operationFacade.getTechnologies();
+        ArrayList<Technology> techs = OperationFacade.getInstance().getTechnologies();
         techs.forEach(listModelTech::addElement);
 
         JLabel developersCountLbl = new JLabel("تعداد توسعه دهندگان");
@@ -136,7 +134,7 @@ public class EstimateResources implements Visibility {
                 Technology tech = techList.getSelectedValue();
                 int devCount = (Integer) developersCount.getValue();
                 int usercount = (Integer) usersCount.getValue();
-                operationFacade.search(tech, devCount, usercount).forEach(project -> listModelProj.addElement(project));
+                OperationFacade.getInstance().search(tech, devCount, usercount).forEach(project -> listModelProj.addElement(project));
             }
         });
     }

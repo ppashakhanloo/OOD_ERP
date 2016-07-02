@@ -16,7 +16,6 @@ import java.awt.event.ActionListener;
 public class ViewHumanResources extends HumanResourceObserver implements Visibility {
 
     private MainFrame mainFrame;
-    private OperationFacade operationFacade;
 
     private AddNewHumanResource addNewHumanResource;
 
@@ -27,7 +26,6 @@ public class ViewHumanResources extends HumanResourceObserver implements Visibil
 
     public ViewHumanResources(UserFacade currentUser) {
         mainFrame = new MainFrame(currentUser);
-        operationFacade = new OperationFacade();
         addNewHumanResource = new AddNewHumanResource();
         addNewHumanResource.attach(this);
         prepareGUI();
@@ -58,7 +56,7 @@ public class ViewHumanResources extends HumanResourceObserver implements Visibil
 
         ////////////////////
         listModel = new DefaultListModel<>();
-        for (Resource resource : operationFacade.getHumanResources())
+        for (Resource resource : OperationFacade.getInstance().getHumanResources())
             listModel.addElement((HumanResource) resource);
         resourceList = new JList<>(listModel);
         ////////////////////
@@ -77,7 +75,7 @@ public class ViewHumanResources extends HumanResourceObserver implements Visibil
     public void update() {
         mainFrame.getMainFrame().remove(jScrollPane);
         listModel = new DefaultListModel<>();
-        for (Resource resource : operationFacade.getHumanResources())
+        for (Resource resource : OperationFacade.getInstance().getHumanResources())
             listModel.addElement((HumanResource) resource);
         resourceList = new JList<>(listModel);
         jScrollPane = new JScrollPane(resourceList);

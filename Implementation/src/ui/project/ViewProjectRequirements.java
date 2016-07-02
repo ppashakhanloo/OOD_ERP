@@ -18,9 +18,6 @@ import java.awt.event.ActionListener;
 public class ViewProjectRequirements extends ProjectObserver implements Visibility {
 
     private MainFrame mainFrame;
-    private OperationFacade operationFacade;
-    private ProjectFacade projectFacade;
-
     private DefaultListModel<ProjectRequirement> listModel;
     private JList<ProjectRequirement> resourceList;
     private JScrollPane jScrollPane;
@@ -29,8 +26,6 @@ public class ViewProjectRequirements extends ProjectObserver implements Visibili
 
     public ViewProjectRequirements(UserFacade currentUser, Project project) {
         mainFrame = new MainFrame(currentUser);
-        operationFacade = new OperationFacade();
-        projectFacade = new ProjectFacade();
         this.project = project;
         prepareGUI();
     }
@@ -61,7 +56,7 @@ public class ViewProjectRequirements extends ProjectObserver implements Visibili
         System.out.println("**************HI*************");
         /////////////////////////////////////////////
         listModel = new DefaultListModel<>();
-        for (ProjectRequirement pr : projectFacade.getProjectRequirements(project.getID()))
+        for (ProjectRequirement pr : ProjectFacade.getInstance().getProjectRequirements(project.getID()))
             listModel.addElement(pr);
         resourceList = new JList<>(listModel);
         jScrollPane = new JScrollPane(resourceList);
@@ -83,7 +78,7 @@ public class ViewProjectRequirements extends ProjectObserver implements Visibili
     public void update() {
         mainFrame.getMainFrame().remove(jScrollPane);
         listModel = new DefaultListModel<>();
-        for (ProjectRequirement pr : projectFacade.getProjectRequirements(project.getID()))
+        for (ProjectRequirement pr : ProjectFacade.getInstance().getProjectRequirements(project.getID()))
             listModel.addElement(pr);
         resourceList = new JList<>(listModel);
         jScrollPane = new JScrollPane(resourceList);

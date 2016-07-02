@@ -18,8 +18,6 @@ import java.awt.event.MouseEvent;
 public class ViewProjects extends ProjectObserver implements Visibility {
 
     private MainFrame mainFrame;
-    private OperationFacade operationFacade;
-    private ProjectFacade projectFacade;
 
     private AddNewProject addNewProject;
 
@@ -32,8 +30,6 @@ public class ViewProjects extends ProjectObserver implements Visibility {
 
     public ViewProjects(UserFacade currentUser) {
         mainFrame = new MainFrame(currentUser);
-        operationFacade = new OperationFacade();
-        projectFacade = new ProjectFacade();
         addNewProject = new AddNewProject();
         addNewProject.attach(this);
         prepareGUI();
@@ -64,7 +60,7 @@ public class ViewProjects extends ProjectObserver implements Visibility {
 
         ////////////////////
         listModel = new DefaultListModel<>();
-        for (Project project : projectFacade.getProjects())
+        for (Project project : ProjectFacade.getInstance().getProjects())
             listModel.addElement(project);
         projectList = new JList<>(listModel);
 
@@ -95,7 +91,7 @@ public class ViewProjects extends ProjectObserver implements Visibility {
     public void update() {
         mainFrame.getMainFrame().remove(jScrollPane);
         listModel = new DefaultListModel<>();
-        for (Project project : projectFacade.getProjects())
+        for (Project project : ProjectFacade.getInstance().getProjects())
             listModel.addElement(project);
         projectList = new JList<>(listModel);
         jScrollPane = new JScrollPane(projectList);

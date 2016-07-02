@@ -17,8 +17,6 @@ import java.awt.event.ActionListener;
 public class ViewProjectResources extends ProjectObserver implements Visibility {
 
     private MainFrame mainFrame;
-    private OperationFacade operationFacade;
-    private ProjectFacade projectFacade;
 
 
     private AddNewProject addNewProject;
@@ -31,8 +29,6 @@ public class ViewProjectResources extends ProjectObserver implements Visibility 
 
     public ViewProjectResources(UserFacade currentUser, Project project) {
         mainFrame = new MainFrame(currentUser);
-        operationFacade = new OperationFacade();
-        projectFacade = new ProjectFacade();
         addNewProject = new AddNewProject();
         this.project = project;
         addNewProject.attach(this);
@@ -64,7 +60,7 @@ public class ViewProjectResources extends ProjectObserver implements Visibility 
 
         /////////////////////////////////////////////
         listModel = new DefaultListModel<>();
-        for (Resource resource : projectFacade.getProjectResources(project.getID()))
+        for (Resource resource : ProjectFacade.getInstance().getProjectResources(project.getID()))
             listModel.addElement(resource);
         resourceList = new JList<>(listModel);
         jScrollPane = new JScrollPane(resourceList);
@@ -84,7 +80,7 @@ public class ViewProjectResources extends ProjectObserver implements Visibility 
     public void update() {
         mainFrame.getMainFrame().remove(jScrollPane);
         listModel = new DefaultListModel<>();
-        for (Resource resource : projectFacade.getProjectResources(project.getID()))
+        for (Resource resource : ProjectFacade.getInstance().getProjectResources(project.getID()))
             listModel.addElement(resource);
         resourceList = new JList<>(listModel);
         jScrollPane = new JScrollPane(resourceList);

@@ -17,15 +17,11 @@ import java.util.ArrayList;
 
 class AddNewModule extends MainDialog {
 
-    private OperationFacade operationFacade;
-    private ProjectFacade projectFacade;
     private UserFacade userFacade;
     private ArrayList<ProjectObserver> observers;
 
 
     AddNewModule(UserFacade userFacade, String pid) {
-        operationFacade = new OperationFacade();
-        projectFacade = new ProjectFacade();
         this.userFacade = userFacade;
         observers = new ArrayList<>();
         prepareGUI(pid);
@@ -53,7 +49,7 @@ class AddNewModule extends MainDialog {
         formUtility.addLabel("نام ماژول ", form);
         formUtility.addLastField(name, form);
 
-        ArrayList<System> systems = projectFacade.getProject(pid).getSystems();
+        ArrayList<System> systems = ProjectFacade.getInstance().getProject(pid).getSystems();
         JComboBox<System> systemsCombo = new JComboBox<>();
         for (System system : systems) systemsCombo.addItem(system);
         formUtility.addLabel("سیستم موردنظر ", form);
@@ -61,7 +57,7 @@ class AddNewModule extends MainDialog {
 
         //////////////////////////////////////////////////////
         DefaultListModel<Resource> devListModel = new DefaultListModel<>();
-        for (Resource resource : projectFacade.getProjectResources(pid))
+        for (Resource resource : ProjectFacade.getInstance().getProjectResources(pid))
             if (resource instanceof HumanResource)
                 devListModel.addElement(resource);
         JList<Resource> devList = new JList<>(devListModel);
@@ -74,7 +70,7 @@ class AddNewModule extends MainDialog {
 
         //////////////////////////////////////////////////////
         DefaultListModel<Resource> resListModel = new DefaultListModel<>();
-        for (Resource resource : projectFacade.getProjectResources(pid))
+        for (Resource resource : ProjectFacade.getInstance().getProjectResources(pid))
             resListModel.addElement(resource);
         JList<Resource> resList = new JList<>(resListModel);
         resList.setBorder(BorderFactory.createLineBorder(Color.GRAY));
@@ -93,7 +89,7 @@ class AddNewModule extends MainDialog {
             for (Resource res : resList.getSelectedValuesList())
                 resources.add(res.getID());
 
-            projectFacade.addNewModule(name.getText(), ((System) systemsCombo.getSelectedItem()).getID(), pid, resources, developers);
+            ProjectFacade.getInstance().addNewModule(name.getText(), ((System) systemsCombo.getSelectedItem()).getID(), pid, resources, developers);
 
             new ViewSingleProject(userFacade, pid).setVisible(true);
             setVisible(false);

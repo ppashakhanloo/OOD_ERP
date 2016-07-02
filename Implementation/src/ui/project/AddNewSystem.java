@@ -17,14 +17,10 @@ import java.util.ArrayList;
 
 public class AddNewSystem extends MainDialog {
 
-    private OperationFacade operationFacade;
-    private ProjectFacade projectFacade;
 
     private ArrayList<UnitObserver> observers;
 
     public AddNewSystem(UserFacade currentUser, String pid) {
-        operationFacade = new OperationFacade();
-        projectFacade = new ProjectFacade();
         observers = new ArrayList<>();
         prepareGUI(currentUser, pid);
     }
@@ -47,7 +43,7 @@ public class AddNewSystem extends MainDialog {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                projectFacade.addNewSystem(name.getText(), pid);
+                ProjectFacade.getInstance().addNewSystem(name.getText(), pid);
 //                notifyAllObservers();
                 setVisible(false);
                 new ViewSingleProject(currentUser, pid).setVisible(true);

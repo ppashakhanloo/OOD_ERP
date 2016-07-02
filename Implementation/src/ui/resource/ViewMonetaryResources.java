@@ -16,7 +16,6 @@ import java.awt.event.ActionListener;
 public class ViewMonetaryResources extends MonetaryResourceObserver implements Visibility {
 
     private MainFrame mainFrame;
-    private OperationFacade operationFacade;
 
     private AddNewMonetaryResource addNewMonetaryResource;
 
@@ -27,7 +26,6 @@ public class ViewMonetaryResources extends MonetaryResourceObserver implements V
 
     public ViewMonetaryResources(UserFacade currentUser) {
         mainFrame = new MainFrame(currentUser);
-        operationFacade = new OperationFacade();
         addNewMonetaryResource = new AddNewMonetaryResource();
         addNewMonetaryResource.attach(this);
         prepareGUI();
@@ -58,7 +56,7 @@ public class ViewMonetaryResources extends MonetaryResourceObserver implements V
 
         ////////////////////
         listModel = new DefaultListModel<>();
-        for (Resource resource : operationFacade.getMonetaryResources())
+        for (Resource resource : OperationFacade.getInstance().getMonetaryResources())
             listModel.addElement((MonetaryResource) resource);
         resourceList = new JList<>(listModel);
         ////////////////////
@@ -77,7 +75,7 @@ public class ViewMonetaryResources extends MonetaryResourceObserver implements V
     public void update() {
         mainFrame.getMainFrame().remove(jScrollPane);
         listModel = new DefaultListModel<>();
-        for (Resource resource : operationFacade.getMonetaryResources())
+        for (Resource resource : OperationFacade.getInstance().getMonetaryResources())
             listModel.addElement((MonetaryResource) resource);
         resourceList = new JList<>(listModel);
         jScrollPane = new JScrollPane(resourceList);

@@ -10,7 +10,7 @@ public class AccessLevelDAO {
 	protected Connection sqlConn;
 	private String url = "jdbc:mysql://localhost:3306/erp";
 	private String user = "root";
-	private String password = "7284";
+	private String password = "";
 
 	private static AccessLevelDAO accessLevelDAO;
 	protected QueryGenerator queryGenerator;

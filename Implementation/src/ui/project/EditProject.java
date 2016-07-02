@@ -22,14 +22,10 @@ import java.util.ArrayList;
 public class EditProject extends MainDialog {
 
     private ArrayList<ProjectObserver> observers;
-    private ProjectFacade projectFacade;
-    private OperationFacade operationFacade;
     private UserFacade userFacade;
 
     public EditProject(Project project, AddNewTechnology addNewTechnology, UserFacade userFacade) {
         observers = new ArrayList<>();
-        projectFacade = new ProjectFacade();
-        operationFacade = new OperationFacade();
         this.userFacade = userFacade;
         prepareGUI(project, addNewTechnology);
     }
@@ -41,7 +37,7 @@ public class EditProject extends MainDialog {
         JTextField name = new JTextField(project.getName());
 
         JLabel managerLbl = new JLabel("مدیر پروژه");
-        ArrayList<Resource> humanResources = operationFacade.getHumanResources();
+        ArrayList<Resource> humanResources = OperationFacade.getInstance().getHumanResources();
         JComboBox<HumanResource> manCombo = new JComboBox<>();
         for (Resource resource : humanResources) manCombo.addItem((HumanResource) resource);
 
@@ -71,13 +67,7 @@ public class EditProject extends MainDialog {
         edit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                java.lang.System.out.println("SAVE CHANGES: " + projectFacade);
-                java.lang.System.out.println("NAME: " + name.getText());
-                java.lang.System.out.println("MANAGER ID: " + ((HumanResource) manCombo.getSelectedItem()).getID());
-                java.lang.System.out.println("USER COUNT: " + (int) usersCount.getValue());
-                java.lang.System.out.println("PROJECT ID: " + project.getID());
-
-                projectFacade.updateProject(name.getText(),
+                ProjectFacade.getInstance().updateProject(name.getText(),
                         ((HumanResource) manCombo.getSelectedItem()).getID(),
                         (int) usersCount.getValue(),
                         project.getID());

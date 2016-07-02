@@ -14,12 +14,10 @@ import java.util.ArrayList;
 
 public class AddNewUnit extends MainDialog {
 
-    private OperationFacade operationFacade;
-
     private ArrayList<UnitObserver> observers;
 
     public AddNewUnit() {
-        operationFacade = new OperationFacade();
+
         observers = new ArrayList<>();
         prepareGUI();
     }
@@ -50,7 +48,7 @@ public class AddNewUnit extends MainDialog {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                operationFacade.addNewUnit(name.getText());
+                OperationFacade.getInstance().addNewUnit(name.getText());
                 notifyAllObservers();
                 setVisible(false);
             }

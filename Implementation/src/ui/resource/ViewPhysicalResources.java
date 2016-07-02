@@ -16,7 +16,6 @@ import java.awt.event.ActionListener;
 public class ViewPhysicalResources extends PhysicalResourceObserver implements Visibility {
 
     private MainFrame mainFrame;
-    private OperationFacade operationFacade;
 
     private AddNewPhysicalResource addNewPhysicalResource;
 
@@ -27,7 +26,6 @@ public class ViewPhysicalResources extends PhysicalResourceObserver implements V
 
     public ViewPhysicalResources(UserFacade currentUser) {
         mainFrame = new MainFrame(currentUser);
-        operationFacade = new OperationFacade();
         addNewPhysicalResource = new AddNewPhysicalResource();
         addNewPhysicalResource.attach(this);
         prepareGUI();
@@ -58,7 +56,7 @@ public class ViewPhysicalResources extends PhysicalResourceObserver implements V
 
         ////////////////////
         listModel = new DefaultListModel<>();
-        for (Resource resource : operationFacade.getPhysicalResources())
+        for (Resource resource : OperationFacade.getInstance().getPhysicalResources())
             listModel.addElement((PhysicalResource) resource);
         resourceList = new JList<>(listModel);
         ////////////////////
@@ -77,7 +75,7 @@ public class ViewPhysicalResources extends PhysicalResourceObserver implements V
     public void update() {
         mainFrame.getMainFrame().remove(jScrollPane);
         listModel = new DefaultListModel<>();
-        for (Resource resource : operationFacade.getPhysicalResources())
+        for (Resource resource : OperationFacade.getInstance().getPhysicalResources())
             listModel.addElement((PhysicalResource) resource);
         resourceList = new JList<>(listModel);
         jScrollPane = new JScrollPane(resourceList);
