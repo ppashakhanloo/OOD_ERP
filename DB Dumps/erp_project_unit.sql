@@ -2,7 +2,7 @@
 --
 -- Host: 127.0.0.1    Database: erp
 -- ------------------------------------------------------
--- Server version	5.5.49
+-- Server version	5.5.5-10.1.13-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -38,7 +38,7 @@ CREATE TABLE `project_unit` (
 
 LOCK TABLES `project_unit` WRITE;
 /*!40000 ALTER TABLE `project_unit` DISABLE KEYS */;
-INSERT INTO `project_unit` VALUES ('556917','1'),('739863','1'),('849942','1'),('861092','1'),('872427','1'),('849942','278288'),('872427','278288'),('849942','836936'),('872427','836936'),('849942','860349'),('872427','860349');
+INSERT INTO `project_unit` VALUES ('556917','1'),('739863','1'),('849942','1'),('849942','278288'),('849942','836936'),('849942','860349'),('861092','1'),('872427','1'),('872427','278288'),('872427','836936'),('872427','860349');
 /*!40000 ALTER TABLE `project_unit` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-26 20:55:05
+-- Dump completed on 2016-07-03  3:33:49

@@ -2,7 +2,7 @@
 --
 -- Host: 127.0.0.1    Database: erp
 -- ------------------------------------------------------
--- Server version	5.5.49
+-- Server version	5.5.5-10.1.13-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -38,7 +38,7 @@ CREATE TABLE `project_management` (
 
 LOCK TABLES `project_management` WRITE;
 /*!40000 ALTER TABLE `project_management` DISABLE KEYS */;
-INSERT INTO `project_management` VALUES ('1','100824'),('450629','100824'),('556917','100824'),('595141','100824'),('556917','783606');
+INSERT INTO `project_management` VALUES ('1','100824'),('450629','100824'),('556917','100824'),('556917','783606'),('595141','100824');
 /*!40000 ALTER TABLE `project_management` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-26 20:55:07
+-- Dump completed on 2016-07-03  3:33:51

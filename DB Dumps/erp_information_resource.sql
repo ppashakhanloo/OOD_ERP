@@ -2,7 +2,7 @@
 --
 -- Host: 127.0.0.1    Database: erp
 -- ------------------------------------------------------
--- Server version	5.5.49
+-- Server version	5.5.5-10.1.13-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -37,7 +37,7 @@ CREATE TABLE `information_resource` (
 
 LOCK TABLES `information_resource` WRITE;
 /*!40000 ALTER TABLE `information_resource` DISABLE KEYS */;
-INSERT INTO `information_resource` VALUES ('db1','sdfghjkl;','476220');
+INSERT INTO `information_resource` VALUES ('db9999','sdfghjkl;','476220');
 /*!40000 ALTER TABLE `information_resource` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-26 20:55:07
+-- Dump completed on 2016-07-03  3:33:51

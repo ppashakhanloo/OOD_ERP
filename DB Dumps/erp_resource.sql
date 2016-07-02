@@ -2,7 +2,7 @@
 --
 -- Host: 127.0.0.1    Database: erp
 -- ------------------------------------------------------
--- Server version	5.5.49
+-- Server version	5.5.5-10.1.13-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -26,14 +26,10 @@ CREATE TABLE `resource` (
   `ID` varchar(255) NOT NULL,
   `resourceStatus` varchar(255) DEFAULT NULL,
   `isAvailable` tinyint(4) DEFAULT NULL,
-  `UnitID` varchar(255) NOT NULL,
   `ProjectID` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ID`),
-  KEY `UnitID` (`UnitID`),
   KEY `resource_ibfk_3` (`ProjectID`),
-  CONSTRAINT `resource_ibfk_3` FOREIGN KEY (`ProjectID`) REFERENCES `project` (`ID`),
-  CONSTRAINT `resource_ibfk_1` FOREIGN KEY (`UnitID`) REFERENCES `unit` (`ID`),
-  CONSTRAINT `resource_ibfk_2` FOREIGN KEY (`UnitID`) REFERENCES `unit` (`ID`)
+  CONSTRAINT `resource_ibfk_3` FOREIGN KEY (`ProjectID`) REFERENCES `project` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -43,7 +39,7 @@ CREATE TABLE `resource` (
 
 LOCK TABLES `resource` WRITE;
 /*!40000 ALTER TABLE `resource` DISABLE KEYS */;
-INSERT INTO `resource` VALUES ('100824','IDLE',1,'1','1'),('188546','IDLE',1,'1','1'),('215343','IDLE',1,'1','1'),('225066','IDLE',1,'1','1'),('241314','IDLE',1,'1','1'),('248657','IDLE',1,'836936',NULL),('476220','IDLE',1,'1',NULL),('764488','IDLE',1,'278288',NULL),('783606','IDLE',1,'1',NULL);
+INSERT INTO `resource` VALUES ('100824','IDLE',1,'1'),('105401','IDLE',1,NULL),('128290','IDLE',1,NULL),('157726','IDLE',1,NULL),('165536','IDLE',1,NULL),('188546','IDLE',1,'1'),('215343','IDLE',1,'1'),('220835','IDLE',1,NULL),('225066','IDLE',1,'1'),('240331','IDLE',1,NULL),('241314','IDLE',1,'1'),('246005','IDLE',1,NULL),('248657','IDLE',1,NULL),('373666','IDLE',1,NULL),('393974','IDLE',1,NULL),('414400','IDLE',1,NULL),('415083','IDLE',1,NULL),('433388','IDLE',1,NULL),('476220','IDLE',1,NULL),('526894','IDLE',1,NULL),('538217','IDLE',1,NULL),('556727','IDLE',1,NULL),('619031','IDLE',1,NULL),('709604','IDLE',1,NULL),('717278','IDLE',1,NULL),('764488','IDLE',1,NULL),('777007','IDLE',1,NULL),('778034','IDLE',1,NULL),('783606','IDLE',1,NULL),('824871','IDLE',1,NULL),('951087','IDLE',1,NULL);
 /*!40000 ALTER TABLE `resource` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -56,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-26 20:55:07
+-- Dump completed on 2016-07-03  3:33:51

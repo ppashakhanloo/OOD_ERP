@@ -2,7 +2,7 @@
 --
 -- Host: 127.0.0.1    Database: erp
 -- ------------------------------------------------------
--- Server version	5.5.49
+-- Server version	5.5.5-10.1.13-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,8 +23,7 @@ DROP TABLE IF EXISTS `access_level`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `access_level` (
-  `ID` varchar(255) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
+  `accessLevelType` varchar(255) NOT NULL,
   `canGetReport` varchar(1) DEFAULT '0',
   `canSearch` varchar(1) DEFAULT '0',
   `canGetResourceAttributes` varchar(1) DEFAULT '0',
@@ -36,7 +35,7 @@ CREATE TABLE `access_level` (
   `canConfirmNormalUser` varchar(1) DEFAULT '0',
   `canConfirmMidUser` varchar(1) DEFAULT '0',
   `canAddUnit` varchar(1) DEFAULT '0',
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`accessLevelType`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -46,7 +45,7 @@ CREATE TABLE `access_level` (
 
 LOCK TABLES `access_level` WRITE;
 /*!40000 ALTER TABLE `access_level` DISABLE KEYS */;
-INSERT INTO `access_level` VALUES ('1',NULL,'1','1','1','1','1','1','1','1','1','1','1'),('2',NULL,'1','1','1','1','1','0','0','0','0','0','0'),('3',NULL,'1','1','1','0','0','0','0','0','0','0','0');
+INSERT INTO `access_level` VALUES ('High','1','1','1','1','1','1','1','1','1','1','1'),('Low','1','1','1','0','1','0','1','1','1','0','1'),('Medium','1','1','1','1','1','1','1','1','1','1','1');
 /*!40000 ALTER TABLE `access_level` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -59,4 +58,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-26 20:55:08
+-- Dump completed on 2016-07-03  3:33:52
