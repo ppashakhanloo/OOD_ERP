@@ -13,6 +13,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class ViewPhysicalResources extends PhysicalResourceObserver implements Visibility {
@@ -23,18 +25,20 @@ public class ViewPhysicalResources extends PhysicalResourceObserver implements V
 
     private DefaultListModel<PhysicalResource> listModel;
     private JList<PhysicalResource> resourceList;
-    private JScrollPane jScrollPane;
     private JPanel panel2;
 
-    public ViewPhysicalResources(UserFacade currentUser) {
-        mainFrame = new MainFrame(currentUser);
+    private UserFacade userFacade;
+
+    public ViewPhysicalResources(UserFacade userFacade) {
+        mainFrame = new MainFrame(userFacade);
         addNewPhysicalResource = new AddNewPhysicalResource();
         addNewPhysicalResource.attach(this);
+        this.userFacade = userFacade;
         prepareGUI();
     }
 
     private void prepareGUI() {
-        mainFrame.getMainFrame().setTitle("مشاهده منابع انسانی");
+        mainFrame.getMainFrame().setTitle("مشاهده منابع فیزیکی");
         mainFrame.getMainFrame().getContentPane().remove(0);
         mainFrame.getMainFrame().setLayout(new FlowLayout());
 
@@ -68,6 +72,15 @@ public class ViewPhysicalResources extends PhysicalResourceObserver implements V
         for (Resource resource : OperationFacade.getInstance().getPhysicalResources())
             listModel.addElement((PhysicalResource) resource);
         resourceList = new JList<>(listModel);
+        resourceList.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                JList list = (JList) evt.getSource();
+                if (evt.getClickCount() == 2) {
+                    // Double-click detected
+                    new SinglePhysicalResource(userFacade, ((PhysicalResource) list.getSelectedValue()).getID()).setVisible(true);
+                }
+            }
+        });
         panel2.add(new JScrollPane(resourceList));
         mainFrame.getMainFrame().add(panel2);
 
@@ -87,6 +100,15 @@ public class ViewPhysicalResources extends PhysicalResourceObserver implements V
                         }
                 }
                 resourceList = new JList<>(listModel);
+                resourceList.addMouseListener(new MouseAdapter() {
+                    public void mouseClicked(MouseEvent evt) {
+                        JList list = (JList) evt.getSource();
+                        if (evt.getClickCount() == 2) {
+                            // Double-click detected
+                            new SinglePhysicalResource(userFacade, ((PhysicalResource) list.getSelectedValue()).getID()).setVisible(true);
+                        }
+                    }
+                });
                 panel2.add(new JScrollPane(resourceList));
                 mainFrame.getMainFrame().repaint();
                 mainFrame.getMainFrame().revalidate();
@@ -108,7 +130,16 @@ public class ViewPhysicalResources extends PhysicalResourceObserver implements V
         for (Resource resource : OperationFacade.getInstance().getPhysicalResources())
             listModel.addElement((PhysicalResource) resource);
         resourceList = new JList<>(listModel);
-        jScrollPane = new JScrollPane(resourceList);
+        resourceList.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                JList list = (JList) evt.getSource();
+                if (evt.getClickCount() == 2) {
+                    // Double-click detected
+                    new SinglePhysicalResource(userFacade, ((PhysicalResource) list.getSelectedValue()).getID()).setVisible(true);
+                }
+            }
+        });
+        JScrollPane jScrollPane = new JScrollPane(resourceList);
         mainFrame.getMainFrame().add(jScrollPane, BorderLayout.CENTER);
         mainFrame.getMainFrame().repaint();
         mainFrame.getMainFrame().revalidate();

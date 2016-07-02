@@ -76,4 +76,23 @@ public class Unit {
     public String toString() {
         return "ID=" + ID + ", name=" + name;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Unit)) return false;
+
+        Unit unit = (Unit) o;
+
+        if (getID() != null ? !getID().equals(unit.getID()) : unit.getID() != null) return false;
+        return getName() != null ? getName().equals(unit.getName()) : unit.getName() == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getID() != null ? getID().hashCode() : 0;
+        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
+        return result;
+    }
 }

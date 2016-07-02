@@ -35,7 +35,6 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
         addNewTechnology = new AddNewTechnology(ProjectFacade.getInstance().getProject(pid));
         addNewTechnology.attach(this);
         this.pid = pid;
-
         prepareGUI();
     }
 
@@ -283,7 +282,7 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
         }
     }
 
-    class PopClickListener extends MouseAdapter {
+    private class PopClickListener extends MouseAdapter {
         public void mousePressed(MouseEvent e) {
             if (e.isPopupTrigger())
                 doPop(e);

@@ -12,9 +12,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-/**
- * Created by Mozhdeh on 6/26/2016.
- */
 public class EstimateResources implements Visibility {
 
     private MainFrame mainFrame;

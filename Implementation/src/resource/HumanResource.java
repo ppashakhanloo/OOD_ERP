@@ -16,6 +16,18 @@ public class HumanResource extends Resource {
         setConfirmStatus(ConfirmStatus.PENDING);
     }
 
+    public HumanResource(String id, String firstName, String lastName, String expertise, String password,
+                         AccessLevel accessLevel) {
+        setID(id);
+        this.confirmStatus = ConfirmStatus.PENDING;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.expertise = expertise;
+        this.password = password;
+        this.accessLevel = accessLevel;
+    }
+
+
     public HumanResource(String firstName, String lastName, String expertise, String password,
                          AccessLevel accessLevel) {
         super();
@@ -63,7 +75,7 @@ public class HumanResource extends Resource {
         return confirmStatus;
     }
 
-    private void setConfirmStatus(ConfirmStatus confirmStatus) {
+    public void setConfirmStatus(ConfirmStatus confirmStatus) {
         this.confirmStatus = confirmStatus;
     }
 

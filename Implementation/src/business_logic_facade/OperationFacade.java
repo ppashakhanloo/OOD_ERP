@@ -1,7 +1,10 @@
 package business_logic_facade;
 
+import access.AccessLevel;
 import access.AccessLevelFactory;
 import access.AccessLevelType;
+import database.HumanResourceDAO;
+import database.UnitResourceDAO;
 import project.Project;
 import project.ProjectCatalogue;
 import project.Technology;
@@ -11,6 +14,7 @@ import unit.UnitCatalogue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class OperationFacade {
@@ -54,12 +58,21 @@ public class OperationFacade {
         return ProjectCatalogue.getInstance().search(tech, userCount, devCount);
     }
 
-    public List<QuantityUnit> getQuantityUnits() {
-        return Arrays.asList(QuantityUnit.values());
+    public ArrayList<QuantityUnit> getQuantityUnits() {
+        ArrayList<QuantityUnit> quantityUnits = new ArrayList<>();
+        for (QuantityUnit quantityUnit : QuantityUnit.values())
+            quantityUnits.add(quantityUnit);
+        return quantityUnits;
+    }
+
+    public ArrayList<MonetaryType> getMonetaryTypes() {
+        ArrayList<MonetaryType> monetaryTypes = new ArrayList<>();
+        for (MonetaryType monetaryType : MonetaryType.values())
+            monetaryTypes.add(monetaryType);
+        return monetaryTypes;
     }
 
     public boolean addNewHumanResource(String firstName, String lastName, String expertise, String password, String unitID) {
-        // by default, set accessLevel to 3
         try {
             HumanResource humanResource = new HumanResource(firstName, lastName, expertise, password, (new AccessLevelFactory()).getAccessLevel(AccessLevelType.High));
             ResourceCatalogue.getInstance().add(humanResource, unitID, "");
@@ -102,4 +115,39 @@ public class OperationFacade {
         }
         return true;
     }
+
+    //    public HumanResource(String id, String firstName, String lastName, String expertise, String password,
+//                         AccessLevel accessLevel) {
+    public void updateHumanResource(String id, String firstName, String lastName, String expertise, AccessLevelType accessLevelType, ConfirmStatus confirmStatus, Unit unit) {
+        HumanResource humanResource = new HumanResource(
+                id,
+                firstName,
+                lastName,
+                expertise,
+                ((HumanResource) ResourceCatalogue.getInstance().get(id)).getPassword(),
+                new AccessLevelFactory().getAccessLevel(accessLevelType));
+        humanResource.setConfirmStatus(confirmStatus);
+        ResourceCatalogue.getInstance().update(humanResource);
+    }
+
+    public void updateInformationResource(String id, String name, String description) {
+        InformationResource informationResource = new InformationResource(id, name, description);
+        ResourceCatalogue.getInstance().update(informationResource);
+    }
+
+    public void updateMonetaryResource(String id, MonetaryType monetaryType, Integer amount, QuantityUnit quantityUnit,
+                                       String location, String accountNumber, Unit unit) {
+        MonetaryResource monetaryResource = new MonetaryResource(id, monetaryType, location, Integer.parseInt(accountNumber), new Quantity(amount, quantityUnit));
+        ResourceCatalogue.getInstance().update(monetaryResource);
+    }
+
+    public void updatePhysicalResource(String id, String name, String model, String location, Unit unit) {
+        PhysicalResource physicalResource = new PhysicalResource(id, name, model, location);
+        ResourceCatalogue.getInstance().update(physicalResource);
+    }
+
+//    public Unit getResourceUnit(String rID) {
+    // TODO after Maryam added this to somewhere!
+
+//    }
 }

@@ -12,6 +12,15 @@ public class PhysicalResource extends Resource {
         this.location = location;
     }
 
+    public PhysicalResource(String id, String name, String model, String location) {
+        super();
+        setID(id);
+        this.name = name;
+        this.model = model;
+        this.location = location;
+    }
+
+
     public String getName() {
         return name;
     }

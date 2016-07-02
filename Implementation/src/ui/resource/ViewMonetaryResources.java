@@ -13,6 +13,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class ViewMonetaryResources extends MonetaryResourceObserver implements Visibility {
@@ -23,18 +25,20 @@ public class ViewMonetaryResources extends MonetaryResourceObserver implements V
 
     private DefaultListModel<MonetaryResource> listModel;
     private JList<MonetaryResource> resourceList;
-    private JScrollPane jScrollPane;
     private JPanel panel2;
 
-    public ViewMonetaryResources(UserFacade currentUser) {
-        mainFrame = new MainFrame(currentUser);
+    private UserFacade userFacade;
+
+    public ViewMonetaryResources(UserFacade userFacade) {
+        mainFrame = new MainFrame(userFacade);
         addNewMonetaryResource = new AddNewMonetaryResource();
         addNewMonetaryResource.attach(this);
+        this.userFacade = userFacade;
         prepareGUI();
     }
 
     private void prepareGUI() {
-        mainFrame.getMainFrame().setTitle("مشاهده منابع انسانی");
+        mainFrame.getMainFrame().setTitle("مشاهده منابع مالی");
         mainFrame.getMainFrame().getContentPane().remove(0);
         mainFrame.getMainFrame().setLayout(new FlowLayout());
 
@@ -68,6 +72,15 @@ public class ViewMonetaryResources extends MonetaryResourceObserver implements V
         for (Resource resource : OperationFacade.getInstance().getMonetaryResources())
             listModel.addElement((MonetaryResource) resource);
         resourceList = new JList<>(listModel);
+        resourceList.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                JList list = (JList) evt.getSource();
+                if (evt.getClickCount() == 2) {
+                    // Double-click detected
+                    new SingleMonetaryResource(userFacade, ((MonetaryResource) list.getSelectedValue()).getID()).setVisible(true);
+                }
+            }
+        });
         panel2.add(new JScrollPane(resourceList));
         mainFrame.getMainFrame().add(panel2);
 
@@ -87,6 +100,15 @@ public class ViewMonetaryResources extends MonetaryResourceObserver implements V
                         }
                 }
                 resourceList = new JList<>(listModel);
+                resourceList.addMouseListener(new MouseAdapter() {
+                    public void mouseClicked(MouseEvent evt) {
+                        JList list = (JList) evt.getSource();
+                        if (evt.getClickCount() == 2) {
+                            // Double-click detected
+                            new SingleMonetaryResource(userFacade, ((MonetaryResource) list.getSelectedValue()).getID()).setVisible(true);
+                        }
+                    }
+                });
                 panel2.add(new JScrollPane(resourceList));
                 mainFrame.getMainFrame().repaint();
                 mainFrame.getMainFrame().revalidate();
@@ -103,13 +125,21 @@ public class ViewMonetaryResources extends MonetaryResourceObserver implements V
 
     @Override
     public void update() {
-//        mainFrame.getMainFrame().remove(jScrollPane);
         panel2.removeAll();
         listModel = new DefaultListModel<>();
         for (Resource resource : OperationFacade.getInstance().getMonetaryResources())
             listModel.addElement((MonetaryResource) resource);
         resourceList = new JList<>(listModel);
-        jScrollPane = new JScrollPane(resourceList);
+        resourceList.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                JList list = (JList) evt.getSource();
+                if (evt.getClickCount() == 2) {
+                    // Double-click detected
+                    new SingleMonetaryResource(userFacade, ((MonetaryResource) list.getSelectedValue()).getID()).setVisible(true);
+                }
+            }
+        });
+        JScrollPane jScrollPane = new JScrollPane(resourceList);
         mainFrame.getMainFrame().add(jScrollPane, BorderLayout.CENTER);
         mainFrame.getMainFrame().repaint();
         mainFrame.getMainFrame().revalidate();

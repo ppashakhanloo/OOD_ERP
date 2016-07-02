@@ -112,7 +112,7 @@ public class HumanResourceDAO extends ResourceDAO {
                             .toString(),
                     "ResourceID = " + humanResourceItem.getID()));
             myStmt.executeUpdate(QueryGenerator.getInstance().update("human_resource",
-                    "AccessLevelID",
+                    "AccessLevelType",
                     humanResourceItem.getAccessLevel().getAccessLevelType().toString(), "ResourceID = "
                             + humanResourceItem.getID()));
         } catch (SQLException e) {
@@ -224,10 +224,10 @@ public class HumanResourceDAO extends ResourceDAO {
                 rs.getString("lastName"), rs.getString("expertise"),
                 rs.getString("password"),
                 (new AccessLevelFactory()).getAccessLevel(AccessLevelType.valueOf(accessLevelType)));
+        ((HumanResource) newRes).setConfirmStatus(ConfirmStatus.valueOf(rs.getString("confirmStatus")));
         newRes.setID(rs.getString("ResourceID"));
         newRes.setAvailable(rs.getString("isAvailable").equals("1"));
-        newRes.setResourceStatus(rs.getString("resourceStatus").equals("IDLE") ? ResourceStatus.IDLE
-                : ResourceStatus.BUSY);
+        newRes.setResourceStatus(ResourceStatus.valueOf(rs.getString("resourceStatus")));
         return newRes;
     }
 

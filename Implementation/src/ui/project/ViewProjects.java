@@ -92,6 +92,18 @@ public class ViewProjects extends ProjectObserver implements Visibility {
         for (Project project : ProjectFacade.getInstance().getProjects())
             listModel.addElement(project);
         projectList = new JList<>(listModel);
+
+        projectList.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                JList list = (JList) evt.getSource();
+                if (evt.getClickCount() == 2) {
+                    // Double-click detected
+                    viewSingleProject = new ViewSingleProject(mainFrame.getCurrentUser(), ((Project) list.getSelectedValue()).getID());
+                    viewSingleProject.setVisible(true);
+                }
+            }
+        });
+
         jScrollPane = new JScrollPane(projectList);
         mainFrame.getMainFrame().add(jScrollPane, BorderLayout.CENTER);
         mainFrame.getMainFrame().repaint();

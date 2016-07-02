@@ -1,54 +1,64 @@
 package resource;
 
 public class MonetaryResource extends Resource {
-	MonetaryType monetaryType;
-	String location;
-	Quantity quantity;
-	int accountNumber;
+    private MonetaryType monetaryType;
+    private String location;
+    private Quantity quantity;
+    private int accountNumber;
 
-	public MonetaryResource(MonetaryType monetaryType, String location, Integer accountNumber, Quantity quantity) {
-		super();
-		this.monetaryType = monetaryType;
-		this.location = location;
-		this.accountNumber = accountNumber;
-		this.quantity = quantity;
-	}
+    public MonetaryResource(String id, MonetaryType monetaryType, String location, Integer accountNumber, Quantity quantity) {
+        super();
+        setID(id);
+        this.monetaryType = monetaryType;
+        this.location = location;
+        this.accountNumber = accountNumber;
+        this.quantity = quantity;
+    }
 
-	public MonetaryType getMonetaryType() {
-		return monetaryType;
-	}
+    public MonetaryResource(MonetaryType monetaryType, String location, Integer accountNumber, Quantity quantity) {
+        super();
+        this.monetaryType = monetaryType;
+        this.location = location;
+        this.accountNumber = accountNumber;
+        this.quantity = quantity;
+    }
 
-	public void setMonetaryType(MonetaryType monetaryType) {
-		this.monetaryType = monetaryType;
-	}
 
-	public String getLocation() {
-		return location;
-	}
+    public MonetaryType getMonetaryType() {
+        return monetaryType;
+    }
 
-	public void setLocation(String location) {
-		this.location = location;
-	}
+    public void setMonetaryType(MonetaryType monetaryType) {
+        this.monetaryType = monetaryType;
+    }
 
-	public Quantity getQuantity() {
-		return quantity;
-	}
+    public String getLocation() {
+        return location;
+    }
 
-	public void setQuantity(Quantity quantity) {
-		this.quantity = quantity;
-	}
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
-	public int getAccountNumber() {
-		return accountNumber;
-	}
+    public Quantity getQuantity() {
+        return quantity;
+    }
 
-	public void setAccountNumber(int accountNumber) {
-		this.accountNumber = accountNumber;
-	}
+    public void setQuantity(Quantity quantity) {
+        this.quantity = quantity;
+    }
 
-	@Override
-	public String toString() {
-		return super.toString() + ",\n" + "monetaryType=" + monetaryType.toString() + ", location=" + location
-				+ ", accountNumber=" + Integer.toString(accountNumber) + ", quantity=" + quantity.toString();
-	}
+    public int getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(int accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + ",\n" + "monetaryType=" + monetaryType.toString() + ", location=" + location
+                + ", accountNumber=" + Integer.toString(accountNumber) + ", quantity=" + quantity.toString();
+    }
 }

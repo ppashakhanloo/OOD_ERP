@@ -96,33 +96,12 @@ public class MonetaryResourceDAO extends ResourceDAO {
     }
 
     private Resource fillMonetaryResource(ResultSet rs) throws SQLException {
-        MonetaryType monetaryType = MonetaryType.CASH;
-        switch (rs.getString("monetaryType")) {
-            case "CASH":
-                monetaryType = MonetaryType.CASH;
-                break;
-            case "NON_CASH":
-                monetaryType = MonetaryType.NON_CASH;
-                break;
-        }
-
-        QuantityUnit quantityType = QuantityUnit.RIAL;
-        switch (rs.getString("quantity_unit")) {
-            case "DOLLAR":
-                quantityType = QuantityUnit.DOLLAR;
-                break;
-            case "RIAL":
-                quantityType = QuantityUnit.RIAL;
-                break;
-        }
-
-        Resource newRes = new MonetaryResource(monetaryType,
+        Resource newRes = new MonetaryResource(MonetaryType.valueOf(rs.getString("monetaryType")),
                 rs.getString("location"), rs.getInt("accountNumber"),
-                new Quantity(rs.getInt("quantity_amount"), quantityType));
+                new Quantity(rs.getInt("quantity_amount"), QuantityUnit.valueOf(rs.getString("quantity_unit"))));
         newRes.setID(rs.getString("ResourceID"));
         newRes.setAvailable(rs.getString("isAvailable").equals("1"));
-        newRes.setResourceStatus(rs.getString("resourceStatus").equals("IDLE") ? ResourceStatus.IDLE
-                : ResourceStatus.BUSY);
+        newRes.setResourceStatus(ResourceStatus.valueOf(rs.getString("resourceStatus")));
         return newRes;
     }
 

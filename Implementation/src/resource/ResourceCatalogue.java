@@ -1,6 +1,7 @@
 package resource;
 
 import database.*;
+import project.Project;
 import report.UnitResource;
 import unit.UnitCatalogue;
 
@@ -114,6 +115,18 @@ public class ResourceCatalogue {
                 return resources;
         }
         return null;
+    }
+
+    public boolean update(Resource resource) {
+        if (resource instanceof HumanResource)
+            return HumanResourceDAO.getInstance().update(resource);
+        if (resource instanceof InformationResource)
+            return InformationResourceDAO.getInstance().update(resource);
+        if (resource instanceof PhysicalResource)
+            return PhysicalResourceDAO.getInstance().update(resource);
+        if (resource instanceof MonetaryResource)
+            return MonetaryResourceDAO.getInstance().update(resource);
+        return false;
     }
 
     public HumanResource humanResourceLogin(String ID, String password) {

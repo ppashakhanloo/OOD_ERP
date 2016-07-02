@@ -1,6 +1,7 @@
 package business_logic_facade;
 
 import access.*;
+import resource.ConfirmStatus;
 import resource.HumanResource;
 import resource.ResourceCatalogue;
 
@@ -37,6 +38,14 @@ public class UserFacade {
         return accessLevelTypes;
     }
 
+
+    public ArrayList<ConfirmStatus> getAllConfirmStatusTypes() {
+        ArrayList<ConfirmStatus> confirmStatuses = new ArrayList<>();
+        Collections.addAll(confirmStatuses, ConfirmStatus.values());
+        return confirmStatuses;
+
+    }
+
     public Map<PermissionType, Boolean> getPermissions(AccessLevelType accessLevelType) {
         return new AccessLevelFactory().getAccessLevel(accessLevelType).getPermissions();
     }
@@ -51,4 +60,5 @@ public class UserFacade {
         accessLevel.setPermissions(permissions);
         AccessLevelCatalogue.getInstance().update(accessLevel);
     }
+
 }

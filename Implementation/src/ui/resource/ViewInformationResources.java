@@ -13,27 +13,32 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class ViewInformationResources extends InformationResourceObserver implements Visibility {
 
     private MainFrame mainFrame;
 
+    private AddNewInformationResource addNewInformationResource;
+
     private DefaultListModel<InformationResource> listModel;
     private JList<InformationResource> resourceList;
-    private JScrollPane jScrollPane;
     private JPanel panel2;
 
-    private JComboBox<Unit> unitsCombo;
+    private UserFacade userFacade;
 
-    public ViewInformationResources(UserFacade currentUser) {
-        mainFrame = new MainFrame(currentUser);
+    public ViewInformationResources(UserFacade userFacade) {
+        mainFrame = new MainFrame(userFacade);
+        addNewInformationResource = new AddNewInformationResource();
         addNewInformationResource.attach(this);
+        this.userFacade = userFacade;
         prepareGUI();
     }
 
     private void prepareGUI() {
-        mainFrame.getMainFrame().setTitle("مشاهده منابع انسانی");
+        mainFrame.getMainFrame().setTitle("مشاهده منابع اطلاعاتی");
         mainFrame.getMainFrame().getContentPane().remove(0);
         mainFrame.getMainFrame().setLayout(new FlowLayout());
 
@@ -53,7 +58,7 @@ public class ViewInformationResources extends InformationResourceObserver implem
         /////////////////////////
         JPanel innerPanel = new JPanel(new FlowLayout());
         ArrayList<Unit> units = OperationFacade.getInstance().getUnits();
-        unitsCombo = new JComboBox<>();
+        JComboBox<Unit> unitsCombo = new JComboBox<>();
         units.forEach(unitsCombo::addItem);
         unitsCombo.insertItemAt(null, 0);
         unitsCombo.setSelectedIndex(0);
@@ -67,6 +72,15 @@ public class ViewInformationResources extends InformationResourceObserver implem
         for (Resource resource : OperationFacade.getInstance().getInformationResources())
             listModel.addElement((InformationResource) resource);
         resourceList = new JList<>(listModel);
+        resourceList.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                JList list = (JList) evt.getSource();
+                if (evt.getClickCount() == 2) {
+                    // Double-click detected
+                    new SingleInformationResource(userFacade, ((InformationResource) list.getSelectedValue()).getID()).setVisible(true);
+                }
+            }
+        });
         panel2.add(new JScrollPane(resourceList));
         mainFrame.getMainFrame().add(panel2);
 
@@ -86,6 +100,15 @@ public class ViewInformationResources extends InformationResourceObserver implem
                         }
                 }
                 resourceList = new JList<>(listModel);
+                resourceList.addMouseListener(new MouseAdapter() {
+                    public void mouseClicked(MouseEvent evt) {
+                        JList list = (JList) evt.getSource();
+                        if (evt.getClickCount() == 2) {
+                            // Double-click detected
+                            new SingleInformationResource(userFacade, ((InformationResource) list.getSelectedValue()).getID()).setVisible(true);
+                        }
+                    }
+                });
                 panel2.add(new JScrollPane(resourceList));
                 mainFrame.getMainFrame().repaint();
                 mainFrame.getMainFrame().revalidate();
@@ -107,7 +130,16 @@ public class ViewInformationResources extends InformationResourceObserver implem
         for (Resource resource : OperationFacade.getInstance().getInformationResources())
             listModel.addElement((InformationResource) resource);
         resourceList = new JList<>(listModel);
-        jScrollPane = new JScrollPane(resourceList);
+        resourceList.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                JList list = (JList) evt.getSource();
+                if (evt.getClickCount() == 2) {
+                    // Double-click detected
+                    new SingleInformationResource(userFacade, ((InformationResource) list.getSelectedValue()).getID()).setVisible(true);
+                }
+            }
+        });
+        JScrollPane jScrollPane = new JScrollPane(resourceList);
         mainFrame.getMainFrame().add(jScrollPane, BorderLayout.CENTER);
         mainFrame.getMainFrame().repaint();
         mainFrame.getMainFrame().revalidate();
