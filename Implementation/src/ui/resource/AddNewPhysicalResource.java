@@ -16,9 +16,21 @@ class AddNewPhysicalResource extends MainDialog {
 
     private ArrayList<PhysicalResourceObserver> observers;
 
+    private JTextField name;
+    private JTextField model;
+    private JTextField location;
+
     AddNewPhysicalResource() {
         observers = new ArrayList<>();
         prepareGUI();
+    }
+
+    @Override
+    public void setVisible(boolean visible) {
+        name.setText("");
+        model.setText("");
+        location.setText("");
+        super.setVisible(visible);
     }
 
     public void attach(PhysicalResourceObserver observer) {
@@ -41,19 +53,17 @@ class AddNewPhysicalResource extends MainDialog {
         form.setLayout(new GridBagLayout());
         FormUtility formUtility = new FormUtility();
 
-        JTextField name = new JTextField(20);
+        name = new JTextField(20);
         formUtility.addLabel("نام ", form);
         formUtility.addLastField(name, form);
 
-        JTextField model = new JTextField(20);
+        model = new JTextField(20);
         formUtility.addLabel("مدل ", form);
         formUtility.addLastField(model, form);
 
-        JTextField location = new JTextField(20);
+        location = new JTextField(20);
         formUtility.addLabel("محل ", form);
         formUtility.addLastField(location, form);
-
-        // JTextField ID
 
         ArrayList<Unit> units = OperationFacade.getInstance().getUnits();
         JComboBox<Unit> unitsCombo = new JComboBox<>();

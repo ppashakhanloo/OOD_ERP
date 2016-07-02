@@ -19,16 +19,15 @@ public class ViewInformationResources extends InformationResourceObserver implem
 
     private MainFrame mainFrame;
 
-    private AddNewInformationResource addNewInformationResource;
-
     private DefaultListModel<InformationResource> listModel;
     private JList<InformationResource> resourceList;
     private JScrollPane jScrollPane;
     private JPanel panel2;
 
+    private JComboBox<Unit> unitsCombo;
+
     public ViewInformationResources(UserFacade currentUser) {
         mainFrame = new MainFrame(currentUser);
-        addNewInformationResource = new AddNewInformationResource();
         addNewInformationResource.attach(this);
         prepareGUI();
     }
@@ -54,7 +53,7 @@ public class ViewInformationResources extends InformationResourceObserver implem
         /////////////////////////
         JPanel innerPanel = new JPanel(new FlowLayout());
         ArrayList<Unit> units = OperationFacade.getInstance().getUnits();
-        JComboBox<Unit> unitsCombo = new JComboBox<>();
+        unitsCombo = new JComboBox<>();
         units.forEach(unitsCombo::addItem);
         unitsCombo.insertItemAt(null, 0);
         unitsCombo.setSelectedIndex(0);
@@ -103,7 +102,6 @@ public class ViewInformationResources extends InformationResourceObserver implem
 
     @Override
     public void update() {
-//        mainFrame.getMainFrame().remove(jScrollPane);
         panel2.removeAll();
         listModel = new DefaultListModel<>();
         for (Resource resource : OperationFacade.getInstance().getInformationResources())

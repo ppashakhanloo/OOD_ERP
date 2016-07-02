@@ -18,9 +18,21 @@ class AddNewMonetaryResource extends MainDialog {
 
     private ArrayList<MonetaryResourceObserver> observers;
 
+    private JTextField accountNumber;
+    private JTextField location;
+    private JSpinner amount;
+
     AddNewMonetaryResource() {
         observers = new ArrayList<>();
         prepareGUI();
+    }
+
+    @Override
+    public void setVisible(boolean visible) {
+        accountNumber.setText("");
+        location.setText("");
+        amount.setValue(new Integer(0));
+        super.setVisible(visible);
     }
 
     public void attach(MonetaryResourceObserver observer) {
@@ -56,7 +68,7 @@ class AddNewMonetaryResource extends MainDialog {
         formUtility.addLabel("", form);
         formUtility.addLastField(nonCash, form);
 
-        JTextField accountNumber = new JTextField(20);
+        accountNumber = new JTextField(20);
         JLabel accountLabel = formUtility.addLabel("شماره حساب ", form);
         formUtility.addLastField(accountNumber, form);
 
@@ -80,11 +92,11 @@ class AddNewMonetaryResource extends MainDialog {
             }
         });
 
-        JTextField location = new JTextField(20);
+        location = new JTextField(20);
         formUtility.addLabel("محل ", form);
         formUtility.addLastField(location, form);
 
-        JSpinner amount = new JSpinner();
+        amount = new JSpinner();
         formUtility.addLabel("مقدار", form);
         formUtility.addLastField(amount, form);
 

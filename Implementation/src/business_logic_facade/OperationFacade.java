@@ -58,29 +58,48 @@ public class OperationFacade {
         return Arrays.asList(QuantityUnit.values());
     }
 
-    public void addNewHumanResource(String firstName, String lastName, String expertise, String password, String unitID) {
+    public boolean addNewHumanResource(String firstName, String lastName, String expertise, String password, String unitID) {
         // by default, set accessLevel to 3
-        HumanResource humanResource = new HumanResource(firstName, lastName, expertise, password, (new AccessLevelFactory()).getAccessLevel(AccessLevelType.High));
-
-        ResourceCatalogue.getInstance().add(humanResource, unitID, "");
+        try {
+            HumanResource humanResource = new HumanResource(firstName, lastName, expertise, password, (new AccessLevelFactory()).getAccessLevel(AccessLevelType.High));
+            ResourceCatalogue.getInstance().add(humanResource, unitID, "");
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
-    public void addNewPhysicalResource(String name, String model, String location, String unitID) {
-        ResourceCatalogue.getInstance().add(new PhysicalResource(name, model, location), unitID, "");
+    public boolean addNewPhysicalResource(String name, String model, String location, String unitID) {
+        try {
+            ResourceCatalogue.getInstance().add(new PhysicalResource(name, model, location), unitID, "");
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
-    public void addNewInformationResource(String name, String description, String unitID) {
-        ResourceCatalogue.getInstance().add(new InformationResource(name, description), unitID, "");
+    public boolean addNewInformationResource(String name, String description, String unitID) {
+        try {
+            ResourceCatalogue.getInstance().add(new InformationResource(name, description), unitID, "");
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     public void addNewUnit(String name) {
         UnitCatalogue.getInstance().add(new Unit(name));
     }
 
-    public void addNewMonetaryResource(String monetaryType, String location, String accountNumber, Integer amount, String quantityUnit, String unitID) {
-        MonetaryResource monetaryResource = new MonetaryResource(monetaryType.equals("CASH") ? MonetaryType.CASH : MonetaryType.NON_CASH,
-                location, Integer.parseInt(accountNumber),
-                new Quantity(amount, quantityUnit.equals("DOLLAR") ? QuantityUnit.DOLLAR : QuantityUnit.RIAL));
-        ResourceCatalogue.getInstance().add(monetaryResource, unitID, "");
+    public boolean addNewMonetaryResource(String monetaryType, String location, String accountNumber, Integer amount, String quantityUnit, String unitID) {
+        try {
+            MonetaryResource monetaryResource = new MonetaryResource(MonetaryType.valueOf(monetaryType),
+                    location, Integer.parseInt(accountNumber),
+                    new Quantity(amount, QuantityUnit.valueOf(quantityUnit)));
+            ResourceCatalogue.getInstance().add(monetaryResource, unitID, "");
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 }

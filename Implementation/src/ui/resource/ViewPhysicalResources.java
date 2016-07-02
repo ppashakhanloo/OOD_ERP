@@ -103,7 +103,6 @@ public class ViewPhysicalResources extends PhysicalResourceObserver implements V
 
     @Override
     public void update() {
-//        mainFrame.getMainFrame().remove(jScrollPane);
         panel2.removeAll();
         listModel = new DefaultListModel<>();
         for (Resource resource : OperationFacade.getInstance().getPhysicalResources())

@@ -16,9 +16,19 @@ class AddNewInformationResource extends MainDialog {
 
     private ArrayList<InformationResourceObserver> observers;
 
+    private JTextField name;
+    private JTextArea description;
+
     AddNewInformationResource() {
         observers = new ArrayList<>();
         prepareGUI();
+    }
+
+    @Override
+    public void setVisible(boolean visible) {
+        name.setText("");
+        description.setText("");
+        super.setVisible(visible);
     }
 
     public void attach(InformationResourceObserver observer) {
@@ -41,11 +51,11 @@ class AddNewInformationResource extends MainDialog {
         form.setLayout(new GridBagLayout());
         FormUtility formUtility = new FormUtility();
 
-        JTextField name = new JTextField(20);
+        name = new JTextField(20);
         formUtility.addLabel("نام ", form);
         formUtility.addLastField(name, form);
 
-        JTextArea description = new JTextArea();
+        description = new JTextArea();
         formUtility.addLabel("توضیح ", form);
         formUtility.addLastField(new JScrollPane(description), form);
 

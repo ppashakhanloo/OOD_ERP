@@ -16,6 +16,12 @@ class AddNewHumanResource extends MainDialog {
 
     private ArrayList<HumanResourceObserver> observers;
 
+    private JTextField firstName;
+    private JTextField lastName;
+    private JTextField expertise;
+    private JTextField password;
+    private JComboBox<Unit> unitsCombo;
+
     AddNewHumanResource() {
         observers = new ArrayList<>();
         prepareGUI();
@@ -31,6 +37,15 @@ class AddNewHumanResource extends MainDialog {
         }
     }
 
+    @Override
+    public void setVisible(boolean visible) {
+        firstName.setText("");
+        lastName.setText("");
+        expertise.setText("");
+        password.setText("");
+        super.setVisible(visible);
+    }
+
     private void prepareGUI() {
         super.getMainDialog().setTitle("افزودن منبع انسانی");
         JPanel form = new JPanel(new GridBagLayout());
@@ -41,27 +56,26 @@ class AddNewHumanResource extends MainDialog {
         form.setLayout(new GridBagLayout());
         FormUtility formUtility = new FormUtility();
 
-        JTextField firstName = new JTextField(20);
+        firstName = new JTextField(20);
         formUtility.addLabel("نام ", form);
         formUtility.addLastField(firstName, form);
 
-        JTextField lastName = new JTextField(20);
+        lastName = new JTextField(20);
         formUtility.addLabel("نام خانوادگی ", form);
         formUtility.addLastField(lastName, form);
 
-        JTextField expertise = new JTextField(20);
+        expertise = new JTextField(20);
         formUtility.addLabel("تخصص‌ها ", form);
         formUtility.addLastField(expertise, form);
 
-
-        JTextField password = new JTextField(20);
+        password = new JTextField(20);
         formUtility.addLabel("رمز ", form);
         formUtility.addLastField(password, form);
 
         // JTextField ID
 
         ArrayList<Unit> units = OperationFacade.getInstance().getUnits();
-        JComboBox<Unit> unitsCombo = new JComboBox<>();
+        unitsCombo = new JComboBox<>();
         for (Unit unit : units)
             unitsCombo.addItem(unit);
 
