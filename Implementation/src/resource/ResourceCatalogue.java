@@ -1,14 +1,13 @@
 package resource;
 
 import database.*;
+import unit.Unit;
 
 import java.util.ArrayList;
 
 public class ResourceCatalogue {
-    // private ArrayList<Resource> resourceList;
 
     private static ResourceCatalogue resourceCatalogue;
-
 
     private ResourceCatalogue() {
         // resourceList = new ArrayList<>();
@@ -65,7 +64,7 @@ public class ResourceCatalogue {
         ArrayList<Resource> realResources = getAll();
         ArrayList<Resource> availableResources = new ArrayList<>();
         for (Resource resource : realResources) {
-            if (resource.resourceStatus.equals(ResourceStatus.IDLE))
+            if (resource.getResourceStatus().equals(ResourceStatus.IDLE))
                 availableResources.add(resource);
         }
         return availableResources;
@@ -122,7 +121,6 @@ public class ResourceCatalogue {
     }
 
     public void humanResourceLogout(String ID) {
-        HumanResourceDAO humanResourceDAO = HumanResourceDAO.getInstance();
-        humanResourceDAO.logout(ID);
+        HumanResourceDAO.getInstance().logout(ID);
     }
 }

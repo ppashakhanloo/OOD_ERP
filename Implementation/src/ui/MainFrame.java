@@ -3,11 +3,13 @@ package ui;
 import access.PermissionType;
 import business_logic_facade.UserFacade;
 import ui.project.ViewProjects;
-import ui.unit.ViewUnits;
 import ui.resource.ViewHumanResources;
 import ui.resource.ViewInformationResources;
 import ui.resource.ViewMonetaryResources;
 import ui.resource.ViewPhysicalResources;
+import ui.unit.ViewUnits;
+import ui.user.LoginForm;
+import ui.user.UserAccessLevels;
 
 import javax.swing.*;
 import java.awt.*;
@@ -65,7 +67,7 @@ public class MainFrame implements Visibility {
         prepareResourcesMenu();
         prepareReportsMenu(permissionTypes);
         prepareEstimationsMenu(permissionTypes);
-        prepareUserMenu();
+        prepareUserMenu(permissionTypes);
 
         mainFrame = new JFrame("سیستم مدیریت منابع سازمان");
         mainFrame.setJMenuBar(menuBar);
@@ -165,13 +167,11 @@ public class MainFrame implements Visibility {
         });
 
 
-        JMenuItem userAccessLevels = new JMenuItem("سطح دسترسی کاربران");
         JMenuItem submitNewReq = new JMenuItem("ثبت نیازمندی جدید");
         organization.add(viewUnits);
 //        if (permissionTypes.get(PermissionType.canAddUnit))
 //            organization.add(addNewUnit);
-        if (permissionTypes.get(PermissionType.canChangePermission))
-            organization.add(userAccessLevels);
+
         if (permissionTypes.get(PermissionType.canAddRemReq))
             organization.add(submitNewReq);
         if (organization.getItemCount() > 0)
@@ -190,8 +190,15 @@ public class MainFrame implements Visibility {
             menuBar.add(estimations);
     }
 
-    private void prepareUserMenu() {
+    private void prepareUserMenu(Map<PermissionType, Boolean> permissionTypes) {
         JMenu user = new JMenu("کاربری");
+        JMenuItem userAccessLevels = new JMenuItem("سطح دسترسی کاربران");
+        userAccessLevels.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new UserAccessLevels(currentUser).setVisible(true);
+            }
+        });
         JMenuItem help = new JMenuItem("راهنما");
         JMenuItem logout = new JMenuItem("خروج");
         logout.addActionListener(new ActionListener() {
@@ -203,6 +210,8 @@ public class MainFrame implements Visibility {
                 loginForm.setVisible(true);
             }
         });
+        if (permissionTypes.get(PermissionType.canChangePermission))
+            user.add(userAccessLevels);
         user.add(help);
         user.add(logout);
         menuBar.add(user);

@@ -16,7 +16,7 @@ public class AddNewUnit extends MainDialog {
 
     private ArrayList<UnitObserver> observers;
 
-    public AddNewUnit() {
+    AddNewUnit() {
 
         observers = new ArrayList<>();
         prepareGUI();

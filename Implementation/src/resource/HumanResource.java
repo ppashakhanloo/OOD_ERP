@@ -91,7 +91,7 @@ public class HumanResource extends Resource {
     public String toString() {
         return super.toString() + ",\n" + "firstName=" + firstName + ", lastName=" + lastName + ", expertise="
                 + expertise + ", password=" + password + ", confirmStatus=" + confirmStatus.toString()
-                + ", accessLevelID=" + accessLevel.getID();
+                + ", accessLevelID=" + accessLevel.getAccessLevelType().toString();
     }
 
 }

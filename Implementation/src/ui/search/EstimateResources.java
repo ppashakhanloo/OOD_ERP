@@ -8,8 +8,6 @@ import ui.MainFrame;
 import ui.Visibility;
 
 import javax.swing.*;
-import javax.tools.JavaCompiler;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;

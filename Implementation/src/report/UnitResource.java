@@ -1,11 +1,11 @@
 package report;
 
-import java.util.Date;
-import java.util.Random;
-
+import database.UnitResourceDAO;
 import resource.Resource;
 import unit.Unit;
-import database.UnitResourceDAO;
+
+import java.util.Date;
+import java.util.Random;
 
 public class UnitResource {
     private String ID;

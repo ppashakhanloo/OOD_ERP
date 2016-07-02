@@ -3,7 +3,8 @@ package database;
 import java.util.ArrayList;
 
 public class QueryGenerator {
-    public static QueryGenerator queryGenerator;
+
+    private static QueryGenerator queryGenerator;
 
     private QueryGenerator() {
     }

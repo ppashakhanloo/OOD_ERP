@@ -4,19 +4,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 abstract public class AccessLevel {
-    private String ID;
+    private AccessLevelType accessLevelType;
     private Map<PermissionType, Boolean> hasPermission;
 
     AccessLevel() {
         hasPermission = new HashMap<>();
     }
 
-    public String getID() {
-        return ID;
+    public AccessLevelType getAccessLevelType() {
+        return accessLevelType;
     }
 
-    public void setID(String iD) {
-        ID = iD;
+    public void setAccessLevelType(AccessLevelType accessLevelType) {
+        this.accessLevelType = accessLevelType;
     }
 
     public void setPermission(PermissionType permissionType, Boolean permitStatus) {

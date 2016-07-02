@@ -12,7 +12,10 @@ import unit.Unit;
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class ViewSingleProject extends ProjectObserver implements Visibility {
@@ -124,20 +127,18 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
         // create the system nodes
         ArrayList<System> systems = ProjectFacade.getInstance().getProject(pid).getSystems();
         DefaultMutableTreeNode[] systemNodes = new DefaultMutableTreeNode[systems.size()];
-        if (systems != null) {
-            for (int i = 0; i < systems.size(); i++) {
-                systemNodes[i] = new DefaultMutableTreeNode(systems.get(i));
-                ArrayList<Module> modules = systems.get(i).getModules();
-                DefaultMutableTreeNode[] moduleNodes = new DefaultMutableTreeNode[modules.size()];
-                for (int j = 0; j < modules.size(); j++) {
-                    moduleNodes[j] = new DefaultMutableTreeNode(modules.get(j));
-                    systemNodes[i].add(moduleNodes[j]);
-                }
-                root.add(systemNodes[i]);
+        for (int i = 0; i < systems.size(); i++) {
+            systemNodes[i] = new DefaultMutableTreeNode(systems.get(i));
+            ArrayList<Module> modules = systems.get(i).getModules();
+            DefaultMutableTreeNode[] moduleNodes = new DefaultMutableTreeNode[modules.size()];
+            for (int j = 0; j < modules.size(); j++) {
+                moduleNodes[j] = new DefaultMutableTreeNode(modules.get(j));
+                systemNodes[i].add(moduleNodes[j]);
             }
-            DefaultTreeModel defaultTreeModel = new DefaultTreeModel(root);
-            structTree.setModel(defaultTreeModel);
+            root.add(systemNodes[i]);
         }
+        DefaultTreeModel defaultTreeModel = new DefaultTreeModel(root);
+        structTree.setModel(defaultTreeModel);
 
 
         techPanel.setBorder(BorderFactory.createTitledBorder("تکنولوژی‌ها"));

@@ -1,6 +1,8 @@
-package ui;
+package ui.user;
 
 import business_logic_facade.UserFacade;
+import ui.MainFrame;
+import ui.Visibility;
 
 import javax.swing.*;
 import javax.swing.event.MenuEvent;
@@ -10,7 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-class LoginForm implements Visibility {
+public class LoginForm implements Visibility {
     private JFrame mainFrame;
     private JTextField ID;
     private JTextField password;
@@ -18,7 +20,7 @@ class LoginForm implements Visibility {
 
     private UserFacade userFacade;
 
-    LoginForm() {
+    public LoginForm() {
         userFacade = new UserFacade();
         prepareGUI();
     }

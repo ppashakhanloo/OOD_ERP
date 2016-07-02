@@ -3,18 +3,18 @@ package access;
 import database.AccessLevelDAO;
 
 class MediumAccessLevel extends AccessLevel {
-	private static MediumAccessLevel mediumAccessLevel;
+    private static MediumAccessLevel mediumAccessLevel;
 
-	private MediumAccessLevel() {
-		super();
-		setID("2");
-		AccessLevelDAO accessLevelDAO = AccessLevelDAO.getInstance();
-		accessLevelDAO.fillAccessLevel("2");
-	}
+    private MediumAccessLevel() {
+        super();
+        setAccessLevelType(AccessLevelType.Medium);
+        AccessLevelDAO accessLevelDAO = AccessLevelDAO.getInstance();
+        accessLevelDAO.fillAccessLevel(AccessLevelType.Medium);
+    }
 
-	public static MediumAccessLevel getInstance() {
-		if (mediumAccessLevel == null)
-			mediumAccessLevel = new MediumAccessLevel();
-		return mediumAccessLevel;
-	}
+    public static MediumAccessLevel getInstance() {
+        if (mediumAccessLevel == null)
+            mediumAccessLevel = new MediumAccessLevel();
+        return mediumAccessLevel;
+    }
 }

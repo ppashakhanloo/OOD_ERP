@@ -1,11 +1,10 @@
 package report;
 
-import java.util.ArrayList;
-
-import database.ResourceDAO;
+import database.ProjectRequirementDAO;
 import project.Project;
 import resource.Resource;
-import database.ProjectRequirementDAO;
+
+import java.util.ArrayList;
 
 public class ProjectRequirementCatalogue {
 

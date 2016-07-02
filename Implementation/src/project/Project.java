@@ -2,9 +2,7 @@ package project;
 
 import database.*;
 import report.ProjectRequirement;
-import report.ProjectRequirementCatalogue;
 import resource.HumanResource;
-import resource.PhysicalResource;
 import resource.Resource;
 import unit.Unit;
 

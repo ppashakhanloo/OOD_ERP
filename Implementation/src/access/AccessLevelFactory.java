@@ -4,28 +4,27 @@ import database.AccessLevelDAO;
 
 public class AccessLevelFactory {
 
+    private AccessLevel accessLevel = null;
 
-    public AccessLevel getAccessLevel(String accessLevelID) {
+    public AccessLevel getAccessLevel(AccessLevelType accessLevelType) {
 
-        AccessLevel accessLevel = null;
-
-        switch (accessLevelID) {
-            case "1":
+        switch (accessLevelType) {
+            case High:
                 accessLevel = HighAccessLevel.getInstance();
                 break;
-            case "2":
+            case Medium:
                 accessLevel = MediumAccessLevel.getInstance();
                 break;
-            case "3":
+            case Low:
                 accessLevel = LowAccessLevel.getInstance();
                 break;
         }
-        accessLevel.setPermissions(AccessLevelDAO.getInstance().fillAccessLevel(accessLevelID));
+        accessLevel.setPermissions(AccessLevelDAO.getInstance().fillAccessLevel(accessLevelType));
         return accessLevel;
     }
 
     public static void main(String[] args) {
-        AccessLevel accessLevel = (new AccessLevelFactory()).getAccessLevel("2");
+        AccessLevel accessLevel = (new AccessLevelFactory()).getAccessLevel(AccessLevelType.High);
         System.out.println(accessLevel);
     }
 }

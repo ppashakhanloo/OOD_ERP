@@ -1,6 +1,5 @@
 package ui.project;
 
-import business_logic_facade.OperationFacade;
 import business_logic_facade.ProjectFacade;
 import business_logic_facade.UserFacade;
 import project.System;
@@ -8,7 +7,6 @@ import resource.HumanResource;
 import resource.Resource;
 import ui.MainDialog;
 import ui.utilities.FormUtility;
-import unit.Unit;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -30,10 +28,6 @@ class AddNewModule extends MainDialog {
     public void attach(ProjectObserver observer) {
         observers.add(observer);
     }
-
-//    private void notifyAllObservers() {
-//        observers.forEach(ProjectObserver::update);
-//    }
 
     private void prepareGUI(String pid) {
         super.getMainDialog().setTitle("افزودن پروژه جدید");

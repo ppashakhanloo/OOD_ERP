@@ -1,7 +1,6 @@
 package ui.project;
 
 import access.PermissionType;
-import business_logic_facade.OperationFacade;
 import business_logic_facade.ProjectFacade;
 import business_logic_facade.UserFacade;
 import project.Project;
@@ -26,7 +25,6 @@ public class ViewProjects extends ProjectObserver implements Visibility {
     private JScrollPane jScrollPane;
 
     private ViewSingleProject viewSingleProject;
-
 
     public ViewProjects(UserFacade currentUser) {
         mainFrame = new MainFrame(currentUser);

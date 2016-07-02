@@ -7,9 +7,9 @@ class LowAccessLevel extends AccessLevel {
 
 	private LowAccessLevel() {
 		super();
-		setID("3");
+		setAccessLevelType(AccessLevelType.Low);
 		AccessLevelDAO accessLevelDAO = AccessLevelDAO.getInstance();
-		accessLevelDAO.fillAccessLevel("3");
+		accessLevelDAO.fillAccessLevel(AccessLevelType.Low);
 	}
 
 	public static LowAccessLevel getInstance() {

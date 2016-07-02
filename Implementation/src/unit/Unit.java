@@ -35,28 +35,23 @@ public class Unit {
     }
 
     public ArrayList<Requirement> getRequirements() {
-        RequirementDAO reqDAO = RequirementDAO.getInstance();
-        return reqDAO.getRequirementsByUnitID(getID());
+        return RequirementDAO.getInstance().getRequirementsByUnitID(getID());
     }
 
     public void removeRequirement(Requirement req) {
-        RequirementDAO reqDAO = RequirementDAO.getInstance();
-        reqDAO.remove(req.getID());
+        RequirementDAO.getInstance().remove(req.getID());
     }
 
     public ArrayList<Resource> getResources() {
-        UnitResourceDAO urDAO = UnitResourceDAO.getInstance();
-        return urDAO.getResourceByUnitID(getID());
+        return UnitResourceDAO.getInstance().getResourceByUnitID(getID());
     }
 
     public ArrayList<Resource> getAvailableResources() {
-        UnitResourceDAO urDAO = UnitResourceDAO.getInstance();
-        return urDAO.getAvailableResourceByUnitID(getID());
+        return UnitResourceDAO.getInstance().getAvailableResourceByUnitID(getID());
     }
 
     public boolean addRequirement(Requirement req, String resourceID) {
-        RequirementDAO reqDAO = RequirementDAO.getInstance();
-        return reqDAO.add(req, resourceID, getID());
+        return RequirementDAO.getInstance().add(req, resourceID, getID());
     }
 
     public String getID() {

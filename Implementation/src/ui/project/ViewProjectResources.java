@@ -1,7 +1,6 @@
 package ui.project;
 
 import access.PermissionType;
-import business_logic_facade.OperationFacade;
 import business_logic_facade.ProjectFacade;
 import business_logic_facade.UserFacade;
 import project.Project;

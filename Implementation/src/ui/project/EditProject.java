@@ -3,18 +3,12 @@ package ui.project;
 import business_logic_facade.OperationFacade;
 import business_logic_facade.ProjectFacade;
 import business_logic_facade.UserFacade;
-import project.Module;
 import project.Project;
-import project.System;
-import project.Technology;
 import resource.HumanResource;
 import resource.Resource;
 import ui.MainDialog;
-import unit.Unit;
 
 import javax.swing.*;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;

@@ -2,19 +2,19 @@ package database;
 
 import project.Project;
 import project.Technology;
-import java.util.Date;
 import resource.HumanResource;
 import unit.Unit;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ProjectDAO implements DAO<Project> {
 
 	private Connection sqlConn;
 	private String url = "jdbc:mysql://localhost:3306/erp";
 	private String user = "root";
-	private String password = "7284";
+	private String password = "";
 
 	private QueryGenerator generator = QueryGenerator.getInstance();
 
