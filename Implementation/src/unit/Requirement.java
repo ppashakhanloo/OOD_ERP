@@ -9,7 +9,6 @@ import java.util.Random;
 
 public class Requirement extends Identifiable {
 
-    private String ID;
     private String description;
     private Date provideDate;
 
@@ -31,14 +30,6 @@ public class Requirement extends Identifiable {
     public void setResource(String resID) {
         RequirementDAO reqDAO = RequirementDAO.getInstance();
         reqDAO.setResource(getID(), resID);
-    }
-
-    public String getID() {
-        return ID;
-    }
-
-    private void setID(String iD) {
-        ID = iD;
     }
 
     public String getDescription() {

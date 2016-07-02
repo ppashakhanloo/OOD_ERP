@@ -5,10 +5,9 @@ import database.SystemDAO;
 import utility.Identifiable;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class System extends Identifiable {
-    private String ID;
+
     private String name;
 
     public System() {
@@ -48,14 +47,6 @@ public class System extends Identifiable {
         return ModuleDAO.getInstance().add(module, getID());
     }
 
-    public String getID() {
-        return ID;
-    }
-
-    private void setID(String iD) {
-        ID = iD;
-    }
-
     public String getName() {
         return name;
     }
@@ -68,7 +59,7 @@ public class System extends Identifiable {
 
     @Override
     public String toString() {
-        return "ID=" + ID + ", name=" + name;
+        return "ID=" + getID() + ", name=" + name;
     }
 
     public static void main(String[] args) {

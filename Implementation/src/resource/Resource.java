@@ -7,15 +7,6 @@ import java.util.Random;
 public class Resource extends Identifiable {
     private ResourceStatus resourceStatus;
     private boolean isAvailable;
-    private String ID;
-
-    public String getID() {
-        return ID;
-    }
-
-    public void setID(String ID) {
-        this.ID = ID;
-    }
 
     public Resource() {
         this.setID(generateNDigitID(ID_LENGTH));
@@ -27,7 +18,7 @@ public class Resource extends Identifiable {
         super();
         this.resourceStatus = resourceStatus;
         this.isAvailable = isAvailable;
-        ID = iD;
+        setID(iD);
     }
 
     public void edit(Resource resource) {
@@ -53,6 +44,6 @@ public class Resource extends Identifiable {
 
     @Override
     public String toString() {
-        return "ID=" + ID + ", resourceStatus=" + resourceStatus + ", isAvailable=" + isAvailable;
+        return "ID=" + getID() + ", resourceStatus=" + resourceStatus + ", isAvailable=" + isAvailable;
     }
 }

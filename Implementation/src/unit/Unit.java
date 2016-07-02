@@ -11,7 +11,6 @@ import java.util.Random;
 
 public class Unit extends Identifiable {
 
-    private String ID;
     private String name;
 
     public Unit() {
@@ -48,14 +47,6 @@ public class Unit extends Identifiable {
         return RequirementDAO.getInstance().add(req, resourceID, getID());
     }
 
-    public String getID() {
-        return ID;
-    }
-
-    private void setID(String iD) {
-        ID = iD;
-    }
-
     public String getName() {
         return name;
     }
@@ -63,12 +54,12 @@ public class Unit extends Identifiable {
     public boolean setName(String name) {
         this.name = name;
         UnitDAO unitDAO = UnitDAO.getInstance();
-        return unitDAO.update(new Unit(ID, name));
+        return unitDAO.update(new Unit(getID(), name));
     }
 
     @Override
     public String toString() {
-        return "ID=" + ID + ", name=" + name;
+        return "ID=" + getID() + ", name=" + name;
     }
 
     @Override

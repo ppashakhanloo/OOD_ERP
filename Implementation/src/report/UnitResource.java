@@ -9,7 +9,6 @@ import java.util.Date;
 import java.util.Random;
 
 public class UnitResource extends Identifiable {
-    private String ID;
     private Date additionDate;
     private Date removeDate;
     private Unit unit;
@@ -35,14 +34,6 @@ public class UnitResource extends Identifiable {
 
     public void setResource(Resource resource) {
         this.resource = resource;
-    }
-
-    public String getID() {
-        return ID;
-    }
-
-    private void setID(String iD) {
-        ID = iD;
     }
 
     public Date getAdditionDate() {

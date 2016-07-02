@@ -6,10 +6,9 @@ import resource.Resource;
 import utility.Identifiable;
 
 import java.util.Date;
-import java.util.Random;
 
 public class ProjectRequirement extends Identifiable {
-    private String ID;
+
     private Date provideDate;
     private Date releaseDate;
     private boolean isEssential;
@@ -32,14 +31,6 @@ public class ProjectRequirement extends Identifiable {
         this.isEssential = isEssential;
         this.criticalProvideDate = criticalProvideDate;
         this.lengthOfPossession = lengthOfPossession;
-    }
-
-    public String getID() {
-        return ID;
-    }
-
-    private void setID(String iD) {
-        ID = iD;
     }
 
     public Date getProvideDate() {
@@ -113,7 +104,7 @@ public class ProjectRequirement extends Identifiable {
 
     @Override
     public String toString() {
-        return "ID=" + ID + ", "
+        return "ID=" + getID() + ", "
                 + "provideDate=" + provideDate == null ? "" : provideDate.toString()
                 + ", releaseDate=" + releaseDate == null ? "" : releaseDate.toString()
                 + ", isEssential=" + isEssential

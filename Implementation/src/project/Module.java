@@ -10,7 +10,6 @@ import java.util.Date;
 
 public class Module extends Identifiable {
 
-    private String ID;
     private String name;
     private Date developmentStart;
     private Date developmentEnd;
@@ -21,7 +20,7 @@ public class Module extends Identifiable {
 
     public Module(String iD, String name, Date developmentStart,
                   Date developmentEnd) {
-        ID = iD;
+        setID(iD);
         this.name = name;
         this.developmentStart = developmentStart;
         this.developmentEnd = developmentEnd;
@@ -41,14 +40,6 @@ public class Module extends Identifiable {
 
     public boolean addDeveloper(HumanResource developer) {
         return ModuleDAO.getInstance().addDeveloper(getID(), developer);
-    }
-
-    public String getID() {
-        return ID;
-    }
-
-    private void setID(String iD) {
-        ID = iD;
     }
 
     public String getName() {
@@ -86,6 +77,6 @@ public class Module extends Identifiable {
 
     @Override
     public String toString() {
-        return "ID=" + ID + ", name-" + name + ", developmentStart=" + developmentStart + ", developmentEnd=" + developmentEnd;
+        return "ID=" + getID() + ", name-" + name + ", developmentStart=" + developmentStart + ", developmentEnd=" + developmentEnd;
     }
 }

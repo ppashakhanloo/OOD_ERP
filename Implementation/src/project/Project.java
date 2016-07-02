@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Project extends Identifiable {
-    private String ID;
+    //    private String ID;
     private String name;
     private Date developmentStart;
     private Date developmentEnd;
@@ -26,7 +26,7 @@ public class Project extends Identifiable {
     public Project(String iD, String name, Date developmentStart,
                    Date developmentEnd, String customerName, int usersCount) {
         super();
-        ID = iD;
+        setID(iD);
         this.name = name;
         this.developmentStart = developmentStart;
         this.developmentEnd = developmentEnd;
@@ -46,7 +46,7 @@ public class Project extends Identifiable {
     }
 
     public boolean addSystem(System system) {
-        return SystemDAO.getInstance().add(system, ID);
+        return SystemDAO.getInstance().add(system, getID());
     }
 
     public void removeSystem(System system) {
@@ -88,14 +88,6 @@ public class Project extends Identifiable {
 
     public ArrayList<Technology> getTechnologies() {
         return ProjectDAO.getInstance().getTechnologiesByProject(getID());
-    }
-
-    public String getID() {
-        return ID;
-    }
-
-    private void setID(String iD) {
-        this.ID = iD;
     }
 
     public String getName() {
@@ -159,7 +151,7 @@ public class Project extends Identifiable {
 
     @Override
     public String toString() {
-        return "ID=" + ID + ", name=" + name + ", developmentStart="
+        return "ID=" + getID() + ", name=" + name + ", developmentStart="
                 + (developmentStart == null ? "" : developmentStart.toString())
                 + ", developmentEnd="
                 + (developmentEnd == null ? "" : developmentEnd.toString())
