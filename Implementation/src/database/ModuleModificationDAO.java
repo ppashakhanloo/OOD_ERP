@@ -11,7 +11,7 @@ public class ModuleModificationDAO implements DAO<ModuleModification> {
 	private Connection sqlConn;
 	private String url = "jdbc:mysql://localhost:3306/erp";
 	private String user = "root";
-	private String password = "7284";
+	private String password = "";
 
 	private QueryGenerator generator = QueryGenerator.getInstance();
 
