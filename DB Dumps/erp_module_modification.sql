@@ -40,6 +40,7 @@ CREATE TABLE `module_modification` (
 
 LOCK TABLES `module_modification` WRITE;
 /*!40000 ALTER TABLE `module_modification` DISABLE KEYS */;
+INSERT INTO `module_modification` VALUES ('582549','ijuhgfds','0000-00-00','0000-00-00','990074'),('587542','lllllllllll','2016-07-05','2016-07-13','560883'),('721726','jhgfds','0000-00-00','0000-00-00','560883');
 /*!40000 ALTER TABLE `module_modification` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-07-03  3:33:49
+-- Dump completed on 2016-07-03 16:48:56
