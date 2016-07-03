@@ -4,7 +4,7 @@ import access.PermissionType;
 import business_logic_facade.ProjectFacade;
 import business_logic_facade.UserFacade;
 import project.Project;
-import ui.MainFrame;
+import ui.MainDialog;
 import ui.Visibility;
 
 import javax.swing.*;
@@ -16,7 +16,7 @@ import java.awt.event.MouseEvent;
 
 public class ViewProjects extends ProjectObserver implements Visibility {
 
-    private MainFrame mainFrame;
+    private MainDialog mainDialog;
 
     private AddNewProject addNewProject;
 
@@ -26,21 +26,24 @@ public class ViewProjects extends ProjectObserver implements Visibility {
 
     private ViewSingleProject viewSingleProject;
 
-    public ViewProjects(UserFacade currentUser) {
-        mainFrame = new MainFrame(currentUser);
+    private UserFacade userFacade;
+
+    public ViewProjects(UserFacade userFacade) {
+        mainDialog = new MainDialog();
         addNewProject = new AddNewProject();
         addNewProject.attach(this);
+        this.userFacade = userFacade;
         prepareGUI();
     }
 
     private void prepareGUI() {
-        mainFrame.getMainFrame().setTitle("مشاهده پروژه‌های سازمان ");
+        mainDialog.getMainDialog().setTitle("مشاهده پروژه‌های سازمان ");
         JPanel addProjectsPanel = new JPanel(new GridBagLayout());
         GridBagConstraints cs = new GridBagConstraints();
         cs.fill = GridBagConstraints.HORIZONTAL;
 
         JButton addNew = new JButton("افزودن پروژه جدید");
-        if (mainFrame.getCurrentUser().getCurrentUserPermissions().get(PermissionType.canAddProject))
+        if (userFacade.getCurrentUserPermissions().get(PermissionType.canAddProject))
             addNew.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -54,7 +57,7 @@ public class ViewProjects extends ProjectObserver implements Visibility {
         cs.gridy = 0;
         cs.gridwidth = 1;
         addProjectsPanel.add(addNew, cs);
-        mainFrame.getMainFrame().getContentPane().add(addProjectsPanel, BorderLayout.NORTH);
+        mainDialog.getMainDialog().getContentPane().add(addProjectsPanel, BorderLayout.NORTH);
 
         ////////////////////
         listModel = new DefaultListModel<>();
@@ -67,7 +70,7 @@ public class ViewProjects extends ProjectObserver implements Visibility {
                 JList list = (JList) evt.getSource();
                 if (evt.getClickCount() == 2) {
                     // Double-click detected
-                    viewSingleProject = new ViewSingleProject(mainFrame.getCurrentUser(), ((Project) list.getSelectedValue()).getID());
+                    viewSingleProject = new ViewSingleProject(userFacade, ((Project) list.getSelectedValue()).getID());
                     viewSingleProject.setVisible(true);
                 }
             }
@@ -75,20 +78,20 @@ public class ViewProjects extends ProjectObserver implements Visibility {
 
         ////////////////////
         jScrollPane = new JScrollPane(projectList);
-        mainFrame.getMainFrame().add(jScrollPane, BorderLayout.CENTER);
-        mainFrame.getMainFrame().setResizable(true);
-        mainFrame.getMainFrame().pack();
-        mainFrame.getMainFrame().setLocationRelativeTo(null);
+        mainDialog.getMainDialog().add(jScrollPane, BorderLayout.CENTER);
+        mainDialog.getMainDialog().setResizable(true);
+        mainDialog.getMainDialog().pack();
+        mainDialog.getMainDialog().setLocationRelativeTo(null);
     }
 
     @Override
     public void setVisible(boolean visible) {
-        mainFrame.getMainFrame().setVisible(visible);
+        mainDialog.getMainDialog().setVisible(visible);
     }
 
     @Override
     public void update() {
-        mainFrame.getMainFrame().remove(jScrollPane);
+        mainDialog.getMainDialog().remove(jScrollPane);
         listModel = new DefaultListModel<>();
         for (Project project : ProjectFacade.getInstance().getProjects())
             listModel.addElement(project);
@@ -99,16 +102,16 @@ public class ViewProjects extends ProjectObserver implements Visibility {
                 JList list = (JList) evt.getSource();
                 if (evt.getClickCount() == 2) {
                     // Double-click detected
-                    viewSingleProject = new ViewSingleProject(mainFrame.getCurrentUser(), ((Project) list.getSelectedValue()).getID());
+                    viewSingleProject = new ViewSingleProject(userFacade, ((Project) list.getSelectedValue()).getID());
                     viewSingleProject.setVisible(true);
                 }
             }
         });
 
         jScrollPane = new JScrollPane(projectList);
-        mainFrame.getMainFrame().add(jScrollPane, BorderLayout.CENTER);
-        mainFrame.getMainFrame().repaint();
-        mainFrame.getMainFrame().revalidate();
+        mainDialog.getMainDialog().add(jScrollPane, BorderLayout.CENTER);
+        mainDialog.getMainDialog().repaint();
+        mainDialog.getMainDialog().revalidate();
     }
 
     public static void main(String[] args) {

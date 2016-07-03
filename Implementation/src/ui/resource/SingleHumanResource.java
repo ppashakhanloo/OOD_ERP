@@ -55,7 +55,7 @@ public class SingleHumanResource extends MainDialog implements Visibility {
         for (ConfirmStatus type : stats)
             confirmStatus.addItem(type);
         confirmStatus.setSelectedItem(((HumanResource) HumanResourceDAO.getInstance().get(rID)).getConfirmStatus());
-        System.out.println("::"+((HumanResource) HumanResourceDAO.getInstance().get(rID)).getConfirmStatus().toString());
+        System.out.println("::" + ((HumanResource) HumanResourceDAO.getInstance().get(rID)).getConfirmStatus().toString());
         formUtility.addLabel("وضعیت ", form);
         formUtility.addLastField(confirmStatus, form);
 

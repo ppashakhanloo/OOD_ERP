@@ -1,5 +1,5 @@
 package resource;
 
 public enum ResourceType {
-	MONETARY, HUMAN, PHYSICAL, INFORMATION
+    MONETARY, HUMAN, PHYSICAL, INFORMATION
 }

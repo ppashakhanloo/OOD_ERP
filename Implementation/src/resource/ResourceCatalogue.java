@@ -1,7 +1,6 @@
 package resource;
 
 import database.*;
-import project.Project;
 import report.UnitResource;
 import unit.UnitCatalogue;
 

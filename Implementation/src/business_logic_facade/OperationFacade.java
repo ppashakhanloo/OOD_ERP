@@ -1,10 +1,7 @@
 package business_logic_facade;
 
-import access.AccessLevel;
 import access.AccessLevelFactory;
 import access.AccessLevelType;
-import database.HumanResourceDAO;
-import database.UnitResourceDAO;
 import project.Project;
 import project.ProjectCatalogue;
 import project.Technology;
@@ -13,9 +10,6 @@ import unit.Unit;
 import unit.UnitCatalogue;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 public class OperationFacade {
 

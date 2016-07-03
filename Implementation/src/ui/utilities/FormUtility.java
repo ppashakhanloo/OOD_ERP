@@ -8,7 +8,7 @@ import java.awt.*;
  * of labels and a column of fields. All of the labels have the
  * same width, determined by the width of the widest label
  * component.
- * <P>
+ * <p>
  * Philip Isenhour - 060628 - http://javatechniques.com/
  */
 public class FormUtility {

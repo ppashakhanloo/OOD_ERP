@@ -5,7 +5,7 @@ import business_logic_facade.UserFacade;
 import project.Module;
 import project.System;
 import project.Technology;
-import ui.MainFrame;
+import ui.MainDialog;
 import ui.Visibility;
 import unit.Unit;
 
@@ -19,7 +19,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class ViewSingleProject extends ProjectObserver implements Visibility {
-    private MainFrame mainFrame;
+    private MainDialog mainDialog;
     private EditProject editProject;
     private AddNewTechnology addNewTechnology;
     private UserFacade userFacade;
@@ -29,9 +29,9 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
 
     private String pid;
 
-    public ViewSingleProject(UserFacade currentUser, String pid) {
-        mainFrame = new MainFrame(currentUser);
-        this.userFacade = currentUser;
+    public ViewSingleProject(UserFacade userFacade, String pid) {
+        mainDialog = new MainDialog();
+        this.userFacade = userFacade;
         addNewTechnology = new AddNewTechnology(ProjectFacade.getInstance().getProject(pid));
         addNewTechnology.attach(this);
         this.pid = pid;
@@ -39,6 +39,8 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
     }
 
     private void prepareGUI() {
+
+        mainDialog.getMainDialog().setTitle("مشاهده مشخصات پروژه");
 
         JLabel nameLbl = new JLabel("نام پروژه");
         JTextField name = new JTextField(ProjectFacade.getInstance().getProject(pid).getName());
@@ -97,7 +99,7 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
         edit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainFrame.getMainFrame().setVisible(false);
+                mainDialog.getMainDialog().setVisible(false);
                 editProject = new EditProject(ProjectFacade.getInstance().getProject(pid), addNewTechnology, userFacade);
                 editProject.setVisible(true);
             }
@@ -170,8 +172,8 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
                         .addComponent(unitListScroll, GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
         );
 
-        GroupLayout layout = new GroupLayout(mainFrame.getMainFrame().getContentPane());
-        mainFrame.getMainFrame().getContentPane().setLayout(layout);
+        GroupLayout layout = new GroupLayout(mainDialog.getMainDialog().getContentPane());
+        mainDialog.getMainDialog().getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
@@ -238,8 +240,8 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
                                 .addContainerGap())
         );
 
-        mainFrame.getMainFrame().pack();
-        mainFrame.getMainFrame().setLocationRelativeTo(null);
+        mainDialog.getMainDialog().pack();
+        mainDialog.getMainDialog().setLocationRelativeTo(null);
     }
 
     @Override
@@ -249,12 +251,14 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
 
     @Override
     public void setVisible(boolean visible) {
-        mainFrame.setVisible(true);
+        mainDialog.setVisible(true);
     }
 
     class AddSystemModule extends JPopupMenu {
         private JMenuItem addSystem;
         private JMenuItem addModule;
+        private JMenuItem addModuleModification;
+        private JMenuItem viewModuleModifications;
 
         public AddSystemModule(UserFacade userFacade, String pid) {
             addSystem = new JMenuItem("افزودن سیستم جدید");
@@ -264,7 +268,7 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
                     AddNewSystem addNewSystem = new AddNewSystem(userFacade, pid);
                     java.lang.System.out.println("I WANT TO ADD SYSTEM TO PROJECT " + pid);
                     addNewSystem.setVisible(true);
-                    mainFrame.getMainFrame().setVisible(false);
+                    mainDialog.getMainDialog().setVisible(false);
                 }
             });
             addModule = new JMenuItem("افزودن ماژول جدید");
@@ -274,12 +278,32 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
                     AddNewModule addNewModule = new AddNewModule(userFacade, pid);
                     addNewModule.setVisible(true);
                     java.lang.System.out.println("I WANT TO ADD MODULE TO PROJECT " + pid);
-                    mainFrame.getMainFrame().setVisible(false);
+                    mainDialog.getMainDialog().setVisible(false);
+                }
+            });
+            addModuleModification = new JMenuItem("ثبت تغییر ماژول");
+            addModuleModification.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    AddModuleModification addModuleModification = new AddModuleModification(userFacade, pid);
+                    addModuleModification.setVisible(true);
+                    mainDialog.getMainDialog().setVisible(false);
+                }
+            });
+            viewModuleModifications = new JMenuItem("مشاهده تغییرات ماژول‌ها");
+            viewModuleModifications.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    ViewModuleModifications viewModuleModifications = new ViewModuleModifications(userFacade, pid);
+                    viewModuleModifications.setVisible(true);
+                    mainDialog.getMainDialog().setVisible(false);
                 }
             });
 
             add(addSystem);
             add(addModule);
+            add(addModuleModification);
+            add(viewModuleModifications);
         }
     }
 

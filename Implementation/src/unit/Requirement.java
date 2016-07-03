@@ -5,7 +5,6 @@ import resource.Resource;
 import utility.Identifiable;
 
 import java.util.Date;
-import java.util.Random;
 
 public class Requirement extends Identifiable {
 

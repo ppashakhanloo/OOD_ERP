@@ -1,5 +1,6 @@
 package project;
 
+import database.ModuleDAO;
 import database.ProjectDAO;
 
 import java.util.ArrayList;
@@ -15,6 +16,10 @@ public class ProjectCatalogue {
         if (projectCatalogue == null)
             projectCatalogue = new ProjectCatalogue();
         return projectCatalogue;
+    }
+
+    public Module getModule(String id) {
+        return ModuleDAO.getInstance().get(id);
     }
 
     public boolean add(Project project, ArrayList<String> uid) {
@@ -33,7 +38,9 @@ public class ProjectCatalogue {
         return ProjectDAO.getInstance().update(project);
     }
 
-    public ArrayList<Technology> getTechnologies() { return ProjectDAO.getInstance().getAllTechnologies(); }
+    public ArrayList<Technology> getTechnologies() {
+        return ProjectDAO.getInstance().getAllTechnologies();
+    }
 
     public ArrayList<Project> list() {
         return ProjectDAO.getInstance().list();

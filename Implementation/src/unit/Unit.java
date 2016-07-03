@@ -7,7 +7,6 @@ import resource.Resource;
 import utility.Identifiable;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Unit extends Identifiable {
 

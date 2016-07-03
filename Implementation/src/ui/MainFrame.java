@@ -93,7 +93,6 @@ public class MainFrame implements Visibility {
         humanResources.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainFrame.setVisible(false);
                 ViewHumanResources viewResources = new ViewHumanResources(currentUser);
                 viewResources.setVisible(true);
             }
@@ -103,7 +102,6 @@ public class MainFrame implements Visibility {
         physicalResources.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainFrame.setVisible(false);
                 ViewPhysicalResources viewResources = new ViewPhysicalResources(currentUser);
                 viewResources.setVisible(true);
             }
@@ -113,7 +111,6 @@ public class MainFrame implements Visibility {
         monetaryResources.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainFrame.setVisible(false);
                 ViewMonetaryResources viewResources = new ViewMonetaryResources(currentUser);
                 viewResources.setVisible(true);
             }
@@ -123,7 +120,6 @@ public class MainFrame implements Visibility {
         informationResources.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainFrame.setVisible(false);
                 ViewInformationResources viewResources = new ViewInformationResources(currentUser);
                 viewResources.setVisible(true);
             }
@@ -143,7 +139,6 @@ public class MainFrame implements Visibility {
         viewProjects.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainFrame.setVisible(false);
                 ViewProjects viewProjects = new ViewProjects(currentUser);
                 viewProjects.setVisible(true);
             }
@@ -160,7 +155,6 @@ public class MainFrame implements Visibility {
         viewUnits.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainFrame.setVisible(false);
                 ViewUnits viewUnits = new ViewUnits(currentUser);
                 viewUnits.setVisible(true);
             }

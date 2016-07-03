@@ -3,13 +3,13 @@ package database;
 import java.util.ArrayList;
 
 interface DAO<T> {
-	boolean add(T item);
+    boolean add(T item);
 
-	T get(String key);
+    T get(String key);
 
-	void remove(String key);
+    void remove(String key);
 
-	boolean update(T item);
+    boolean update(T item);
 
-	ArrayList<T> list();
+    ArrayList<T> list();
 }

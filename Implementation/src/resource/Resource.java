@@ -2,8 +2,6 @@ package resource;
 
 import utility.Identifiable;
 
-import java.util.Random;
-
 public class Resource extends Identifiable {
     private ResourceStatus resourceStatus;
     private boolean isAvailable;

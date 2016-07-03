@@ -9,6 +9,7 @@ import resource.Resource;
 import resource.ResourceCatalogue;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Properties;
 
 public class ProjectFacade {
@@ -94,4 +95,29 @@ public class ProjectFacade {
 
         ProjectRequirementCatalogue.getInstance().addProjectRequirement(projectRequirement, pid, resource.getID());
     }
+
+    public void addNewModuleModification(String mid, String modificationType, Date start, Date end, ArrayList<Resource> resources, ArrayList<Resource> developers) {
+        ModuleModification moduleModification = new ModuleModification(modificationType, start, end);
+        ProjectCatalogue.getInstance().getModule(mid).addModification(moduleModification);
+        for (Resource humanResourceID : developers)
+            moduleModification.addModifier((HumanResource) humanResourceID);
+// TODO
+//        for (Resource resource : resources)
+//            moduleModification.addResource(resource);
+    }
+
+    public ArrayList<ModuleModification> getModuleModifications(String pid) {
+        ArrayList<ModuleModification> modifications = new ArrayList<>();
+        for (System system : ProjectCatalogue.getInstance().get(pid).getSystems())
+            for (Module module : system.getModules())
+                modifications.addAll(module.getModuleModifications());
+
+        return modifications;
+    }
+
+
+//
+//    public boolean addModification(ModuleModification mod) {
+//        return ModuleModificationDAO.getInstance().add(mod, getID());
+//    }
 }

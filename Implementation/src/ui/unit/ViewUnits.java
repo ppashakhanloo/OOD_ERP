@@ -3,7 +3,7 @@ package ui.unit;
 import access.PermissionType;
 import business_logic_facade.OperationFacade;
 import business_logic_facade.UserFacade;
-import ui.MainFrame;
+import ui.MainDialog;
 import ui.Visibility;
 import unit.Unit;
 
@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
 
 public class ViewUnits extends UnitObserver implements Visibility {
 
-    private MainFrame mainFrame;
+    private MainDialog mainDialog;
 
     private AddNewUnit addNewUnit;
 
@@ -22,22 +22,24 @@ public class ViewUnits extends UnitObserver implements Visibility {
     private JList<Unit> unitList;
     private JScrollPane jScrollPane;
 
+    private UserFacade userFacade;
 
-    public ViewUnits(UserFacade currentUser) {
-        mainFrame = new MainFrame(currentUser);
+    public ViewUnits(UserFacade userFacade) {
+        mainDialog = new MainDialog();
         addNewUnit = new AddNewUnit();
         addNewUnit.attach(this);
+        this.userFacade = userFacade;
         prepareGUI();
     }
 
     private void prepareGUI() {
-        mainFrame.getMainFrame().setTitle("مشاهده واحدهای سازمان");
+        mainDialog.getMainDialog().setTitle("مشاهده واحدهای سازمان");
         JPanel addUnitsPanel = new JPanel(new GridBagLayout());
         GridBagConstraints cs = new GridBagConstraints();
         cs.fill = GridBagConstraints.HORIZONTAL;
 
         JButton addNew = new JButton("افزودن واحد جدید");
-        if (mainFrame.getCurrentUser().getCurrentUserPermissions().get(PermissionType.canAddUnit))
+        if (userFacade.getCurrentUserPermissions().get(PermissionType.canAddUnit))
             addNew.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -51,7 +53,7 @@ public class ViewUnits extends UnitObserver implements Visibility {
         cs.gridy = 0;
         cs.gridwidth = 1;
         addUnitsPanel.add(addNew, cs);
-        mainFrame.getMainFrame().getContentPane().add(addUnitsPanel, BorderLayout.NORTH);
+        mainDialog.getMainDialog().getContentPane().add(addUnitsPanel, BorderLayout.NORTH);
 
         ////////////////////
         listModel = new DefaultListModel<>();
@@ -60,28 +62,28 @@ public class ViewUnits extends UnitObserver implements Visibility {
         unitList = new JList<>(listModel);
         ////////////////////
         jScrollPane = new JScrollPane(unitList);
-        mainFrame.getMainFrame().add(jScrollPane, BorderLayout.CENTER);
-        mainFrame.getMainFrame().setResizable(true);
-        mainFrame.getMainFrame().pack();
-        mainFrame.getMainFrame().setLocationRelativeTo(null);
+        mainDialog.getMainDialog().add(jScrollPane, BorderLayout.CENTER);
+        mainDialog.getMainDialog().setResizable(true);
+        mainDialog.getMainDialog().pack();
+        mainDialog.getMainDialog().setLocationRelativeTo(null);
     }
 
     @Override
     public void setVisible(boolean visible) {
-        mainFrame.getMainFrame().setVisible(visible);
+        mainDialog.getMainDialog().setVisible(visible);
     }
 
     @Override
     public void update() {
-        mainFrame.getMainFrame().remove(jScrollPane);
+        mainDialog.getMainDialog().remove(jScrollPane);
         listModel = new DefaultListModel<>();
         for (Unit unit : OperationFacade.getInstance().getUnits())
             listModel.addElement(unit);
         unitList = new JList<>(listModel);
         jScrollPane = new JScrollPane(unitList);
-        mainFrame.getMainFrame().add(jScrollPane, BorderLayout.CENTER);
-        mainFrame.getMainFrame().repaint();
-        mainFrame.getMainFrame().revalidate();
+        mainDialog.getMainDialog().add(jScrollPane, BorderLayout.CENTER);
+        mainDialog.getMainDialog().repaint();
+        mainDialog.getMainDialog().revalidate();
     }
 
     public static void main(String[] args) {

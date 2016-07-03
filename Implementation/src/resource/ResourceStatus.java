@@ -1,5 +1,5 @@
 package resource;
 
 public enum ResourceStatus {
-	IDLE, BUSY
+    IDLE, BUSY
 }

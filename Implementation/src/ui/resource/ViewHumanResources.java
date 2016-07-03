@@ -5,7 +5,7 @@ import business_logic_facade.OperationFacade;
 import business_logic_facade.UserFacade;
 import resource.HumanResource;
 import resource.Resource;
-import ui.MainFrame;
+import ui.MainDialog;
 import ui.Visibility;
 import unit.Unit;
 
@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class ViewHumanResources extends HumanResourceObserver implements Visibility {
 
-    private MainFrame mainFrame;
+    private MainDialog mainDialog;
 
     private AddNewHumanResource addNewHumanResource;
 
@@ -30,7 +30,7 @@ public class ViewHumanResources extends HumanResourceObserver implements Visibil
     private UserFacade userFacade;
 
     public ViewHumanResources(UserFacade userFacade) {
-        mainFrame = new MainFrame(userFacade);
+        mainDialog = new MainDialog();
         addNewHumanResource = new AddNewHumanResource();
         addNewHumanResource.attach(this);
         this.userFacade = userFacade;
@@ -38,14 +38,13 @@ public class ViewHumanResources extends HumanResourceObserver implements Visibil
     }
 
     private void prepareGUI() {
-        mainFrame.getMainFrame().setTitle("مشاهده منابع انسانی");
-        mainFrame.getMainFrame().getContentPane().remove(0);
-        mainFrame.getMainFrame().setLayout(new FlowLayout());
+        mainDialog.getMainDialog().setTitle("مشاهده منابع انسانی");
+        mainDialog.getMainDialog().setLayout(new FlowLayout());
 
         ////////////////////////////////////////////////////////
         JPanel panel1 = new JPanel(new GridLayout(2, 1));
         JButton addNew = new JButton("افزودن منبع جدید");
-        if (mainFrame.getCurrentUser().getCurrentUserPermissions().get(PermissionType.canAddRemResource))
+        if (userFacade.getCurrentUserPermissions().get(PermissionType.canAddRemResource))
             addNew.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -65,7 +64,7 @@ public class ViewHumanResources extends HumanResourceObserver implements Visibil
         innerPanel.add(new JLabel("واحد"));
         innerPanel.add(unitsCombo);
         panel1.add(innerPanel);
-        mainFrame.getMainFrame().add(panel1);
+        mainDialog.getMainDialog().add(panel1);
         ////////////////////
         panel2 = new JPanel(new GridLayout(1, 1));
         listModel = new DefaultListModel<>();
@@ -82,7 +81,7 @@ public class ViewHumanResources extends HumanResourceObserver implements Visibil
             }
         });
         panel2.add(new JScrollPane(resourceList));
-        mainFrame.getMainFrame().add(panel2);
+        mainDialog.getMainDialog().add(panel2);
 
         unitsCombo.addActionListener(new ActionListener() {
             @Override
@@ -110,18 +109,18 @@ public class ViewHumanResources extends HumanResourceObserver implements Visibil
                     }
                 });
                 panel2.add(new JScrollPane(resourceList));
-                mainFrame.getMainFrame().repaint();
-                mainFrame.getMainFrame().revalidate();
+                mainDialog.getMainDialog().repaint();
+                mainDialog.getMainDialog().revalidate();
             }
         });
 
-        mainFrame.getMainFrame().pack();
-        mainFrame.getMainFrame().setLocationRelativeTo(null);
+        mainDialog.getMainDialog().pack();
+        mainDialog.getMainDialog().setLocationRelativeTo(null);
     }
 
     @Override
     public void setVisible(boolean visible) {
-        mainFrame.getMainFrame().setVisible(visible);
+        mainDialog.getMainDialog().setVisible(visible);
     }
 
     @Override
@@ -141,9 +140,9 @@ public class ViewHumanResources extends HumanResourceObserver implements Visibil
             }
         });
         JScrollPane jScrollPane = new JScrollPane(resourceList);
-        mainFrame.getMainFrame().add(jScrollPane, BorderLayout.CENTER);
-        mainFrame.getMainFrame().repaint();
-        mainFrame.getMainFrame().revalidate();
+        mainDialog.getMainDialog().add(jScrollPane, BorderLayout.CENTER);
+        mainDialog.getMainDialog().repaint();
+        mainDialog.getMainDialog().revalidate();
     }
 
     public static void main(String[] args) {

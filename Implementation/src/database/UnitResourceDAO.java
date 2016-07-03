@@ -5,12 +5,13 @@ import resource.Resource;
 import unit.Unit;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class UnitResourceDAO {
 
     private Connection sqlConn;
-    private String url = "jdbc:mysql://localhost:3306/erp";
+    private String url = "jdbc:mysql://localhost:3306/erp?zeroDateTimeBehavior=convertToNull";
     private String user = "root";
     private String password = "";
 
@@ -33,7 +34,6 @@ public class UnitResourceDAO {
 
     public ArrayList<Resource> getResourceByUnitID(String uid) {
         ArrayList<Resource> unitResources = new ArrayList<>();
-
         try {
             Statement myStmt = sqlConn.createStatement();
             ResultSet rs = myStmt.executeQuery(QueryGenerator.getInstance().select("unit_resource", null, "UnitID = "
@@ -111,15 +111,15 @@ public class UnitResourceDAO {
         }
     }
 
-    // UnitResource(new Date(), null, UnitCatalogue.getInstance().get(unitID)), resource.getID());
-    public boolean add(UnitResource item, String resourceID) {
 
+    public boolean add(UnitResource item, String resourceID) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String query = "INSERT INTO unit_resource (ID, additionDate, removeDate, ResourceID, UnitID) VALUES("
                 + "'" + item.getID() + "'"
                 + ", "
-                + "'" + item.getAdditionDate() + "'"
+                + "'" + sdf.format(item.getAdditionDate()) + "'"
                 + ", "
-                + "'" + item.getRemoveDate() + "'"
+                + "'" + sdf.format(item.getRemoveDate()) + "'"
                 + ", "
                 + "'" + resourceID + "'"
                 + ", "

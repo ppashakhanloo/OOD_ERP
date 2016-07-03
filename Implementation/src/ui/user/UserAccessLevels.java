@@ -4,7 +4,7 @@ package ui.user;
 import access.AccessLevelType;
 import access.PermissionType;
 import business_logic_facade.UserFacade;
-import ui.MainFrame;
+import ui.MainDialog;
 import ui.Visibility;
 
 import javax.swing.*;
@@ -17,17 +17,17 @@ import java.util.Map;
 
 public class UserAccessLevels implements Visibility {
 
-    private MainFrame mainFrame;
+    private MainDialog mainDialog;
 
     public UserAccessLevels(UserFacade currentUser) {
-        mainFrame = new MainFrame(currentUser);
+        mainDialog = new MainDialog();
         prepareGUI(currentUser);
     }
 
     private void prepareGUI(UserFacade currentUser) {
-        mainFrame.getMainFrame().setTitle("مشاهده عملیات مجاز سطوح دسترسی");
-        mainFrame.getMainFrame().getContentPane().removeAll();
-        mainFrame.getMainFrame().setLayout(new GridLayout(4, 1));
+        mainDialog.getMainDialog().setTitle("مشاهده عملیات مجاز سطوح دسترسی");
+        mainDialog.getMainDialog().getContentPane().removeAll();
+        mainDialog.getMainDialog().setLayout(new GridLayout(4, 1));
         JPanel[] forms = new JPanel[currentUser.getAllAccessLevelTypes().size()];
         int i = 0;
         for (AccessLevelType accessLevelType : currentUser.getAllAccessLevelTypes()) {
@@ -40,7 +40,7 @@ public class UserAccessLevels implements Visibility {
                 box.setSelected(permissions.get(permissionType));
                 forms[i].add(box);
             }
-            mainFrame.getMainFrame().add(forms[i]);
+            mainDialog.getMainDialog().add(forms[i]);
             i++;
         }
 
@@ -63,15 +63,15 @@ public class UserAccessLevels implements Visibility {
         JButton cancel = new JButton("انصراف");
         form.add(save);
         form.add(cancel);
-        mainFrame.getMainFrame().add(form);
-        mainFrame.getMainFrame().pack();
-        mainFrame.getMainFrame().setLocationRelativeTo(null);
+        mainDialog.getMainDialog().add(form);
+        mainDialog.getMainDialog().pack();
+        mainDialog.getMainDialog().setLocationRelativeTo(null);
     }
 
 
     @Override
     public void setVisible(boolean visible) {
-        mainFrame.setVisible(true);
+        mainDialog.setVisible(true);
     }
 
     public static void main(String[] args) {

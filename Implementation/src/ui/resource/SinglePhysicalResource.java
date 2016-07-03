@@ -2,9 +2,7 @@ package ui.resource;
 
 import business_logic_facade.OperationFacade;
 import business_logic_facade.UserFacade;
-import database.InformationResourceDAO;
 import database.PhysicalResourceDAO;
-import resource.InformationResource;
 import resource.PhysicalResource;
 import ui.MainDialog;
 import ui.Visibility;

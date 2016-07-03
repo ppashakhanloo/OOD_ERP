@@ -25,6 +25,17 @@ public class ModuleModification extends Identifiable {
         this.modificationEnd = modificationEnd;
     }
 
+
+    public ModuleModification(String modificationType,
+                              Date modificationStart, Date modificationEnd) {
+        super();
+        setID(generateNDigitID(ID_LENGTH));
+        this.modificationType = modificationType;
+        this.modificationStart = modificationStart;
+        this.modificationEnd = modificationEnd;
+    }
+
+
     public ArrayList<HumanResource> getModifiers() {
         return ModuleModificationDAO.getInstance().getModifiers(getID());
     }
@@ -67,4 +78,10 @@ public class ModuleModification extends Identifiable {
                         getModificationStart(), modificationEnd));
     }
 
+    @Override
+    public String toString() {
+        return "ID=" + getID() + ", modificationType=" + modificationType +
+                ", modificationStart=" + modificationStart +
+                ", modificationEnd=" + modificationEnd;
+    }
 }

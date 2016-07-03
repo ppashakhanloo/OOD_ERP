@@ -6,7 +6,6 @@ import unit.Unit;
 import utility.Identifiable;
 
 import java.util.Date;
-import java.util.Random;
 
 public class UnitResource extends Identifiable {
     private Date additionDate;
