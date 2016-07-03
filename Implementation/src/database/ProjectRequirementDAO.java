@@ -13,7 +13,7 @@ public class ProjectRequirementDAO implements DAO<ProjectRequirement> {
     private Connection sqlConn;
     private String url = "jdbc:mysql://localhost:3306/erp";
     private String user = "root";
-    private String password = "0440448182";
+    private String password = "7284";
 
     QueryGenerator generator = QueryGenerator.getInstance();
 
