@@ -132,6 +132,7 @@ public class EstimateResources implements Visibility {
                 OperationFacade.getInstance().search(tech, devCount, usercount).forEach(project -> listModelProj.addElement(project));
             }
         });
+        
         mainFrame.getMainFrame().pack();
         mainFrame.getMainFrame().setLocationRelativeTo(null);
     }
