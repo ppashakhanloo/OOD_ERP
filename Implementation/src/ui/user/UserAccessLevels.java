@@ -61,6 +61,12 @@ public class UserAccessLevels implements Visibility {
             }
         });
         JButton cancel = new JButton("انصراف");
+        cancel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+            }
+        });
         form.add(save);
         form.add(cancel);
         mainDialog.getMainDialog().add(form);
@@ -71,7 +77,7 @@ public class UserAccessLevels implements Visibility {
 
     @Override
     public void setVisible(boolean visible) {
-        mainDialog.setVisible(true);
+        mainDialog.getMainDialog().setVisible(true);
     }
 
     public static void main(String[] args) {

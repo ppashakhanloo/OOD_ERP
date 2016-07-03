@@ -105,6 +105,12 @@ public class SingleHumanResource extends MainDialog implements Visibility {
             }
         });
         JButton cancel = new JButton("انصراف و بازگشت");
+        cancel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+            }
+        });
         formUtility.addLastField(submit, form);
         formUtility.addLastField(cancel, form);
 

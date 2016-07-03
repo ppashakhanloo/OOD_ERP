@@ -9,6 +9,8 @@ import unit.Unit;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 class AddNewProject extends MainDialog {
@@ -62,7 +64,13 @@ class AddNewProject extends MainDialog {
             setVisible(false);
         });
 
-        JButton cancel = new JButton("صرف‌نظر");
+        JButton cancel = new JButton("انصراف");
+        cancel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+            }
+        });
         formUtility.addLastField(submit, form);
         formUtility.addLastField(cancel, form);
 

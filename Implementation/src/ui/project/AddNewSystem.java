@@ -48,7 +48,13 @@ public class AddNewSystem extends MainDialog {
                 new ViewSingleProject(currentUser, pid).setVisible(true);
             }
         });
-        JButton cancel = new JButton("صرف‌نظر");
+        JButton cancel = new JButton("انصراف");
+        cancel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+            }
+        });
         formUtility.addLastField(submit, form);
         formUtility.addLastField(cancel, form);
 
