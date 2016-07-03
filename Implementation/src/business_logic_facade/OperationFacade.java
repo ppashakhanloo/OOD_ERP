@@ -24,6 +24,10 @@ public class OperationFacade {
         return operationFacade;
     }
 
+    public ArrayList<Resource> getResources() {
+        return ResourceCatalogue.getInstance().getAll();
+    }
+
     public ArrayList<Resource> getHumanResources() {
         return ResourceCatalogue.getInstance().getAll(ResourceType.HUMAN);
     }

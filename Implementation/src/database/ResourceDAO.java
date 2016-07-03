@@ -1,5 +1,6 @@
 package database;
 
+import project.System;
 import resource.Resource;
 import resource.ResourceStatus;
 
@@ -10,7 +11,7 @@ class ResourceDAO {
     protected Connection sqlConn;
     private String url = "jdbc:mysql://localhost:3306/erp";
     private String user = "root";
-    private String password = "";
+    private String password = "7284";
 
     private static ResourceDAO resourceDAO;
 
@@ -56,6 +57,24 @@ class ResourceDAO {
 
     public ArrayList<Resource> list() {
         String query = QueryGenerator.getInstance().select("resource", null, null);
+        ArrayList<Resource> results = new ArrayList<>();
+        ResultSet rs;
+        try {
+            Statement myStmt = sqlConn.createStatement();
+            rs = myStmt.executeQuery(query);
+            while (rs.next()) {
+                Resource newRes = fillResource(rs);
+                results.add(newRes);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return results;
+    }
+
+    //SELECT * FROM resource WHERE isAvailable = 1;
+    public ArrayList<Resource> listPresentResources() {
+        String query = QueryGenerator.getInstance().select("resource", null, "isAvailable = 1");
         ArrayList<Resource> results = new ArrayList<>();
         ResultSet rs;
         try {
@@ -140,6 +159,7 @@ class ResourceDAO {
 
     public static void main(String[] args) {
         // ResourceDAO dao = new ResourceDAO();
+        // java.lang.System.out.println(dao.listPresentResources().toString());
         // ArrayList<String> colNames = new ArrayList<>();
         // colNames.add("ID");
         // ArrayList<String> values = new ArrayList<>();
