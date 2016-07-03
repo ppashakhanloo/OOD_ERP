@@ -17,7 +17,7 @@ public class UserFacade {
         currentUser = ResourceCatalogue.getInstance().humanResourceLogin(ID, password);
         System.out.println("CURRENT USER ACCESS LEVEL ID = " + currentUser.getAccessLevel().getAccessLevelType());
         System.out.println("CURRENT USER ID = " + currentUser.getID());
-        return currentUser != null;
+        return (currentUser != null) && currentUser.getConfirmStatus().equals(ConfirmStatus.CONFIRMED);
     }
 
     public void logout(String ID) {
