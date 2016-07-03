@@ -16,6 +16,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class ViewHumanResources extends HumanResourceObserver implements Visibility {
 
@@ -44,7 +45,7 @@ public class ViewHumanResources extends HumanResourceObserver implements Visibil
         ////////////////////////////////////////////////////////
         JPanel panel1 = new JPanel(new GridLayout(2, 1));
         JButton addNew = new JButton("افزودن منبع جدید");
-        if (userFacade.getCurrentUserPermissions().get(PermissionType.canAddRemResource))
+        if (userFacade.hasPermission(PermissionType.canAddRemResource))
             addNew.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -71,15 +72,16 @@ public class ViewHumanResources extends HumanResourceObserver implements Visibil
         for (Resource resource : OperationFacade.getInstance().getHumanResources())
             listModel.addElement((HumanResource) resource);
         resourceList = new JList<>(listModel);
-        resourceList.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent evt) {
-                JList list = (JList) evt.getSource();
-                if (evt.getClickCount() == 2) {
-                    // Double-click detected
-                    new SingleHumanResource(userFacade, ((HumanResource) list.getSelectedValue()).getID()).setVisible(true);
+        if (userFacade.hasPermission(PermissionType.canGetResourceAttributes))
+            resourceList.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent evt) {
+                    JList list = (JList) evt.getSource();
+                    if (evt.getClickCount() == 2) {
+                        // Double-click detected
+                        new SingleHumanResource(userFacade, ((HumanResource) list.getSelectedValue()).getID()).setVisible(true);
+                    }
                 }
-            }
-        });
+            });
         panel2.add(new JScrollPane(resourceList));
         mainDialog.getMainDialog().add(panel2);
 
@@ -99,15 +101,16 @@ public class ViewHumanResources extends HumanResourceObserver implements Visibil
                         }
                 }
                 resourceList = new JList<>(listModel);
-                resourceList.addMouseListener(new MouseAdapter() {
-                    public void mouseClicked(MouseEvent evt) {
-                        JList list = (JList) evt.getSource();
-                        if (evt.getClickCount() == 2) {
-                            // Double-click detected
-                            new SingleHumanResource(userFacade, ((HumanResource) list.getSelectedValue()).getID()).setVisible(true);
+                if (userFacade.hasPermission(PermissionType.canGetResourceAttributes))
+                    resourceList.addMouseListener(new MouseAdapter() {
+                        public void mouseClicked(MouseEvent evt) {
+                            JList list = (JList) evt.getSource();
+                            if (evt.getClickCount() == 2) {
+                                // Double-click detected
+                                new SingleHumanResource(userFacade, ((HumanResource) list.getSelectedValue()).getID()).setVisible(true);
+                            }
                         }
-                    }
-                });
+                    });
                 panel2.add(new JScrollPane(resourceList));
                 mainDialog.getMainDialog().repaint();
                 mainDialog.getMainDialog().revalidate();
@@ -130,15 +133,16 @@ public class ViewHumanResources extends HumanResourceObserver implements Visibil
         for (Resource resource : OperationFacade.getInstance().getHumanResources())
             listModel.addElement((HumanResource) resource);
         resourceList = new JList<>(listModel);
-        resourceList.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent evt) {
-                JList list = (JList) evt.getSource();
-                if (evt.getClickCount() == 2) {
-                    // Double-click detected
-                    new SingleHumanResource(userFacade, ((HumanResource) list.getSelectedValue()).getID()).setVisible(true);
+        if (userFacade.hasPermission(PermissionType.canGetResourceAttributes))
+            resourceList.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent evt) {
+                    JList list = (JList) evt.getSource();
+                    if (evt.getClickCount() == 2) {
+                        // Double-click detected
+                        new SingleHumanResource(userFacade, ((HumanResource) list.getSelectedValue()).getID()).setVisible(true);
+                    }
                 }
-            }
-        });
+            });
         JScrollPane jScrollPane = new JScrollPane(resourceList);
         mainDialog.getMainDialog().add(jScrollPane, BorderLayout.CENTER);
         mainDialog.getMainDialog().repaint();

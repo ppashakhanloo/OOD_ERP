@@ -38,6 +38,10 @@ public class UserFacade {
         return accessLevelTypes;
     }
 
+    public boolean hasPermission(PermissionType permissionType) {
+        return getCurrentUserPermissions().get(permissionType);
+    }
+
 
     public ArrayList<ConfirmStatus> getAllConfirmStatusTypes() {
         ArrayList<ConfirmStatus> confirmStatuses = new ArrayList<>();

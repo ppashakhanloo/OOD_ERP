@@ -37,6 +37,8 @@ public class UserAccessLevels implements Visibility {
             Map<PermissionType, Boolean> permissions = currentUser.getPermissions(accessLevelType);
             for (PermissionType permissionType : currentUser.getPermissions(currentUser.getAllAccessLevelTypes().get(0)).keySet()) {
                 JCheckBox box = new JCheckBox(permissionType.toString());
+                if (!currentUser.getCurrentUserPermissions().get(PermissionType.canChangePermission))
+                    box.setEnabled(false);
                 box.setSelected(permissions.get(permissionType));
                 forms[i].add(box);
             }
@@ -46,6 +48,7 @@ public class UserAccessLevels implements Visibility {
 
         JPanel form = new JPanel(new FlowLayout());
         JButton save = new JButton("ذخیره");
+
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -60,14 +63,20 @@ public class UserAccessLevels implements Visibility {
                 }
             }
         });
+
+
         JButton cancel = new JButton("انصراف");
+        if (!currentUser.getCurrentUserPermissions().get(PermissionType.canChangePermission))
+            cancel.setText("بازگشت");
+
         cancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
             }
         });
-        form.add(save);
+        if (currentUser.getCurrentUserPermissions().get(PermissionType.canChangePermission))
+            form.add(save);
         form.add(cancel);
         mainDialog.getMainDialog().add(form);
         mainDialog.getMainDialog().pack();

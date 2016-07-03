@@ -44,7 +44,8 @@ public class ViewInformationResources extends InformationResourceObserver implem
         ////////////////////////////////////////////////////////
         JPanel panel1 = new JPanel(new GridLayout(2, 1));
         JButton addNew = new JButton("افزودن منبع جدید");
-        if (userFacade.getCurrentUserPermissions().get(PermissionType.canAddRemResource))
+
+        if (userFacade.hasPermission(PermissionType.canAddRemResource))
             addNew.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {

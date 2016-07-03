@@ -35,7 +35,7 @@ public class ViewProjectRequirements extends ProjectObserver implements Visibili
         cs.fill = GridBagConstraints.HORIZONTAL;
         System.out.println("**************HI*************");
         JButton addNew = new JButton("افزودن نیازمندی جدید");
-        if (mainFrame.getCurrentUser().getCurrentUserPermissions().get(PermissionType.canAddRemReq))
+        if (mainFrame.getCurrentUser().hasPermission(PermissionType.canAddRemReq))
             addNew.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {

@@ -39,7 +39,7 @@ public class ViewUnits extends UnitObserver implements Visibility {
         cs.fill = GridBagConstraints.HORIZONTAL;
 
         JButton addNew = new JButton("افزودن واحد جدید");
-        if (userFacade.getCurrentUserPermissions().get(PermissionType.canAddUnit))
+        if (userFacade.hasPermission(PermissionType.canAddUnit))
             addNew.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {

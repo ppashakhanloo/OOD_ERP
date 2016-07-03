@@ -1,5 +1,6 @@
 package ui.project;
 
+import access.PermissionType;
 import business_logic_facade.ProjectFacade;
 import business_logic_facade.UserFacade;
 import project.Module;
@@ -262,25 +263,33 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
 
         public AddSystemModule(UserFacade userFacade, String pid) {
             addSystem = new JMenuItem("افزودن سیستم جدید");
-            addSystem.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    AddNewSystem addNewSystem = new AddNewSystem(userFacade, pid);
-                    java.lang.System.out.println("I WANT TO ADD SYSTEM TO PROJECT " + pid);
-                    addNewSystem.setVisible(true);
-                    mainDialog.getMainDialog().setVisible(false);
-                }
-            });
+            if (userFacade.getCurrentUserPermissions().get(PermissionType.canAddRemSysMod))
+                addSystem.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        AddNewSystem addNewSystem = new AddNewSystem(userFacade, pid);
+                        java.lang.System.out.println("I WANT TO ADD SYSTEM TO PROJECT " + pid);
+                        addNewSystem.setVisible(true);
+                        mainDialog.getMainDialog().setVisible(false);
+                    }
+                });
+            else
+                addSystem.setEnabled(false);
+
             addModule = new JMenuItem("افزودن ماژول جدید");
-            addModule.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    AddNewModule addNewModule = new AddNewModule(userFacade, pid);
-                    addNewModule.setVisible(true);
-                    java.lang.System.out.println("I WANT TO ADD MODULE TO PROJECT " + pid);
-                    mainDialog.getMainDialog().setVisible(false);
-                }
-            });
+            if (userFacade.getCurrentUserPermissions().get(PermissionType.canAddRemSysMod))
+                addModule.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        AddNewModule addNewModule = new AddNewModule(userFacade, pid);
+                        addNewModule.setVisible(true);
+                        java.lang.System.out.println("I WANT TO ADD MODULE TO PROJECT " + pid);
+                        mainDialog.getMainDialog().setVisible(false);
+                    }
+                });
+            else
+                addModule.setEnabled(false);
+
             addModuleModification = new JMenuItem("ثبت تغییر ماژول");
             addModuleModification.addActionListener(new ActionListener() {
                 @Override

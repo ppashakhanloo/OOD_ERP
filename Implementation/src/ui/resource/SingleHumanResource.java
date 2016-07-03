@@ -32,7 +32,6 @@ public class SingleHumanResource extends MainDialog implements Visibility {
 
     public SingleHumanResource(UserFacade userFacade, String rID) {
         prepareGUI(userFacade, rID);
-
     }
 
     private void prepareGUI(UserFacade userFacade, String rID) {
