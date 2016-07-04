@@ -1,11 +1,17 @@
 package ui.report;
 
+import business_logic_facade.OperationFacade;
 import business_logic_facade.UserFacade;
+import resource.Resource;
 import ui.MainFrame;
 import ui.Visibility;
+import unit.Unit;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Created by Mozhdeh on 7/3/2016.
@@ -17,9 +23,23 @@ public class AvailableResourcesReport implements Visibility {
 
     public AvailableResourcesReport(UserFacade currentUser) {
         mainFrame = new MainFrame(currentUser);
+
         Object[] columnNames = {"واحد", "منبع"};
-        reportTableModel = new DefaultTableModel(columnNames, 3);
-        // TODO: reportTableModel.addRow
+        reportTableModel = new DefaultTableModel(columnNames, 0);
+        Map<Unit, ArrayList<Resource>> availableResources = OperationFacade.getInstance().getAvailableResources();
+
+        Iterator<Map.Entry<Unit, ArrayList<Resource>>> entries = availableResources.entrySet().iterator();
+        while (entries.hasNext()) {
+            Map.Entry<Unit, ArrayList<Resource>> entry = entries.next();
+            Unit key = entry.getKey();
+            ArrayList<Resource> value = entry.getValue();
+
+            for (Resource resource : value) {
+                Object[] data = {key.getName(), resource};
+                reportTableModel.addRow(data);
+            }
+        }
+        
         prepareGUI();
     }
 

@@ -10,6 +10,8 @@ import unit.Unit;
 import unit.UnitCatalogue;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class OperationFacade {
 
@@ -46,6 +48,20 @@ public class OperationFacade {
 
     public ArrayList<Unit> getUnits() {
         return UnitCatalogue.getInstance().list();
+    }
+
+    public Map<Unit, ArrayList<Resource>> getAvailableResources() {
+        Map<Unit, ArrayList<Resource>> availableResources = new HashMap<Unit, ArrayList<Resource>>();
+        ArrayList<Unit> units = getUnits();
+
+        for (Unit unit : units) {
+            ArrayList<Resource> thisUnitsAvailableResources = new ArrayList<>();
+            thisUnitsAvailableResources = unit.getAvailableResources();
+
+            availableResources.put(unit, thisUnitsAvailableResources);
+        }
+
+        return availableResources;
     }
 
     public ArrayList<Technology> getTechnologies() {

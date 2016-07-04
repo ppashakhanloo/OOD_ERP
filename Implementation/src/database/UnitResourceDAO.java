@@ -13,7 +13,7 @@ public class UnitResourceDAO {
     private Connection sqlConn;
     private String url = "jdbc:mysql://localhost:3306/erp?zeroDateTimeBehavior=convertToNull";
     private String user = "root";
-    private String password = "";
+    private String password = "7284";
 
     private static UnitResourceDAO unitResourceDAO;
 
