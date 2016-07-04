@@ -42,21 +42,21 @@ public class ViewProjects extends ProjectObserver implements Visibility {
         GridBagConstraints cs = new GridBagConstraints();
         cs.fill = GridBagConstraints.HORIZONTAL;
 
-        JButton addNew = new JButton("افزودن پروژه جدید");
+        JButton addNewProject = new JButton("افزودن پروژه جدید");
         if (userFacade.getCurrentUserPermissions().get(PermissionType.canAddProject))
-            addNew.addActionListener(new ActionListener() {
+            addNewProject.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    addNewProject.setVisible(true);
+                    ViewProjects.this.addNewProject.setVisible(true);
                 }
             });
         else
-            addNew.setEnabled(false);
+            addNewProject.setEnabled(false);
 
         cs.gridx = 0;
         cs.gridy = 0;
         cs.gridwidth = 1;
-        addProjectsPanel.add(addNew, cs);
+        addProjectsPanel.add(addNewProject, cs);
         mainDialog.getMainDialog().getContentPane().add(addProjectsPanel, BorderLayout.NORTH);
 
         ////////////////////

@@ -16,7 +16,7 @@ public class LoginForm implements Visibility {
     private JFrame mainFrame;
     private JTextField ID;
     private JTextField password;
-    private JLabel errorLabel;
+    private JLabel label;
 
     private UserFacade userFacade;
 
@@ -101,8 +101,8 @@ public class LoginForm implements Visibility {
         bp.add(login);
 
         JPanel ep = new JPanel();
-        errorLabel = new JLabel("به سیستم مدیریت منابع سازمان خوش آمدید.");
-        ep.add(errorLabel);
+        label = new JLabel("به سیستم مدیریت منابع سازمان خوش آمدید.");
+        ep.add(label);
 
         mainFrame.getContentPane().add(ep, BorderLayout.NORTH);
         mainFrame.getContentPane().add(loginPanel, BorderLayout.CENTER);
