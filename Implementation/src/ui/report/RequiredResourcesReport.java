@@ -3,6 +3,11 @@ package ui.report;
 import business_logic_facade.ProjectFacade;
 import business_logic_facade.UserFacade;
 import project.Project;
+import report.ProjectRequirement;
+import resource.HumanResource;
+import resource.InformationResource;
+import resource.MonetaryResource;
+import resource.Resource;
 import ui.MainFrame;
 import ui.Visibility;
 
@@ -11,10 +16,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 
-/**
- * Created by Mozhdeh on 7/3/2016.
- */
 public class RequiredResourcesReport implements Visibility {
 
     private MainFrame mainFrame;
@@ -33,11 +36,8 @@ public class RequiredResourcesReport implements Visibility {
         JPanel reportPanel = new JPanel();
         reportPanel.setBorder(BorderFactory.createTitledBorder("گزارش منابع مورد نیاز"));
 
-        JPanel cashMonetaryPanel = new JPanel();
-        cashMonetaryPanel.setBorder(BorderFactory.createTitledBorder("منابع مالی نقدی"));
-
-        JPanel nonCashMonetaryPanel = new JPanel();
-        nonCashMonetaryPanel.setBorder(BorderFactory.createTitledBorder("منابع مالی غیرنقدی"));
+        JPanel monetaryPanel = new JPanel();
+        monetaryPanel.setBorder(BorderFactory.createTitledBorder("منابع مالی"));
 
         JPanel humanPanel = new JPanel();
         humanPanel.setBorder(BorderFactory.createTitledBorder("منابع انسانی"));
@@ -60,13 +60,9 @@ public class RequiredResourcesReport implements Visibility {
 
         Object[] columnNames = {"منبع", "پروژه"};
 
-        DefaultTableModel cashMonetaryTableModel = new DefaultTableModel(columnNames, 2);
-        JTable cashMonetaryTable = new JTable(cashMonetaryTableModel);
-        JScrollPane cashMonetaryScrollPane = new JScrollPane(cashMonetaryTable);
-
-        DefaultTableModel nonCashMonetaryTableModel = new DefaultTableModel(columnNames, 2);
-        JTable nonCashMonetaryTable = new JTable(nonCashMonetaryTableModel);
-        JScrollPane nonCashMonetaryScrollPane = new JScrollPane(nonCashMonetaryTable);
+        DefaultTableModel monetaryTableModel = new DefaultTableModel(columnNames, 2);
+        JTable monetaryTable = new JTable(monetaryTableModel);
+        JScrollPane monetaryScrollPane = new JScrollPane(monetaryTable);
 
         DefaultTableModel humanTableModel = new DefaultTableModel(columnNames, 2);
         JTable humanTable = new JTable(humanTableModel);
@@ -99,30 +95,17 @@ public class RequiredResourcesReport implements Visibility {
                         .addComponent(report))
         );
 
-        GroupLayout cashMonetaryPanelLayout = new GroupLayout(cashMonetaryPanel);
-        cashMonetaryPanel.setLayout(cashMonetaryPanelLayout);
-        cashMonetaryPanelLayout.setAutoCreateGaps(true);
-        cashMonetaryPanelLayout.setAutoCreateContainerGaps(true);
-        cashMonetaryPanelLayout.setHorizontalGroup(cashMonetaryPanelLayout.createSequentialGroup()
-                .addGroup(cashMonetaryPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(cashMonetaryScrollPane))
+        GroupLayout monetaryPanelLayout = new GroupLayout(monetaryPanel);
+        monetaryPanel.setLayout(monetaryPanelLayout);
+        monetaryPanelLayout.setAutoCreateGaps(true);
+        monetaryPanelLayout.setAutoCreateContainerGaps(true);
+        monetaryPanelLayout.setHorizontalGroup(monetaryPanelLayout.createSequentialGroup()
+                .addGroup(monetaryPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(monetaryScrollPane))
         );
-        cashMonetaryPanelLayout.setVerticalGroup(cashMonetaryPanelLayout.createSequentialGroup()
-                .addGroup(cashMonetaryPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(cashMonetaryScrollPane))
-        );
-
-        GroupLayout nonCashMonetaryPanelLayout = new GroupLayout(nonCashMonetaryPanel);
-        nonCashMonetaryPanel.setLayout(nonCashMonetaryPanelLayout);
-        nonCashMonetaryPanelLayout.setAutoCreateGaps(true);
-        nonCashMonetaryPanelLayout.setAutoCreateContainerGaps(true);
-        nonCashMonetaryPanelLayout.setHorizontalGroup(nonCashMonetaryPanelLayout.createSequentialGroup()
-                .addGroup(nonCashMonetaryPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(nonCashMonetaryScrollPane))
-        );
-        nonCashMonetaryPanelLayout.setVerticalGroup(nonCashMonetaryPanelLayout.createSequentialGroup()
-                .addGroup(nonCashMonetaryPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(nonCashMonetaryScrollPane))
+        monetaryPanelLayout.setVerticalGroup(monetaryPanelLayout.createSequentialGroup()
+                .addGroup(monetaryPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(monetaryScrollPane))
         );
 
         GroupLayout humanPanelLayout = new GroupLayout(humanPanel);
@@ -170,17 +153,14 @@ public class RequiredResourcesReport implements Visibility {
         reportPanelLayout.setAutoCreateContainerGaps(true);
         reportPanelLayout.setHorizontalGroup(reportPanelLayout.createSequentialGroup()
                 .addGroup(reportPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(cashMonetaryPanel)
-                        .addComponent(nonCashMonetaryPanel)
+                        .addComponent(monetaryPanel)
                         .addComponent(humanPanel)
                         .addComponent(informationPanel)
                         .addComponent(physicalPanel))
         );
         reportPanelLayout.setVerticalGroup(reportPanelLayout.createSequentialGroup()
                 .addGroup(reportPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(cashMonetaryPanel))
-                .addGroup(reportPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(nonCashMonetaryPanel))
+                        .addComponent(monetaryPanel))
                 .addGroup(reportPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(humanPanel))
                 .addGroup(reportPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
@@ -208,7 +188,24 @@ public class RequiredResourcesReport implements Visibility {
         report.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO
+                List<Project> selectedProjects = projList.getSelectedValuesList();
+                ArrayList<ProjectRequirement> requirements = new ArrayList<>();
+                Resource resource;
+                for (Project project : selectedProjects) {
+                    requirements = ProjectFacade.getInstance().getProjectRequirements(project.getID());
+                    for (ProjectRequirement requirement : requirements) {
+                        resource = requirement.getResource();
+                        Object[] data = {resource, requirement.getProject().getID()};
+                        if (resource instanceof MonetaryResource)
+                            monetaryTableModel.addRow(data);
+                        else if (resource instanceof HumanResource)
+                            humanTableModel.addRow(data);
+                        else if (resource instanceof InformationResource)
+                            informationTableModel.addRow(data);
+                        else
+                            physicalTableModel.addRow(data);
+                    }
+                }
             }
         });
 
