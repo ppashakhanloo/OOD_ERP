@@ -25,13 +25,12 @@ DROP TABLE IF EXISTS `requirement`;
 CREATE TABLE `requirement` (
   `ID` varchar(255) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
-  `provideDate` varchar(8) DEFAULT NULL,
+  `provideDate` date DEFAULT NULL,
   `ResourceID` varchar(255) NOT NULL,
   `UnitID` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `ResourceID` (`ResourceID`),
   KEY `UnitID` (`UnitID`),
-  CONSTRAINT `requirement_ibfk_1` FOREIGN KEY (`ResourceID`) REFERENCES `resource` (`ID`),
   CONSTRAINT `requirement_ibfk_2` FOREIGN KEY (`UnitID`) REFERENCES `unit` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -54,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-07-03 16:48:55
+-- Dump completed on 2016-07-04 14:14:56

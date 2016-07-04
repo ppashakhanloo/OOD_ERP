@@ -24,8 +24,8 @@ DROP TABLE IF EXISTS `project_requirement`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `project_requirement` (
   `ID` varchar(255) NOT NULL,
-  `provideDate` varchar(8) DEFAULT NULL,
-  `releaseDate` varchar(8) DEFAULT NULL,
+  `provideDate` date DEFAULT NULL,
+  `releaseDate` date DEFAULT NULL,
   `isEssential` tinyint(4) DEFAULT NULL,
   `criticalProvideDate` varchar(8) DEFAULT NULL,
   `lengthOfPossession` int(10) DEFAULT NULL,
@@ -57,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-07-03 16:48:56
+-- Dump completed on 2016-07-04 14:14:56

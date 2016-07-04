@@ -5,10 +5,11 @@ import report.ProjectRequirement;
 import resource.Resource;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class ProjectRequirementDAO implements DAO<ProjectRequirement> {
+public class ProjectRequirementDAO {
 
     private Connection sqlConn;
     private String url = "jdbc:mysql://localhost:3306/erp?useUnicode=true&characterEncoding=UTF-8";
@@ -63,14 +64,15 @@ public class ProjectRequirementDAO implements DAO<ProjectRequirement> {
 
     public ArrayList<ProjectRequirement> getByProvideDate(Date provideDate) {
         ArrayList<ProjectRequirement> projects = new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String query = generator.select("project_requirement", null,
-                "provideDate = " + provideDate);
+                "provideDate = " + "'" + sdf.format(provideDate) + "'");
         ResultSet rs;
         try {
             Statement myStmt = sqlConn.createStatement();
             rs = myStmt.executeQuery(query);
             while (rs.next()) {
-                projects.add(fillProjReq(rs));
+                projects.add(fillProjectRequirement(rs));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -79,15 +81,16 @@ public class ProjectRequirementDAO implements DAO<ProjectRequirement> {
     }
 
     public ArrayList<ProjectRequirement> getByReleaseDate(Date releaseDate) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         ArrayList<ProjectRequirement> projects = new ArrayList<>();
         String query = generator.select("project_requirement", null,
-                "releaseDate = " + releaseDate);
+                "releaseDate = " + "'" + sdf.format(releaseDate) + "'");
         ResultSet rs;
         try {
             Statement myStmt = sqlConn.createStatement();
             rs = myStmt.executeQuery(query);
             while (rs.next()) {
-                projects.add(fillProjReq(rs));
+                projects.add(fillProjectRequirement(rs));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -104,7 +107,7 @@ public class ProjectRequirementDAO implements DAO<ProjectRequirement> {
             Statement myStmt = sqlConn.createStatement();
             rs = myStmt.executeQuery(query);
             while (rs.next()) {
-                projects.add(fillProjReq(rs));
+                projects.add(fillProjectRequirement(rs));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -126,34 +129,30 @@ public class ProjectRequirementDAO implements DAO<ProjectRequirement> {
         }
     }
 
-    @Override
-    public boolean add(ProjectRequirement item) {
-        return false;
-    }
-
     public boolean add(ProjectRequirement item, String ProjectID,
                        String ResourceID) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String query = "INSERT INTO project_requirement (ID, provideDate, releaseDate,"
                 + "isEssential, criticalProvideDate, lengthOfPossession, ProjectID, ResourceID) "
                 + "VALUES ('"
                 + item.getID()
                 + "', "
-                + "'" + item.getProvideDate() + "'"
+                + "'" + (item.getProvideDate() == null ? "0000-00-00" : sdf.format(item.getProvideDate())) + "'"
                 + ", "
-                + "'" + item.getReleaseDate() + "'"
+                + "'" + (item.getReleaseDate() == null ? "0000-00-00" : sdf.format(item.getReleaseDate())) + "'"
                 + ", "
-                + "'" + (item.isEssential() == false ? "0" : "1") + "'"
+                + "'" + (!item.isEssential() ? "0" : "1") + "'"
                 + ", "
-                + "'" + item.getCriticalProvideDate() + "'"
+                + "'" + (item.getCriticalProvideDate() == null ? "0000-00-00" : sdf.format(item.getCriticalProvideDate())) + "'"
                 + ", "
                 + item.getLengthOfPossession()
-                + ", '"
-                + ProjectID
-                + "', '"
-                + ResourceID + "');";
+                + ", "
+                + "'" + ProjectID + "'"
+                + ", "
+                + "'" + ResourceID + "'"
+                + ");";
         try {
             Statement myStmt = sqlConn.createStatement();
-            System.out.println("QUERY: " + query);
             myStmt.executeUpdate(query);
             return true;
         } catch (SQLException e) {
@@ -162,7 +161,6 @@ public class ProjectRequirementDAO implements DAO<ProjectRequirement> {
         }
     }
 
-    @Override
     public ProjectRequirement get(String key) {
         String query = generator.select("project_requirement", null, "ID = "
                 + "'" + key + "'");
@@ -170,7 +168,7 @@ public class ProjectRequirementDAO implements DAO<ProjectRequirement> {
             Statement myStmt = sqlConn.createStatement();
             ResultSet rs = myStmt.executeQuery(query);
             if (rs.next()) {
-                return (fillProjReq(rs));
+                return (fillProjectRequirement(rs));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -178,7 +176,7 @@ public class ProjectRequirementDAO implements DAO<ProjectRequirement> {
         return null;
     }
 
-    protected ProjectRequirement fillProjReq(ResultSet rs) {
+    private ProjectRequirement fillProjectRequirement(ResultSet rs) {
         ProjectRequirement prjReq = null;
         try {
             prjReq = new ProjectRequirement(rs.getString("ID"),
@@ -192,7 +190,6 @@ public class ProjectRequirementDAO implements DAO<ProjectRequirement> {
         return prjReq;
     }
 
-    @Override
     public void remove(String key) {
         String query = generator.delete("project_requirement", "ID = " + "'"
                 + key + "'");
@@ -204,20 +201,20 @@ public class ProjectRequirementDAO implements DAO<ProjectRequirement> {
         }
     }
 
-    @Override
     public boolean update(ProjectRequirement item) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             Statement myStmt = sqlConn.createStatement();
-            myStmt.executeUpdate("UPDATE project SET provideDate  = "
-                    + item.getProvideDate() + " WHERE ID = " + "'"
+            myStmt.executeUpdate("UPDATE project_requirement SET provideDate  = "
+                    + "'" + (item.getProvideDate() == null ? "0000-00-00" : sdf.format(item.getProvideDate())) + "'" + " WHERE ID = " + "'"
                     + item.getID() + "'");
-            myStmt.executeUpdate("UPDATE project SET releaseDate  = "
-                    + item.getReleaseDate() + " WHERE ID = " + "'"
+            myStmt.executeUpdate("UPDATE project_requirement SET releaseDate  = "
+                    + "'" + (item.getReleaseDate() == null ? "0000-00-00" : sdf.format(item.getReleaseDate())) + "'" + " WHERE ID = " + "'"
                     + item.getID() + "'");
-            myStmt.executeUpdate("UPDATE project SET criticalProvideDate  = "
-                    + item.getCriticalProvideDate() + " WHERE ID = " + "'"
+            myStmt.executeUpdate("UPDATE project_requirement SET criticalProvideDate  = "
+                    + "'" + sdf.format(item.getCriticalProvideDate()) + "'" + " WHERE ID = " + "'"
                     + item.getID() + "'");
-            myStmt.executeUpdate("UPDATE project SET isEssential  = "
+            myStmt.executeUpdate("UPDATE project_requirement SET isEssential  = "
                     + item.isEssential() + " WHERE ID = " + "'" + item.getID()
                     + "'");
             myStmt.executeUpdate("UPDATE project SET lengthOfPossession  = "
@@ -230,7 +227,6 @@ public class ProjectRequirementDAO implements DAO<ProjectRequirement> {
         return true;
     }
 
-    @Override
     public ArrayList<ProjectRequirement> list() {
         ArrayList<ProjectRequirement> projectReqs = new ArrayList<>();
         try {
@@ -238,7 +234,7 @@ public class ProjectRequirementDAO implements DAO<ProjectRequirement> {
             ResultSet rs = myStmt
                     .executeQuery("SELECT * FROM project_requirement;");
             while (rs.next()) {
-                projectReqs.add(fillProjReq(rs));
+                projectReqs.add(fillProjectRequirement(rs));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -254,7 +250,7 @@ public class ProjectRequirementDAO implements DAO<ProjectRequirement> {
                     "project_requirement", null, "ProjectID = " + "'" + pid
                             + "'"));
             while (rs.next()) {
-                reqs.add(fillProjReq(rs));
+                reqs.add(fillProjectRequirement(rs));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -263,7 +259,7 @@ public class ProjectRequirementDAO implements DAO<ProjectRequirement> {
     }
 
     public ArrayList<Project> getProjectsWithEssentialResource(String rid) {
-        ArrayList<Project> Reqs = new ArrayList<>();
+        ArrayList<Project> projects = new ArrayList<>();
         try {
             Statement myStmt = sqlConn.createStatement();
             ResultSet rs = myStmt.executeQuery(generator.select(
@@ -271,28 +267,28 @@ public class ProjectRequirementDAO implements DAO<ProjectRequirement> {
                     "isEssential = 1 AND ResourceID = " + "'" + rid + "'"));
             while (rs.next()) {
                 ProjectDAO dao = ProjectDAO.getInstance();
-                Reqs.add(dao.get(rs.getString("ProjectID")));
+                projects.add(dao.get(rs.getString("ProjectID")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return Reqs;
+        return projects;
     }
 
     public ArrayList<Resource> getRequiredResources(String pid) {
-        ArrayList<Resource> Ress = new ArrayList<>();
+        ArrayList<Resource> resources = new ArrayList<>();
         try {
             Statement myStmt = sqlConn.createStatement();
             ResultSet rs = myStmt.executeQuery(generator.select(
-                    "project_requirement", null, "provideDate = ?"
+                    "project_requirement", null, "provideDate = '0000-00-00'"
                             + " AND ProjectID = " + "'" + pid + "'"));
             while (rs.next()) {
                 ResourceDAO dao = ResourceDAO.getInstance();
-                Ress.add(dao.get(rs.getString("ResourceID")));
+                resources.add(dao.get(rs.getString("ResourceID")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return Ress;
+        return resources;
     }
 }
