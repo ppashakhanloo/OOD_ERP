@@ -3,10 +3,15 @@ package ui;
 import access.PermissionType;
 import business_logic_facade.UserFacade;
 import ui.project.ViewProjects;
+import ui.report.AvailableResourcesReport;
+import ui.report.RequiredResourcesReport;
+import ui.report.UsageFlowReport;
 import ui.resource.ViewHumanResources;
 import ui.resource.ViewInformationResources;
 import ui.resource.ViewMonetaryResources;
 import ui.resource.ViewPhysicalResources;
+import ui.search.EstimateRequirements;
+import ui.search.EstimateResources;
 import ui.unit.ViewUnits;
 import ui.user.LoginForm;
 import ui.user.UserAccessLevels;
@@ -76,8 +81,26 @@ public class MainFrame implements Visibility {
     private void prepareReportsMenu(Map<PermissionType, Boolean> permissionTypes) {
         JMenu reports = new JMenu("گزارش");
         JMenuItem availableResourcesReport = new JMenuItem("گزارش منابع موجود");
+        availableResourcesReport.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new AvailableResourcesReport(currentUser).setVisible(true);
+            }
+        });
         JMenuItem resourceFlowReport = new JMenuItem("گزارش جریان چرخشی منابع");
+        resourceFlowReport.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new UsageFlowReport(currentUser).setVisible(true);
+            }
+        });
         JMenuItem neededResourcesReport = new JMenuItem("گزارش منابع موردنیاز");
+        neededResourcesReport.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new RequiredResourcesReport(currentUser).setVisible(true);
+            }
+        });
         if (permissionTypes.get(PermissionType.canGetReport)) {
             reports.add(availableResourcesReport);
             reports.add(neededResourcesReport);
@@ -175,7 +198,19 @@ public class MainFrame implements Visibility {
     private void prepareEstimationsMenu(Map<PermissionType, Boolean> permissionTypes) {
         JMenu estimations = new JMenu("پیش‌بینی");
         JMenuItem resourceEstimation = new JMenuItem("تخمین منابع");
+        resourceEstimation.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new EstimateResources(currentUser).setVisible(true);
+            }
+        });
         JMenuItem findEssentialReqs = new JMenuItem("یافتن نیازمندی‌های ضروری");
+        findEssentialReqs.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new EstimateRequirements(currentUser).setVisible(true);
+            }
+        });
         if (permissionTypes.get(PermissionType.canSearch)) {
             estimations.add(resourceEstimation);
             estimations.add(findEssentialReqs);

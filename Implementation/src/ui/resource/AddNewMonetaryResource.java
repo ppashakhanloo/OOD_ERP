@@ -56,7 +56,9 @@ class AddNewMonetaryResource extends MainDialog {
         FormUtility formUtility = new FormUtility();
 
         JRadioButton cash = new JRadioButton("نقدی");
+        cash.setName("CASH");
         JRadioButton nonCash = new JRadioButton("غیرنقدی");
+        nonCash.setName("NON_CASH");
 
         ButtonGroup buttonGroup = new ButtonGroup();
         cash.setSelected(true);
@@ -118,10 +120,15 @@ class AddNewMonetaryResource extends MainDialog {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                OperationFacade.getInstance().addNewMonetaryResource(getSelectedButtonText(buttonGroup), location.getText(),
-                        accountNumber.getText().equals("") ? "0" : accountNumber.getText(), (Integer) amount.getValue(), quantityUnitsCombo.getSelectedItem().toString(), ((Unit) unitsCombo.getSelectedItem()).getID());
-                notifyAllObservers();
-                setVisible(false);
+                if (OperationFacade.getInstance().addNewMonetaryResource(getSelectedButtonName(buttonGroup), location.getText(),
+                        accountNumber.getText().equals("") ? "0" : accountNumber.getText(), (Integer) amount.getValue(), quantityUnitsCombo.getSelectedItem().toString(), ((Unit) unitsCombo.getSelectedItem()).getID())) {
+                    notifyAllObservers();
+                    setVisible(false);
+                } else
+                    JOptionPane.showMessageDialog(null,
+                            "مقادیر ورودی را بررسی کنید.",
+                            "خطا",
+                            JOptionPane.ERROR_MESSAGE);
             }
         });
         JButton cancel = new JButton("انصراف");
@@ -139,12 +146,12 @@ class AddNewMonetaryResource extends MainDialog {
         super.getMainDialog().setLocationRelativeTo(null);
     }
 
-    private String getSelectedButtonText(ButtonGroup buttonGroup) {
+    private String getSelectedButtonName(ButtonGroup buttonGroup) {
         for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements(); ) {
             AbstractButton button = buttons.nextElement();
 
             if (button.isSelected()) {
-                return button.getText();
+                return button.getName();
             }
         }
         return null;

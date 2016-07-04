@@ -77,9 +77,14 @@ class AddNewPhysicalResource extends MainDialog {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                OperationFacade.getInstance().addNewPhysicalResource(name.getText(), model.getText(), location.getText(), ((Unit) unitsCombo.getSelectedItem()).getID());
-                notifyAllObservers();
-                setVisible(false);
+                if (OperationFacade.getInstance().addNewPhysicalResource(name.getText(), model.getText(), location.getText(), ((Unit) unitsCombo.getSelectedItem()).getID())) {
+                    notifyAllObservers();
+                    setVisible(false);
+                } else
+                    JOptionPane.showMessageDialog(null,
+                            "مقادیر ورودی را بررسی کنید.",
+                            "خطا",
+                            JOptionPane.ERROR_MESSAGE);
             }
         });
         JButton cancel = new JButton("انصراف");

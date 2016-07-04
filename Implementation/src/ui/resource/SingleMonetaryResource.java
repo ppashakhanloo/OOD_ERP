@@ -97,12 +97,17 @@ public class SingleMonetaryResource extends MainDialog implements Visibility {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                OperationFacade.getInstance().updateMonetaryResource(
+                if (OperationFacade.getInstance().updateMonetaryResource(
                         id.getText(), MonetaryType.valueOf(monetaryType.getText()),
                         (Integer) quantityAmount.getValue(), (QuantityUnit) quantityUnit.getSelectedItem(),
                         location.getText(), (accountNumber.getText().equals("") ? "0" : accountNumber.getText()),
-                        (Unit) unitsCombo.getSelectedItem());
-                setVisible(false);
+                        (Unit) unitsCombo.getSelectedItem()))
+                    setVisible(false);
+                else
+                    JOptionPane.showMessageDialog(null,
+                            "مقادیر ورودی را بررسی کنید.",
+                            "خطا",
+                            JOptionPane.ERROR_MESSAGE);
             }
         });
         JButton cancel = new JButton("انصراف و بازگشت");
