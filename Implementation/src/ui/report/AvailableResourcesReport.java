@@ -13,9 +13,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 
-/**
- * Created by Mozhdeh on 7/3/2016.
- */
 public class AvailableResourcesReport implements Visibility {
 
     private MainFrame mainFrame;
@@ -39,7 +36,7 @@ public class AvailableResourcesReport implements Visibility {
                 reportTableModel.addRow(data);
             }
         }
-        
+
         prepareGUI();
     }
 
