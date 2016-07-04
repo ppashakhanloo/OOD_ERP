@@ -15,8 +15,8 @@ public class UserFacade {
 
     public boolean login(String ID, String password) {
         currentUser = ResourceCatalogue.getInstance().humanResourceLogin(ID, password);
-        System.out.println("CURRENT USER ACCESS LEVEL ID = " + currentUser.getAccessLevel().getAccessLevelType());
-        System.out.println("CURRENT USER ID = " + currentUser.getID());
+        System.out.println("CURRENT USER ACCESS LEVEL ID = " + (currentUser == null ? "" : currentUser.getAccessLevel().getAccessLevelType()));
+        System.out.println("CURRENT USER ID = " + (currentUser == null ? "" : currentUser.getID()));
         return (currentUser != null) && currentUser.getConfirmStatus().equals(ConfirmStatus.CONFIRMED);
     }
 
@@ -54,15 +54,11 @@ public class UserFacade {
         return new AccessLevelFactory().getAccessLevel(accessLevelType).getPermissions();
     }
 
-    public void setPermissions(AccessLevel accessLevel) {
-
-    }
-
-    public void setPermissions(AccessLevelType accessLevelType, HashMap<PermissionType, Boolean> permissions) {
+    public boolean setPermissions(AccessLevelType accessLevelType, HashMap<PermissionType, Boolean> permissions) {
         AccessLevelFactory accessLevelFactory = new AccessLevelFactory();
         AccessLevel accessLevel = accessLevelFactory.getAccessLevel(accessLevelType);
         accessLevel.setPermissions(permissions);
-        AccessLevelCatalogue.getInstance().update(accessLevel);
+        return AccessLevelCatalogue.getInstance().update(accessLevel);
     }
 
 }
