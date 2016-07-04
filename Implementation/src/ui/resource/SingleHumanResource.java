@@ -96,11 +96,16 @@ public class SingleHumanResource extends MainDialog implements Visibility {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                OperationFacade.getInstance().updateHumanResource(
+                if (OperationFacade.getInstance().updateHumanResource(
                         id.getText(), firstName.getText(),
                         lastName.getText(), expertise.getText(),
-                        (AccessLevelType) accessLevelCombo.getSelectedItem(), (ConfirmStatus) confirmStatus.getSelectedItem(), (Unit) unitsCombo.getSelectedItem());
-                setVisible(false);
+                        (AccessLevelType) accessLevelCombo.getSelectedItem(), (ConfirmStatus) confirmStatus.getSelectedItem(), (Unit) unitsCombo.getSelectedItem()))
+                    setVisible(false);
+                else
+                    JOptionPane.showMessageDialog(null,
+                            "مقادیر ورودی را بررسی کنید.",
+                            "خطا",
+                            JOptionPane.ERROR_MESSAGE);
             }
         });
         JButton cancel = new JButton("انصراف و بازگشت");

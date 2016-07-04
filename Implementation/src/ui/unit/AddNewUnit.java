@@ -48,9 +48,14 @@ public class AddNewUnit extends MainDialog {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                OperationFacade.getInstance().addNewUnit(name.getText());
-                notifyAllObservers();
-                setVisible(false);
+                if (OperationFacade.getInstance().addNewUnit(name.getText())) {
+                    notifyAllObservers();
+                    setVisible(false);
+                } else
+                    JOptionPane.showMessageDialog(null,
+                            "ورودی را بررسی کنید.",
+                            "خطا",
+                            JOptionPane.ERROR_MESSAGE);
             }
         });
         JButton cancel = new JButton("انصراف");

@@ -52,9 +52,14 @@ class AddNewTechnology extends MainDialog {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ProjectFacade.getInstance().addNewTechnology(name.getText(), reason.getText(), project.getID());
-                setVisible(false);
-                notifyAllObservers();
+                if (ProjectFacade.getInstance().addNewTechnology(name.getText(), reason.getText(), project.getID())) {
+                    setVisible(false);
+                    notifyAllObservers();
+                } else
+                    JOptionPane.showMessageDialog(null,
+                            "نام تکنولوژی نمی‌توانند تکراری باشد.",
+                            "خطا",
+                            JOptionPane.ERROR_MESSAGE);
             }
         });
         JButton cancel = new JButton("انصراف");

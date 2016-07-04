@@ -141,6 +141,7 @@ public class ViewPhysicalResources extends PhysicalResourceObserver implements V
         });
         JScrollPane jScrollPane = new JScrollPane(resourceList);
         mainDialog.getMainDialog().add(jScrollPane, BorderLayout.CENTER);
+        mainDialog.getMainDialog().pack();
         mainDialog.getMainDialog().repaint();
         mainDialog.getMainDialog().revalidate();
     }

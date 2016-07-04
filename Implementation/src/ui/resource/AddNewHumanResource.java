@@ -86,10 +86,14 @@ class AddNewHumanResource extends MainDialog {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                OperationFacade.getInstance().addNewHumanResource(firstName.getText(), lastName.getText(), expertise.getText(), password.getText(), ((Unit) unitsCombo.getSelectedItem()).getID());
-                notifyAllObservers();
-                setVisible(false);
+                if (OperationFacade.getInstance().addNewHumanResource(firstName.getText(), lastName.getText(), expertise.getText(), password.getText(), ((Unit) unitsCombo.getSelectedItem()).getID())) {
+                    notifyAllObservers();
+                    setVisible(false);
+                } else
+                    JOptionPane.showMessageDialog(null,
+                            "مقادیر ورودی را بررسی کنید.",
+                            "خطا",
+                            JOptionPane.ERROR_MESSAGE);
             }
         });
         JButton cancel = new JButton("انصراف");

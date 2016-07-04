@@ -64,10 +64,15 @@ public class SingleInformationResource extends MainDialog implements Visibility 
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                OperationFacade.getInstance().updateInformationResource(
+                if (OperationFacade.getInstance().updateInformationResource(
                         id.getText(), name.getText(),
-                        description.getText());
-                setVisible(false);
+                        description.getText()))
+                    setVisible(false);
+                else
+                    JOptionPane.showMessageDialog(null,
+                            "مقادیر ورودی را بررسی کنید.",
+                            "خطا",
+                            JOptionPane.ERROR_MESSAGE);
             }
         });
         JButton cancel = new JButton("انصراف و بازگشت");

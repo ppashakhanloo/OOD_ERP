@@ -10,6 +10,7 @@ import unit.Unit;
 import unit.UnitCatalogue;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -74,65 +75,48 @@ public class OperationFacade {
 
     public ArrayList<QuantityUnit> getQuantityUnits() {
         ArrayList<QuantityUnit> quantityUnits = new ArrayList<>();
-        for (QuantityUnit quantityUnit : QuantityUnit.values())
-            quantityUnits.add(quantityUnit);
+        Collections.addAll(quantityUnits, QuantityUnit.values());
         return quantityUnits;
     }
 
     public ArrayList<MonetaryType> getMonetaryTypes() {
         ArrayList<MonetaryType> monetaryTypes = new ArrayList<>();
-        for (MonetaryType monetaryType : MonetaryType.values())
-            monetaryTypes.add(monetaryType);
+        Collections.addAll(monetaryTypes, MonetaryType.values());
         return monetaryTypes;
     }
 
     public boolean addNewHumanResource(String firstName, String lastName, String expertise, String password, String unitID) {
-        try {
-            HumanResource humanResource = new HumanResource(firstName, lastName, expertise, password, (new AccessLevelFactory()).getAccessLevel(AccessLevelType.High));
-            ResourceCatalogue.getInstance().add(humanResource, unitID, "");
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
+
+        return ResourceCatalogue.getInstance().add(new HumanResource(firstName, lastName, expertise, password, (new AccessLevelFactory()).getAccessLevel(AccessLevelType.High)), unitID, "");
+
     }
 
     public boolean addNewPhysicalResource(String name, String model, String location, String unitID) {
-        try {
-            ResourceCatalogue.getInstance().add(new PhysicalResource(name, model, location), unitID, "");
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
+        return ResourceCatalogue.getInstance().add(new PhysicalResource(name, model, location), unitID, "");
     }
 
     public boolean addNewInformationResource(String name, String description, String unitID) {
-        try {
-            ResourceCatalogue.getInstance().add(new InformationResource(name, description), unitID, "");
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
+        return ResourceCatalogue.getInstance().add(new InformationResource(name, description), unitID, "");
     }
 
-    public void addNewUnit(String name) {
-        UnitCatalogue.getInstance().add(new Unit(name));
+    public boolean addNewUnit(String name) {
+        return UnitCatalogue.getInstance().add(new Unit(name));
     }
 
     public boolean addNewMonetaryResource(String monetaryType, String location, String accountNumber, Integer amount, String quantityUnit, String unitID) {
         try {
-            MonetaryResource monetaryResource = new MonetaryResource(MonetaryType.valueOf(monetaryType),
+            return ResourceCatalogue.getInstance().add(new MonetaryResource(MonetaryType.valueOf(monetaryType),
                     location, Integer.parseInt(accountNumber),
-                    new Quantity(amount, QuantityUnit.valueOf(quantityUnit)));
-            ResourceCatalogue.getInstance().add(monetaryResource, unitID, "");
+                    new Quantity(amount, QuantityUnit.valueOf(quantityUnit))), unitID, "");
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
-        return true;
     }
 
     //    public HumanResource(String id, String firstName, String lastName, String expertise, String password,
 //                         AccessLevel accessLevel) {
-    public void updateHumanResource(String id, String firstName, String lastName, String expertise, AccessLevelType accessLevelType, ConfirmStatus confirmStatus, Unit unit) {
+    public boolean updateHumanResource(String id, String firstName, String lastName, String expertise, AccessLevelType accessLevelType, ConfirmStatus confirmStatus, Unit unit) {
         HumanResource humanResource = new HumanResource(
                 id,
                 firstName,
@@ -141,23 +125,20 @@ public class OperationFacade {
                 ((HumanResource) ResourceCatalogue.getInstance().get(id)).getPassword(),
                 new AccessLevelFactory().getAccessLevel(accessLevelType));
         humanResource.setConfirmStatus(confirmStatus);
-        ResourceCatalogue.getInstance().update(humanResource);
+        return ResourceCatalogue.getInstance().update(humanResource);
     }
 
-    public void updateInformationResource(String id, String name, String description) {
-        InformationResource informationResource = new InformationResource(id, name, description);
-        ResourceCatalogue.getInstance().update(informationResource);
+    public boolean updateInformationResource(String id, String name, String description) {
+        return ResourceCatalogue.getInstance().update(new InformationResource(id, name, description));
     }
 
-    public void updateMonetaryResource(String id, MonetaryType monetaryType, Integer amount, QuantityUnit quantityUnit,
-                                       String location, String accountNumber, Unit unit) {
-        MonetaryResource monetaryResource = new MonetaryResource(id, monetaryType, location, Integer.parseInt(accountNumber), new Quantity(amount, quantityUnit));
-        ResourceCatalogue.getInstance().update(monetaryResource);
+    public boolean updateMonetaryResource(String id, MonetaryType monetaryType, Integer amount, QuantityUnit quantityUnit,
+                                          String location, String accountNumber, Unit unit) {
+        return ResourceCatalogue.getInstance().update(new MonetaryResource(id, monetaryType, location, Integer.parseInt(accountNumber), new Quantity(amount, quantityUnit)));
     }
 
-    public void updatePhysicalResource(String id, String name, String model, String location, Unit unit) {
-        PhysicalResource physicalResource = new PhysicalResource(id, name, model, location);
-        ResourceCatalogue.getInstance().update(physicalResource);
+    public boolean updatePhysicalResource(String id, String name, String model, String location, Unit unit) {
+        return ResourceCatalogue.getInstance().update(new PhysicalResource(id, name, model, location));
     }
 
 //    public Unit getResourceUnit(String rID) {

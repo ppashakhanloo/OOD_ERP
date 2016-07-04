@@ -112,30 +112,36 @@ class AddModuleModification extends MainDialog {
 
         JButton submit = new JButton("افزودن");
         submit.addActionListener(e -> {
-            ArrayList<Resource> developers = new ArrayList<>();
-            for (Resource dev : devList.getSelectedValuesList())
-                developers.add(dev);
-            ArrayList<Resource> resources = new ArrayList<>();
-            for (Resource res : resList.getSelectedValuesList())
-                resources.add(res);
+            try {
+                ArrayList<Resource> developers = new ArrayList<>();
+                for (Resource dev : devList.getSelectedValuesList())
+                    developers.add(dev);
+                ArrayList<Resource> resources = new ArrayList<>();
+                for (Resource res : resList.getSelectedValuesList())
+                    resources.add(res);
 
-            Calendar calStart = Calendar.getInstance();
-            calStart.set(Calendar.YEAR, datePicker.getModel().getYear());
-            calStart.set(Calendar.MONTH, datePicker.getModel().getMonth());
-            calStart.set(Calendar.DAY_OF_MONTH, datePicker.getModel().getDay());
+                Calendar calStart = Calendar.getInstance();
+                calStart.set(Calendar.YEAR, datePicker.getModel().getYear());
+                calStart.set(Calendar.MONTH, datePicker.getModel().getMonth());
+                calStart.set(Calendar.DAY_OF_MONTH, datePicker.getModel().getDay());
 
-            Calendar calEnd = Calendar.getInstance();
-            calEnd.set(Calendar.YEAR, datePicker2.getModel().getYear());
-            calEnd.set(Calendar.MONTH, datePicker2.getModel().getMonth());
-            calEnd.set(Calendar.DAY_OF_MONTH, datePicker2.getModel().getDay());
+                Calendar calEnd = Calendar.getInstance();
+                calEnd.set(Calendar.YEAR, datePicker2.getModel().getYear());
+                calEnd.set(Calendar.MONTH, datePicker2.getModel().getMonth());
+                calEnd.set(Calendar.DAY_OF_MONTH, datePicker2.getModel().getDay());
 
-            ProjectFacade.getInstance().addNewModuleModification(
-                    ((Module) moduleJComboBox.getSelectedItem()).getID(),
-                    modificationType.getText(),
-                    calStart.getTime(), calEnd.getTime(), resources, developers);
-
-            new ViewSingleProject(userFacade, pid).setVisible(true);
-            setVisible(false);
+                ProjectFacade.getInstance().addNewModuleModification(
+                        ((Module) moduleJComboBox.getSelectedItem()).getID(),
+                        modificationType.getText(),
+                        calStart.getTime(), calEnd.getTime(), resources, developers);
+                new ViewSingleProject(userFacade, pid).setVisible(true);
+                setVisible(false);
+            } catch (Exception exp) {
+                JOptionPane.showMessageDialog(null,
+                        "خطایی در افزودن تغییرات ماژول رخ داده است. ورودی را بررسی کنید.",
+                        "خطا",
+                        JOptionPane.ERROR_MESSAGE);
+            }
         });
 
         JButton cancel = new JButton("انصراف");

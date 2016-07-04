@@ -62,7 +62,10 @@ public class LoginForm implements Visibility {
                         userFrame.setVisible(true);
                         mainFrame.setVisible(false);
                     } else {
-                        errorLabel.setText("خطایی در ورود رخ داده است.");
+                        JOptionPane.showMessageDialog(null,
+                                "خطایی در ورود رخ داده است.",
+                                "خطا",
+                                JOptionPane.ERROR_MESSAGE);
                     }
                 }
             }

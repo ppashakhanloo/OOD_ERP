@@ -10,9 +10,9 @@ import java.util.ArrayList;
 public class ModuleModificationDAO implements DAO<ModuleModification> {
 
     private Connection sqlConn;
-    private String url = "jdbc:mysql://localhost:3306/erp?zeroDateTimeBehavior=convertToNull";
+    private String url = "jdbc:mysql://localhost:3306/erp?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8";
     private String user = "root";
-    private String password = "7284";
+    private String password = "";
 
     private QueryGenerator generator = QueryGenerator.getInstance();
 
