@@ -1,6 +1,10 @@
 package ui.search;
 
+import business_logic_facade.ProjectFacade;
 import business_logic_facade.UserFacade;
+import project.Project;
+import report.ProjectRequirement;
+import resource.*;
 import ui.MainFrame;
 import ui.Visibility;
 
@@ -8,6 +12,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class EstimateRequirements implements Visibility {
 
@@ -26,6 +31,10 @@ public class EstimateRequirements implements Visibility {
 
         JPanel searchResultsPanel = new JPanel();
         searchResultsPanel.setBorder(BorderFactory.createTitledBorder("نتایج جست و جو"));
+
+        JLabel resourceTypeLbl = new JLabel("نوع منبع");
+        Object[] items = {"منبع انسانی", "منبع اطلاعاتی", "منبع فیزیکی", "منبع مالی"};
+        JComboBox resourceTypes = new JComboBox(items);
 
         JLabel resourceLbl = new JLabel("نام منبع");
         JTextField resourceName = new JTextField();
@@ -46,11 +55,16 @@ public class EstimateRequirements implements Visibility {
                 .addGroup(searchPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addComponent(search))
                 .addGroup(searchPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(resourceTypes)
                         .addComponent(resourceName))
                 .addGroup(searchPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(resourceTypeLbl)
                         .addComponent(resourceLbl))
         );
         searchPanelLayout.setVerticalGroup(searchPanelLayout.createSequentialGroup()
+                .addGroup(searchPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(resourceTypeLbl)
+                        .addComponent(resourceTypes))
                 .addGroup(searchPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(resourceLbl)
                         .addComponent(resourceName)
@@ -89,7 +103,66 @@ public class EstimateRequirements implements Visibility {
         search.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO
+                String type = (String) resourceTypes.getItemAt(resourceTypes.getSelectedIndex());
+                String name = resourceName.getText();
+
+                ArrayList<Project> projects = ProjectFacade.getInstance().getProjects();
+                ArrayList<ProjectRequirement> projectRequirements = new ArrayList<>();
+                Resource resource;
+
+                switch (type) {
+                    case "منبع انسانی":
+                        for (Project project : projects) {
+                            projectRequirements.addAll(ProjectFacade.getInstance().getProjectRequirements(project.getID()));
+                        }
+
+                        for (ProjectRequirement projectRequirement : projectRequirements) {
+                            resource = ResourceCatalogue.getInstance().get(projectRequirement.getResource().getID());
+                            if (resource instanceof HumanResource) {
+                                HumanResource hResource = (HumanResource) resource;
+                                if (name.equals(hResource.getFirstName() + " " + hResource.getLastName())) {
+                                    Object[] data = {projectRequirement.getProvideDate(), projectRequirement.isEssential(), projectRequirement.getProject().getID()};
+                                    resultsTableModel.addRow(data);
+                                }
+                            }
+                        }
+
+                        break;
+                    case "منبع اطلاعاتی":
+                        for (Project project : projects) {
+                            projectRequirements.addAll(ProjectFacade.getInstance().getProjectRequirements(project.getID()));
+                        }
+
+                        for (ProjectRequirement projectRequirement : projectRequirements) {
+                            resource = ResourceCatalogue.getInstance().get(projectRequirement.getResource().getID());
+                            if (resource instanceof InformationResource) {
+                                InformationResource iResource = (InformationResource) resource;
+                                if (name.equals(iResource.getName())) {
+                                    Object[] data = {projectRequirement.getProvideDate(), projectRequirement.isEssential(), projectRequirement.getProject().getID()};
+                                    resultsTableModel.addRow(data);
+                                }
+                            }
+                        }
+
+                        break;
+                    case "منبع فیزیکی":
+                        for (Project project : projects) {
+                            projectRequirements.addAll(ProjectFacade.getInstance().getProjectRequirements(project.getID()));
+                        }
+
+                        for (ProjectRequirement projectRequirement : projectRequirements) {
+                            resource = ResourceCatalogue.getInstance().get(projectRequirement.getResource().getID());
+                            if (resource instanceof PhysicalResource) {
+                                PhysicalResource pResource = (PhysicalResource) resource;
+                                if (name.equals(pResource.getName())) {
+                                    Object[] data = {projectRequirement.getProvideDate(), projectRequirement.isEssential(), projectRequirement.getProject().getID()};
+                                    resultsTableModel.addRow(data);
+                                }
+                            }
+                        }
+
+                        break;
+                }
             }
         });
 
