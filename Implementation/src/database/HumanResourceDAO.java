@@ -65,7 +65,8 @@ public class HumanResourceDAO extends ResourceDAO {
         try {
             Statement myStmt = sqlConn.createStatement();
             ResultSet rs = myStmt
-                    .executeQuery("SELECT * from human_resource inner join resource on human_resource.ResourceID = resource.ID AND human_resource.ResourceID = " + "'" + key + "'");
+                    .executeQuery(
+                            "SELECT * from human_resource inner join resource on human_resource.ResourceID = resource.ID AND human_resource.ResourceID = " + "'" + key + "'");
             Resource newRes = null;
             while (rs.next()) {
                 newRes = fillHumanResource(rs);
@@ -82,7 +83,7 @@ public class HumanResourceDAO extends ResourceDAO {
         try {
             Statement myStmt = sqlConn.createStatement();
             myStmt.executeUpdate(QueryGenerator.getInstance().delete("human_resource",
-                    "ResourceID = " + key));
+                    "ResourceID = " + "'" + key + "'"));
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -97,24 +98,24 @@ public class HumanResourceDAO extends ResourceDAO {
             Statement myStmt = sqlConn.createStatement();
             myStmt.executeUpdate(QueryGenerator.getInstance().update("human_resource",
                     "firstName", humanResourceItem.getFirstName(),
-                    "ResourceID = " + humanResourceItem.getID()));
+                    "ResourceID = " + "'" + humanResourceItem.getID() + "'"));
             myStmt.executeUpdate(QueryGenerator.getInstance().update("human_resource",
                     "lastName", humanResourceItem.getLastName(),
-                    "ResourceID = " + humanResourceItem.getID()));
+                    "ResourceID = " + "'" + humanResourceItem.getID() + "'"));
             myStmt.executeUpdate(QueryGenerator.getInstance().update("human_resource",
                     "expertise", humanResourceItem.getExpertise(),
-                    "ResourceID = " + humanResourceItem.getID()));
+                    "ResourceID = " + "'" + humanResourceItem.getID() + "'"));
             myStmt.executeUpdate(QueryGenerator.getInstance().update("human_resource",
                     "password", humanResourceItem.getPassword(),
-                    "ResourceID = " + humanResourceItem.getID()));
+                    "ResourceID = " + "'" + humanResourceItem.getID() + "'"));
             myStmt.executeUpdate(QueryGenerator.getInstance().update("human_resource",
                     "confirmStatus", humanResourceItem.getConfirmStatus()
                             .toString(),
-                    "ResourceID = " + humanResourceItem.getID()));
+                    "ResourceID = " + "'" + humanResourceItem.getID() + "'"));
             myStmt.executeUpdate(QueryGenerator.getInstance().update("human_resource",
                     "AccessLevelType",
-                    humanResourceItem.getAccessLevel().getAccessLevelType().toString(), "ResourceID = "
-                            + humanResourceItem.getID()));
+                    humanResourceItem.getAccessLevel().getAccessLevelType().toString(),
+                    "ResourceID = " + "'" + humanResourceItem.getID() + "'"));
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -184,7 +185,7 @@ public class HumanResourceDAO extends ResourceDAO {
         try {
             Statement myStmt = sqlConn.createStatement();
             rs = myStmt.executeQuery(QueryGenerator.getInstance().select("human_resource",
-                    null, "ResourceID = " + ID + " AND " + "password = " + "'"
+                    null, "ResourceID = " + "'" + ID + "'" + " AND " + "password = " + "'"
                             + password + "'"));
             return (rs.next());
         } catch (SQLException e) {
@@ -198,7 +199,7 @@ public class HumanResourceDAO extends ResourceDAO {
             try {
                 Statement myStmt = sqlConn.createStatement();
                 myStmt.executeUpdate(QueryGenerator.getInstance().update("human_resource",
-                        "logged_in", "1", "ResourceID = " + ID));
+                        "logged_in", "1", "ResourceID = " + "'" + ID + "'"));
             } catch (SQLException e) {
                 e.printStackTrace();
                 return false;
@@ -212,7 +213,7 @@ public class HumanResourceDAO extends ResourceDAO {
         try {
             Statement myStmt = sqlConn.createStatement();
             myStmt.executeUpdate(QueryGenerator.getInstance().update("human_resource",
-                    "logged_in", "0", "ResourceID = " + ID));
+                    "logged_in", "0", "ResourceID = " + "'" + ID + "'"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
