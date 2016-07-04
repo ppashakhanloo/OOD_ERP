@@ -1,8 +1,10 @@
--- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
+CREATE DATABASE  IF NOT EXISTS `erp` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `erp`;
+-- MySQL dump 10.13  Distrib 5.6.17, for Win32 (x86)
 --
--- Host: 127.0.0.1    Database: erp
+-- Host: localhost    Database: erp
 -- ------------------------------------------------------
--- Server version	5.5.5-10.1.13-MariaDB
+-- Server version	5.5.21
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -27,7 +29,7 @@ CREATE TABLE `project_requirement` (
   `provideDate` date DEFAULT NULL,
   `releaseDate` date DEFAULT NULL,
   `isEssential` tinyint(4) DEFAULT NULL,
-  `criticalProvideDate` varchar(8) DEFAULT NULL,
+  `criticalProvideDate` date DEFAULT NULL,
   `lengthOfPossession` int(10) DEFAULT NULL,
   `ResourceID` varchar(255) NOT NULL,
   `ProjectID` varchar(255) NOT NULL,
@@ -45,6 +47,7 @@ CREATE TABLE `project_requirement` (
 
 LOCK TABLES `project_requirement` WRITE;
 /*!40000 ALTER TABLE `project_requirement` DISABLE KEYS */;
+INSERT INTO `project_requirement` VALUES ('111111','1994-01-01','1994-01-20',1,'1994-01-05',20,'100824','450629'),('222222','2001-01-01','2001-01-20',0,'2001-01-05',20,'476220','450629'),('333333','2008-01-01','2008-01-20',1,'2008-01-05',20,'128290','595141'),('444444','2015-01-01','2015-01-20',1,'2015-01-05',20,'717278','595141');
 /*!40000 ALTER TABLE `project_requirement` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -57,4 +60,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-07-04 14:14:56
+-- Dump completed on 2016-07-04 19:44:26

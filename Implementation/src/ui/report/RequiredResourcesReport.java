@@ -4,10 +4,7 @@ import business_logic_facade.ProjectFacade;
 import business_logic_facade.UserFacade;
 import project.Project;
 import report.ProjectRequirement;
-import resource.HumanResource;
-import resource.InformationResource;
-import resource.MonetaryResource;
-import resource.Resource;
+import resource.*;
 import ui.MainFrame;
 import ui.Visibility;
 
@@ -60,19 +57,19 @@ public class RequiredResourcesReport implements Visibility {
 
         Object[] columnNames = {"منبع", "پروژه"};
 
-        DefaultTableModel monetaryTableModel = new DefaultTableModel(columnNames, 2);
+        DefaultTableModel monetaryTableModel = new DefaultTableModel(columnNames, 0);
         JTable monetaryTable = new JTable(monetaryTableModel);
         JScrollPane monetaryScrollPane = new JScrollPane(monetaryTable);
 
-        DefaultTableModel humanTableModel = new DefaultTableModel(columnNames, 2);
+        DefaultTableModel humanTableModel = new DefaultTableModel(columnNames, 0);
         JTable humanTable = new JTable(humanTableModel);
         JScrollPane humanScrollPane = new JScrollPane(humanTable);
 
-        DefaultTableModel informationTableModel = new DefaultTableModel(columnNames, 2);
+        DefaultTableModel informationTableModel = new DefaultTableModel(columnNames, 0);
         JTable informationTable = new JTable(informationTableModel);
         JScrollPane informationScrollPane = new JScrollPane(informationTable);
 
-        DefaultTableModel physicalTableModel = new DefaultTableModel(columnNames, 2);
+        DefaultTableModel physicalTableModel = new DefaultTableModel(columnNames, 0);
         JTable physicalTable = new JTable(physicalTableModel);
         JScrollPane physicalScrollPane = new JScrollPane(physicalTable);
 
@@ -188,14 +185,19 @@ public class RequiredResourcesReport implements Visibility {
         report.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                monetaryTableModel.setRowCount(0);
+                humanTableModel.setRowCount(0);
+                informationTableModel.setRowCount(0);
+                physicalTableModel.setRowCount(0);
+                
                 List<Project> selectedProjects = projList.getSelectedValuesList();
-                ArrayList<ProjectRequirement> requirements = new ArrayList<>();
+                ArrayList<ProjectRequirement> requirements;
                 Resource resource;
                 for (Project project : selectedProjects) {
                     requirements = ProjectFacade.getInstance().getProjectRequirements(project.getID());
                     for (ProjectRequirement requirement : requirements) {
-                        resource = requirement.getResource();
-                        Object[] data = {resource, requirement.getProject().getID()};
+                        resource = ResourceCatalogue.getInstance().get(requirement.getResource().getID());
+                        Object[] data = {resource, project.getID()};
                         if (resource instanceof MonetaryResource)
                             monetaryTableModel.addRow(data);
                         else if (resource instanceof HumanResource)
