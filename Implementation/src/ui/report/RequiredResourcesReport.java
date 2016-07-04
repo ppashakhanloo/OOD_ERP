@@ -57,19 +57,19 @@ public class RequiredResourcesReport implements Visibility {
 
         Object[] columnNames = {"منبع", "پروژه"};
 
-        DefaultTableModel monetaryTableModel = new DefaultTableModel(columnNames, 2);
+        DefaultTableModel monetaryTableModel = new DefaultTableModel(columnNames, 0);
         JTable monetaryTable = new JTable(monetaryTableModel);
         JScrollPane monetaryScrollPane = new JScrollPane(monetaryTable);
 
-        DefaultTableModel humanTableModel = new DefaultTableModel(columnNames, 2);
+        DefaultTableModel humanTableModel = new DefaultTableModel(columnNames, 0);
         JTable humanTable = new JTable(humanTableModel);
         JScrollPane humanScrollPane = new JScrollPane(humanTable);
 
-        DefaultTableModel informationTableModel = new DefaultTableModel(columnNames, 2);
+        DefaultTableModel informationTableModel = new DefaultTableModel(columnNames, 0);
         JTable informationTable = new JTable(informationTableModel);
         JScrollPane informationScrollPane = new JScrollPane(informationTable);
 
-        DefaultTableModel physicalTableModel = new DefaultTableModel(columnNames, 2);
+        DefaultTableModel physicalTableModel = new DefaultTableModel(columnNames, 0);
         JTable physicalTable = new JTable(physicalTableModel);
         JScrollPane physicalScrollPane = new JScrollPane(physicalTable);
 
@@ -185,6 +185,11 @@ public class RequiredResourcesReport implements Visibility {
         report.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                monetaryTableModel.setRowCount(0);
+                humanTableModel.setRowCount(0);
+                informationTableModel.setRowCount(0);
+                physicalTableModel.setRowCount(0);
+                
                 List<Project> selectedProjects = projList.getSelectedValuesList();
                 ArrayList<ProjectRequirement> requirements;
                 Resource resource;

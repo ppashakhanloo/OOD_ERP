@@ -43,7 +43,7 @@ public class EstimateRequirements implements Visibility {
 
         Object[] columnNames = {"زمان تأمین شدن", "ضرورت", "پروژه"};
 
-        DefaultTableModel resultsTableModel = new DefaultTableModel(columnNames, 5);
+        DefaultTableModel resultsTableModel = new DefaultTableModel(columnNames, 0);
         JTable resultsTable = new JTable(resultsTableModel);
         JScrollPane resultsScrollPane = new JScrollPane(resultsTable);
 
@@ -112,6 +112,8 @@ public class EstimateRequirements implements Visibility {
 
                 switch (type) {
                     case "منبع انسانی":
+                        resultsTableModel.setRowCount(0);
+
                         for (Project project : projects) {
                             projectRequirements.addAll(ProjectFacade.getInstance().getProjectRequirements(project.getID()));
                         }
@@ -129,6 +131,8 @@ public class EstimateRequirements implements Visibility {
 
                         break;
                     case "منبع اطلاعاتی":
+                        resultsTableModel.setRowCount(0);
+
                         for (Project project : projects) {
                             projectRequirements.addAll(ProjectFacade.getInstance().getProjectRequirements(project.getID()));
                         }
@@ -146,6 +150,8 @@ public class EstimateRequirements implements Visibility {
 
                         break;
                     case "منبع فیزیکی":
+                        resultsTableModel.setRowCount(0);
+
                         for (Project project : projects) {
                             projectRequirements.addAll(ProjectFacade.getInstance().getProjectRequirements(project.getID()));
                         }
