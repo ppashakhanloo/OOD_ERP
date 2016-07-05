@@ -172,13 +172,14 @@ public class RequiredResourcesReport implements Visibility {
         mainLayout.setAutoCreateContainerGaps(true);
         mainLayout.setHorizontalGroup(mainLayout.createSequentialGroup()
                 .addGroup(mainLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(projectsPanel)
                         .addComponent(reportPanel))
+                .addGroup(mainLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(projectsPanel))
+
         );
         mainLayout.setVerticalGroup(mainLayout.createSequentialGroup()
                 .addGroup(mainLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(projectsPanel))
-                .addGroup(mainLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(projectsPanel)
                         .addComponent(reportPanel))
         );
 
