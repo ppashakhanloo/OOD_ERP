@@ -8,13 +8,14 @@ import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class ProjectRequirementDAO {
 
 	private Connection sqlConn;
-	private String url = "jdbc:mysql://localhost:9999/erp?useUnicode=true&characterEncoding=UTF-8";
+	private String url = "jdbc:mysql://localhost:3306/erp?useUnicode=true&characterEncoding=UTF-8";
 	private String user = "root";
-	private String password = "28525336";
+	private String password = "7284";
 
 	QueryGenerator generator = QueryGenerator.getInstance();
 
@@ -317,14 +318,14 @@ public class ProjectRequirementDAO {
 	}
 
 	public ArrayList<String> getFlowReport(Date Start, Date End,
-			ArrayList<String> resources) {
+			List<Resource> resources) {
 		ArrayList<String> reports = new ArrayList<>();
 		try {
 			Statement myStmt = sqlConn.createStatement();
-			for (String res : resources) {
+			for (Resource res : resources) {
 				ResultSet rs = myStmt.executeQuery(generator.select(
 						"project_requirement", null, "ResourceID = " + "'"
-								+ res + "'"));
+								+ res.getID() + "'"));
 				while (rs.next()) {
 					if (End != null) {
 						if (rs.getDate("provideDate") != null) {
@@ -333,33 +334,31 @@ public class ProjectRequirementDAO {
 									if (rs.getDate("releaseDate") == null
 											|| rs.getDate("releaseDate").after(
 													Start)) {
-										reports.add("Resource "
-												+ res
-												+ " in project: "
+										reports.add(res.getID()
+												+ " "
 												+ rs.getString("ProjectID")
-												+ "-->  provide Date:"
+												+ " "
 												+ (rs.getDate("provideDate")
 														.after(Start) ? rs
 														.getDate("provideDate")
 														: Start)
-												+ ", releaseDate:"
+												+ " "
 												+ (rs.getDate("releaseDate")
 														.before(End) ? rs
 														.getDate("releaseDate")
-														: End) + ".");
+														: End));
 									}
 								} else {
-									reports.add("Resource "
-											+ res
-											+ " in project: "
+									reports.add(res.getID()
+											+ " "
 											+ rs.getString("ProjectID")
-											+ "-->  provide Date:"
+											+ " "
 											+ (rs.getDate("provideDate"))
-											+ ", releaseDate:"
+											+ " "
 											+ (rs.getDate("releaseDate")
 													.before(End) ? rs
 													.getDate("releaseDate")
-													: End) + ".");
+													: End));
 								}
 							}
 						}
@@ -367,24 +366,24 @@ public class ProjectRequirementDAO {
 						if (Start != null) {
 							if (rs.getDate("releaseDate") == null
 									|| rs.getDate("releaseDate").after(Start)) {
-								reports.add("Resource "
-										+ res
-										+ " in project: "
+								reports.add(res.getID()
+										+ " "
 										+ rs.getString("ProjectID")
-										+ "-->  provide Date:"
+										+ " "
 										+ (rs.getDate("provideDate").after(
 												Start) ? rs
 												.getDate("provideDate") : Start)
-										+ ", releaseDate:"
-										+ rs.getDate("releaseDate") + ".");
+										+ " "
+										+ rs.getDate("releaseDate"));
 							}
 						} else {
-							reports.add("Resource " + res + " in project: "
+							reports.add(res.getID()
+                                    + " "
 									+ rs.getString("ProjectID")
-									+ "-->  provide Date:"
+									+ " "
 									+ (rs.getDate("provideDate"))
-									+ ", releaseDate:"
-									+ rs.getDate("releaseDate") + ".");
+									+ " "
+									+ rs.getDate("releaseDate"));
 						}
 					}
 				}

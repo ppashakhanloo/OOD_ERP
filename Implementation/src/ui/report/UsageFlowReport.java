@@ -17,6 +17,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Properties;
 
 public class UsageFlowReport implements Visibility {
@@ -74,7 +75,7 @@ public class UsageFlowReport implements Visibility {
 
         Object[] columnNames = {"تا", "از", "پروژه", "منبع"};
 
-        DefaultTableModel flowReportTableModel = new DefaultTableModel(columnNames, 4);
+        DefaultTableModel flowReportTableModel = new DefaultTableModel(columnNames, 0);
         JTable flowReportTable = new JTable(flowReportTableModel);
         JScrollPane flowReportScrollPane = new JScrollPane(flowReportTable);
 
@@ -149,7 +150,31 @@ public class UsageFlowReport implements Visibility {
         report.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO
+                flowReportTableModel.setRowCount(0);
+
+                List<Resource> resources = resList.getSelectedValuesList();
+                ArrayList<String> reportItems;
+
+                Calendar calStart = Calendar.getInstance();
+                calStart.set(Calendar.YEAR, datePicker.getModel().getYear());
+                calStart.set(Calendar.MONTH, datePicker.getModel().getMonth());
+                calStart.set(Calendar.DAY_OF_MONTH, datePicker.getModel().getDay());
+
+                Calendar calEnd = Calendar.getInstance();
+                calEnd.set(Calendar.YEAR, datePicker2.getModel().getYear());
+                calEnd.set(Calendar.MONTH, datePicker2.getModel().getMonth());
+                calEnd.set(Calendar.DAY_OF_MONTH, datePicker2.getModel().getDay());
+
+                if (specificRb.isSelected())
+                    reportItems = OperationFacade.getInstance().getFlowReport(calStart.getTime(), calEnd.getTime(), resources);
+                else
+                    reportItems = OperationFacade.getInstance().getFlowReport(null, null, resources);
+
+                for (String reportItem : reportItems) {
+                    String[] parts = reportItem.split(" ");
+                    Object[] data = {parts[3], parts[2], parts[1], parts[0]};
+                    flowReportTableModel.addRow(data);
+                }
             }
         });
 

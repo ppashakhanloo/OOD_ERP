@@ -6,6 +6,7 @@ import resource.Resource;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class ProjectRequirementCatalogue {
 
@@ -42,15 +43,15 @@ public class ProjectRequirementCatalogue {
         return ProjectRequirementDAO.getInstance().add(item, projectID, resourceID);
     }
     
-    public ArrayList<String> getBoundedUsageFlowReport(Date startDate, Date endDate, ArrayList<String> resourceIDs){
+    public ArrayList<String> getBoundedUsageFlowReport(Date startDate, Date endDate, List<Resource> resources){
     	ProjectRequirementDAO dao = ProjectRequirementDAO.getInstance();
-    	return dao.getFlowReport(startDate, endDate, resourceIDs);
+    	return dao.getFlowReport(startDate, endDate, resources);
     	
     }
     
-    public ArrayList<String> getUnBoundedUsageFlowReport(ArrayList<String> resourceIDs){
+    public ArrayList<String> getUnBoundedUsageFlowReport(List<Resource> resources){
     	ProjectRequirementDAO dao = ProjectRequirementDAO.getInstance();
-    	return dao.getFlowReport(null, null, resourceIDs);
+    	return dao.getFlowReport(null, null, resources);
     	
     }
 
