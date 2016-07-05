@@ -77,6 +77,7 @@ public class Module extends Identifiable {
 
     @Override
     public String toString() {
-        return "ID=" + getID() + ", name=" + name + ", developmentStart=" + developmentStart + ", developmentEnd=" + developmentEnd;
+//        return "ID=" + getID() + ", name=" + name + ", developmentStart=" + developmentStart + ", developmentEnd=" + developmentEnd;
+        return name + "(" + getID() + ")";
     }
 }

@@ -80,8 +80,9 @@ public class ModuleModification extends Identifiable {
 
     @Override
     public String toString() {
-        return "ID=" + getID() + ", modificationType=" + modificationType +
-                ", modificationStart=" + modificationStart +
-                ", modificationEnd=" + modificationEnd;
+//        return "ID=" + getID() + ", modificationType=" + modificationType +
+//                ", modificationStart=" + modificationStart +
+//                ", modificationEnd=" + modificationEnd;
+        return modificationType + "(" + modificationStart + "-" + modificationEnd + ")";
     }
 }

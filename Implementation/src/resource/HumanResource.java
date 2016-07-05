@@ -101,9 +101,12 @@ public class HumanResource extends Resource {
 
     @Override
     public String toString() {
-        return super.toString() + ",\n" + "firstName=" + firstName + ", lastName=" + lastName + ", expertise="
-                + expertise + ", password=" + password + ", confirmStatus=" + confirmStatus.toString()
-                + ", accessLevelID=" + accessLevel.getAccessLevelType().toString();
+//        return super.toString() + ",\n" + "firstName=" + firstName + ", lastName=" + lastName + ", expertise="
+//                + expertise + ", password=" + password + ", confirmStatus=" + confirmStatus.toString()
+//                + ", accessLevelID=" + accessLevel.getAccessLevelType().toString();
+
+        return firstName + " " + lastName + " [" + expertise + "] [" + "سطح دسترسی" + "->" + accessLevel.getAccessLevelType().toString() + "\n" + super.toString();
     }
+
 
 }

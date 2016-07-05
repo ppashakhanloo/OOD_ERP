@@ -47,8 +47,9 @@ public class PhysicalResource extends Resource {
 
     @Override
     public String toString() {
-        return super.toString() + ",\n" + "name=" + name + ", model=" + model
-                + ", location=" + location;
+//        return super.toString() + ",\n" + "name=" + name + ", model=" + model
+//                + ", location=" + location;
+        return name + " (" + model + ") " + super.toString();
     }
 
 }

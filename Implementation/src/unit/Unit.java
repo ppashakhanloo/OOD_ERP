@@ -58,7 +58,7 @@ public class Unit extends Identifiable {
 
     @Override
     public String toString() {
-        return "ID=" + getID() + ", name=" + name;
+        return name;
     }
 
     @Override

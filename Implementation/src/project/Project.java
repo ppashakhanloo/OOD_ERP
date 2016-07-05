@@ -151,12 +151,13 @@ public class Project extends Identifiable {
 
     @Override
     public String toString() {
-        return "ID=" + getID() + ", name=" + name + ", developmentStart="
-                + (developmentStart == null ? "" : developmentStart.toString())
-                + ", developmentEnd="
-                + (developmentEnd == null ? "" : developmentEnd.toString())
-                + ", customerName=" + customerName + ", usersCount="
-                + Integer.toString(usersCount);
+//        return "ID=" + getID() + ", name=" + name + ", developmentStart="
+//                + (developmentStart == null ? "" : developmentStart.toString())
+//                + ", developmentEnd="
+//                + (developmentEnd == null ? "" : developmentEnd.toString())
+//                + ", customerName=" + customerName + ", usersCount="
+//                + Integer.toString(usersCount);
+        return name + "(" + getID() + ")";
     }
 
     public ArrayList<ProjectRequirement> getRequirements() {

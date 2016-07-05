@@ -42,6 +42,7 @@ public class Resource extends Identifiable {
 
     @Override
     public String toString() {
-        return "ID=" + getID() + ", resourceStatus=" + resourceStatus + ", isAvailable=" + isAvailable;
+//        return "ID=" + getID() + ", resourceStatus=" + resourceStatus + ", isAvailable=" + isAvailable;
+        return "وضعیت" + ": " + resourceStatus + " (" + getID() + ")";
     }
 }

@@ -59,7 +59,8 @@ public class System extends Identifiable {
 
     @Override
     public String toString() {
-        return "ID=" + getID() + ", name=" + name;
+//        return "ID=" + getID() + ", name=" + name;
+        return name + " (" + getID() + ")";
     }
 
     public static void main(String[] args) {

@@ -29,6 +29,7 @@ public class Technology extends Identifiable {
 
     @Override
     public String toString() {
-        return "name=" + name + ", reason=" + reason;
+//        return "name=" + name + ", reason=" + reason;
+        return name + "->" + reason;
     }
 }
