@@ -189,7 +189,7 @@ public class UsageFlowReport implements Visibility {
 
     public static void main(String[] args) {
         UserFacade userFacade = new UserFacade();
-        userFacade.login("100824", "888");
+        userFacade.login("310243", "admin");
         UsageFlowReport ufr = new UsageFlowReport(userFacade);
         ufr.setVisible(true);
     }
