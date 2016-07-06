@@ -125,7 +125,7 @@ public class ResourceCatalogue {
             return PhysicalResourceDAO.getInstance().update(resource);
         if (resource instanceof MonetaryResource)
             return MonetaryResourceDAO.getInstance().update(resource);
-        return false;
+        return resource != null && ResourceDAO.getInstance().update(resource);
     }
 
     public HumanResource humanResourceLogin(String ID, String password) {

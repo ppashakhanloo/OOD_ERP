@@ -183,7 +183,7 @@ public class EstimateRequirements implements Visibility {
 
     public static void main(String[] args) {
         UserFacade userFacade = new UserFacade();
-        userFacade.login("100824", "888");
+        userFacade.login("310243", "admin");
         EstimateRequirements er = new EstimateRequirements(userFacade);
         er.setVisible(true);
     }
