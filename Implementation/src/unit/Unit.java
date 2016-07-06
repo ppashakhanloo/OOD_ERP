@@ -55,6 +55,25 @@ public class Unit extends Identifiable {
         UnitDAO unitDAO = UnitDAO.getInstance();
         return unitDAO.update(new Unit(getID(), name));
     }
+	
+	
+    public ArrayList<Resource> getResources(ResourceType resType) {
+    	ArrayList<Resource> resources = new ArrayList<>();
+        ArrayList<Resource> allUnitResource = UnitResourceDAO.getInstance().getAvailableResourceByUnitID(getID());
+        for (Resource resource : allUnitResource) {
+			if((resource instanceof HumanResource) && resType.equals(ResourceType.HUMAN)){
+				resources.add(resource);
+			}else if((resource instanceof PhysicalResource) && resType.equals(ResourceType.PHYSICAL)){
+				resources.add(resource);
+			}else if((resource instanceof InformationResource) && resType.equals(ResourceType.INFORMATION)){
+				resources.add(resource);
+			}else if((resource instanceof MonetaryResource) && resType.equals(ResourceType.MONETARY)){
+				resources.add(resource);
+			}
+		}
+        return resources;
+    }
+
 
     @Override
     public String toString() {

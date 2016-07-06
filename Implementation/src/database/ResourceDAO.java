@@ -7,7 +7,7 @@ import resource.ResourceStatus;
 import java.sql.*;
 import java.util.ArrayList;
 
-class ResourceDAO {
+public class ResourceDAO {
     protected Connection sqlConn;
     private String url = "jdbc:mysql://localhost:3306/erp?useUnicode=true&characterEncoding=UTF-8";
     private String user = "root";
