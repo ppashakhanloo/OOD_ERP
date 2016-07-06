@@ -5,14 +5,12 @@ import access.AccessLevelType;
 import project.Project;
 import project.ProjectCatalogue;
 import project.Technology;
+import report.ProjectRequirementCatalogue;
 import resource.*;
 import unit.Unit;
 import unit.UnitCatalogue;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class OperationFacade {
 
@@ -71,6 +69,13 @@ public class OperationFacade {
 
     public ArrayList<Project> search(Technology tech, int userCount, int devCount) {
         return ProjectCatalogue.getInstance().search(tech, userCount, devCount);
+    }
+
+    public ArrayList<String> getFlowReport(Date start, Date end, List<Resource> resources) {
+        if (start == null || end == null)
+            return ProjectRequirementCatalogue.getInstance().getUnBoundedUsageFlowReport(resources);
+        else
+            return ProjectRequirementCatalogue.getInstance().getBoundedUsageFlowReport(start, end, resources);
     }
 
     public ArrayList<QuantityUnit> getQuantityUnits() {
