@@ -48,17 +48,17 @@ public class ProjectRequirementCatalogue {
 
         return ProjectRequirementDAO.getInstance().add(item, projectID, resourceID);
     }
-    
-    public ArrayList<String> getBoundedUsageFlowReport(Date startDate, Date endDate, List<Resource> resources){
-    	ProjectRequirementDAO dao = ProjectRequirementDAO.getInstance();
-    	return dao.getFlowReport(startDate, endDate, resources);
-    	
+
+    public ArrayList<String> getBoundedUsageFlowReport(Date startDate, Date endDate, List<Resource> resources) {
+        ProjectRequirementDAO dao = ProjectRequirementDAO.getInstance();
+        return dao.getFlowReport(startDate, endDate, resources);
+
     }
-    
-    public ArrayList<String> getUnBoundedUsageFlowReport(List<Resource> resources){
-    	ProjectRequirementDAO dao = ProjectRequirementDAO.getInstance();
-    	return dao.getFlowReport(null, null, resources);
-    	
+
+    public ArrayList<String> getUnBoundedUsageFlowReport(List<Resource> resources) {
+        ProjectRequirementDAO dao = ProjectRequirementDAO.getInstance();
+        return dao.getFlowReport(null, null, resources);
+
     }
 
 	public boolean add(ProjectRequirement prjReq, String projectID,
