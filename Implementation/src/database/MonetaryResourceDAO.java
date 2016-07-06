@@ -182,6 +182,21 @@ public class MonetaryResourceDAO extends ResourceDAO {
         return resources;
     }
 
+    public String getUnitID(String key) {
+        try {
+            Statement myStmt = sqlConn.createStatement();
+            ResultSet rs = myStmt
+                    .executeQuery("SELECT * from monetary_resource inner join resource on monetary_resource.ResourceID = resource.ID AND monetary_resource.ResourceID = " + "'" + key + "'");
+            Resource newRes = null;
+            while (rs.next()) {
+                return rs.getString("UnitID");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         MonetaryResourceDAO dao = new MonetaryResourceDAO();
 //        Resource res = new MonetaryResource(MonetaryType.CASH, "Refah",

@@ -2,7 +2,9 @@ package report;
 
 import database.ProjectRequirementDAO;
 import project.Project;
-import resource.Resource;
+import project.ProjectCatalogue;
+import resource.*;
+import unit.Unit;
 
 import java.util.ArrayList;
 import java.util.Date;

@@ -1,5 +1,7 @@
 package resource;
 
+import database.MonetaryResourceDAO;
+
 public class MonetaryResource extends Resource {
     private MonetaryType monetaryType;
     private String location;
@@ -54,6 +56,10 @@ public class MonetaryResource extends Resource {
 
     public void setAccountNumber(int accountNumber) {
         this.accountNumber = accountNumber;
+    }
+
+    public String getUnitID() {
+        return MonetaryResourceDAO.getInstance().getUnitID(getID());
     }
 
     @Override

@@ -3,7 +3,7 @@ package unit;
 import database.RequirementDAO;
 import database.UnitDAO;
 import database.UnitResourceDAO;
-import resource.Resource;
+import resource.*;
 import utility.Identifiable;
 
 import java.util.ArrayList;
