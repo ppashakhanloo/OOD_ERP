@@ -190,7 +190,7 @@ public class RequiredResourcesReport implements Visibility {
                 humanTableModel.setRowCount(0);
                 informationTableModel.setRowCount(0);
                 physicalTableModel.setRowCount(0);
-                
+
                 List<Project> selectedProjects = projList.getSelectedValuesList();
                 ArrayList<ProjectRequirement> requirements;
                 Resource resource;
@@ -223,7 +223,7 @@ public class RequiredResourcesReport implements Visibility {
 
     public static void main(String[] args) {
         UserFacade userFacade = new UserFacade();
-        userFacade.login("100824", "888");
+        userFacade.login("310243", "admin");
         RequiredResourcesReport rrr = new RequiredResourcesReport(userFacade);
         rrr.setVisible(true);
     }

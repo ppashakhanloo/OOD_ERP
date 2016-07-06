@@ -96,11 +96,11 @@ public class SingleHumanResource extends MainDialog implements Visibility {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(OperationFacade.getInstance().updateHumanResource(
+                if (OperationFacade.getInstance().updateHumanResource(
                         id.getText(), firstName.getText(),
                         lastName.getText(), expertise.getText(),
                         (AccessLevelType) accessLevelCombo.getSelectedItem(), (ConfirmStatus) confirmStatus.getSelectedItem(), (Unit) unitsCombo.getSelectedItem()))
-                setVisible(false);
+                    setVisible(false);
                 else
                     JOptionPane.showMessageDialog(null,
                             "مقادیر ورودی را بررسی کنید.",

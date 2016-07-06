@@ -86,7 +86,7 @@ public class AvailableResourcesReport implements Visibility {
 
     public static void main(String[] args) {
         UserFacade userFacade = new UserFacade();
-        userFacade.login("100824", "888");
+        userFacade.login("310243", "admin");
         AvailableResourcesReport arr = new AvailableResourcesReport(userFacade);
         arr.setVisible(true);
     }

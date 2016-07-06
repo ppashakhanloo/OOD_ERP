@@ -1,6 +1,5 @@
 package database;
 
-import project.System;
 import resource.Resource;
 import resource.ResourceStatus;
 
@@ -15,7 +14,7 @@ public class ResourceDAO {
 
     private static ResourceDAO resourceDAO;
 
-    protected ResourceDAO() {
+    ResourceDAO() {
         try {
             sqlConn = DriverManager.getConnection(url, user, password);
         } catch (SQLException e) {

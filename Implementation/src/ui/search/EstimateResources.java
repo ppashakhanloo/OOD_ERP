@@ -132,7 +132,7 @@ public class EstimateResources implements Visibility {
                 OperationFacade.getInstance().search(tech, devCount, usercount).forEach(project -> listModelProj.addElement(project));
             }
         });
-        
+
         mainFrame.getMainFrame().pack();
         mainFrame.getMainFrame().setLocationRelativeTo(null);
     }
@@ -144,7 +144,7 @@ public class EstimateResources implements Visibility {
 
     public static void main(String[] args) {
         UserFacade userFacade = new UserFacade();
-        userFacade.login("100824", "888");
+        userFacade.login("310243", "admin");
         EstimateResources er = new EstimateResources(userFacade);
         er.setVisible(true);
     }
