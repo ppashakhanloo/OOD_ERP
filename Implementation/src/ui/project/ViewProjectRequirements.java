@@ -33,7 +33,7 @@ public class ViewProjectRequirements extends ProjectObserver implements Visibili
         JPanel addProjectsPanel = new JPanel(new GridBagLayout());
         GridBagConstraints cs = new GridBagConstraints();
         cs.fill = GridBagConstraints.HORIZONTAL;
-        System.out.println("**************HI*************");
+
         JButton addNew = new JButton("افزودن نیازمندی جدید");
         if (mainFrame.getCurrentUser().hasPermission(PermissionType.canAddRemReq))
             addNew.addActionListener(new ActionListener() {
@@ -45,27 +45,44 @@ public class ViewProjectRequirements extends ProjectObserver implements Visibili
             });
         else
             addNew.setEnabled(false);
-        System.out.println("**************HI*************");
+
+        JButton satisfyRequirement = new JButton("رفع نیازمندی");
+
         cs.gridx = 0;
         cs.gridy = 0;
         cs.gridwidth = 1;
         addProjectsPanel.add(addNew, cs);
+        cs.gridx = 0;
+        cs.gridy = 1;
+        cs.gridwidth = 1;
+        addProjectsPanel.add(satisfyRequirement, cs);
         mainFrame.getMainFrame().getContentPane().add(addProjectsPanel, BorderLayout.NORTH);
-        System.out.println("**************HI*************");
+
         /////////////////////////////////////////////
         listModel = new DefaultListModel<>();
-        for (ProjectRequirement pr : ProjectFacade.getInstance().getProjectRequirements(project.getID()))
-            listModel.addElement(pr);
+        for (ProjectRequirement pr : ProjectFacade.getInstance().getProjectRequirements(project.getID())) {
+            if (pr.getProvideDate() == null)
+                listModel.addElement(pr);
+        }
         resourceList = new JList<>(listModel);
         jScrollPane = new JScrollPane(resourceList);
         mainFrame.getMainFrame().add(jScrollPane, BorderLayout.CENTER);
         //////////////////////////////////////////
-        System.out.println("**************END taghriban*************");
+
+        satisfyRequirement.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ProjectRequirement selectedRequirement = resourceList.getSelectedValue();
+                ProjectFacade.getInstance().satisfyProjectRequirement(selectedRequirement);
+                JOptionPane.showMessageDialog(null, "نیازمندی با موفّقیّت رفع گردید.");
+                update();
+            }
+        });
+
         mainFrame.getMainFrame().setResizable(true);
-        System.out.println("**************END taghriban*************");
+
         mainFrame.getMainFrame().pack();
         mainFrame.getMainFrame().setLocationRelativeTo(null);
-        System.out.println("**************END taghriban*************");
     }
 
     @Override
@@ -77,8 +94,10 @@ public class ViewProjectRequirements extends ProjectObserver implements Visibili
     public void update() {
         mainFrame.getMainFrame().remove(jScrollPane);
         listModel = new DefaultListModel<>();
-        for (ProjectRequirement pr : ProjectFacade.getInstance().getProjectRequirements(project.getID()))
-            listModel.addElement(pr);
+        for (ProjectRequirement pr : ProjectFacade.getInstance().getProjectRequirements(project.getID())) {
+            if (pr.getProvideDate() == null)
+                listModel.addElement(pr);
+        }
         resourceList = new JList<>(listModel);
         jScrollPane = new JScrollPane(resourceList);
         mainFrame.getMainFrame().add(jScrollPane, BorderLayout.CENTER);
@@ -87,9 +106,9 @@ public class ViewProjectRequirements extends ProjectObserver implements Visibili
     }
 
     public static void main(String[] args) {
-//        UserFacade userFacade = new UserFacade();
-//        userFacade.login("158481", "y");
-//        ViewProjectResources viewProjects = new ViewProjectResources(userFacade);
-//        viewProjects.setVisible(true);
+        UserFacade userFacade = new UserFacade();
+        userFacade.login("100824", "888");
+        ViewProjectRequirements viewProjectReqs = new ViewProjectRequirements(userFacade, ProjectFacade.getInstance().getProject("450629"));
+        viewProjectReqs.setVisible(true);
     }
 }
