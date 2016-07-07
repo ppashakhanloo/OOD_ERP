@@ -47,7 +47,8 @@ public class ProjectCatalogue {
     }
 
     public ArrayList<Project> search(Technology tech, int userCount,
-                                     int devCount, int ModCount) {
+                                     int devCount) {
+//                                     int devCount, int ModCount) {
         ProjectDAO projectDAO = ProjectDAO.getInstance();
         ArrayList<Project> result = new ArrayList<>();
         ArrayList<Project> userCountProjects = projectDAO

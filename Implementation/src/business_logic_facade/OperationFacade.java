@@ -90,10 +90,8 @@ public class OperationFacade {
         return monetaryTypes;
     }
 
-    public boolean addNewHumanResource(String firstName, String lastName, String expertise, String password, String unitID) {
-
-        return ResourceCatalogue.getInstance().add(new HumanResource(firstName, lastName, expertise, password, (new AccessLevelFactory()).getAccessLevel(AccessLevelType.High)), unitID, "");
-
+    public boolean addNewHumanResource(String firstName, String lastName, String expertise, String password, AccessLevelType type, String unitID) {
+        return ResourceCatalogue.getInstance().add(new HumanResource(firstName, lastName, expertise, password, (new AccessLevelFactory()).getAccessLevel(type)), unitID, "");
     }
 
     public boolean addNewPhysicalResource(String name, String model, String location, String unitID) {

@@ -32,9 +32,10 @@ CREATE TABLE `access_level` (
   `canAddProject` varchar(1) DEFAULT '0',
   `canAddRemSysMod` varchar(1) DEFAULT '0',
   `canChangePermission` varchar(1) DEFAULT '0',
-  `canConfirmNormalUser` varchar(1) DEFAULT '0',
+  `canConfirmLowUser` varchar(1) DEFAULT '0',
   `canConfirmMidUser` varchar(1) DEFAULT '0',
   `canAddUnit` varchar(1) DEFAULT '0',
+  `canConfirmHighUser` varchar(1) DEFAULT '0',
   PRIMARY KEY (`accessLevelType`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -45,7 +46,7 @@ CREATE TABLE `access_level` (
 
 LOCK TABLES `access_level` WRITE;
 /*!40000 ALTER TABLE `access_level` DISABLE KEYS */;
-INSERT INTO `access_level` VALUES ('High','1','1','1','1','1','1','1','1','1','1','1'),('Low','1','1','1','0','1','0','1','1','0','0','0'),('Medium','1','1','1','1','1','1','1','1','1','1','1');
+INSERT INTO `access_level` VALUES ('High','1','1','1','1','1','1','1','1','1','1','1','1'),('Low','1','1','1','0','1','0','1','1','0','0','0','0'),('Medium','1','1','1','1','1','1','1','0','1','0','0','0');
 /*!40000 ALTER TABLE `access_level` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -58,4 +59,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-07-03 16:48:58
+-- Dump completed on 2016-07-07 19:52:59

@@ -1,6 +1,8 @@
 package ui.user;
 
+import access.AccessLevelType;
 import business_logic_facade.OperationFacade;
+import business_logic_facade.ProjectFacade;
 import ui.MainDialog;
 import ui.utilities.FormUtility;
 import unit.Unit;
@@ -45,7 +47,13 @@ class RegisterForm extends MainDialog {
         formUtility.addLabel("رمز ", form);
         formUtility.addLastField(password, form);
 
-        // JTextField ID
+        AccessLevelType[] accessLevelTypes = AccessLevelType.values();
+        JComboBox<AccessLevelType> accessCombo = new JComboBox<>();
+        for (AccessLevelType type : accessLevelTypes)
+            accessCombo.addItem(type);
+
+        formUtility.addLabel("سطح دسترسی ", form);
+        formUtility.addLastField(accessCombo, form);
 
         ArrayList<Unit> units = OperationFacade.getInstance().getUnits();
         JComboBox<Unit> unitsCombo = new JComboBox<>();
@@ -59,7 +67,7 @@ class RegisterForm extends MainDialog {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                OperationFacade.getInstance().addNewHumanResource(firstName.getText(), lastName.getText(), expertise.getText(), password.getText(), ((Unit) unitsCombo.getSelectedItem()).getID());
+                OperationFacade.getInstance().addNewHumanResource(firstName.getText(), lastName.getText(), expertise.getText(), password.getText(), (AccessLevelType) accessCombo.getSelectedItem(), ((Unit) unitsCombo.getSelectedItem()).getID());
                 JOptionPane.showMessageDialog(null, "ثبت‌نام شما با موفقیت انجام شد. منتظر تایید باشید.");
                 setVisible(false);
             }

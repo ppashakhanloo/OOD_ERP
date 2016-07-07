@@ -1,6 +1,7 @@
 package ui.resource;
 
 import access.AccessLevelType;
+import access.PermissionType;
 import business_logic_facade.OperationFacade;
 import business_logic_facade.UserFacade;
 import database.HumanResourceDAO;
@@ -56,6 +57,24 @@ public class SingleHumanResource extends MainDialog implements Visibility {
         confirmStatus.setSelectedItem(((HumanResource) HumanResourceDAO.getInstance().get(rID)).getConfirmStatus());
         System.out.println("::" + ((HumanResource) HumanResourceDAO.getInstance().get(rID)).getConfirmStatus().toString());
         formUtility.addLabel("وضعیت ", form);
+
+        System.out.println("ME: " + userFacade.getCurrentUserPermissions().get(PermissionType.canConfirmLowUser));
+        System.out.println("    " + userFacade.getCurrentUserPermissions().get(PermissionType.canConfirmMidUser));
+        System.out.println("    " + userFacade.getCurrentUserPermissions().get(PermissionType.canConfirmHighUser));
+
+        System.out.println("SHE_low?  " + ((HumanResource) HumanResourceDAO.getInstance().get(rID)).getAccessLevel().getAccessLevelType().equals(AccessLevelType.Low));
+        System.out.println("SHE_mid?  " + ((HumanResource) HumanResourceDAO.getInstance().get(rID)).getAccessLevel().getAccessLevelType().equals(AccessLevelType.Medium));
+        System.out.println("SHE_high? " + ((HumanResource) HumanResourceDAO.getInstance().get(rID)).getAccessLevel().getAccessLevelType().equals(AccessLevelType.High));
+
+        if (userFacade.getCurrentUserPermissions().get(PermissionType.canConfirmLowUser) && ((HumanResource) HumanResourceDAO.getInstance().get(rID)).getAccessLevel().getAccessLevelType().equals(AccessLevelType.Low))
+            confirmStatus.setEnabled(true);
+        else if (userFacade.getCurrentUserPermissions().get(PermissionType.canConfirmMidUser) && ((HumanResource) HumanResourceDAO.getInstance().get(rID)).getAccessLevel().getAccessLevelType().equals(AccessLevelType.Medium))
+            confirmStatus.setEnabled(true);
+        else if (userFacade.getCurrentUserPermissions().get(PermissionType.canConfirmHighUser) && ((HumanResource) HumanResourceDAO.getInstance().get(rID)).getAccessLevel().getAccessLevelType().equals(AccessLevelType.High))
+            confirmStatus.setEnabled(true);
+        else
+            confirmStatus.setEnabled(false);
+
         formUtility.addLastField(confirmStatus, form);
 
 
