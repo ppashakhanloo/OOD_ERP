@@ -186,8 +186,7 @@ public class MonetaryResourceDAO extends ResourceDAO {
         try {
             Statement myStmt = sqlConn.createStatement();
             ResultSet rs = myStmt
-                    .executeQuery("SELECT * from monetary_resource inner join resource on monetary_resource.ResourceID = resource.ID AND monetary_resource.ResourceID = " + "'" + key + "'");
-            Resource newRes = null;
+                    .executeQuery("SELECT * from unit_resource WHERE ResourceID = " + "'" + key + "';");
             while (rs.next()) {
                 return rs.getString("UnitID");
             }

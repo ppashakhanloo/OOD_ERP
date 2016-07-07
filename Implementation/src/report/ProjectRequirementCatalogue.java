@@ -12,54 +12,58 @@ import java.util.List;
 
 public class ProjectRequirementCatalogue {
 
-    private static ProjectRequirementCatalogue projectRequirementCatalogue;
+	private static ProjectRequirementCatalogue projectRequirementCatalogue;
 
-    private ProjectRequirementCatalogue() {
-    }
+	private ProjectRequirementCatalogue() {
+	}
 
-    public static ProjectRequirementCatalogue getInstance() {
-        if (projectRequirementCatalogue == null)
-            projectRequirementCatalogue = new ProjectRequirementCatalogue();
-        return projectRequirementCatalogue;
-    }
+	public static ProjectRequirementCatalogue getInstance() {
+		if (projectRequirementCatalogue == null)
+			projectRequirementCatalogue = new ProjectRequirementCatalogue();
+		return projectRequirementCatalogue;
+	}
 
-    public ArrayList<ProjectRequirement> getAll() {
-        return ProjectRequirementDAO.getInstance().list();
-    }
+	public ArrayList<ProjectRequirement> getAll() {
+		return ProjectRequirementDAO.getInstance().list();
+	}
 
 	public ProjectRequirement get(String key) {
 		return ProjectRequirementDAO.getInstance().get(key);
 	}
-	
-    public void remove(ProjectRequirement prjReq) {
-        ProjectRequirementDAO.getInstance().remove(prjReq.getID());
-    }
 
-    public ArrayList<Project> getProjectsWithEssentialResource(Resource res) {
-        return ProjectRequirementDAO.getInstance().getProjectsWithEssentialResource(res.getID());
-    }
+	public void remove(ProjectRequirement prjReq) {
+		ProjectRequirementDAO.getInstance().remove(prjReq.getID());
+	}
 
-    public ArrayList<Resource> getRequiredResources(String pid) {
-        return ProjectRequirementDAO.getInstance().getRequiredResources(pid);
-    }
+	public ArrayList<Project> getProjectsWithEssentialResource(Resource res) {
+		return ProjectRequirementDAO.getInstance()
+				.getProjectsWithEssentialResource(res.getID());
+	}
 
-    public boolean addProjectRequirement(ProjectRequirement item, String projectID,
-                                         String resourceID) {
+	public ArrayList<Resource> getRequiredResources(String pid) {
+		return ProjectRequirementDAO.getInstance().getRequiredResources(pid);
+	}
 
-        return ProjectRequirementDAO.getInstance().add(item, projectID, resourceID);
-    }
+	public boolean addProjectRequirement(ProjectRequirement item,
+			String projectID, String resourceID) {
 
-    public ArrayList<String> getBoundedUsageFlowReport(Date startDate, Date endDate, List<Resource> resources) {
-        ProjectRequirementDAO dao = ProjectRequirementDAO.getInstance();
-        return dao.getFlowReport(startDate, endDate, resources);
+		return ProjectRequirementDAO.getInstance().add(item, projectID,
+				resourceID);
+	}
 
-    }
+	public ArrayList<String> getBoundedUsageFlowReport(Date startDate,
+			Date endDate, List<Resource> resources) {
+		ProjectRequirementDAO dao = ProjectRequirementDAO.getInstance();
+		return dao.getFlowReport(startDate, endDate, resources);
 
-    public ArrayList<String> getUnBoundedUsageFlowReport(List<Resource> resources) {
-        ProjectRequirementDAO dao = ProjectRequirementDAO.getInstance();
-        return dao.getFlowReport(null, null, resources);
+	}
 
-    }
+	public ArrayList<String> getUnBoundedUsageFlowReport(
+			List<Resource> resources) {
+		ProjectRequirementDAO dao = ProjectRequirementDAO.getInstance();
+		return dao.getFlowReport(null, null, resources);
+
+	}
 
 	public boolean add(ProjectRequirement prjReq, String projectID,
 			String unitID, Resource resource) {
@@ -87,6 +91,8 @@ public class ProjectRequirementCatalogue {
 		ArrayList<Unit> involvedUnits = ProjectCatalogue.getInstance()
 				.get(projectID).getInvolvedUnits();
 		Resource result = null;
+		System.out.println("involoved Units:");
+		System.out.println(involvedUnits);
 		ArrayList<Resource> allSpecialResources = new ArrayList<>();
 		for (Unit unit : involvedUnits) {
 
@@ -107,24 +113,31 @@ public class ProjectRequirementCatalogue {
 		Date minReleaseDate = null;
 		for (Resource resource2 : allSpecialResources) {
 			if (isSimilar(resource, resource2)) {
+				System.out.println(resource2.getID() + ":"
+						+ isSimilar(resource, resource2));
 				if (resource2.isAvailable()
 						&& resource2.getResourceStatus().equals(
 								ResourceStatus.IDLE)) {
 					result = resource2;
-					if (resource instanceof MonetaryResource) {
+					if ((resource instanceof MonetaryResource)) {
 						MonetaryResource MonRes1 = (MonetaryResource) resource;
 						MonetaryResource MonRes = (MonetaryResource) resource2;
-						MonRes.getQuantity().setAmount(
-								MonRes.getQuantity().getAmount()
-										- MonRes1.getQuantity().getAmount());
-						ResourceCatalogue.getInstance().update(MonRes);
-						MonetaryResource newMonRes = new MonetaryResource(
-								MonRes.getMonetaryType(), MonRes.getLocation(),
-								MonRes.getAccountNumber(),
-								MonRes1.getQuantity());
-						ResourceCatalogue.getInstance().add(newMonRes,
-								MonRes.getUnitID(), projectID);
-						result = newMonRes;
+						if (MonRes1.getMonetaryType().equals(MonetaryType.CASH)) {
+							MonRes.getQuantity()
+									.setAmount(
+											MonRes.getQuantity().getAmount()
+													- MonRes1.getQuantity()
+															.getAmount());
+							ResourceCatalogue.getInstance().update(MonRes);
+							MonetaryResource newMonRes = new MonetaryResource(
+									MonRes.getMonetaryType(),
+									MonRes.getLocation(),
+									MonRes.getAccountNumber(),
+									MonRes1.getQuantity());
+							ResourceCatalogue.getInstance().add(newMonRes,
+									MonRes.getUnitID(), projectID);
+							result = newMonRes;
+						}
 					}
 				} else if (resource2.isAvailable()
 						&& !resource2.getResourceStatus().equals(
@@ -156,8 +169,8 @@ public class ProjectRequirementCatalogue {
 			}
 		}
 		if (result == null) {
-			ResourceCatalogue.getInstance().add(resource, unitID, projectID);
 			resource.setAvailable(false);
+			ResourceCatalogue.getInstance().add(resource, unitID, null);
 			result = resource;
 		}
 		return result;
@@ -205,6 +218,7 @@ public class ProjectRequirementCatalogue {
 
 	public void satisfyRequirement(ProjectRequirement req) {
 		req.getResource().setAvailable(true);
+		req.getResource().setProjectID(req.getProject().getID());
 		req.setProvideDate(new Date(System.currentTimeMillis()));
 		req.setReleaseDate(new Date(System.currentTimeMillis()
 				+ req.getLengthOfPossession() * 24 * 60 * 60 * 1000));
@@ -215,5 +229,4 @@ public class ProjectRequirementCatalogue {
 		ProjectRequirementDAO.getInstance().update(req);
 	}
 
-	
 }

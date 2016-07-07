@@ -15,7 +15,7 @@ public class ProjectRequirementDAO {
 	private Connection sqlConn;
 	private String url = "jdbc:mysql://localhost:3306/erp?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull";
 	private String user = "root";
-	private String password = "";
+	private String password = "7284";
 
     QueryGenerator generator = QueryGenerator.getInstance();
 
@@ -242,7 +242,7 @@ public class ProjectRequirementDAO {
                     + "'"
                     + item.getID()
                     + "'");
-            myStmt.executeUpdate("UPDATE project SET lengthOfPossession  = "
+            myStmt.executeUpdate("UPDATE project_requirement SET lengthOfPossession  = "
                     + item.getLengthOfPossession() + " WHERE ID = " + "'"
                     + item.getID() + "'");
         } catch (SQLException e) {

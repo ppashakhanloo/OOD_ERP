@@ -67,8 +67,8 @@ public class OperationFacade {
         return ProjectCatalogue.getInstance().getTechnologies();
     }
 
-    public ArrayList<Project> search(Technology tech, int userCount, int devCount) {
-        return ProjectCatalogue.getInstance().search(tech, userCount, devCount);
+    public ArrayList<Project> search(Technology tech, int userCount, int devCount, int modCount) {
+        return ProjectCatalogue.getInstance().search(tech, userCount, devCount, modCount);
     }
 
     public ArrayList<String> getFlowReport(Date start, Date end, List<Resource> resources) {

@@ -47,14 +47,15 @@ public class ProjectCatalogue {
     }
 
     public ArrayList<Project> search(Technology tech, int userCount,
-                                     int devCount) {
-//                                     int devCount, int ModCount) {
+                                     int devCount, int modCount) {
         ProjectDAO projectDAO = ProjectDAO.getInstance();
         ArrayList<Project> result = new ArrayList<>();
         ArrayList<Project> userCountProjects = projectDAO
                 .getByUsersCount(userCount);
-        ArrayList<Project> devCountsProjects = projectDAO
+        ArrayList<Project> devCountProjects = projectDAO
                 .getByDevelopersCount(devCount);
+        ArrayList<Project> modCountProjects = projectDAO
+                .getByModulesCount(modCount);
 //        ArrayList<Project> oneTechProjects = new ArrayList<>();
 //        ArrayList<Project> techProjects = new ArrayList<>();
 //        for (Technology tech : techs) {
@@ -62,57 +63,15 @@ public class ProjectCatalogue {
 //            oneTechProjects.forEach(project -> techProjects.add(project));
 //        }
         ArrayList<Project> techProjects = projectDAO.getByTechnology(tech);
-        if (userCount >= 0) {
-            if (devCount >= 0) {
-                if (tech == null) {
-                    for (Project tProject : userCountProjects) {
-                        for (Project dProject : devCountsProjects) {
-                            if (tProject.getID().equals(dProject.getID())) {
-                                result.add(tProject);
-                                break;
-                            }
-                        }
-                    }
-                } else {
+
+        for (Project uProject : userCountProjects) {
+            for (Project dProject : devCountProjects) {
+                for (Project mProject : modCountProjects) {
                     for (Project tProject : techProjects) {
-                        for (Project dProject : devCountsProjects) {
-                            for (Project uProject : userCountProjects) {
-                                if (tProject.getID().equals(dProject.getID())
-                                        && tProject.getID().equals(
-                                        uProject.getID())) {
-                                    result.add(tProject);
-                                    break;
-                                }
-                            }
-                        }
+                        if (uProject.getID().equals(dProject.getID()) && dProject.getID().equals(mProject.getID()) && mProject.getID().equals(tProject.getID()))
+                            result.add(uProject);
                     }
                 }
-            } else {
-                for (Project project : userCountProjects) {
-                    for (Project tProject : techProjects) {
-                        if (tProject.getID().equals(project.getID())) {
-                            result.add(project);
-                            break;
-                        }
-                    }
-                }
-            }
-        } else {
-            if (devCount >= 0) {
-                if (tech == null) {
-                    result = devCountsProjects;
-                } else {
-                    for (Project tproject : techProjects) {
-                        for (Project dproject : devCountsProjects) {
-                            if (tproject.getID().equals(dproject.getID())) {
-                                result.add(tproject);
-                                break;
-                            }
-                        }
-                    }
-                }
-            } else {
-                result = techProjects;
             }
         }
         return result;

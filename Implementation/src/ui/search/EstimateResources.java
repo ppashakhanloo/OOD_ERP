@@ -127,9 +127,11 @@ public class EstimateResources implements Visibility {
             public void actionPerformed(ActionEvent e) {
                 //java.util.List<Technology> selectedTechs = techList.getSelectedValuesList();
                 Technology tech = techList.getSelectedValue();
-                int devCount = (Integer) developersCount.getValue();
                 int usercount = (Integer) usersCount.getValue();
-                OperationFacade.getInstance().search(tech, devCount, usercount).forEach(project -> listModelProj.addElement(project));
+                int devCount = (Integer) developersCount.getValue();
+                int modCount = (Integer) modulesCount.getValue();
+                listModelProj.clear();
+                OperationFacade.getInstance().search(tech, devCount, usercount, modCount).forEach(project -> listModelProj.addElement(project));
             }
         });
 

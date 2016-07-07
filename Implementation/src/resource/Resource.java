@@ -1,5 +1,6 @@
 package resource;
 
+import database.ResourceDAO;
 import utility.Identifiable;
 
 public class Resource extends Identifiable {
@@ -32,6 +33,11 @@ public class Resource extends Identifiable {
         this.resourceStatus = resourceStatus;
     }
 
+    public boolean setProjectID(String pid){
+    	ResourceDAO dao = ResourceDAO.getInstance();
+    	return dao.setProjectID(getID(), pid);
+    }
+    
     public boolean isAvailable() {
         return isAvailable;
     }

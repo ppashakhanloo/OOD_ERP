@@ -38,15 +38,17 @@ public class ResourceDAO {
         colNames.add("ID");
         colNames.add("resourceStatus");
         colNames.add("isAvailable");
-
+        colNames.add("ProjectID");
         ArrayList<String> values = new ArrayList<>();
         values.add(item.getID());
         values.add(item.getResourceStatus().toString());
         values.add(Integer.toString(isAvailable));
+        values.add(projectID);
 
         try {
             Statement myStmt = sqlConn.createStatement();
-            myStmt.executeUpdate(QueryGenerator.getInstance().insert("resource", colNames, values));
+            myStmt.executeUpdate(QueryGenerator.getInstance().insert(
+                    "resource", colNames, values));
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -55,7 +57,8 @@ public class ResourceDAO {
     }
 
     public ArrayList<Resource> list() {
-        String query = QueryGenerator.getInstance().select("resource", null, null);
+        String query = QueryGenerator.getInstance().select("resource", null,
+                null);
         ArrayList<Resource> results = new ArrayList<>();
         ResultSet rs;
         try {
@@ -71,9 +74,10 @@ public class ResourceDAO {
         return results;
     }
 
-    //SELECT * FROM resource WHERE isAvailable = 1;
+    // SELECT * FROM resource WHERE isAvailable = 1;
     public ArrayList<Resource> listPresentResources() {
-        String query = QueryGenerator.getInstance().select("resource", null, "isAvailable = 1");
+        String query = QueryGenerator.getInstance().select("resource", null,
+                "isAvailable = 1");
         ArrayList<Resource> results = new ArrayList<>();
         ResultSet rs;
         try {
@@ -92,12 +96,25 @@ public class ResourceDAO {
     public boolean update(Resource item) {
         try {
             Statement myStmt = sqlConn.createStatement();
-            myStmt.executeUpdate(QueryGenerator.getInstance().update("resource",
-                    "resourceStatus", item.getResourceStatus().toString(),
-                    "ID = " + item.getID()));
-            myStmt.executeUpdate(QueryGenerator.getInstance().update("resource",
-                    "isAvailable", (item.isAvailable() ? "1" : "0"), "ID = "
-                            + item.getID()));
+            myStmt.executeUpdate(QueryGenerator.getInstance()
+                    .update("resource", "resourceStatus",
+                            item.getResourceStatus().toString(),
+                            "ID = " + item.getID()));
+            myStmt.executeUpdate(QueryGenerator.getInstance().update(
+                    "resource", "isAvailable",
+                    (item.isAvailable() ? "1" : "0"), "ID = " + item.getID()));
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean setProjectID(String key, String pid) {
+        try {
+            Statement myStmt = sqlConn.createStatement();
+            myStmt.executeUpdate(QueryGenerator.getInstance().update(
+                    "resource", "ProjectID", pid, "ID = " + key));
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -106,8 +123,8 @@ public class ResourceDAO {
     }
 
     public Resource get(String key) {
-        String query = QueryGenerator.getInstance().select("resource", null, "ID = " + "'"
-                + key + "'");
+        String query = QueryGenerator.getInstance().select("resource", null,
+                "ID = " + "'" + key + "'");
         try {
             Statement myStmt = sqlConn.createStatement();
             ResultSet rs = myStmt.executeQuery(query);
@@ -123,8 +140,8 @@ public class ResourceDAO {
     public boolean remove(String key) {
         try {
             Statement myStmt = sqlConn.createStatement();
-            myStmt.executeUpdate(QueryGenerator.getInstance().delete("resource", "ID = "
-                    + key));
+            myStmt.executeUpdate(QueryGenerator.getInstance().delete(
+                    "resource", "ID = " + key));
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
