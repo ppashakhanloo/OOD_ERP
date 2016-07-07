@@ -1,5 +1,6 @@
 package ui.resource;
 
+import access.AccessLevelType;
 import business_logic_facade.OperationFacade;
 import ui.MainDialog;
 import ui.utilities.FormUtility;
@@ -72,8 +73,13 @@ class AddNewHumanResource extends MainDialog {
         formUtility.addLabel("رمز ", form);
         formUtility.addLastField(password, form);
 
-        // JTextField ID
+        AccessLevelType[] accessLevelTypes = AccessLevelType.values();
+        JComboBox<AccessLevelType> accessCombo = new JComboBox<>();
+        for (AccessLevelType type : accessLevelTypes)
+            accessCombo.addItem(type);
 
+        formUtility.addLabel("سطح دسترسی ", form);
+        formUtility.addLastField(accessCombo, form);
         ArrayList<Unit> units = OperationFacade.getInstance().getUnits();
         unitsCombo = new JComboBox<>();
         for (Unit unit : units)
@@ -84,31 +90,56 @@ class AddNewHumanResource extends MainDialog {
 
         JButton submit = new JButton("افزودن");
         submit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (OperationFacade.getInstance().addNewHumanResource(firstName.getText(), lastName.getText(), expertise.getText(), password.getText(), ((Unit) unitsCombo.getSelectedItem()).getID())) {
-                    notifyAllObservers();
-                    setVisible(false);
-                } else
-                    JOptionPane.showMessageDialog(null,
-                            "مقادیر ورودی را بررسی کنید.",
-                            "خطا",
-                            JOptionPane.ERROR_MESSAGE);
-            }
-        });
+                                     @Override
+                                     public void actionPerformed(ActionEvent e) {
+                                         if (OperationFacade.getInstance().addNewHumanResource(firstName.getText(), lastName.getText(), expertise.getText(),
+                                                 password.getText(), (AccessLevelType) accessCombo.getSelectedItem(), ((Unit) unitsCombo.getSelectedItem()).getID())) {
+                                             notifyAllObservers();
+                                             setVisible(false);
+                                         } else
+                                             JOptionPane.showMessageDialog(null,
+                                                     "مقادیر ورودی را بررسی کنید.",
+                                                     "خطا",
+                                                     JOptionPane.ERROR_MESSAGE);
+                                     }
+                                 }
+
+        );
         JButton cancel = new JButton("انصراف");
-        cancel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setVisible(false);
-            }
-        });
+        cancel.addActionListener(new
+
+                                         ActionListener() {
+                                             @Override
+                                             public void actionPerformed(ActionEvent e) {
+                                                 setVisible(false);
+                                             }
+                                         }
+
+        );
         formUtility.addLastField(submit, form);
         formUtility.addLastField(cancel, form);
 
-        form.setBorder(new EmptyBorder(10, 10, 10, 10));
-        super.getMainDialog().pack();
-        super.getMainDialog().setLocationRelativeTo(null);
+        form.setBorder(new
+
+                EmptyBorder(10, 10, 10, 10)
+
+        );
+        super.
+
+                getMainDialog()
+
+                .
+
+                        pack();
+
+        super.
+
+                getMainDialog()
+
+                .
+
+                        setLocationRelativeTo(null);
+
     }
 
     public static void main(String[] args) {

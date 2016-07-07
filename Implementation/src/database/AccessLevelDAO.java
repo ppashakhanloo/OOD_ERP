@@ -12,7 +12,7 @@ public class AccessLevelDAO {
     protected Connection sqlConn;
     private String url = "jdbc:mysql://localhost:3306/erp?useUnicode=true&characterEncoding=UTF-8";
     private String user = "root";
-    private String password = "7284";
+    private String password = "";
 
     private static AccessLevelDAO accessLevelDAO;
 
@@ -65,8 +65,10 @@ public class AccessLevelDAO {
                         rs.getString("canChangePermission").equals("1"));
                 permitTypes.put(PermissionType.canConfirmMidUser,
                         rs.getString("canConfirmMidUser").equals("1"));
-                permitTypes.put(PermissionType.canConfirmNormalUser,
-                        rs.getString("canConfirmNormalUser").equals("1"));
+                permitTypes.put(PermissionType.canConfirmLowUser,
+                        rs.getString("canConfirmLowUser").equals("1"));
+                permitTypes.put(PermissionType.canConfirmHighUser,
+                        rs.getString("canConfirmHighUser").equals("1"));
                 permitTypes.put(PermissionType.canGetReport, rs.getString("canGetReport").equals("1"));
                 permitTypes.put(PermissionType.canGetResourceAttributes,
                         rs.getString("canGetResourceAttributes").equals("1"));

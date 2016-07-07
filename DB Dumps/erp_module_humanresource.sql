@@ -38,7 +38,6 @@ CREATE TABLE `module_humanresource` (
 
 LOCK TABLES `module_humanresource` WRITE;
 /*!40000 ALTER TABLE `module_humanresource` DISABLE KEYS */;
-INSERT INTO `module_humanresource` VALUES ('554086','100824');
 /*!40000 ALTER TABLE `module_humanresource` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-07-03 16:48:58
+-- Dump completed on 2016-07-07 19:52:59

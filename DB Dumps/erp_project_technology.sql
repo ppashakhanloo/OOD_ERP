@@ -38,7 +38,7 @@ CREATE TABLE `project_technology` (
 
 LOCK TABLES `project_technology` WRITE;
 /*!40000 ALTER TABLE `project_technology` DISABLE KEYS */;
-INSERT INTO `project_technology` VALUES ('1','Tech1');
+INSERT INTO `project_technology` VALUES ('605356','????');
 /*!40000 ALTER TABLE `project_technology` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-07-03 16:48:58
+-- Dump completed on 2016-07-07 19:53:00

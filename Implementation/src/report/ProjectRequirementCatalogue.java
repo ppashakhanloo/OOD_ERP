@@ -87,6 +87,8 @@ public class ProjectRequirementCatalogue {
 		ArrayList<Unit> involvedUnits = ProjectCatalogue.getInstance()
 				.get(projectID).getInvolvedUnits();
 		Resource result = null;
+		System.out.println("involoved Units:");
+		System.out.println(involvedUnits);
 		ArrayList<Resource> allSpecialResources = new ArrayList<>();
 		for (Unit unit : involvedUnits) {
 
@@ -107,24 +109,31 @@ public class ProjectRequirementCatalogue {
 		Date minReleaseDate = null;
 		for (Resource resource2 : allSpecialResources) {
 			if (isSimilar(resource, resource2)) {
+				System.out.println(resource2.getID() + ":"
+						+ isSimilar(resource, resource2));
 				if (resource2.isAvailable()
 						&& resource2.getResourceStatus().equals(
 								ResourceStatus.IDLE)) {
 					result = resource2;
-					if (resource instanceof MonetaryResource) {
+					if ((resource instanceof MonetaryResource)) {
 						MonetaryResource MonRes1 = (MonetaryResource) resource;
 						MonetaryResource MonRes = (MonetaryResource) resource2;
-						MonRes.getQuantity().setAmount(
-								MonRes.getQuantity().getAmount()
-										- MonRes1.getQuantity().getAmount());
-						ResourceCatalogue.getInstance().update(MonRes);
-						MonetaryResource newMonRes = new MonetaryResource(
-								MonRes.getMonetaryType(), MonRes.getLocation(),
-								MonRes.getAccountNumber(),
-								MonRes1.getQuantity());
-						ResourceCatalogue.getInstance().add(newMonRes,
-								MonRes.getUnitID(), projectID);
-						result = newMonRes;
+						if (MonRes1.getMonetaryType().equals(MonetaryType.CASH)) {
+							MonRes.getQuantity()
+									.setAmount(
+											MonRes.getQuantity().getAmount()
+													- MonRes1.getQuantity()
+															.getAmount());
+							ResourceCatalogue.getInstance().update(MonRes);
+							MonetaryResource newMonRes = new MonetaryResource(
+									MonRes.getMonetaryType(),
+									MonRes.getLocation(),
+									MonRes.getAccountNumber(),
+									MonRes1.getQuantity());
+							ResourceCatalogue.getInstance().add(newMonRes,
+									MonRes.getUnitID(), projectID);
+							result = newMonRes;
+						}
 					}
 				} else if (resource2.isAvailable()
 						&& !resource2.getResourceStatus().equals(
@@ -156,8 +165,8 @@ public class ProjectRequirementCatalogue {
 			}
 		}
 		if (result == null) {
-			ResourceCatalogue.getInstance().add(resource, unitID, projectID);
 			resource.setAvailable(false);
+			ResourceCatalogue.getInstance().add(resource, unitID, projectID);
 			result = resource;
 		}
 		return result;

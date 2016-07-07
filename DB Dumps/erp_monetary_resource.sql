@@ -40,7 +40,7 @@ CREATE TABLE `monetary_resource` (
 
 LOCK TABLES `monetary_resource` WRITE;
 /*!40000 ALTER TABLE `monetary_resource` DISABLE KEYS */;
-INSERT INTO `monetary_resource` VALUES ('CASH',20,'RIAL','fffg',888,'165536'),('CASH',10,'DOLLAR','tehran',0,'248657'),('NON_CASH',20,'RIAL','iioo',0,'526894');
+INSERT INTO `monetary_resource` VALUES ('NON_CASH',1000000,'RIAL','???? ?????',0,'653741');
 /*!40000 ALTER TABLE `monetary_resource` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-07-03 16:48:57
+-- Dump completed on 2016-07-07 19:52:59

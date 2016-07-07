@@ -13,7 +13,7 @@ public class RequirementDAO implements DAO<Requirement> {
 	private Connection sqlConn;
 	private String url = "jdbc:mysql://localhost:3306/erp?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull";
 	private String user = "root";
-	private String password = "7284";
+	private String password = "";
 
 	private static RequirementDAO requirementDAO;
 
