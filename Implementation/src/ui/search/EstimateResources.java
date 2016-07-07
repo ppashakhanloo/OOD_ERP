@@ -130,6 +130,7 @@ public class EstimateResources implements Visibility {
                 int usercount = (Integer) usersCount.getValue();
                 int devCount = (Integer) developersCount.getValue();
                 int modCount = (Integer) modulesCount.getValue();
+                listModelProj.clear();
                 OperationFacade.getInstance().search(tech, devCount, usercount, modCount).forEach(project -> listModelProj.addElement(project));
             }
         });
