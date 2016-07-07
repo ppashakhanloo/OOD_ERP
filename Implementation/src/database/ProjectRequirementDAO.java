@@ -242,7 +242,7 @@ public class ProjectRequirementDAO {
                     + "'"
                     + item.getID()
                     + "'");
-            myStmt.executeUpdate("UPDATE project SET lengthOfPossession  = "
+            myStmt.executeUpdate("UPDATE project_requirement SET lengthOfPossession  = "
                     + item.getLengthOfPossession() + " WHERE ID = " + "'"
                     + item.getID() + "'");
         } catch (SQLException e) {
