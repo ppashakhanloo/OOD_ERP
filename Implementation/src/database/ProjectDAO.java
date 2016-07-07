@@ -304,6 +304,12 @@ public class ProjectDAO implements DAO<Project> {
 
     public ArrayList<Project> getByUsersCount(int count) {
         ArrayList<Project> projects = new ArrayList<>();
+
+        if (count == 0) {
+            projects = list();
+            return projects;
+        }
+
         String query = generator.select("project", null, "usersCount = "
                 + count);
         ResultSet rs;
@@ -323,12 +329,15 @@ public class ProjectDAO implements DAO<Project> {
         ArrayList<Project> allProjects = list();
         ArrayList<Project> projectsWithSameDevelopersCount = new ArrayList<>();
 
+        if (developersCount == 0)
+            return allProjects;
+
         for (Project project : allProjects) {
             String query = "SELECT COUNT(DISTINCT(HumanResourceID)) AS count FROM project INNER JOIN " +
-                                                "system ON project.ID = system.ProjectID INNER JOIN " +
-                                                "module_system ON system.ID = module_system.SystemID INNER JOIN " +
-                                                "module_humanresource ON module_system.ModuleID = module_humanresource.ModuleID " +
-                                            "WHERE project.ID = " + "'" + project.getID() + "'";
+                    "system ON project.ID = system.ProjectID INNER JOIN " +
+                    "module_system ON system.ID = module_system.SystemID INNER JOIN " +
+                    "module_humanresource ON module_system.ModuleID = module_humanresource.ModuleID " +
+                    "WHERE project.ID = " + "'" + project.getID() + "'";
 
             try {
                 Statement myStmt = sqlConn.createStatement();
@@ -349,9 +358,12 @@ public class ProjectDAO implements DAO<Project> {
         ArrayList<Project> allProjects = list();
         ArrayList<Project> projectsWithSameModulesCount = new ArrayList<>();
 
+        if (modulesCount == 0)
+            return  allProjects;
+
         for (Project project : allProjects) {
             String query = "SELECT COUNT(*) FROM project INNER JOIN system ON project.ID = system.ProjectID INNER JOIN module_system ON system.ID = module_system.SystemID " +
-                                            "WHERE project.ID = " + "'" + project.getID() + "'";
+                    "WHERE project.ID = " + "'" + project.getID() + "'";
 
             try {
                 Statement myStmt = sqlConn.createStatement();
@@ -365,11 +377,17 @@ public class ProjectDAO implements DAO<Project> {
             }
         }
 
-        return  projectsWithSameModulesCount;
+        return projectsWithSameModulesCount;
     }
 
     public ArrayList<Project> getByTechnology(Technology tech) {
         ArrayList<Project> projects = new ArrayList<>();
+
+        if (tech == null) {
+            projects = list();
+            return projects;
+        }
+
         String query = generator.select("project_technology", null,
                 "Technologyname = " + "'" + tech.getName() + "'");
         try {
@@ -453,9 +471,9 @@ public class ProjectDAO implements DAO<Project> {
         return projects;
     }
 
-//     public static void main(String[] args) {
-//     ProjectDAO prj = ProjectDAO.getInstance();
-//     java.lang.System.out.println(prj.getByDevelopersCount(1).toString());
+     public static void main(String[] args) {
+     ProjectDAO prj = ProjectDAO.getInstance();
+     java.lang.System.out.println(prj.getByDevelopersCount(1).toString());
 //     Project proj = new Project("abc123", "prj1", null,null, "customer",
 //     10);
 //     ArrayList<String> uniIDs = new ArrayList<String>();
@@ -466,6 +484,6 @@ public class ProjectDAO implements DAO<Project> {
 //     prj.update(new Project("1", "MIR", null,null,"maryam",4));
 //     prj.updateTechnology(new Technology("cj", "want"));
 //     java.lang.System.out.println(prj.getUnitsByProjectID("WEB").get(0).getID());
-//     }
+     }
 
 }
