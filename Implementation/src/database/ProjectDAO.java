@@ -323,7 +323,24 @@ public class ProjectDAO implements DAO<Project> {
         ArrayList<Project> allProjects = list();
         ArrayList<Project> projectsWithSameDevelopersCount = new ArrayList<>();
 
-        
+        for (Project project : allProjects) {
+            String query = "SELECT COUNT(DISTINCT(HumanResourceID)) AS count FROM project INNER JOIN " +
+                                                "system ON project.ID = system.ProjectID INNER JOIN " +
+                                                "module_system ON system.ID = module_system.SystemID INNER JOIN " +
+                                                "module_humanresource ON module_system.ModuleID = module_humanresource.ModuleID " +
+                                            "WHERE project.ID = " + "'" + project.getID() + "'";
+
+            try {
+                Statement myStmt = sqlConn.createStatement();
+                ResultSet rs = myStmt.executeQuery(query);
+                rs.next();
+
+                if (rs.getInt("count") == developersCount)
+                    projectsWithSameDevelopersCount.add(project);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
 
         return projectsWithSameDevelopersCount;
     }
@@ -438,7 +455,7 @@ public class ProjectDAO implements DAO<Project> {
 
 //     public static void main(String[] args) {
 //     ProjectDAO prj = ProjectDAO.getInstance();
-//     java.lang.System.out.println(prj.getByModulesCount(4).toString());
+//     java.lang.System.out.println(prj.getByDevelopersCount(1).toString());
 //     Project proj = new Project("abc123", "prj1", null,null, "customer",
 //     10);
 //     ArrayList<String> uniIDs = new ArrayList<String>();
