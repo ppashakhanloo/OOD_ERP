@@ -166,7 +166,7 @@ public class ProjectRequirementCatalogue {
 		}
 		if (result == null) {
 			resource.setAvailable(false);
-			ResourceCatalogue.getInstance().add(resource, unitID, projectID);
+			ResourceCatalogue.getInstance().add(resource, unitID, null);
 			result = resource;
 		}
 		return result;
@@ -214,6 +214,7 @@ public class ProjectRequirementCatalogue {
 
 	public void satisfyRequirement(ProjectRequirement req) {
 		req.getResource().setAvailable(true);
+		req.getResource().setProjectID(req.getProject().getID());
 		req.setProvideDate(new Date(System.currentTimeMillis()));
 		req.setReleaseDate(new Date(System.currentTimeMillis()
 				+ req.getLengthOfPossession() * 24 * 60 * 60 * 1000));
