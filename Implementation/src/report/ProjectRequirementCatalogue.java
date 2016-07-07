@@ -12,54 +12,58 @@ import java.util.List;
 
 public class ProjectRequirementCatalogue {
 
-    private static ProjectRequirementCatalogue projectRequirementCatalogue;
+	private static ProjectRequirementCatalogue projectRequirementCatalogue;
 
-    private ProjectRequirementCatalogue() {
-    }
+	private ProjectRequirementCatalogue() {
+	}
 
-    public static ProjectRequirementCatalogue getInstance() {
-        if (projectRequirementCatalogue == null)
-            projectRequirementCatalogue = new ProjectRequirementCatalogue();
-        return projectRequirementCatalogue;
-    }
+	public static ProjectRequirementCatalogue getInstance() {
+		if (projectRequirementCatalogue == null)
+			projectRequirementCatalogue = new ProjectRequirementCatalogue();
+		return projectRequirementCatalogue;
+	}
 
-    public ArrayList<ProjectRequirement> getAll() {
-        return ProjectRequirementDAO.getInstance().list();
-    }
+	public ArrayList<ProjectRequirement> getAll() {
+		return ProjectRequirementDAO.getInstance().list();
+	}
 
 	public ProjectRequirement get(String key) {
 		return ProjectRequirementDAO.getInstance().get(key);
 	}
-	
-    public void remove(ProjectRequirement prjReq) {
-        ProjectRequirementDAO.getInstance().remove(prjReq.getID());
-    }
 
-    public ArrayList<Project> getProjectsWithEssentialResource(Resource res) {
-        return ProjectRequirementDAO.getInstance().getProjectsWithEssentialResource(res.getID());
-    }
+	public void remove(ProjectRequirement prjReq) {
+		ProjectRequirementDAO.getInstance().remove(prjReq.getID());
+	}
 
-    public ArrayList<Resource> getRequiredResources(String pid) {
-        return ProjectRequirementDAO.getInstance().getRequiredResources(pid);
-    }
+	public ArrayList<Project> getProjectsWithEssentialResource(Resource res) {
+		return ProjectRequirementDAO.getInstance()
+				.getProjectsWithEssentialResource(res.getID());
+	}
 
-    public boolean addProjectRequirement(ProjectRequirement item, String projectID,
-                                         String resourceID) {
+	public ArrayList<Resource> getRequiredResources(String pid) {
+		return ProjectRequirementDAO.getInstance().getRequiredResources(pid);
+	}
 
-        return ProjectRequirementDAO.getInstance().add(item, projectID, resourceID);
-    }
+	public boolean addProjectRequirement(ProjectRequirement item,
+			String projectID, String resourceID) {
 
-    public ArrayList<String> getBoundedUsageFlowReport(Date startDate, Date endDate, List<Resource> resources) {
-        ProjectRequirementDAO dao = ProjectRequirementDAO.getInstance();
-        return dao.getFlowReport(startDate, endDate, resources);
+		return ProjectRequirementDAO.getInstance().add(item, projectID,
+				resourceID);
+	}
 
-    }
+	public ArrayList<String> getBoundedUsageFlowReport(Date startDate,
+			Date endDate, List<Resource> resources) {
+		ProjectRequirementDAO dao = ProjectRequirementDAO.getInstance();
+		return dao.getFlowReport(startDate, endDate, resources);
 
-    public ArrayList<String> getUnBoundedUsageFlowReport(List<Resource> resources) {
-        ProjectRequirementDAO dao = ProjectRequirementDAO.getInstance();
-        return dao.getFlowReport(null, null, resources);
+	}
 
-    }
+	public ArrayList<String> getUnBoundedUsageFlowReport(
+			List<Resource> resources) {
+		ProjectRequirementDAO dao = ProjectRequirementDAO.getInstance();
+		return dao.getFlowReport(null, null, resources);
+
+	}
 
 	public boolean add(ProjectRequirement prjReq, String projectID,
 			String unitID, Resource resource) {
@@ -225,5 +229,4 @@ public class ProjectRequirementCatalogue {
 		ProjectRequirementDAO.getInstance().update(req);
 	}
 
-	
 }
