@@ -105,11 +105,11 @@ public class ProjectRequirement extends Identifiable {
     @Override
     public String toString() {
         return "ID=" + getID() + ", "
-                + "provideDate=" + provideDate == null ? "" : provideDate.toString()
-                + ", releaseDate=" + releaseDate == null ? "" : releaseDate.toString()
+                + "provideDate=" + (provideDate == null ? "" : provideDate.toString())
+                + ", releaseDate=" + (releaseDate == null ? "" : releaseDate.toString())
                 + ", isEssential=" + isEssential
-                + ", criticalProvideDate=" + criticalProvideDate == null ? "" : criticalProvideDate.toString()
+                + ", criticalProvideDate=" + (criticalProvideDate == null ? "" : criticalProvideDate.toString())
                 + ", lengthOfPossession=" + Integer.toString(lengthOfPossession)
-                + "\n, resource=" + getResource() == null ? "" : getResource().toString();
+                + "\n, resource=" + (getResource() == null ? "" : getResource().toString());
     }
 }

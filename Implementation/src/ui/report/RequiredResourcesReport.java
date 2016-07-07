@@ -197,6 +197,8 @@ public class RequiredResourcesReport implements Visibility {
                 for (Project project : selectedProjects) {
                     requirements = ProjectFacade.getInstance().getProjectRequirements(project.getID());
                     for (ProjectRequirement requirement : requirements) {
+//                        if (requirement.getProvideDate() != null) continue;
+
                         resource = ResourceCatalogue.getInstance().get(requirement.getResource().getID());
                         Object[] data = {resource, project.getID()};
                         if (resource instanceof MonetaryResource)
