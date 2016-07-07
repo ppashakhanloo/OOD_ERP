@@ -1,9 +1,9 @@
 package resource;
 
 public class PhysicalResource extends Resource {
-    String name;
-    String model;
-    String location;
+    private String name;
+    private String model;
+    private String location;
 
     public PhysicalResource(String name, String model, String location) {
         super();
