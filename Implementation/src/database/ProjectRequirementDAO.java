@@ -319,79 +319,82 @@ public class ProjectRequirementDAO {
     }
 
     public ArrayList<String> getFlowReport(Date Start, Date End,
-                                           List<Resource> resources) {
-        ArrayList<String> reports = new ArrayList<>();
-        try {
-            Statement myStmt = sqlConn.createStatement();
-            for (Resource res : resources) {
-                ResultSet rs = myStmt.executeQuery(generator.select(
-                        "project_requirement", null, "ResourceID = " + "'"
-                                + res.getID() + "'"));
-                while (rs.next()) {
-                    if (End != null) {
-                        if (rs.getDate("provideDate") != null) {
-                            if (rs.getDate("provideDate").before(End)) {
-                                if (Start != null) {
-                                    if (rs.getDate("releaseDate") == null
-                                            || rs.getDate("releaseDate").after(
-                                            Start)) {
-                                        reports.add(res.getID()
-                                                + " "
-                                                + rs.getString("ProjectID")
-                                                + " "
-                                                + (rs.getDate("provideDate")
-                                                .after(Start) ? rs
-                                                .getDate("provideDate")
-                                                : Start)
-                                                + " "
-                                                + (rs.getDate("releaseDate")
-                                                .before(End) ? rs
-                                                .getDate("releaseDate")
-                                                : End));
-                                    }
-                                } else {
-                                    reports.add(res.getID()
-                                            + " "
-                                            + rs.getString("ProjectID")
-                                            + " "
-                                            + (rs.getDate("provideDate"))
-                                            + " "
-                                            + (rs.getDate("releaseDate")
-                                            .before(End) ? rs
-                                            .getDate("releaseDate")
-                                            : End));
-                                }
-                            }
-                        }
-                    } else {
-                        if (Start != null) {
-                            if (rs.getDate("releaseDate") == null
-                                    || rs.getDate("releaseDate").after(Start)) {
-                                reports.add(res.getID()
-                                        + " "
-                                        + rs.getString("ProjectID")
-                                        + " "
-                                        + (rs.getDate("provideDate").after(
-                                        Start) ? rs
-                                        .getDate("provideDate") : Start)
-                                        + " "
-                                        + rs.getDate("releaseDate"));
-                            }
-                        } else {
-                            reports.add(res.getID()
-                                    + " "
-                                    + rs.getString("ProjectID")
-                                    + " "
-                                    + (rs.getDate("provideDate"))
-                                    + " "
-                                    + rs.getDate("releaseDate"));
-                        }
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return reports;
-    }
+			List<Resource> resources) {
+		ArrayList<String> reports = new ArrayList<>();
+		try {
+			Statement myStmt = sqlConn.createStatement();
+			for (Resource res : resources) {
+				ResultSet rs = myStmt.executeQuery(generator.select(
+						"project_requirement", null, "ResourceID = " + "'"
+								+ res.getID() + "'"));
+				while (rs.next()) {
+					if (End != null) {
+						if (rs.getDate("provideDate") != null) {
+							if (rs.getDate("provideDate").before(End)) {
+								if (Start != null) {
+									if (rs.getDate("releaseDate") == null
+											|| rs.getDate("releaseDate").after(
+													Start)) {
+										reports.add(res.getID()
+												+ " "
+												+ rs.getString("ProjectID")
+												+ " "
+												+ (rs.getDate("provideDate")
+														.after(Start) ? rs
+														.getDate("provideDate")
+														: Start)
+												+ " "
+												+ (rs.getDate("releaseDate") == null ? "0000-00-00"
+														: (rs.getDate(
+																"releaseDate")
+																.before(End) ? rs
+																.getDate("releaseDate")
+																: End)));
+									}
+								} else {
+									reports.add(res.getID()
+											+ " "
+											+ rs.getString("ProjectID")
+											+ " "
+											+ (rs.getDate("provideDate"))
+											+ " "
+											+ (rs.getDate("releaseDate") == null ? "0000-00-00"
+													: (rs.getDate("releaseDate")
+															.before(End) ? rs
+															.getDate("releaseDate")
+															: End)));
+								}
+							}
+						}
+					} else {
+						if (rs.getDate("provideDate") != null) {
+							if (Start != null) {
+								if (rs.getDate("releaseDate") == null
+										|| rs.getDate("releaseDate").after(
+												Start)) {
+									reports.add(res.getID()
+											+ " "
+											+ rs.getString("ProjectID")
+											+ " "
+											+ (rs.getDate("provideDate").after(
+													Start) ? rs
+													.getDate("provideDate")
+													: Start) + " "
+											+ rs.getDate("releaseDate"));
+								}
+							} else {
+								reports.add(res.getID() + " "
+										+ rs.getString("ProjectID") + " "
+										+ (rs.getDate("provideDate")) + " "
+										+ rs.getDate("releaseDate"));
+							}
+						}
+					}
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return reports;
+	}
 }
