@@ -13,7 +13,7 @@ public class ModuleDAO implements DAO<Module> {
     private Connection sqlConn;
     private String url = "jdbc:mysql://localhost:9999/erp?useUnicode=true&characterEncoding=UTF-8";
     private String user = "root";
-    private String password = "28525336";
+    private String password = "";
     private QueryGenerator generator = QueryGenerator.getInstance();
 
     private ModuleDAO() {
