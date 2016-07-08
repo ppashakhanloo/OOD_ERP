@@ -11,9 +11,9 @@ public class ModuleModificationDAO implements DAO<ModuleModification> {
 
     private static ModuleModificationDAO moduleModificationDAO;
     private Connection sqlConn;
-    private String url = "jdbc:mysql://localhost:3306/erp?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8";
+    private String url = "jdbc:mysql://localhost:9999/erp?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8";
     private String user = "root";
-    private String password = "";
+    private String password = "28525336";
     private QueryGenerator generator = QueryGenerator.getInstance();
 
     private ModuleModificationDAO() {
@@ -133,18 +133,23 @@ public class ModuleModificationDAO implements DAO<ModuleModification> {
 
     @Override
     public boolean update(ModuleModification item) {
-        try {
+    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    	try {
             Statement myStmt = sqlConn.createStatement();
             myStmt.executeUpdate(generator.update("module_modification",
                     "modificationType", item.getModificationType(), "ID = "
                             + "'" + item.getID() + "'"));
             myStmt.executeUpdate("UPDATE module_modification SET modificationStart  = "
-                    + item.getModificationStart()
+            		+ "'"
+                    + (item.getModificationStart() == null ? "0000-00-00" : sdf
+                    .format(item.getModificationStart())) + "'"
                     + " WHERE ID = "
                     + "'"
                     + item.getID() + "'");
             myStmt.executeUpdate("UPDATE module_modification SET modificationEnd  = "
-                    + item.getModificationEnd()
+            		+ "'"
+                    + (item.getModificationEnd() == null ? "0000-00-00" : sdf
+                    .format(item.getModificationEnd())) + "'"
                     + " WHERE ID = "
                     + "'"
                     + item.getID() + "'");
