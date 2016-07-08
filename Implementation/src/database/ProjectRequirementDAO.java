@@ -318,8 +318,9 @@ public class ProjectRequirementDAO {
         return resources;
     }
 
-    public ArrayList<String> getFlowReport(Date Start, Date End,
+	public ArrayList<String> getFlowReport(Date Start, Date End,
 			List<Resource> resources) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		ArrayList<String> reports = new ArrayList<>();
 		try {
 			Statement myStmt = sqlConn.createStatement();
@@ -342,14 +343,14 @@ public class ProjectRequirementDAO {
 												+ (rs.getDate("provideDate")
 														.after(Start) ? rs
 														.getDate("provideDate")
-														: Start)
+														: sdf.format(Start))
 												+ " "
-												+ (rs.getDate("releaseDate") == null ? "0000-00-00"
+												+ (rs.getDate("releaseDate") == null ? sdf.format(End)
 														: (rs.getDate(
 																"releaseDate")
 																.before(End) ? rs
 																.getDate("releaseDate")
-																: End)));
+																: sdf.format(End))));
 									}
 								} else {
 									reports.add(res.getID()
@@ -358,11 +359,11 @@ public class ProjectRequirementDAO {
 											+ " "
 											+ (rs.getDate("provideDate"))
 											+ " "
-											+ (rs.getDate("releaseDate") == null ? "0000-00-00"
+											+ (rs.getDate("releaseDate") == null ? sdf.format(End)
 													: (rs.getDate("releaseDate")
 															.before(End) ? rs
 															.getDate("releaseDate")
-															: End)));
+															: sdf.format(End))));
 								}
 							}
 						}
