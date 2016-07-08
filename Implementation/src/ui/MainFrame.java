@@ -183,14 +183,8 @@ public class MainFrame implements Visibility {
             }
         });
 
-
-        JMenuItem submitNewReq = new JMenuItem("ثبت نیازمندی جدید");
         organization.add(viewUnits);
-//        if (permissionTypes.get(PermissionType.canAddUnit))
-//            organization.add(addNewUnit);
 
-        if (permissionTypes.get(PermissionType.canAddRemReq))
-            organization.add(submitNewReq);
         if (organization.getItemCount() > 0)
             menuBar.add(organization);
     }
