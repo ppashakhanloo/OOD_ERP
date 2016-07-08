@@ -36,7 +36,7 @@ public class ViewUnits extends UnitObserver implements Visibility {
 
     public static void main(String[] args) {
         UserFacade userFacade = new UserFacade();
-        userFacade.login("871539", "888");
+        userFacade.login("310243", "admin");
         ViewUnits viewUnits = new ViewUnits(userFacade);
         viewUnits.setVisible(true);
     }
