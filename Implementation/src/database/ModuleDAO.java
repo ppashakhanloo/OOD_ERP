@@ -4,13 +4,14 @@ import project.Module;
 import resource.HumanResource;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class ModuleDAO implements DAO<Module> {
 
     private static ModuleDAO moduleDAO;
     private Connection sqlConn;
-    private String url = "jdbc:mysql://localhost:3306/erp?useUnicode=true&characterEncoding=UTF-8";
+    private String url = "jdbc:mysql://localhost:9999/erp?useUnicode=true&characterEncoding=UTF-8";
     private String user = "root";
     private String password = "";
     private QueryGenerator generator = QueryGenerator.getInstance();
@@ -36,14 +37,19 @@ public class ModuleDAO implements DAO<Module> {
     }
 
     public boolean add(Module item, String systemID) {
-        String query = "INSERT INTO module (ID, name, developmentStart,developmentEnd) VALUES ('"
+    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    	String query = "INSERT INTO module (ID, name, developmentStart,developmentEnd) VALUES ('"
                 + item.getID()
                 + "', '"
                 + item.getName()
                 + "', "
-                + item.getDevelopmentStart()
+                 + "'"
+                + (item.getDevelopmentStart() == null ? "0000-00-00" : sdf
+                .format(item.getDevelopmentStart())) + "'"
                 + ", "
-                + item.getDevelopmentEnd()
+                + "'"
+                + (item.getDevelopmentStart() == null ? "0000-00-00" : sdf
+                .format(item.getDevelopmentStart())) + "'"
                 + ");";
         try {
             Statement myStmt = sqlConn.createStatement();
@@ -96,15 +102,22 @@ public class ModuleDAO implements DAO<Module> {
 
     @Override
     public boolean update(Module item) {
+    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             Statement myStmt = sqlConn.createStatement();
             myStmt.executeUpdate(generator.update("module", "name",
                     item.getName(), "ID = " + "'" + item.getID() + "'"));
             myStmt.executeUpdate("UPDATE module SET developmentStart  = "
-                    + item.getDevelopmentStart() + " WHERE ID = " + "'"
+            		 + "'"
+                     + (item.getDevelopmentStart() == null ? "0000-00-00" : sdf
+                     .format(item.getDevelopmentStart())) + "'"
+                    + " WHERE ID = " + "'"
                     + item.getID() + "'");
             myStmt.executeUpdate("UPDATE module SET developmentEnd  = "
-                    + item.getDevelopmentEnd() + " WHERE ID = " + "'"
+            		 + "'"
+                     + (item.getDevelopmentEnd() == null ? "0000-00-00" : sdf
+                     .format(item.getDevelopmentEnd())) + "'"
+                    + " WHERE ID = " + "'"
                     + item.getID() + "'");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -132,9 +145,12 @@ public class ModuleDAO implements DAO<Module> {
     }
 
     public ArrayList<Module> getByDevelopmentStart(String DevelopmentStart) {
-        ArrayList<Module> modules = new ArrayList<>();
+    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    	ArrayList<Module> modules = new ArrayList<>();
         String query = generator.select("module", null, "developmentStart = "
-                + DevelopmentStart);
+        		 + "'"
+                 + (DevelopmentStart == null ? "0000-00-00" : sdf
+                 .format(DevelopmentStart)) + "'");
         ResultSet rs;
         try {
             Statement myStmt = sqlConn.createStatement();
@@ -149,9 +165,12 @@ public class ModuleDAO implements DAO<Module> {
     }
 
     public ArrayList<Module> getByDevelopmentEnd(String DevelopmentEnd) {
-        ArrayList<Module> modules = new ArrayList<>();
+    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    	ArrayList<Module> modules = new ArrayList<>();
         String query = generator.select("module", null, "developmentEnd = "
-                + DevelopmentEnd);
+        		 + "'"
+                 + (DevelopmentEnd == null ? "0000-00-00" : sdf
+                 .format(DevelopmentEnd)) + "'");
         ResultSet rs;
         try {
             Statement myStmt = sqlConn.createStatement();
