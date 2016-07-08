@@ -272,7 +272,8 @@ public class ProjectRequirementDAO {
             Statement myStmt = sqlConn.createStatement();
             ResultSet rs = myStmt.executeQuery(generator.select(
                     "project_requirement", null, "ProjectID = " + "'" + pid
-                            + "'"));
+                            + "' AND provideDate = " + "'"
+                            + "0000-00-00" + "'"));
             while (rs.next()) {
                 reqs.add(fillProjectRequirement(rs));
             }
@@ -281,6 +282,7 @@ public class ProjectRequirementDAO {
         }
         return reqs;
     }
+
 
     public ArrayList<Project> getProjectsWithEssentialResource(String rid) {
         ArrayList<Project> projects = new ArrayList<>();
