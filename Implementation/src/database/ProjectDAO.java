@@ -282,9 +282,12 @@ public class ProjectDAO implements DAO<Project> {
     }
 
     public ArrayList<Project> getByDevelopmentStart(Date DevelopmentStart) {
-        ArrayList<Project> projects = new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    	ArrayList<Project> projects = new ArrayList<>();
         String query = generator.select("project", null, "developmentStart = "
-                + DevelopmentStart);
+                + "'"
+                     + (DevelopmentStart == null ? "0000-00-00" : sdf
+                     .format(DevelopmentStart)) + "'");
         ResultSet rs;
         try {
             Statement myStmt = sqlConn.createStatement();
@@ -298,10 +301,13 @@ public class ProjectDAO implements DAO<Project> {
         return projects;
     }
 
-    public ArrayList<Project> getByDevelopmentEnd(Date DevelopmentEnd) {
-        ArrayList<Project> projects = new ArrayList<>();
+        public ArrayList<Project> getByDevelopmentEnd(Date DevelopmentEnd) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    	ArrayList<Project> projects = new ArrayList<>();
         String query = generator.select("project", null, "developmentEnd = "
-                + DevelopmentEnd);
+                + "'"
+                     + (DevelopmentEnd == null ? "0000-00-00" : sdf
+                     .format(DevelopmentEnd)) + "'");
         ResultSet rs;
         try {
             Statement myStmt = sqlConn.createStatement();
@@ -416,9 +422,9 @@ public class ProjectDAO implements DAO<Project> {
         return projects;
     }
 
-    @Override
+   @Override
     public boolean update(Project item) {
-
+    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             Statement myStmt = sqlConn.createStatement();
             myStmt.executeUpdate(generator.update("project", "name",
@@ -426,13 +432,20 @@ public class ProjectDAO implements DAO<Project> {
             myStmt.executeUpdate(generator.update("project", "customerName",
                     item.getCustomerName(), "ID = " + "'" + item.getID() + "'"));
             myStmt.executeUpdate("UPDATE project SET developmentStart  = "
-                    + item.getDevelopmentStart() + " WHERE ID = " + "'"
+            		 + "'"
+                     + (item.getDevelopmentStart() == null ? "0000-00-00" : sdf
+                     .format(item.getDevelopmentStart())) + "'"
+                    + " WHERE ID = " + "'"
                     + item.getID() + "'");
             myStmt.executeUpdate("UPDATE project SET developmentEnd  = "
-                    + item.getDevelopmentEnd() + " WHERE ID = " + "'"
+            		 + "'"
+                     + (item.getDevelopmentEnd() == null ? "0000-00-00" : sdf
+                     .format(item.getDevelopmentEnd())) + "'"
+                    +" WHERE ID = " + "'"
                     + item.getID() + "'");
             myStmt.executeUpdate("UPDATE project SET usersCount  = "
-                    + item.getUsersCount() + " WHERE ID = " + "'"
+                    + item.getUsersCount() 
+                    + " WHERE ID = " + "'"
                     + item.getID() + "'");
         } catch (SQLException e) {
             e.printStackTrace();
