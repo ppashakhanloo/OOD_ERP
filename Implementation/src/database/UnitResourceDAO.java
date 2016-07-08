@@ -197,5 +197,22 @@ public class UnitResourceDAO {
         }
         return systems;
     }
-
+	
+	public Unit getUnitByResourceID(String rid) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String query = "DELETE FROM unit_resource WHERE ResourceID = " + "'"
+				+ rid + "'" + ";";
+		try {
+			Statement myStmt = sqlConn.createStatement();
+			ResultSet rs = myStmt.executeQuery(query);
+			while(rs.next()) {
+				if(rs.getDate("removeDate").after(new Date(System.currentTimeMillis()))
+						|| sdf.format(rs.getDate("removeDate")).equals("0000-00-00"))
+					return UnitCatalogue.getInstance().get(rs.getString("UnitID"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

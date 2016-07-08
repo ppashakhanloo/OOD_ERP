@@ -101,6 +101,13 @@ public class ProjectRequirement extends Identifiable {
     public Project getProject() {
         return ProjectRequirementDAO.getInstance().getProject(getID());
     }
+	
+	
+	public Unit getUnit() {
+		ProjectRequirementDAO dao = ProjectRequirementDAO.getInstance();
+		return UnitResourceDAO.getInstance().getUnitByResourceID(
+				dao.get(getID()).getResource().getID());
+	}
 
     @Override
     public String toString() {
