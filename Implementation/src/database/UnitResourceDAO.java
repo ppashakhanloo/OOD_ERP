@@ -199,15 +199,13 @@ public class UnitResourceDAO {
     }
 	
 	public Unit getUnitByResourceID(String rid) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String query = "DELETE FROM unit_resource WHERE ResourceID = " + "'"
-				+ rid + "'" + ";";
+		String query = QueryGenerator.getInstance().select("unit_resource", null, "ResourceID = " + "'"
+				+ rid + "'");
 		try {
 			Statement myStmt = sqlConn.createStatement();
 			ResultSet rs = myStmt.executeQuery(query);
 			while(rs.next()) {
-				if(rs.getDate("removeDate").after(new Date(System.currentTimeMillis()))
-						|| sdf.format(rs.getDate("removeDate")).equals("0000-00-00"))
+				if(rs.getDate("removeDate")==null || rs.getDate("removeDate").after(new Date(System.currentTimeMillis())))
 					return UnitCatalogue.getInstance().get(rs.getString("UnitID"));
 			}
 		} catch (SQLException e) {
