@@ -3,10 +3,12 @@ package database;
 import report.UnitResource;
 import resource.Resource;
 import unit.Unit;
+import unit.UnitCatalogue;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 
 public class UnitResourceDAO {
 

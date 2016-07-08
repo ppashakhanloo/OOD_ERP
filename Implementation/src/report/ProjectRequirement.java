@@ -1,11 +1,15 @@
 package report;
 
 import database.ProjectRequirementDAO;
+import database.UnitResourceDAO;
 import project.Project;
 import resource.Resource;
+import unit.Unit;
 import utility.Identifiable;
 
 import java.util.Date;
+import java.text.SimpleDateFormat;
+
 
 public class ProjectRequirement extends Identifiable {
 
