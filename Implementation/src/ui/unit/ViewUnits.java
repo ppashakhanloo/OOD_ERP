@@ -11,6 +11,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ViewUnits extends UnitObserver implements Visibility {
 
@@ -66,6 +68,17 @@ public class ViewUnits extends UnitObserver implements Visibility {
         mainDialog.getMainDialog().setResizable(true);
         mainDialog.getMainDialog().pack();
         mainDialog.getMainDialog().setLocationRelativeTo(null);
+
+        unitList.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                JList list = (JList) evt.getSource();
+                if (evt.getClickCount() == 2) {
+                    // Double-click detected
+                    ViewUnitRequirements viewUnitRequirements = new ViewUnitRequirements(userFacade, ((Unit) list.getSelectedValue()));
+                    viewUnitRequirements.setVisible(true);
+                }
+            }
+        });
     }
 
     @Override
@@ -88,7 +101,7 @@ public class ViewUnits extends UnitObserver implements Visibility {
 
     public static void main(String[] args) {
         UserFacade userFacade = new UserFacade();
-        userFacade.login("871539", "888");
+        userFacade.login("100824", "888");
         ViewUnits viewUnits = new ViewUnits(userFacade);
         viewUnits.setVisible(true);
     }

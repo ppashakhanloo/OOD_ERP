@@ -52,4 +52,11 @@ public class Requirement extends Identifiable {
         return reqDAO.update(new Requirement(getID(), getDescription(),
                 provideDate));
     }
+
+    @Override
+    public String toString() {
+            return "ID=" + getID() + ", "
+                    + "provideDate=" + (provideDate == null ? "" : provideDate.toString())
+                    + "\n, resource=" + (getResource() == null ? "" : getResource().toString());
+    }
 }
