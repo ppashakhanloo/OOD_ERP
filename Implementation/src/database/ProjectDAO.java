@@ -176,15 +176,20 @@ public class ProjectDAO implements DAO<Project> {
         return false;
     }
 
-    public boolean add(Project item, ArrayList<String> uid) {
-        String query = "INSERT INTO project (ID, name, developmentStart,developmentEnd, customerName, usersCount) VALUES ('"
+   public boolean add(Project item, ArrayList<String> uid) {
+    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    	String query = "INSERT INTO project (ID, name, developmentStart,developmentEnd, customerName, usersCount) VALUES ('"
                 + item.getID()
                 + "', '"
                 + item.getName()
                 + "', "
-                + item.getDevelopmentStart()
+                + "'"
+                + (item.getDevelopmentStart() == null ? "0000-00-00" : sdf
+                .format(item.getDevelopmentStart())) + "'"
                 + ", "
-                + item.getDevelopmentEnd()
+                + "'"
+                + (item.getDevelopmentEnd() == null ? "0000-00-00" : sdf
+                .format(item.getDevelopmentStart())) + "'"
                 + ", '"
                 + item.getCustomerName()
                 + "', "
