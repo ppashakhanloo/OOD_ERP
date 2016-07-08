@@ -189,7 +189,7 @@ public class ProjectDAO implements DAO<Project> {
                 + ", "
                 + "'"
                 + (item.getDevelopmentEnd() == null ? "0000-00-00" : sdf
-                .format(item.getDevelopmentStart())) + "'"
+                .format(item.getDevelopmentEnd())) + "'"
                 + ", '"
                 + item.getCustomerName()
                 + "', "
