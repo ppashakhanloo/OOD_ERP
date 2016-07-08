@@ -6,11 +6,11 @@
 $mysql_host = '127.0.0.1';
 $mysql_username = 'root';
 $mysql_password = '';
-$mysql_database = 'erp';
 /////////////////////////////////////////
 /////////////////////////////////////////
 /////////////////////////////////////////
 
+$mysql_database = 'erp';
 $filename = 'erp_db.sql';
 
 mysql_connect($mysql_host, $mysql_username, $mysql_password) or die('Error connecting to MySQL server: ' . mysql_error());

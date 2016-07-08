@@ -6,7 +6,6 @@
 $mysql_host = '127.0.0.1';
 $mysql_username = 'root';
 $mysql_password = '';
-$mysql_database = 'erp';
 /////////////////////////////////////////
 /////////////////////////////////////////
 /////////////////////////////////////////
@@ -18,6 +17,9 @@ $filename = 'backp-file-name.sql';
 /////////////////////////////////////////
 /////////////////////////////////////////
 /////////////////////////////////////////
+
+
+$mysql_database = 'erp';
 
 mysql_connect($mysql_host, $mysql_username, $mysql_password) or die('Error connecting to MySQL server: ' . mysql_error());
 mysql_select_db($mysql_database) or die('Error selecting MySQL database: ' . mysql_error());
