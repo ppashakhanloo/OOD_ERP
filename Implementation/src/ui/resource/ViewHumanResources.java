@@ -16,7 +16,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Map;
 
 public class ViewHumanResources extends HumanResourceObserver implements Visibility {
 
@@ -36,6 +35,13 @@ public class ViewHumanResources extends HumanResourceObserver implements Visibil
         addNewHumanResource.attach(this);
         this.userFacade = userFacade;
         prepareGUI();
+    }
+
+    public static void main(String[] args) {
+        UserFacade userFacade = new UserFacade();
+        userFacade.login("100824", "888");
+        ViewHumanResources viewHumanResources = new ViewHumanResources(userFacade);
+        viewHumanResources.setVisible(true);
     }
 
     private void prepareGUI() {
@@ -147,12 +153,5 @@ public class ViewHumanResources extends HumanResourceObserver implements Visibil
         mainDialog.getMainDialog().add(jScrollPane, BorderLayout.CENTER);
         mainDialog.getMainDialog().repaint();
         mainDialog.getMainDialog().revalidate();
-    }
-
-    public static void main(String[] args) {
-        UserFacade userFacade = new UserFacade();
-        userFacade.login("100824", "888");
-        ViewHumanResources viewHumanResources = new ViewHumanResources(userFacade);
-        viewHumanResources.setVisible(true);
     }
 }

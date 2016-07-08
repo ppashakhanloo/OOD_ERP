@@ -28,6 +28,13 @@ public class SinglePhysicalResource extends MainDialog implements Visibility {
         prepareGUI(userFacade, rID);
     }
 
+    public static void main(String[] args) {
+        UserFacade userFacade = new UserFacade();
+        userFacade.login("100824", "888");
+        SinglePhysicalResource singlePhysicalResource = new SinglePhysicalResource(userFacade, "764488");
+        singlePhysicalResource.setVisible(true);
+    }
+
     private void prepareGUI(UserFacade userFacade, String rID) {
         super.getMainDialog().setTitle("منبع فیزیکی");
         JPanel form = new JPanel(new GridBagLayout());
@@ -98,12 +105,5 @@ public class SinglePhysicalResource extends MainDialog implements Visibility {
     @Override
     public void setVisible(boolean visible) {
         getMainDialog().setVisible(visible);
-    }
-
-    public static void main(String[] args) {
-        UserFacade userFacade = new UserFacade();
-        userFacade.login("100824", "888");
-        SinglePhysicalResource singlePhysicalResource = new SinglePhysicalResource(userFacade, "764488");
-        singlePhysicalResource.setVisible(true);
     }
 }

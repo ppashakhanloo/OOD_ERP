@@ -36,6 +36,13 @@ public class ViewProjects extends ProjectObserver implements Visibility {
         prepareGUI();
     }
 
+    public static void main(String[] args) {
+        UserFacade userFacade = new UserFacade();
+        userFacade.login("100824", "888");
+        ViewProjects viewProjects = new ViewProjects(userFacade);
+        viewProjects.setVisible(true);
+    }
+
     private void prepareGUI() {
         mainDialog.getMainDialog().setTitle("مشاهده پروژه‌های سازمان ");
         JPanel addProjectsPanel = new JPanel(new GridBagLayout());
@@ -112,12 +119,5 @@ public class ViewProjects extends ProjectObserver implements Visibility {
         mainDialog.getMainDialog().add(jScrollPane, BorderLayout.CENTER);
         mainDialog.getMainDialog().repaint();
         mainDialog.getMainDialog().revalidate();
-    }
-
-    public static void main(String[] args) {
-        UserFacade userFacade = new UserFacade();
-        userFacade.login("100824", "888");
-        ViewProjects viewProjects = new ViewProjects(userFacade);
-        viewProjects.setVisible(true);
     }
 }

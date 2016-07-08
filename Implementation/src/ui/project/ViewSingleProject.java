@@ -268,7 +268,6 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         AddNewSystem addNewSystem = new AddNewSystem(userFacade, pid);
-                        java.lang.System.out.println("I WANT TO ADD SYSTEM TO PROJECT " + pid);
                         addNewSystem.setVisible(true);
                         mainDialog.getMainDialog().setVisible(false);
                     }
@@ -283,7 +282,6 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
                     public void actionPerformed(ActionEvent e) {
                         AddNewModule addNewModule = new AddNewModule(userFacade, pid);
                         addNewModule.setVisible(true);
-                        java.lang.System.out.println("I WANT TO ADD MODULE TO PROJECT " + pid);
                         mainDialog.getMainDialog().setVisible(false);
                     }
                 });

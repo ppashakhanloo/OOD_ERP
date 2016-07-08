@@ -7,6 +7,12 @@ public class Technology extends Identifiable {
     private String name;
     private String reason;
 
+    public Technology(String name, String reason) {
+        super();
+        this.name = name;
+        this.reason = reason;
+    }
+
     public String getName() {
         return name;
     }
@@ -19,12 +25,6 @@ public class Technology extends Identifiable {
         this.reason = reason;
         ProjectDAO projectDAO = ProjectDAO.getInstance();
         return projectDAO.updateTechnology(new Technology(getName(), reason));
-    }
-
-    public Technology(String name, String reason) {
-        super();
-        this.name = name;
-        this.reason = reason;
     }
 
     @Override

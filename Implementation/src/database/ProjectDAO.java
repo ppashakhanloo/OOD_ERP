@@ -11,14 +11,12 @@ import java.util.Date;
 
 public class ProjectDAO implements DAO<Project> {
 
+    private static ProjectDAO projectDAO;
     private Connection sqlConn;
     private String url = "jdbc:mysql://localhost:3306/erp?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull";
     private String user = "root";
-    private String password = "7284";
-
+    private String password = "";
     private QueryGenerator generator = QueryGenerator.getInstance();
-
-    private static ProjectDAO projectDAO;
 
     private ProjectDAO() {
         try {
@@ -33,6 +31,21 @@ public class ProjectDAO implements DAO<Project> {
             projectDAO = new ProjectDAO();
         }
         return projectDAO;
+    }
+
+    public static void main(String[] args) {
+        ProjectDAO prj = ProjectDAO.getInstance();
+        java.lang.System.out.println(prj.getByDevelopersCount(1).toString());
+//     Project proj = new Project("abc123", "prj1", null,null, "customer",
+//     10);
+//     ArrayList<String> uniIDs = new ArrayList<String>();
+//     uniIDs.add("1");
+//     prj.add(proj, uniIDs);
+//     java.lang.System.out.println(prj.get("abc123").getCustomerName());
+//     java.lang.System.out.println(prj.getByUsersCount(0).get(0).getID());
+//     prj.update(new Project("1", "MIR", null,null,"maryam",4));
+//     prj.updateTechnology(new Technology("cj", "want"));
+//     java.lang.System.out.println(prj.getUnitsByProjectID("WEB").get(0).getID());
     }
 
     public ArrayList<Unit> getUnitsByProjectID(String pid) {
@@ -359,7 +372,7 @@ public class ProjectDAO implements DAO<Project> {
         ArrayList<Project> projectsWithSameModulesCount = new ArrayList<>();
 
         if (modulesCount == 0)
-            return  allProjects;
+            return allProjects;
 
         for (Project project : allProjects) {
             String query = "SELECT COUNT(*) FROM project INNER JOIN system ON project.ID = system.ProjectID INNER JOIN module_system ON system.ID = module_system.SystemID " +
@@ -470,20 +483,5 @@ public class ProjectDAO implements DAO<Project> {
         }
         return projects;
     }
-
-     public static void main(String[] args) {
-     ProjectDAO prj = ProjectDAO.getInstance();
-     java.lang.System.out.println(prj.getByDevelopersCount(1).toString());
-//     Project proj = new Project("abc123", "prj1", null,null, "customer",
-//     10);
-//     ArrayList<String> uniIDs = new ArrayList<String>();
-//     uniIDs.add("1");
-//     prj.add(proj, uniIDs);
-//     java.lang.System.out.println(prj.get("abc123").getCustomerName());
-//     java.lang.System.out.println(prj.getByUsersCount(0).get(0).getID());
-//     prj.update(new Project("1", "MIR", null,null,"maryam",4));
-//     prj.updateTechnology(new Technology("cj", "want"));
-//     java.lang.System.out.println(prj.getUnitsByProjectID("WEB").get(0).getID());
-     }
 
 }

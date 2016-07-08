@@ -29,6 +29,13 @@ public class UsageFlowReport implements Visibility {
         prepareGUI();
     }
 
+    public static void main(String[] args) {
+        UserFacade userFacade = new UserFacade();
+        userFacade.login("310243", "admin");
+        UsageFlowReport ufr = new UsageFlowReport(userFacade);
+        ufr.setVisible(true);
+    }
+
     private void prepareGUI() {
         mainFrame.getMainFrame().setTitle("گزارش جریان چرخشی منابع");
 
@@ -185,13 +192,6 @@ public class UsageFlowReport implements Visibility {
     @Override
     public void setVisible(boolean visible) {
         mainFrame.setVisible(visible);
-    }
-
-    public static void main(String[] args) {
-        UserFacade userFacade = new UserFacade();
-        userFacade.login("310243", "admin");
-        UsageFlowReport ufr = new UsageFlowReport(userFacade);
-        ufr.setVisible(true);
     }
 }
 

@@ -32,6 +32,13 @@ public class ViewUnits extends UnitObserver implements Visibility {
         prepareGUI();
     }
 
+    public static void main(String[] args) {
+        UserFacade userFacade = new UserFacade();
+        userFacade.login("871539", "888");
+        ViewUnits viewUnits = new ViewUnits(userFacade);
+        viewUnits.setVisible(true);
+    }
+
     private void prepareGUI() {
         mainDialog.getMainDialog().setTitle("مشاهده واحدهای سازمان");
         JPanel addUnitsPanel = new JPanel(new GridBagLayout());
@@ -84,12 +91,5 @@ public class ViewUnits extends UnitObserver implements Visibility {
         mainDialog.getMainDialog().add(jScrollPane, BorderLayout.CENTER);
         mainDialog.getMainDialog().repaint();
         mainDialog.getMainDialog().revalidate();
-    }
-
-    public static void main(String[] args) {
-        UserFacade userFacade = new UserFacade();
-        userFacade.login("871539", "888");
-        ViewUnits viewUnits = new ViewUnits(userFacade);
-        viewUnits.setVisible(true);
     }
 }

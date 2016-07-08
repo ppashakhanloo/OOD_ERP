@@ -24,6 +24,10 @@ public class System extends Identifiable {
         this.name = name;
     }
 
+    public static void main(String[] args) {
+
+    }
+
     public void removeModule(Module module) {
         ModuleDAO moduleDAO = ModuleDAO.getInstance();
         moduleDAO.remove(module.getID());
@@ -61,9 +65,5 @@ public class System extends Identifiable {
     public String toString() {
 //        return "ID=" + getID() + ", name=" + name;
         return name + " (" + getID() + ")";
-    }
-
-    public static void main(String[] args) {
-
     }
 }

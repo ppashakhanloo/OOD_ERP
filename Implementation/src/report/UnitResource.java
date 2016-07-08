@@ -31,10 +31,6 @@ public class UnitResource extends Identifiable {
         this.unit = unit;
     }
 
-    public void setResource(Resource resource) {
-        this.resource = resource;
-    }
-
     public Date getAdditionDate() {
         return additionDate;
     }
@@ -58,6 +54,10 @@ public class UnitResource extends Identifiable {
 
     public Resource getResource() {
         return this.resource;
+    }
+
+    public void setResource(Resource resource) {
+        this.resource = resource;
     }
 
     public Unit getUnit() {

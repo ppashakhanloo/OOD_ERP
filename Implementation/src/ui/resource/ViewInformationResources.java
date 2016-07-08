@@ -37,6 +37,13 @@ public class ViewInformationResources extends InformationResourceObserver implem
         prepareGUI();
     }
 
+    public static void main(String[] args) {
+        UserFacade userFacade = new UserFacade();
+        userFacade.login("100824", "888");
+        ViewInformationResources viewInformationResources = new ViewInformationResources(userFacade);
+        viewInformationResources.setVisible(true);
+    }
+
     private void prepareGUI() {
         mainDialog.getMainDialog().setTitle("مشاهده منابع اطلاعاتی");
         mainDialog.getMainDialog().setLayout(new FlowLayout());
@@ -144,12 +151,5 @@ public class ViewInformationResources extends InformationResourceObserver implem
         mainDialog.getMainDialog().add(jScrollPane, BorderLayout.CENTER);
         mainDialog.getMainDialog().repaint();
         mainDialog.getMainDialog().revalidate();
-    }
-
-    public static void main(String[] args) {
-        UserFacade userFacade = new UserFacade();
-        userFacade.login("100824", "888");
-        ViewInformationResources viewInformationResources = new ViewInformationResources(userFacade);
-        viewInformationResources.setVisible(true);
     }
 }

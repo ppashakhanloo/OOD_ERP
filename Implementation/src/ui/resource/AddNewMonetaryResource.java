@@ -27,6 +27,13 @@ class AddNewMonetaryResource extends MainDialog {
         prepareGUI();
     }
 
+    public static void main(String[] args) {
+//        UserFacade userFacade = new UserFacade();
+//        userFacade.login("478837", "888");
+        AddNewMonetaryResource addNewMonetaryResource = new AddNewMonetaryResource();
+        addNewMonetaryResource.setVisible(true);
+    }
+
     @Override
     public void setVisible(boolean visible) {
         accountNumber.setText("");
@@ -155,12 +162,5 @@ class AddNewMonetaryResource extends MainDialog {
             }
         }
         return null;
-    }
-
-    public static void main(String[] args) {
-//        UserFacade userFacade = new UserFacade();
-//        userFacade.login("478837", "888");
-        AddNewMonetaryResource addNewMonetaryResource = new AddNewMonetaryResource();
-        addNewMonetaryResource.setVisible(true);
     }
 }

@@ -23,16 +23,16 @@ abstract public class AccessLevel {
         hasPermission.put(permissionType, permitStatus);
     }
 
-    public void setPermissions(Map<PermissionType, Boolean> permits) {
-        this.hasPermission = permits;
-    }
-
     public Boolean getPermission(PermissionType permissionType) {
         return hasPermission.get(permissionType);
     }
 
     public Map<PermissionType, Boolean> getPermissions() {
         return hasPermission;
+    }
+
+    public void setPermissions(Map<PermissionType, Boolean> permits) {
+        this.hasPermission = permits;
     }
 
     @Override

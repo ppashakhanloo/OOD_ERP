@@ -11,16 +11,36 @@ import java.util.ArrayList;
 
 public class InformationResourceDAO extends ResourceDAO {
 
+    private static InformationResourceDAO informationResourceDAO;
+
     private InformationResourceDAO() {
         super();
     }
-
-    private static InformationResourceDAO informationResourceDAO;
 
     public static InformationResourceDAO getInstance() {
         if (informationResourceDAO == null)
             informationResourceDAO = new InformationResourceDAO();
         return informationResourceDAO;
+    }
+
+    public static void main(String[] args) {
+        // InformationResourceDAO dao = new InformationResourceDAO();
+        // Resource res = new InformationResource("db", "db description");
+        // System.out.println("ADDED: " + dao.add(res, "1", "1"));
+        // InformationResource oldRes = (InformationResource)
+        // dao.get(res.getID());
+        // System.out.println("OLD: " + oldRes);
+        // System.out.println("ID: " + oldRes.getID());
+        // InformationResource upRes = new InformationResource("==" +
+        // oldRes.getName() + "==", oldRes.getDescription());
+        // upRes.setID(oldRes.getID());
+        // System.out.println("UPDATED: " + dao.update(upRes));
+        // InformationResource newRes = (InformationResource)
+        // dao.get(res.getID());
+        // System.out.println();
+        // System.out.println("NEW: " + newRes);
+        // System.out.println("REMOVE: " + dao.remove("477801"));
+        // System.out.println("LIST: " + dao.getByName("==db=="));
     }
 
     @Override
@@ -150,26 +170,6 @@ public class InformationResourceDAO extends ResourceDAO {
             e.printStackTrace();
         }
         return resources;
-    }
-
-    public static void main(String[] args) {
-        // InformationResourceDAO dao = new InformationResourceDAO();
-        // Resource res = new InformationResource("db", "db description");
-        // System.out.println("ADDED: " + dao.add(res, "1", "1"));
-        // InformationResource oldRes = (InformationResource)
-        // dao.get(res.getID());
-        // System.out.println("OLD: " + oldRes);
-        // System.out.println("ID: " + oldRes.getID());
-        // InformationResource upRes = new InformationResource("==" +
-        // oldRes.getName() + "==", oldRes.getDescription());
-        // upRes.setID(oldRes.getID());
-        // System.out.println("UPDATED: " + dao.update(upRes));
-        // InformationResource newRes = (InformationResource)
-        // dao.get(res.getID());
-        // System.out.println();
-        // System.out.println("NEW: " + newRes);
-        // System.out.println("REMOVE: " + dao.remove("477801"));
-        // System.out.println("LIST: " + dao.getByName("==db=="));
     }
 
 }

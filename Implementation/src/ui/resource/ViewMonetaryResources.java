@@ -37,6 +37,13 @@ public class ViewMonetaryResources extends MonetaryResourceObserver implements V
         prepareGUI();
     }
 
+    public static void main(String[] args) {
+        UserFacade userFacade = new UserFacade();
+        userFacade.login("100824", "888");
+        ViewMonetaryResources viewMonetaryResources = new ViewMonetaryResources(userFacade);
+        viewMonetaryResources.setVisible(true);
+    }
+
     private void prepareGUI() {
         mainDialog.getMainDialog().setTitle("مشاهده منابع مالی");
         mainDialog.getMainDialog().setLayout(new FlowLayout());
@@ -143,12 +150,5 @@ public class ViewMonetaryResources extends MonetaryResourceObserver implements V
         mainDialog.getMainDialog().add(jScrollPane, BorderLayout.CENTER);
         mainDialog.getMainDialog().repaint();
         mainDialog.getMainDialog().revalidate();
-    }
-
-    public static void main(String[] args) {
-        UserFacade userFacade = new UserFacade();
-        userFacade.login("100824", "888");
-        ViewMonetaryResources viewMonetaryResources = new ViewMonetaryResources(userFacade);
-        viewMonetaryResources.setVisible(true);
     }
 }

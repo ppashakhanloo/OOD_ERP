@@ -8,7 +8,6 @@ import resource.HumanResource;
 import resource.Resource;
 import resource.ResourceCatalogue;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -72,7 +71,7 @@ public class ProjectFacade {
         return ProjectCatalogue.getInstance().get(pid).addSystem(new System(name));
     }
 
-    public boolean addNewModule(String name, String sid, String pid, ArrayList<String> resourceID, ArrayList<String> developersID) {
+    public boolean addNewModule(String name, String sid, String pid, ArrayList<String> developersID) {
         Module newModule = new Module();
         boolean addModuleSuccessful = ProjectCatalogue.getInstance().get(pid).getSystem(sid).addModule(newModule);
         boolean setNameSuccessful = newModule.setName(name);
@@ -80,7 +79,6 @@ public class ProjectFacade {
             if (!newModule.addDeveloper((HumanResource) ResourceCatalogue.getInstance().get(id)))
                 return false;
         }
-        // TODO add resources
         return addModuleSuccessful && setNameSuccessful;
     }
 
@@ -100,12 +98,14 @@ public class ProjectFacade {
         c.add(Calendar.DATE, Integer.valueOf(lengthOfPossession));
         projectRequirement.setReleaseDate(c.getTime());
 
-        boolean addSuccessful = ProjectRequirementCatalogue.getInstance().add(projectRequirement, pid, unitID,resource);
+        boolean addSuccessful = ProjectRequirementCatalogue.getInstance().add(projectRequirement, pid, unitID, resource);
 
         return addSuccessful;
     }
 
-    public void satisfyProjectRequirement(ProjectRequirement requirement) {ProjectRequirementCatalogue.getInstance().satisfyRequirement(requirement);}
+    public void satisfyProjectRequirement(ProjectRequirement requirement) {
+        ProjectRequirementCatalogue.getInstance().satisfyRequirement(requirement);
+    }
 
     public boolean addNewModuleModification(String mid, String modificationType, Date start, Date end, ArrayList<Resource> resources, ArrayList<Resource> developers) {
         ModuleModification moduleModification = new ModuleModification(modificationType, start, end);

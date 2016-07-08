@@ -22,6 +22,13 @@ public class AddNewUnit extends MainDialog {
         prepareGUI();
     }
 
+    public static void main(String[] args) {
+//        UserFacade userFacade = new UserFacade();
+//        userFacade.login("478837", "888");
+        AddNewUnit addNewUnit = new AddNewUnit();
+        addNewUnit.setVisible(true);
+    }
+
     public void attach(UnitObserver observer) {
         observers.add(observer);
     }
@@ -71,12 +78,5 @@ public class AddNewUnit extends MainDialog {
         form.setBorder(new EmptyBorder(10, 10, 10, 10));
         super.getMainDialog().pack();
         super.getMainDialog().setLocationRelativeTo(null);
-    }
-
-    public static void main(String[] args) {
-//        UserFacade userFacade = new UserFacade();
-//        userFacade.login("478837", "888");
-        AddNewUnit addNewUnit = new AddNewUnit();
-        addNewUnit.setVisible(true);
     }
 }

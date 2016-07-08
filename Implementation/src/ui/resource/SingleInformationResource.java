@@ -28,6 +28,13 @@ public class SingleInformationResource extends MainDialog implements Visibility 
 
     }
 
+    public static void main(String[] args) {
+        UserFacade userFacade = new UserFacade();
+        userFacade.login("100824", "888");
+        SingleInformationResource singleInformationResource = new SingleInformationResource(userFacade, "476220");
+        singleInformationResource.setVisible(true);
+    }
+
     private void prepareGUI(UserFacade userFacade, String rID) {
         super.getMainDialog().setTitle("منبع اطلاعاتی");
         JPanel form = new JPanel(new GridBagLayout());
@@ -93,13 +100,6 @@ public class SingleInformationResource extends MainDialog implements Visibility 
     @Override
     public void setVisible(boolean visible) {
         getMainDialog().setVisible(visible);
-    }
-
-    public static void main(String[] args) {
-        UserFacade userFacade = new UserFacade();
-        userFacade.login("100824", "888");
-        SingleInformationResource singleInformationResource = new SingleInformationResource(userFacade, "476220");
-        singleInformationResource.setVisible(true);
     }
 
 }

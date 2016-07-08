@@ -40,6 +40,13 @@ public class AvailableResourcesReport implements Visibility {
         prepareGUI();
     }
 
+    public static void main(String[] args) {
+        UserFacade userFacade = new UserFacade();
+        userFacade.login("310243", "admin");
+        AvailableResourcesReport arr = new AvailableResourcesReport(userFacade);
+        arr.setVisible(true);
+    }
+
     private void prepareGUI() {
         mainFrame.getMainFrame().setTitle("گزارش منابع موجود");
 
@@ -82,12 +89,5 @@ public class AvailableResourcesReport implements Visibility {
     @Override
     public void setVisible(boolean visible) {
         mainFrame.setVisible(visible);
-    }
-
-    public static void main(String[] args) {
-        UserFacade userFacade = new UserFacade();
-        userFacade.login("310243", "admin");
-        AvailableResourcesReport arr = new AvailableResourcesReport(userFacade);
-        arr.setVisible(true);
     }
 }

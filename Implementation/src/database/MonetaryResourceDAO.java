@@ -8,16 +8,36 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class MonetaryResourceDAO extends ResourceDAO {
+    private static MonetaryResourceDAO monetaryResourceDAO;
+
     private MonetaryResourceDAO() {
         super();
     }
-
-    private static MonetaryResourceDAO monetaryResourceDAO;
 
     public static MonetaryResourceDAO getInstance() {
         if (monetaryResourceDAO == null)
             monetaryResourceDAO = new MonetaryResourceDAO();
         return monetaryResourceDAO;
+    }
+
+    public static void main(String[] args) {
+        MonetaryResourceDAO dao = new MonetaryResourceDAO();
+//        Resource res = new MonetaryResource(MonetaryType.CASH, "Refah",
+//                1234567890, new Quantity(100000, QuantityUnit.DOLLAR));
+//        System.out.println("ADDED: " + dao.add(res, "1", "1"));
+//        MonetaryResource oldRes = (MonetaryResource) dao.get(res.getID());
+//        System.out.println("OLD: " + oldRes);
+//        System.out.println("ID: " + oldRes.getID());
+//        MonetaryResource upRes = new MonetaryResource(oldRes.getMonetaryType(),
+//                "Sasan", oldRes.getAccountNumber(), oldRes.getQuantity());
+//        upRes.setID(oldRes.getID());
+//        System.out.println("UPDATED: " + dao.update(upRes));
+//        MonetaryResource newRes = (MonetaryResource) dao.get(res.getID());
+//        System.out.println();
+//        System.out.println("NEW: " + newRes);
+//        System.out.println("REMOVE: " + dao.remove("796940"));
+//        System.out.println("LIST: "
+//                + dao.getByQuantity(new Quantity(100000, QuantityUnit.DOLLAR)));
     }
 
     @Override
@@ -194,25 +214,5 @@ public class MonetaryResourceDAO extends ResourceDAO {
             e.printStackTrace();
         }
         return null;
-    }
-
-    public static void main(String[] args) {
-        MonetaryResourceDAO dao = new MonetaryResourceDAO();
-//        Resource res = new MonetaryResource(MonetaryType.CASH, "Refah",
-//                1234567890, new Quantity(100000, QuantityUnit.DOLLAR));
-//        System.out.println("ADDED: " + dao.add(res, "1", "1"));
-//        MonetaryResource oldRes = (MonetaryResource) dao.get(res.getID());
-//        System.out.println("OLD: " + oldRes);
-//        System.out.println("ID: " + oldRes.getID());
-//        MonetaryResource upRes = new MonetaryResource(oldRes.getMonetaryType(),
-//                "Sasan", oldRes.getAccountNumber(), oldRes.getQuantity());
-//        upRes.setID(oldRes.getID());
-//        System.out.println("UPDATED: " + dao.update(upRes));
-//        MonetaryResource newRes = (MonetaryResource) dao.get(res.getID());
-//        System.out.println();
-//        System.out.println("NEW: " + newRes);
-//        System.out.println("REMOVE: " + dao.remove("796940"));
-//        System.out.println("LIST: "
-//                + dao.getByQuantity(new Quantity(100000, QuantityUnit.DOLLAR)));
     }
 }

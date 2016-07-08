@@ -24,6 +24,13 @@ class AddNewInformationResource extends MainDialog {
         prepareGUI();
     }
 
+    public static void main(String[] args) {
+//        UserFacade userFacade = new UserFacade();
+//        userFacade.login("478837", "888");
+        AddNewInformationResource addNewInformationResource = new AddNewInformationResource();
+        addNewInformationResource.setVisible(true);
+    }
+
     @Override
     public void setVisible(boolean visible) {
         name.setText("");
@@ -96,12 +103,5 @@ class AddNewInformationResource extends MainDialog {
         form.setBorder(new EmptyBorder(10, 10, 10, 10));
         super.getMainDialog().pack();
         super.getMainDialog().setLocationRelativeTo(null);
-    }
-
-    public static void main(String[] args) {
-//        UserFacade userFacade = new UserFacade();
-//        userFacade.login("478837", "888");
-        AddNewInformationResource addNewInformationResource = new AddNewInformationResource();
-        addNewInformationResource.setVisible(true);
     }
 }

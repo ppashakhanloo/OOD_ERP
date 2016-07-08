@@ -25,6 +25,10 @@ public class LoginForm implements Visibility {
         prepareGUI();
     }
 
+    public static void main(String[] args) {
+        new LoginForm().setVisible(true);
+    }
+
     @Override
     public void setVisible(boolean visible) {
         mainFrame.setVisible(true);
@@ -137,9 +141,5 @@ public class LoginForm implements Visibility {
         menuBar.add(help);
         menuBar.add(register);
         mainFrame.setJMenuBar(menuBar);
-    }
-
-    public static void main(String[] args) {
-        new LoginForm().setVisible(true);
     }
 }

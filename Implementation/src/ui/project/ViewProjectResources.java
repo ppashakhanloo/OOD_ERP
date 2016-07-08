@@ -1,6 +1,5 @@
 package ui.project;
 
-import access.PermissionType;
 import business_logic_facade.ProjectFacade;
 import business_logic_facade.UserFacade;
 import project.Project;
@@ -10,8 +9,6 @@ import ui.Visibility;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class ViewProjectResources extends ProjectObserver implements Visibility {
 
@@ -34,29 +31,17 @@ public class ViewProjectResources extends ProjectObserver implements Visibility 
         prepareGUI();
     }
 
+    public static void main(String[] args) {
+//        UserFacade userFacade = new UserFacade();
+//        userFacade.login("158481", "y");
+//        ViewProjectResources viewProjects = new ViewProjectResources(userFacade);
+//        viewProjects.setVisible(true);
+    }
+
     private void prepareGUI() {
         mainFrame.getMainFrame().setTitle("مشاهده منابع پروژه");
-        JPanel addProjectsPanel = new JPanel(new GridBagLayout());
         GridBagConstraints cs = new GridBagConstraints();
         cs.fill = GridBagConstraints.HORIZONTAL;
-
-        JButton addNew = new JButton("تخصیص منبع جدید");
-        if (mainFrame.getCurrentUser().getCurrentUserPermissions().get(PermissionType.canAddRemReq))
-            addNew.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-//                    addNewProject.setVisible(true);
-                }
-            });
-        else
-            addNew.setEnabled(false);
-
-        cs.gridx = 0;
-        cs.gridy = 0;
-        cs.gridwidth = 1;
-        addProjectsPanel.add(addNew, cs);
-        mainFrame.getMainFrame().getContentPane().add(addProjectsPanel, BorderLayout.NORTH);
-
         /////////////////////////////////////////////
         listModel = new DefaultListModel<>();
         for (Resource resource : ProjectFacade.getInstance().getProjectResources(project.getID()))
@@ -87,12 +72,5 @@ public class ViewProjectResources extends ProjectObserver implements Visibility 
         mainFrame.getMainFrame().add(jScrollPane, BorderLayout.CENTER);
         mainFrame.getMainFrame().repaint();
         mainFrame.getMainFrame().revalidate();
-    }
-
-    public static void main(String[] args) {
-//        UserFacade userFacade = new UserFacade();
-//        userFacade.login("158481", "y");
-//        ViewProjectResources viewProjects = new ViewProjectResources(userFacade);
-//        viewProjects.setVisible(true);
     }
 }

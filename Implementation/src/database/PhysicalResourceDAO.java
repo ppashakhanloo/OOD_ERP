@@ -10,16 +10,34 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class PhysicalResourceDAO extends ResourceDAO {
+    private static PhysicalResourceDAO physicalResourceDAO;
+
     private PhysicalResourceDAO() {
         super();
     }
-
-    private static PhysicalResourceDAO physicalResourceDAO;
 
     public static PhysicalResourceDAO getInstance() {
         if (physicalResourceDAO == null)
             physicalResourceDAO = new PhysicalResourceDAO();
         return physicalResourceDAO;
+    }
+
+    public static void main(String[] args) {
+        // PhysicalResourceDAO dao = new PhysicalResourceDAO();
+        // Resource res = new PhysicalResource("table", "nilper", "room202");
+        // System.out.println("ADDED: " + dao.add(res, "1", "1"));
+        // PhysicalResource oldRes = (PhysicalResource) dao.get(res.getID());
+        // System.out.println("OLD: " + oldRes);
+        // System.out.println("ID: " + oldRes.getID());
+        // PhysicalResource upRes = new PhysicalResource(oldRes.getName(),
+        // oldRes.getModel(), oldRes.getLocation());
+        // upRes.setID(oldRes.getID());
+        // System.out.println("UPDATED: " + dao.update(upRes));
+        // PhysicalResource newRes = (PhysicalResource) dao.get(res.getID());
+        // System.out.println();
+        // System.out.println("NEW: " + newRes);
+        // System.out.println("REMOVE: " + dao.remove("802830"));
+        // System.out.println("LIST: " + dao.getByLocation("room202"));
     }
 
     @Override
@@ -162,24 +180,6 @@ public class PhysicalResourceDAO extends ResourceDAO {
             e.printStackTrace();
         }
         return resources;
-    }
-
-    public static void main(String[] args) {
-        // PhysicalResourceDAO dao = new PhysicalResourceDAO();
-        // Resource res = new PhysicalResource("table", "nilper", "room202");
-        // System.out.println("ADDED: " + dao.add(res, "1", "1"));
-        // PhysicalResource oldRes = (PhysicalResource) dao.get(res.getID());
-        // System.out.println("OLD: " + oldRes);
-        // System.out.println("ID: " + oldRes.getID());
-        // PhysicalResource upRes = new PhysicalResource(oldRes.getName(),
-        // oldRes.getModel(), oldRes.getLocation());
-        // upRes.setID(oldRes.getID());
-        // System.out.println("UPDATED: " + dao.update(upRes));
-        // PhysicalResource newRes = (PhysicalResource) dao.get(res.getID());
-        // System.out.println();
-        // System.out.println("NEW: " + newRes);
-        // System.out.println("REMOVE: " + dao.remove("802830"));
-        // System.out.println("LIST: " + dao.getByLocation("room202"));
     }
 
 }

@@ -28,6 +28,13 @@ public class ViewProjectRequirements extends ProjectObserver implements Visibili
         prepareGUI();
     }
 
+    public static void main(String[] args) {
+        UserFacade userFacade = new UserFacade();
+        userFacade.login("100824", "888");
+        ViewProjectRequirements viewProjectReqs = new ViewProjectRequirements(userFacade, ProjectFacade.getInstance().getProject("450629"));
+        viewProjectReqs.setVisible(true);
+    }
+
     private void prepareGUI() {
         mainFrame.getMainFrame().setTitle("مشاهده نیازمندی‌های پروژه");
         JPanel addProjectsPanel = new JPanel(new GridBagLayout());
@@ -103,12 +110,5 @@ public class ViewProjectRequirements extends ProjectObserver implements Visibili
         mainFrame.getMainFrame().add(jScrollPane, BorderLayout.CENTER);
         mainFrame.getMainFrame().repaint();
         mainFrame.getMainFrame().revalidate();
-    }
-
-    public static void main(String[] args) {
-        UserFacade userFacade = new UserFacade();
-        userFacade.login("100824", "888");
-        ViewProjectRequirements viewProjectReqs = new ViewProjectRequirements(userFacade, ProjectFacade.getInstance().getProject("450629"));
-        viewProjectReqs.setVisible(true);
     }
 }

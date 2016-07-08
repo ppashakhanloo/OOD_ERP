@@ -7,12 +7,11 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class ResourceDAO {
+    private static ResourceDAO resourceDAO;
     protected Connection sqlConn;
     private String url = "jdbc:mysql://localhost:3306/erp?useUnicode=true&characterEncoding=UTF-8";
     private String user = "root";
-    private String password = "7284";
-
-    private static ResourceDAO resourceDAO;
+    private String password = "";
 
     ResourceDAO() {
         try {
@@ -27,6 +26,20 @@ public class ResourceDAO {
             resourceDAO = new ResourceDAO();
         }
         return resourceDAO;
+    }
+
+    public static void main(String[] args) {
+        // ResourceDAO dao = new ResourceDAO();
+        // java.lang.System.out.println(dao.listPresentResources().toString());
+        // ArrayList<String> colNames = new ArrayList<>();
+        // colNames.add("ID");
+        // ArrayList<String> values = new ArrayList<>();
+        // values.add("2");
+        // dao.queryGenerator.insert("access", colNames, values);
+        //
+        // System.out.println(
+        // dao.add(new HumanResource("pardis", "gheini", "doa", "123456", (new
+        // AccessLevelFactory()).getAccessLevel(accessLevelID)), "1", "1"));
     }
 
     public boolean add(Resource item, String projectID) {
@@ -169,20 +182,6 @@ public class ResourceDAO {
         }
 
         return new Resource(rs.getString("ID"), resourceStatus, isAvailable);
-    }
-
-    public static void main(String[] args) {
-        // ResourceDAO dao = new ResourceDAO();
-        // java.lang.System.out.println(dao.listPresentResources().toString());
-        // ArrayList<String> colNames = new ArrayList<>();
-        // colNames.add("ID");
-        // ArrayList<String> values = new ArrayList<>();
-        // values.add("2");
-        // dao.queryGenerator.insert("access", colNames, values);
-        //
-        // System.out.println(
-        // dao.add(new HumanResource("pardis", "gheini", "doa", "123456", (new
-        // AccessLevelFactory()).getAccessLevel(accessLevelID)), "1", "1"));
     }
 
 }

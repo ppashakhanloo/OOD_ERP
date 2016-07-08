@@ -1,6 +1,5 @@
 package report;
 
-import business_logic_facade.OperationFacade;
 import database.ProjectRequirementDAO;
 import project.Project;
 import project.ProjectCatalogue;

@@ -24,6 +24,13 @@ public class AddNewSystem extends MainDialog {
         prepareGUI(currentUser, pid);
     }
 
+    public static void main(String[] args) {
+//        UserFacade userFacade = new UserFacade();
+//        userFacade.login("478837", "888");
+//        AddNewSystem addNewUnit = new AddNewSystem();
+//        addNewUnit.setVisible(true);
+    }
+
     private void prepareGUI(UserFacade currentUser, String pid) {
         super.getMainDialog().setTitle("افزودن سیستم جدید");
         JPanel form = new JPanel(new GridBagLayout());
@@ -61,12 +68,5 @@ public class AddNewSystem extends MainDialog {
         form.setBorder(new EmptyBorder(10, 10, 10, 10));
         super.getMainDialog().pack();
         super.getMainDialog().setLocationRelativeTo(null);
-    }
-
-    public static void main(String[] args) {
-//        UserFacade userFacade = new UserFacade();
-//        userFacade.login("478837", "888");
-//        AddNewSystem addNewUnit = new AddNewSystem();
-//        addNewUnit.setVisible(true);
     }
 }

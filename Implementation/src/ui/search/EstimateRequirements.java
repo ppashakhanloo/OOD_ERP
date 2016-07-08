@@ -23,6 +23,13 @@ public class EstimateRequirements implements Visibility {
         prepareGUI();
     }
 
+    public static void main(String[] args) {
+        UserFacade userFacade = new UserFacade();
+        userFacade.login("310243", "admin");
+        EstimateRequirements er = new EstimateRequirements(userFacade);
+        er.setVisible(true);
+    }
+
     private void prepareGUI() {
         mainFrame.getMainFrame().setTitle("جست و جو برای تخمین ضرورت نیازمندی ها");
 
@@ -179,12 +186,5 @@ public class EstimateRequirements implements Visibility {
     @Override
     public void setVisible(boolean visible) {
         mainFrame.setVisible(visible);
-    }
-
-    public static void main(String[] args) {
-        UserFacade userFacade = new UserFacade();
-        userFacade.login("310243", "admin");
-        EstimateRequirements er = new EstimateRequirements(userFacade);
-        er.setVisible(true);
     }
 }

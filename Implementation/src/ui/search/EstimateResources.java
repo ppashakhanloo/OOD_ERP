@@ -21,6 +21,13 @@ public class EstimateResources implements Visibility {
         prepareGUI();
     }
 
+    public static void main(String[] args) {
+        UserFacade userFacade = new UserFacade();
+        userFacade.login("100824", "888");
+        EstimateResources er = new EstimateResources(userFacade);
+        er.setVisible(true);
+    }
+
     private void prepareGUI() {
         mainFrame.getMainFrame().setTitle("جست و جو برای تخمین منابع");
 
@@ -142,12 +149,5 @@ public class EstimateResources implements Visibility {
     @Override
     public void setVisible(boolean visible) {
         mainFrame.setVisible(visible);
-    }
-
-    public static void main(String[] args) {
-        UserFacade userFacade = new UserFacade();
-        userFacade.login("100824", "888");
-        EstimateResources er = new EstimateResources(userFacade);
-        er.setVisible(true);
     }
 }

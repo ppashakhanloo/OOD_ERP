@@ -6,6 +6,11 @@ public class AccessLevelFactory {
 
     private AccessLevel accessLevel = null;
 
+    public static void main(String[] args) {
+        AccessLevel accessLevel = (new AccessLevelFactory()).getAccessLevel(AccessLevelType.High);
+        System.out.println(accessLevel);
+    }
+
     public AccessLevel getAccessLevel(AccessLevelType accessLevelType) {
 
         switch (accessLevelType) {
@@ -21,10 +26,5 @@ public class AccessLevelFactory {
         }
         accessLevel.setPermissions(AccessLevelDAO.getInstance().fillAccessLevel(accessLevelType));
         return accessLevel;
-    }
-
-    public static void main(String[] args) {
-        AccessLevel accessLevel = (new AccessLevelFactory()).getAccessLevel(AccessLevelType.High);
-        System.out.println(accessLevel);
     }
 }

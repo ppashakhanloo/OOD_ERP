@@ -14,10 +14,10 @@ import java.util.*;
 
 public class OperationFacade {
 
+    private static OperationFacade operationFacade;
+
     private OperationFacade() {
     }
-
-    private static OperationFacade operationFacade;
 
     public static OperationFacade getInstance() {
         if (operationFacade == null)

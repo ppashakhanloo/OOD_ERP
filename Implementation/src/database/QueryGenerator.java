@@ -15,6 +15,21 @@ public class QueryGenerator {
         return queryGenerator;
     }
 
+    public static void main(String[] args) {
+        String z = "ak";
+        String a = "no";
+
+        QueryGenerator generator = QueryGenerator.getInstance();
+        ArrayList<String> values = new ArrayList<>();
+        values.add(z);
+        values.add(a);
+        ArrayList<String> colNames = new ArrayList<>();
+        colNames.add("A");
+        colNames.add("B");
+        System.out.println(generator.select("student", colNames, null));
+        System.out.println(generator.insert("a", colNames, values));
+    }
+
     public String select(String tableName, ArrayList<String> colNames, String cond) {
         return "SELECT " + (colNames == null ? '*' : separatedList(",", "", colNames)) + " FROM " + tableName
                 + (cond == null ? "" : " WHERE " + cond);
@@ -38,26 +53,11 @@ public class QueryGenerator {
             return wrapper + values.get(0) + wrapper;
         String stringValues = "";
         for (String value : values) {
-            if(value.equals("NULL"))
+            if (value.equals("NULL"))
                 stringValues += value + separator + " ";
             else
                 stringValues += wrapper + value + wrapper + separator + " ";
         }
         return stringValues.substring(0, stringValues.length() - 2);
-    }
-
-    public static void main(String[] args) {
-        String z = "ak";
-        String a = "no";
-
-        QueryGenerator generator = QueryGenerator.getInstance();
-        ArrayList<String> values = new ArrayList<>();
-        values.add(z);
-        values.add(a);
-        ArrayList<String> colNames = new ArrayList<>();
-        colNames.add("A");
-        colNames.add("B");
-        System.out.println(generator.select("student", colNames, null));
-        System.out.println(generator.insert("a", colNames, values));
     }
 }

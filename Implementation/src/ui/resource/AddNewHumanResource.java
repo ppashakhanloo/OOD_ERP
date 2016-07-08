@@ -28,6 +28,13 @@ class AddNewHumanResource extends MainDialog {
         prepareGUI();
     }
 
+    public static void main(String[] args) {
+//        UserFacade userFacade = new UserFacade();
+//        userFacade.login("478837", "888");
+        AddNewHumanResource addNewHumanResource = new AddNewHumanResource();
+        addNewHumanResource.setVisible(true);
+    }
+
     public void attach(HumanResourceObserver observer) {
         observers.add(observer);
     }
@@ -140,12 +147,5 @@ class AddNewHumanResource extends MainDialog {
 
                         setLocationRelativeTo(null);
 
-    }
-
-    public static void main(String[] args) {
-//        UserFacade userFacade = new UserFacade();
-//        userFacade.login("478837", "888");
-        AddNewHumanResource addNewHumanResource = new AddNewHumanResource();
-        addNewHumanResource.setVisible(true);
     }
 }

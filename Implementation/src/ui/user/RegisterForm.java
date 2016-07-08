@@ -2,7 +2,6 @@ package ui.user;
 
 import access.AccessLevelType;
 import business_logic_facade.OperationFacade;
-import business_logic_facade.ProjectFacade;
 import ui.MainDialog;
 import ui.utilities.FormUtility;
 import unit.Unit;
@@ -18,6 +17,11 @@ class RegisterForm extends MainDialog {
 
     RegisterForm() {
         prepareGUI();
+    }
+
+    public static void main(String[] args) {
+        RegisterForm registerForm = new RegisterForm();
+        registerForm.setVisible(true);
     }
 
     private void prepareGUI() {
@@ -85,10 +89,5 @@ class RegisterForm extends MainDialog {
         form.setBorder(new EmptyBorder(10, 10, 10, 10));
         super.getMainDialog().pack();
         super.getMainDialog().setLocationRelativeTo(null);
-    }
-
-    public static void main(String[] args) {
-        RegisterForm registerForm = new RegisterForm();
-        registerForm.setVisible(true);
     }
 }

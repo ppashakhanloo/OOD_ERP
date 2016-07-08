@@ -28,6 +28,13 @@ public class ViewModuleModifications implements Visibility {
         prepareGUI(pid);
     }
 
+    public static void main(String[] args) {
+        UserFacade userFacade = new UserFacade();
+        userFacade.login("100824", "888");
+        ViewModuleModifications viewModuleModifications = new ViewModuleModifications(userFacade, "1");
+        viewModuleModifications.setVisible(true);
+    }
+
     private void prepareGUI(String pid) {
         mainFrame.getMainFrame().setTitle("مشاهده تغییرات ماژول");
         mainFrame.getMainFrame().getContentPane().remove(0);
@@ -73,12 +80,5 @@ public class ViewModuleModifications implements Visibility {
     @Override
     public void setVisible(boolean visible) {
         mainFrame.getMainFrame().setVisible(visible);
-    }
-
-    public static void main(String[] args) {
-        UserFacade userFacade = new UserFacade();
-        userFacade.login("100824", "888");
-        ViewModuleModifications viewModuleModifications = new ViewModuleModifications(userFacade, "1");
-        viewModuleModifications.setVisible(true);
     }
 }

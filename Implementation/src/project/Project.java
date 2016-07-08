@@ -45,6 +45,11 @@ public class Project extends Identifiable {
         this.usersCount = usersCount;
     }
 
+    public static void main(String[] args) {
+//        Project project = new Project("OOD", new Date(), new Date(), "Dr. Ramsin", 10);
+//        ProjectRequirementCatalogue.
+    }
+
     public boolean addSystem(System system) {
         return SystemDAO.getInstance().add(system, getID());
     }
@@ -170,10 +175,5 @@ public class Project extends Identifiable {
         resources.addAll(PhysicalResourceDAO.getInstance().getResourcesByProjectID(getID()));
         resources.addAll(MonetaryResourceDAO.getInstance().getResourcesByProjectID(getID()));
         return resources;
-    }
-
-    public static void main(String[] args) {
-//        Project project = new Project("OOD", new Date(), new Date(), "Dr. Ramsin", 10);
-//        ProjectRequirementCatalogue.
     }
 }

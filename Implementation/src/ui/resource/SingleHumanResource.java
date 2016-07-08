@@ -35,6 +35,13 @@ public class SingleHumanResource extends MainDialog implements Visibility {
         prepareGUI(userFacade, rID);
     }
 
+    public static void main(String[] args) {
+        UserFacade userFacade = new UserFacade();
+        userFacade.login("100824", "888");
+        SingleHumanResource singleHumanResource = new SingleHumanResource(userFacade, "100824");
+        singleHumanResource.setVisible(true);
+    }
+
     private void prepareGUI(UserFacade userFacade, String rID) {
         super.getMainDialog().setTitle("منبع انسانی");
         JPanel form = new JPanel(new GridBagLayout());
@@ -145,13 +152,6 @@ public class SingleHumanResource extends MainDialog implements Visibility {
     @Override
     public void setVisible(boolean visible) {
         getMainDialog().setVisible(visible);
-    }
-
-    public static void main(String[] args) {
-        UserFacade userFacade = new UserFacade();
-        userFacade.login("100824", "888");
-        SingleHumanResource singleHumanResource = new SingleHumanResource(userFacade, "100824");
-        singleHumanResource.setVisible(true);
     }
 
 }

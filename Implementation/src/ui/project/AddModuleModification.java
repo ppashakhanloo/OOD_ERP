@@ -34,6 +34,13 @@ class AddModuleModification extends MainDialog {
         prepareGUI(pid);
     }
 
+    public static void main(String[] args) {
+//        UserFacade userFacade = new UserFacade();
+//        userFacade.login("478837", "888");
+//        AddNewModule addNewProject = new AddNewModule();
+//        addNewProject.setVisible(true);
+    }
+
     public void attach(ProjectObserver observer) {
         observers.add(observer);
     }
@@ -149,6 +156,7 @@ class AddModuleModification extends MainDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
+                new ViewSingleProject(userFacade, pid).setVisible(true);
             }
         });
         formUtility.addLastField(submit, form);
@@ -157,12 +165,5 @@ class AddModuleModification extends MainDialog {
         form.setBorder(new EmptyBorder(10, 10, 10, 10));
         super.getMainDialog().pack();
         super.getMainDialog().setLocationRelativeTo(null);
-    }
-
-    public static void main(String[] args) {
-//        UserFacade userFacade = new UserFacade();
-//        userFacade.login("478837", "888");
-//        AddNewModule addNewProject = new AddNewModule();
-//        addNewProject.setVisible(true);
     }
 }

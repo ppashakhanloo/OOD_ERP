@@ -37,6 +37,13 @@ public class ViewPhysicalResources extends PhysicalResourceObserver implements V
         prepareGUI();
     }
 
+    public static void main(String[] args) {
+        UserFacade userFacade = new UserFacade();
+        userFacade.login("100824", "888");
+        ViewPhysicalResources viewPhysicalResources = new ViewPhysicalResources(userFacade);
+        viewPhysicalResources.setVisible(true);
+    }
+
     private void prepareGUI() {
         mainDialog.getMainDialog().setTitle("مشاهده منابع فیزیکی");
         mainDialog.getMainDialog().setLayout(new FlowLayout());
@@ -144,12 +151,5 @@ public class ViewPhysicalResources extends PhysicalResourceObserver implements V
         mainDialog.getMainDialog().pack();
         mainDialog.getMainDialog().repaint();
         mainDialog.getMainDialog().revalidate();
-    }
-
-    public static void main(String[] args) {
-        UserFacade userFacade = new UserFacade();
-        userFacade.login("100824", "888");
-        ViewPhysicalResources viewPhysicalResources = new ViewPhysicalResources(userFacade);
-        viewPhysicalResources.setVisible(true);
     }
 }

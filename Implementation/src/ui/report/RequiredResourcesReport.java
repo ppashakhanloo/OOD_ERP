@@ -24,6 +24,13 @@ public class RequiredResourcesReport implements Visibility {
         prepareGUI();
     }
 
+    public static void main(String[] args) {
+        UserFacade userFacade = new UserFacade();
+        userFacade.login("310243", "admin");
+        RequiredResourcesReport rrr = new RequiredResourcesReport(userFacade);
+        rrr.setVisible(true);
+    }
+
     private void prepareGUI() {
         mainFrame.getMainFrame().setTitle("گزارش منابع مورد نیاز");
 
@@ -221,12 +228,5 @@ public class RequiredResourcesReport implements Visibility {
     @Override
     public void setVisible(boolean visible) {
         mainFrame.setVisible(visible);
-    }
-
-    public static void main(String[] args) {
-        UserFacade userFacade = new UserFacade();
-        userFacade.login("310243", "admin");
-        RequiredResourcesReport rrr = new RequiredResourcesReport(userFacade);
-        rrr.setVisible(true);
     }
 }

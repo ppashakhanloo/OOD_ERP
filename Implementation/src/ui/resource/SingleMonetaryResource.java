@@ -34,6 +34,13 @@ public class SingleMonetaryResource extends MainDialog implements Visibility {
 
     }
 
+    public static void main(String[] args) {
+        UserFacade userFacade = new UserFacade();
+        userFacade.login("100824", "888");
+        SingleMonetaryResource singleMonetaryResource = new SingleMonetaryResource(userFacade, "165536");
+        singleMonetaryResource.setVisible(true);
+    }
+
     private void prepareGUI(UserFacade userFacade, String rID) {
 
         System.out.println("RES:: " + ((MonetaryResource) MonetaryResourceDAO.getInstance().get(rID)).getMonetaryType().toString());
@@ -128,13 +135,6 @@ public class SingleMonetaryResource extends MainDialog implements Visibility {
     @Override
     public void setVisible(boolean visible) {
         getMainDialog().setVisible(visible);
-    }
-
-    public static void main(String[] args) {
-        UserFacade userFacade = new UserFacade();
-        userFacade.login("100824", "888");
-        SingleMonetaryResource singleMonetaryResource = new SingleMonetaryResource(userFacade, "165536");
-        singleMonetaryResource.setVisible(true);
     }
 
 }

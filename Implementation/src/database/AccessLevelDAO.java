@@ -9,12 +9,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AccessLevelDAO {
+    private static AccessLevelDAO accessLevelDAO;
     protected Connection sqlConn;
     private String url = "jdbc:mysql://localhost:3306/erp?useUnicode=true&characterEncoding=UTF-8";
     private String user = "root";
-    private String password = "7284";
-
-    private static AccessLevelDAO accessLevelDAO;
+    private String password = "";
 
     private AccessLevelDAO() {
         try {

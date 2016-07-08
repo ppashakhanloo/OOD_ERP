@@ -24,6 +24,12 @@ public class UserAccessLevels implements Visibility {
         prepareGUI(currentUser);
     }
 
+    public static void main(String[] args) {
+        UserFacade userFacade = new UserFacade();
+        userFacade.login("100824", "888");
+        new UserAccessLevels(userFacade).setVisible(true);
+    }
+
     private void prepareGUI(UserFacade currentUser) {
         mainDialog.getMainDialog().setTitle("مشاهده عملیات مجاز سطوح دسترسی");
         mainDialog.getMainDialog().getContentPane().removeAll();
@@ -83,15 +89,8 @@ public class UserAccessLevels implements Visibility {
         mainDialog.getMainDialog().setLocationRelativeTo(null);
     }
 
-
     @Override
     public void setVisible(boolean visible) {
         mainDialog.getMainDialog().setVisible(true);
-    }
-
-    public static void main(String[] args) {
-        UserFacade userFacade = new UserFacade();
-        userFacade.login("100824", "888");
-        new UserAccessLevels(userFacade).setVisible(true);
     }
 }

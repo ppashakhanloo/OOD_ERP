@@ -21,6 +21,13 @@ class AddNewTechnology extends MainDialog {
         prepareGUI(project);
     }
 
+    public static void main(String[] args) {
+//        UserFacade userFacade = new UserFacade();
+//        userFacade.login("478837", "888");
+//        AddNewTechnology addNewTechnology = new AddNewTechnology();
+//        addNewTechnology.setVisible(true);
+    }
+
     public void attach(ProjectObserver observer) {
         observers.add(observer);
     }
@@ -80,12 +87,5 @@ class AddNewTechnology extends MainDialog {
     @Override
     public void setVisible(boolean visible) {
         getMainDialog().setVisible(visible);
-    }
-
-    public static void main(String[] args) {
-//        UserFacade userFacade = new UserFacade();
-//        userFacade.login("478837", "888");
-//        AddNewTechnology addNewTechnology = new AddNewTechnology();
-//        addNewTechnology.setVisible(true);
     }
 }

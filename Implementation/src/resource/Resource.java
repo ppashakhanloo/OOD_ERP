@@ -33,11 +33,11 @@ public class Resource extends Identifiable {
         this.resourceStatus = resourceStatus;
     }
 
-    public boolean setProjectID(String pid){
-    	ResourceDAO dao = ResourceDAO.getInstance();
-    	return dao.setProjectID(getID(), pid);
+    public boolean setProjectID(String pid) {
+        ResourceDAO dao = ResourceDAO.getInstance();
+        return dao.setProjectID(getID(), pid);
     }
-    
+
     public boolean isAvailable() {
         return isAvailable;
     }

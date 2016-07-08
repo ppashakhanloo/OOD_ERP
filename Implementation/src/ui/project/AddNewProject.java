@@ -22,6 +22,13 @@ class AddNewProject extends MainDialog {
         prepareGUI();
     }
 
+    public static void main(String[] args) {
+//        UserFacade userFacade = new UserFacade();
+//        userFacade.login("478837", "888");
+        AddNewProject addNewProject = new AddNewProject();
+        addNewProject.setVisible(true);
+    }
+
     public void attach(ProjectObserver observer) {
         observers.add(observer);
     }
@@ -77,12 +84,5 @@ class AddNewProject extends MainDialog {
         form.setBorder(new EmptyBorder(10, 10, 10, 10));
         super.getMainDialog().pack();
         super.getMainDialog().setLocationRelativeTo(null);
-    }
-
-    public static void main(String[] args) {
-//        UserFacade userFacade = new UserFacade();
-//        userFacade.login("478837", "888");
-        AddNewProject addNewProject = new AddNewProject();
-        addNewProject.setVisible(true);
     }
 }

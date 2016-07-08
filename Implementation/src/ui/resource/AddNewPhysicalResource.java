@@ -25,6 +25,13 @@ class AddNewPhysicalResource extends MainDialog {
         prepareGUI();
     }
 
+    public static void main(String[] args) {
+//        UserFacade userFacade = new UserFacade();
+//        userFacade.login("478837", "888");
+        AddNewPhysicalResource addNewPhysicalResource = new AddNewPhysicalResource();
+        addNewPhysicalResource.setVisible(true);
+    }
+
     @Override
     public void setVisible(boolean visible) {
         name.setText("");
@@ -100,12 +107,5 @@ class AddNewPhysicalResource extends MainDialog {
         form.setBorder(new EmptyBorder(10, 10, 10, 10));
         super.getMainDialog().pack();
         super.getMainDialog().setLocationRelativeTo(null);
-    }
-
-    public static void main(String[] args) {
-//        UserFacade userFacade = new UserFacade();
-//        userFacade.login("478837", "888");
-        AddNewPhysicalResource addNewPhysicalResource = new AddNewPhysicalResource();
-        addNewPhysicalResource.setVisible(true);
     }
 }
