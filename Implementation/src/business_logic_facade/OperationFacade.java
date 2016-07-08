@@ -7,6 +7,7 @@ import project.ProjectCatalogue;
 import project.Technology;
 import report.ProjectRequirementCatalogue;
 import resource.*;
+import unit.Requirement;
 import unit.Unit;
 import unit.UnitCatalogue;
 
@@ -61,6 +62,10 @@ public class OperationFacade {
         }
 
         return availableResources;
+    }
+
+    public ArrayList<Requirement> getUnitRequirements(String uid) {
+        return UnitCatalogue.getInstance().get(uid).getRequirements();
     }
 
     public ArrayList<Technology> getTechnologies() {
