@@ -27,7 +27,7 @@ CREATE TABLE `project_requirement` (
   `provideDate` date DEFAULT NULL,
   `releaseDate` date DEFAULT NULL,
   `isEssential` tinyint(4) DEFAULT NULL,
-  `criticalProvideDate` varchar(8) DEFAULT NULL,
+  `criticalProvideDate` date DEFAULT NULL,
   `lengthOfPossession` int(10) DEFAULT NULL,
   `ResourceID` varchar(255) NOT NULL,
   `ProjectID` varchar(255) NOT NULL,
@@ -45,6 +45,7 @@ CREATE TABLE `project_requirement` (
 
 LOCK TABLES `project_requirement` WRITE;
 /*!40000 ALTER TABLE `project_requirement` DISABLE KEYS */;
+INSERT INTO `project_requirement` VALUES ('607708','2016-07-08','2016-07-10',0,'2016-07-13',2,'101772','256789');
 /*!40000 ALTER TABLE `project_requirement` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -57,4 +58,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-07-07 19:52:57
+-- Dump completed on 2016-07-08 22:26:42

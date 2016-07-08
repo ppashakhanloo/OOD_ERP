@@ -39,7 +39,7 @@ CREATE TABLE `project` (
 
 LOCK TABLES `project` WRITE;
 /*!40000 ALTER TABLE `project` DISABLE KEYS */;
-INSERT INTO `project` VALUES ('256789','????','0000-00-00','0000-00-00','null',0),('605356','????? ????? ????','0000-00-00','0000-00-00','null',5);
+INSERT INTO `project` VALUES ('256789','OOD',NULL,NULL,'null',12),('605356','????? ????? ????','0000-00-00','0000-00-00','null',5);
 /*!40000 ALTER TABLE `project` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-07-07 19:52:59
+-- Dump completed on 2016-07-08 22:26:44
