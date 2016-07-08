@@ -8,6 +8,7 @@ import org.jdatepicker.impl.UtilDateModel;
 import resource.*;
 import ui.MainDialog;
 import ui.utilities.FormUtility;
+import unit.Unit;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -22,8 +23,11 @@ import java.util.Properties;
 
 public class AddNewProjectRequirement extends MainDialog {
 
-    AddNewProjectRequirement(String pid) {
+    ViewProjectRequirements projectRequirementsViewer;
+
+    AddNewProjectRequirement(ViewProjectRequirements vprs, String pid) {
         prepareGUI(pid);
+        projectRequirementsViewer = vprs;
     }
 
     private void prepareGUI(String pid) {
@@ -130,6 +134,11 @@ public class AddNewProjectRequirement extends MainDialog {
         JLabel lopLbl = formUtility.addLabel("تعداد روز موردنیاز ", form);
         formUtility.addLastField(lengthOfPossession, form);
 
+        java.util.List<Unit> units = ProjectFacade.getInstance().getProject(pid).getInvolvedUnits();
+        JComboBox<Unit> unitsCombo = new JComboBox<>();
+        units.forEach(unitsCombo::addItem);
+        JLabel unitsComboLbl = formUtility.addLabel("واحد متقاضی", form);
+        formUtility.addLastField(unitsCombo, form);
 
         monetaryCash.addActionListener(new ActionListener() {
             @Override
@@ -248,29 +257,34 @@ public class AddNewProjectRequirement extends MainDialog {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO
                 Calendar cal = Calendar.getInstance();
                 cal.set(Calendar.YEAR, datePicker.getModel().getYear());
                 cal.set(Calendar.MONTH, datePicker.getModel().getMonth());
                 cal.set(Calendar.DAY_OF_MONTH, datePicker.getModel().getDay());
+
+                String unitID = ((Unit) unitsCombo.getSelectedItem()).getID();
+
                 if (monetaryCash.isSelected()) {
                     Resource resource = new MonetaryResource(MonetaryType.CASH, location.getText(), -1, new Quantity((Integer) amount.getValue(), QuantityUnit.valueOf(quantityUnitsCombo.getSelectedItem().toString())));
-                    ProjectFacade.getInstance().addRequirementToProject(isEssential.isSelected(), cal.getTime(), lengthOfPossession.getValue().toString(), pid, resource);
+                    ProjectFacade.getInstance().addRequirementToProject(isEssential.isSelected(), cal.getTime(), lengthOfPossession.getValue().toString(), pid, resource, unitID);
                 } else if (monetaryNonCash.isSelected()) {
                     Resource resource = new MonetaryResource(MonetaryType.NON_CASH, location.getText(), -1, new Quantity((Integer) amount.getValue(), QuantityUnit.valueOf(quantityUnitsCombo.getSelectedItem().toString())));
-                    ProjectFacade.getInstance().addRequirementToProject(isEssential.isSelected(), cal.getTime(), lengthOfPossession.getValue().toString(), pid, resource);
+                    ProjectFacade.getInstance().addRequirementToProject(isEssential.isSelected(), cal.getTime(), lengthOfPossession.getValue().toString(), pid, resource, unitID);
                 } else if (human.isSelected()) {
                     Resource resource = new HumanResource();
                     ((HumanResource) resource).setExpertise(exp.getText());
-                    ProjectFacade.getInstance().addRequirementToProject(isEssential.isSelected(), cal.getTime(), lengthOfPossession.getValue().toString(), pid, resource);
+                    ProjectFacade.getInstance().addRequirementToProject(isEssential.isSelected(), cal.getTime(), lengthOfPossession.getValue().toString(), pid, resource, unitID);
                 } else if (information.isSelected()) {
                     Resource resource = new InformationResource(name.getText(), "");
-                    ProjectFacade.getInstance().addRequirementToProject(isEssential.isSelected(), cal.getTime(), lengthOfPossession.getValue().toString(), pid, resource);
+                    ProjectFacade.getInstance().addRequirementToProject(isEssential.isSelected(), cal.getTime(), lengthOfPossession.getValue().toString(), pid, resource, unitID);
                 } else if (physical.isSelected()) {
                     Resource resource = new PhysicalResource(name.getText(), model.getText(), "");
-                    ProjectFacade.getInstance().addRequirementToProject(isEssential.isSelected(), cal.getTime(), lengthOfPossession.getValue().toString(), pid, resource);
+                    ProjectFacade.getInstance().addRequirementToProject(isEssential.isSelected(), cal.getTime(), lengthOfPossession.getValue().toString(), pid, resource, unitID);
                 }
-//                notifyAllObservers();
+
+                JOptionPane.showMessageDialog(null, "نیازمندی با موفّقیّت ثبت شد.");
+                projectRequirementsViewer.update();
+
                 setVisible(false);
             }
         });

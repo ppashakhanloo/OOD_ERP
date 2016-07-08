@@ -43,7 +43,7 @@ public class ResourceDAO {
         values.add(item.getID());
         values.add(item.getResourceStatus().toString());
         values.add(Integer.toString(isAvailable));
-        values.add(projectID);
+        values.add(projectID == null ? "NULL" : projectID);
 
         try {
             Statement myStmt = sqlConn.createStatement();
@@ -100,9 +100,7 @@ public class ResourceDAO {
                     .update("resource", "resourceStatus",
                             item.getResourceStatus().toString(),
                             "ID = " + item.getID()));
-            myStmt.executeUpdate(QueryGenerator.getInstance().update(
-                    "resource", "isAvailable",
-                    (item.isAvailable() ? "1" : "0"), "ID = " + item.getID()));
+            myStmt.executeUpdate("UPDATE resource SET isAvailable = 1 WHERE ID = " + item.getID());
         } catch (SQLException e) {
             e.printStackTrace();
             return false;

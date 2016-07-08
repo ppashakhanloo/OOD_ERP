@@ -37,8 +37,12 @@ public class QueryGenerator {
         if (values.size() == 1)
             return wrapper + values.get(0) + wrapper;
         String stringValues = "";
-        for (String value : values)
-            stringValues += wrapper + value + wrapper + separator + " ";
+        for (String value : values) {
+            if(value.equals("NULL"))
+                stringValues += value + separator + " ";
+            else
+                stringValues += wrapper + value + wrapper + separator + " ";
+        }
         return stringValues.substring(0, stringValues.length() - 2);
     }
 

@@ -73,7 +73,7 @@ public class UnitResourceDAO {
                 if (tmp == null)
                     tmp = MonetaryResourceDAO.getInstance().get(rs.getString("ResourceID"));
 
-                if (tmp.isAvailable()) {
+                if (tmp != null && tmp.isAvailable()) {
                     unitResources.add(tmp);
                 }
             }

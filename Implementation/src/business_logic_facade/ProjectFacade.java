@@ -8,7 +8,9 @@ import resource.HumanResource;
 import resource.Resource;
 import resource.ResourceCatalogue;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
 
@@ -82,9 +84,9 @@ public class ProjectFacade {
         return addModuleSuccessful && setNameSuccessful;
     }
 
-    public boolean addRequirementToProject(boolean isEssential, java.util.Date criticalProvideDate, String lengthOfPossession, String pid, Resource resource) {
+    public boolean addRequirementToProject(boolean isEssential, java.util.Date criticalProvideDate, String lengthOfPossession, String pid, Resource resource, String unitID) {
         ProjectRequirement projectRequirement = new ProjectRequirement();
-        //
+
         projectRequirement.setEssential(isEssential);
         Properties p = new Properties();
         p.put("text.today", "Today");
@@ -93,10 +95,14 @@ public class ProjectFacade {
         projectRequirement.setCriticalProvideDate(criticalProvideDate);
         projectRequirement.setLengthOfPossession(Integer.valueOf(lengthOfPossession));
 
-        boolean add1Successful = ResourceCatalogue.getInstance().add(resource, "", pid);
-        boolean add2Successful = ProjectRequirementCatalogue.getInstance().addProjectRequirement(projectRequirement, pid, resource.getID());
+        Calendar c = Calendar.getInstance();
+        c.setTime(criticalProvideDate);
+        c.add(Calendar.DATE, Integer.valueOf(lengthOfPossession));
+        projectRequirement.setReleaseDate(c.getTime());
 
-        return add1Successful && add2Successful;
+        boolean addSuccessful = ProjectRequirementCatalogue.getInstance().add(projectRequirement, pid, unitID,resource);
+
+        return addSuccessful;
     }
 
     public void satisfyProjectRequirement(ProjectRequirement requirement) {ProjectRequirementCatalogue.getInstance().satisfyRequirement(requirement);}

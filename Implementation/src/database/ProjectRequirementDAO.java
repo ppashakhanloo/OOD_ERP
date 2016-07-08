@@ -233,7 +233,8 @@ public class ProjectRequirementDAO {
                     + " WHERE ID = " + "'" + item.getID() + "'");
             myStmt.executeUpdate("UPDATE project_requirement SET criticalProvideDate  = "
                     + "'"
-                    + sdf.format(item.getCriticalProvideDate())
+                    + (item.getCriticalProvideDate() == null ? "0000-00-00" : sdf
+                    .format(item.getCriticalProvideDate()))
                     + "'"
                     + " WHERE ID = " + "'" + item.getID() + "'");
             myStmt.executeUpdate("UPDATE project_requirement SET isEssential  = "
