@@ -34,9 +34,10 @@ CREATE TABLE `access_level` (
   `canAddProject` varchar(1) DEFAULT '0',
   `canAddRemSysMod` varchar(1) DEFAULT '0',
   `canChangePermission` varchar(1) DEFAULT '0',
-  `canConfirmNormalUser` varchar(1) DEFAULT '0',
+  `canConfirmLowUser` varchar(1) DEFAULT '0',
   `canConfirmMidUser` varchar(1) DEFAULT '0',
   `canAddUnit` varchar(1) DEFAULT '0',
+  `canConfirmHighUser` varchar(1) DEFAULT '0',
   PRIMARY KEY (`accessLevelType`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -47,7 +48,7 @@ CREATE TABLE `access_level` (
 
 LOCK TABLES `access_level` WRITE;
 /*!40000 ALTER TABLE `access_level` DISABLE KEYS */;
-INSERT INTO `access_level` VALUES ('High','1','1','1','1','1','1','1','1','1','1','1'),('Low','1','1','1','0','1','0','1','1','0','0','0'),('Medium','1','1','1','1','1','1','1','0','0','1','0');
+INSERT INTO `access_level` VALUES ('High','1','1','1','1','1','1','1','1','1','1','1','1'),('Low','1','1','1','0','1','0','1','1','0','0','0','0'),('Medium','1','1','1','1','1','1','1','0','1','0','0','0');
 /*!40000 ALTER TABLE `access_level` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -80,7 +81,7 @@ CREATE TABLE `human_resource` (
 
 LOCK TABLES `human_resource` WRITE;
 /*!40000 ALTER TABLE `human_resource` DISABLE KEYS */;
-INSERT INTO `human_resource` VALUES ('admin','admin','administrator','admin','CONFIRMED','310243','High',1),('مریم','غلامعلی‌تبار','مهندسی نیازمندی‌ها','777777','PENDING','431504','High',0),('پردیس','پاشاخانلو','ریفکتورینگ','88888','PENDING','505943','High',0),('مژده','قینی','تحلیل','999999','PENDING','859478','High',0);
+INSERT INTO `human_resource` VALUES ('admin','admin','administrator','admin','CONFIRMED','1','High',1);
 /*!40000 ALTER TABLE `human_resource` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -106,7 +107,6 @@ CREATE TABLE `information_resource` (
 
 LOCK TABLES `information_resource` WRITE;
 /*!40000 ALTER TABLE `information_resource` DISABLE KEYS */;
-INSERT INTO `information_resource` VALUES ('پایگاه‌داده بیماران','اطلاعات همه‌ی بیماران بیمارستان بهگر','873389');
 /*!40000 ALTER TABLE `information_resource` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -266,7 +266,6 @@ CREATE TABLE `monetary_resource` (
 
 LOCK TABLES `monetary_resource` WRITE;
 /*!40000 ALTER TABLE `monetary_resource` DISABLE KEYS */;
-INSERT INTO `monetary_resource` VALUES ('NON_CASH',1000000,'RIAL','واحد اداری',0,'653741');
 /*!40000 ALTER TABLE `monetary_resource` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -293,7 +292,6 @@ CREATE TABLE `physical_resource` (
 
 LOCK TABLES `physical_resource` WRITE;
 /*!40000 ALTER TABLE `physical_resource` DISABLE KEYS */;
-INSERT INTO `physical_resource` VALUES ('صندلی','نیلپر','اتاق ۲۰۲','342306');
 /*!40000 ALTER TABLE `physical_resource` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -321,7 +319,6 @@ CREATE TABLE `project` (
 
 LOCK TABLES `project` WRITE;
 /*!40000 ALTER TABLE `project` DISABLE KEYS */;
-INSERT INTO `project` VALUES ('256789','گیشه',NULL,NULL,'null',0),('605356','سیستم آموزش شریف',NULL,NULL,'null',5);
 /*!40000 ALTER TABLE `project` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -348,7 +345,6 @@ CREATE TABLE `project_management` (
 
 LOCK TABLES `project_management` WRITE;
 /*!40000 ALTER TABLE `project_management` DISABLE KEYS */;
-INSERT INTO `project_management` VALUES ('605356','310243');
 /*!40000 ALTER TABLE `project_management` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -364,7 +360,7 @@ CREATE TABLE `project_requirement` (
   `provideDate` date DEFAULT NULL,
   `releaseDate` date DEFAULT NULL,
   `isEssential` tinyint(4) DEFAULT NULL,
-  `criticalProvideDate` varchar(8) DEFAULT NULL,
+  `criticalProvideDate` date DEFAULT NULL,
   `lengthOfPossession` int(10) DEFAULT NULL,
   `ResourceID` varchar(255) NOT NULL,
   `ProjectID` varchar(255) NOT NULL,
@@ -408,7 +404,6 @@ CREATE TABLE `project_technology` (
 
 LOCK TABLES `project_technology` WRITE;
 /*!40000 ALTER TABLE `project_technology` DISABLE KEYS */;
-INSERT INTO `project_technology` VALUES ('605356','جاوا');
 /*!40000 ALTER TABLE `project_technology` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -435,7 +430,6 @@ CREATE TABLE `project_unit` (
 
 LOCK TABLES `project_unit` WRITE;
 /*!40000 ALTER TABLE `project_unit` DISABLE KEYS */;
-INSERT INTO `project_unit` VALUES ('256789','715291'),('256789','825162'),('256789','872639'),('256789','916203'),('605356','715291'),('605356','825162');
 /*!40000 ALTER TABLE `project_unit` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -492,7 +486,7 @@ CREATE TABLE `resource` (
 
 LOCK TABLES `resource` WRITE;
 /*!40000 ALTER TABLE `resource` DISABLE KEYS */;
-INSERT INTO `resource` VALUES ('310243','IDLE',1,NULL),('342306','IDLE',1,NULL),('431504','IDLE',1,NULL),('505943','IDLE',1,NULL),('653741','IDLE',1,NULL),('859478','IDLE',1,NULL),('873389','IDLE',1,NULL);
+INSERT INTO `resource` VALUES ('1','IDLE',1,NULL);
 /*!40000 ALTER TABLE `resource` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -519,6 +513,7 @@ CREATE TABLE `system` (
 
 LOCK TABLES `system` WRITE;
 /*!40000 ALTER TABLE `system` DISABLE KEYS */;
+INSERT INTO `system` VALUES ('177261','sys1','256789'),('185197','سیستم نمونه','605356');
 /*!40000 ALTER TABLE `system` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -542,7 +537,7 @@ CREATE TABLE `technology` (
 
 LOCK TABLES `technology` WRITE;
 /*!40000 ALTER TABLE `technology` DISABLE KEYS */;
-INSERT INTO `technology` VALUES ('جاوا','استفاده از امکانات شی‌گرایی');
+INSERT INTO `technology` VALUES ('????','??????? ?? ??????? ????????');
 /*!40000 ALTER TABLE `technology` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -566,7 +561,7 @@ CREATE TABLE `unit` (
 
 LOCK TABLES `unit` WRITE;
 /*!40000 ALTER TABLE `unit` DISABLE KEYS */;
-INSERT INTO `unit` VALUES ('715291','مهندسی نیازمندی‌ها'),('825162','طراحی'),('872639','تحلیل'),('916203','پیاده‌سازی');
+INSERT INTO `unit` VALUES ('715291','پیاده‌سازی'),('825162','نگهداشت'),('872639','تحلیل'),('916203','طراحی');
 /*!40000 ALTER TABLE `unit` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -597,7 +592,6 @@ CREATE TABLE `unit_resource` (
 
 LOCK TABLES `unit_resource` WRITE;
 /*!40000 ALTER TABLE `unit_resource` DISABLE KEYS */;
-INSERT INTO `unit_resource` VALUES ('292483','2016-07-05','0000-00-00','859478','872639'),('327415','2016-07-05','0000-00-00','873389','916203'),('436133','2016-07-05','0000-00-00','342306','916203'),('484710','2016-07-05','0000-00-00','505943','825162'),('641290','2016-07-05','0000-00-00','653741','825162'),('745563','2016-07-05','0000-00-00','310243','872639'),('877644','2016-07-05','0000-00-00','431504','715291');
 /*!40000 ALTER TABLE `unit_resource` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -610,4 +604,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-07-06  2:36:32
+-- Dump completed on 2016-07-09  3:00:57
