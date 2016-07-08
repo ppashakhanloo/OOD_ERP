@@ -1,9 +1,9 @@
 package ui.unit;
 
 
+import access.PermissionType;
 import business_logic_facade.OperationFacade;
 import business_logic_facade.UserFacade;
-import report.UnitResource;
 import resource.*;
 import ui.MainFrame;
 import ui.Visibility;
@@ -12,10 +12,11 @@ import unit.Unit;
 import unit.UnitCatalogue;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class ViewUnitRequirements implements Visibility {
+public class ViewUnitRequirements extends UnitObserver implements Visibility {
 
     private MainFrame mainFrame;
     private Unit unit;
@@ -107,6 +108,17 @@ public class ViewUnitRequirements implements Visibility {
                 physicalListModel.addElement(unitRequirement);
         }
 
+        if (mainFrame.getCurrentUser().hasPermission(PermissionType.canAddRemReq))
+            addNew.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    AddNewUnitRequirement addNewUnitRequirement = new AddNewUnitRequirement(unit.getID(), ViewUnitRequirements.this);
+                    addNewUnitRequirement.setVisible(true);
+                }
+            });
+        else
+            addNew.setEnabled(false);
+
         mainFrame.getMainFrame().setResizable(true);
 
         mainFrame.getMainFrame().pack();
@@ -116,6 +128,14 @@ public class ViewUnitRequirements implements Visibility {
     @Override
     public void setVisible(boolean visible) {
         mainFrame.getMainFrame().setVisible(visible);
+    }
+
+    @Override
+    public void update() {
+        this.setVisible(false);
+        this.mainFrame.getMainFrame().getContentPane().removeAll();
+        this.prepareGUI();
+        this.setVisible(true);
     }
 
     public static void main(String[] args) {

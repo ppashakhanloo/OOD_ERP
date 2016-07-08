@@ -1,36 +1,28 @@
-package ui.project;
+package ui.unit;
+
 
 import business_logic_facade.OperationFacade;
-import business_logic_facade.ProjectFacade;
-import org.jdatepicker.impl.JDatePanelImpl;
-import org.jdatepicker.impl.JDatePickerImpl;
-import org.jdatepicker.impl.UtilDateModel;
 import resource.*;
 import ui.MainDialog;
 import ui.utilities.FormUtility;
-import unit.Unit;
+import unit.Requirement;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Enumeration;
-import java.util.Properties;
 
-public class AddNewProjectRequirement extends MainDialog {
+public class AddNewUnitRequirement extends MainDialog {
 
-    ViewProjectRequirements projectRequirementsViewer;
+    ViewUnitRequirements unitRequirementsViewer;
 
-    AddNewProjectRequirement(ViewProjectRequirements vprs, String pid) {
-        projectRequirementsViewer = vprs;
-        prepareGUI(pid);
+    AddNewUnitRequirement(String uid, ViewUnitRequirements vurs) {
+        unitRequirementsViewer = vurs;
+        prepareGUI(uid);
     }
 
-    private void prepareGUI(String pid) {
+    private void prepareGUI(String uid) {
         super.getMainDialog().setTitle("افزودن نیازمندی جدید");
         JPanel form = new JPanel(new GridBagLayout());
 
@@ -113,32 +105,9 @@ public class AddNewProjectRequirement extends MainDialog {
         modelLabel.setVisible(false);
         ///////////////////////
 
-        JCheckBox isEssential = new JCheckBox();
-        JLabel isEssentialLbl = formUtility.addLabel("نیازمندی ضروری است؟ ", form);
-        formUtility.addLastField(isEssential, form);
-
-        UtilDateModel dateModel = new UtilDateModel();
-        Properties p = new Properties();
-        p.put("text.today", "Today");
-        p.put("text.month", "Month");
-        p.put("text.year", "Year");
-        JDatePanelImpl datePanel = new JDatePanelImpl(dateModel, p);
-        JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
-
-
-        datePicker.setBounds(220, 350, 120, 30);
-        JLabel dateLbl = formUtility.addLabel("آخرین مهلت تخصیص یافتن ", form);
-        formUtility.addLastField(datePicker, form);
-
-        JSpinner lengthOfPossession = new JSpinner(); // also for information
-        JLabel lopLbl = formUtility.addLabel("تعداد روز موردنیاز ", form);
-        formUtility.addLastField(lengthOfPossession, form);
-
-        java.util.List<Unit> units = ProjectFacade.getInstance().getProject(pid).getInvolvedUnits();
-        JComboBox<Unit> unitsCombo = new JComboBox<>();
-        units.forEach(unitsCombo::addItem);
-        JLabel unitsComboLbl = formUtility.addLabel("واحد متقاضی", form);
-        formUtility.addLastField(unitsCombo, form);
+        JTextArea description = new JTextArea(5, 20);
+        JLabel descLabel = formUtility.addLabel("توضیحات ", form);
+        formUtility.addLastField(description, form);
 
         monetaryCash.addActionListener(new ActionListener() {
             @Override
@@ -257,33 +226,41 @@ public class AddNewProjectRequirement extends MainDialog {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Calendar cal = Calendar.getInstance();
-                cal.set(Calendar.YEAR, datePicker.getModel().getYear());
-                cal.set(Calendar.MONTH, datePicker.getModel().getMonth());
-                cal.set(Calendar.DAY_OF_MONTH, datePicker.getModel().getDay());
-
-                String unitID = ((Unit) unitsCombo.getSelectedItem()).getID();
-
                 if (monetaryCash.isSelected()) {
                     Resource resource = new MonetaryResource(MonetaryType.CASH, location.getText(), -1, new Quantity((Integer) amount.getValue(), QuantityUnit.valueOf(quantityUnitsCombo.getSelectedItem().toString())));
-                    ProjectFacade.getInstance().addRequirementToProject(isEssential.isSelected(), cal.getTime(), lengthOfPossession.getValue().toString(), pid, resource, unitID);
+                    resource.setAvailable(false);
+                    ResourceCatalogue.getInstance().add(resource, uid, null);
+                    Requirement requirement = new Requirement(description.getText(), null);
+                    OperationFacade.getInstance().addUnitRequirement(uid, requirement, resource);
                 } else if (monetaryNonCash.isSelected()) {
                     Resource resource = new MonetaryResource(MonetaryType.NON_CASH, location.getText(), -1, new Quantity((Integer) amount.getValue(), QuantityUnit.valueOf(quantityUnitsCombo.getSelectedItem().toString())));
-                    ProjectFacade.getInstance().addRequirementToProject(isEssential.isSelected(), cal.getTime(), lengthOfPossession.getValue().toString(), pid, resource, unitID);
+                    resource.setAvailable(false);
+                    ResourceCatalogue.getInstance().add(resource, uid, null);
+                    Requirement requirement = new Requirement(description.getText(), null);
+                    OperationFacade.getInstance().addUnitRequirement(uid, requirement, resource);
                 } else if (human.isSelected()) {
                     Resource resource = new HumanResource();
                     ((HumanResource) resource).setExpertise(exp.getText());
-                    ProjectFacade.getInstance().addRequirementToProject(isEssential.isSelected(), cal.getTime(), lengthOfPossession.getValue().toString(), pid, resource, unitID);
+                    resource.setAvailable(false);
+                    ResourceCatalogue.getInstance().add(resource, uid, null);
+                    Requirement requirement = new Requirement(description.getText(), null);
+                    OperationFacade.getInstance().addUnitRequirement(uid, requirement, resource);
                 } else if (information.isSelected()) {
                     Resource resource = new InformationResource(name.getText(), "");
-                    ProjectFacade.getInstance().addRequirementToProject(isEssential.isSelected(), cal.getTime(), lengthOfPossession.getValue().toString(), pid, resource, unitID);
+                    resource.setAvailable(false);
+                    ResourceCatalogue.getInstance().add(resource, uid, null);
+                    Requirement requirement = new Requirement(description.getText(), null);
+                    OperationFacade.getInstance().addUnitRequirement(uid, requirement, resource);
                 } else if (physical.isSelected()) {
                     Resource resource = new PhysicalResource(name.getText(), model.getText(), "");
-                    ProjectFacade.getInstance().addRequirementToProject(isEssential.isSelected(), cal.getTime(), lengthOfPossession.getValue().toString(), pid, resource, unitID);
+                    resource.setAvailable(false);
+                    ResourceCatalogue.getInstance().add(resource, uid, null);
+                    Requirement requirement = new Requirement(description.getText(), null);
+                    OperationFacade.getInstance().addUnitRequirement(uid, requirement, resource);
                 }
 
                 JOptionPane.showMessageDialog(null, "نیازمندی با موفّقیّت ثبت شد.");
-                projectRequirementsViewer.update();
+                unitRequirementsViewer.update();
 
                 setVisible(false);
             }
@@ -302,43 +279,4 @@ public class AddNewProjectRequirement extends MainDialog {
         super.getMainDialog().pack();
         super.getMainDialog().setLocationRelativeTo(null);
     }
-
-    private String getSelectedButtonText(ButtonGroup buttonGroup) {
-        for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements(); ) {
-            AbstractButton button = buttons.nextElement();
-
-            if (button.isSelected()) {
-                return button.getText();
-            }
-        }
-        return null;
-    }
 }
-
-class DateLabelFormatter extends JFormattedTextField.AbstractFormatter {
-
-    private String datePattern = "yyyy-MM-dd";
-    private SimpleDateFormat dateFormatter = new SimpleDateFormat(datePattern);
-
-    @Override
-    public Object stringToValue(String text) throws ParseException {
-        return dateFormatter.parseObject(text);
-    }
-
-    @Override
-    public String valueToString(Object value) throws ParseException {
-        if (value != null) {
-            Calendar cal = (Calendar) value;
-            return dateFormatter.format(cal.getTime());
-        }
-
-        return "";
-    }
-}
-
-
-//    public ProjectRequirement() {
-//super();
-//        setEssential(false);
-//        setID(generateNDigitID(ID_LENGTH));
-//        }

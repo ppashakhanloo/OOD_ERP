@@ -68,6 +68,10 @@ public class OperationFacade {
         return UnitCatalogue.getInstance().get(uid).getRequirements();
     }
 
+    public boolean addUnitRequirement(String uid, Requirement unitRequirement, Resource resource) {
+        return UnitCatalogue.getInstance().get(uid).addRequirement(unitRequirement, resource.getID());
+    }
+
     public ArrayList<Technology> getTechnologies() {
         return ProjectCatalogue.getInstance().getTechnologies();
     }

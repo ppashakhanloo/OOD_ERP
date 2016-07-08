@@ -17,7 +17,7 @@ public class ProjectRequirementDAO {
     private Connection sqlConn;
     private String url = "jdbc:mysql://localhost:3306/erp?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull";
     private String user = "root";
-    private String password = "";
+    private String password = "7284";
 
     private ProjectRequirementDAO() {
         try {

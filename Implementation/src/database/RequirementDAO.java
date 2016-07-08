@@ -1,6 +1,7 @@
 package database;
 
 import resource.Resource;
+import resource.ResourceCatalogue;
 import unit.Requirement;
 
 import java.sql.*;
@@ -10,11 +11,12 @@ import java.util.Date;
 
 public class RequirementDAO implements DAO<Requirement> {
 
-    private static RequirementDAO requirementDAO;
     private Connection sqlConn;
     private String url = "jdbc:mysql://localhost:3306/erp?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull";
     private String user = "root";
-    private String password = "";
+    private String password = "7284";
+
+    private static RequirementDAO requirementDAO;
 
     private RequirementDAO() {
         try {
@@ -38,6 +40,7 @@ public class RequirementDAO implements DAO<Requirement> {
 
     public boolean add(Requirement item, String rid, String uid) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
         String query = "INSERT INTO requirement (ID, description, provideDate, ResourceID, UnitID) VALUES('"
                 + item.getID()
                 + "', '"
@@ -47,7 +50,7 @@ public class RequirementDAO implements DAO<Requirement> {
                 + (item.getProvideDate() == null ? "0000-00-00" : sdf
                 .format(item.getProvideDate()))
                 + "'"
-                + ", "
+                + ", '"
                 + rid
                 + "', '" + uid + "');";
         try {

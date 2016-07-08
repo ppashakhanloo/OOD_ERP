@@ -15,6 +15,12 @@ public class Requirement extends Identifiable {
         setID(generateNDigitID(ID_LENGTH));
     }
 
+    public Requirement(String description, Date provideDate) {
+        setID(generateNDigitID(ID_LENGTH));
+        this.description = description;
+        this.provideDate = provideDate;
+    }
+
     public Requirement(String iD, String description, Date provideDate) {
         setID(iD);
         this.description = description;
