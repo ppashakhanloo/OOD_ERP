@@ -3,10 +3,12 @@ package database;
 import report.UnitResource;
 import resource.Resource;
 import unit.Unit;
+import unit.UnitCatalogue;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 
 public class UnitResourceDAO {
 
@@ -197,5 +199,20 @@ public class UnitResourceDAO {
         }
         return systems;
     }
-
+	
+	public Unit getUnitByResourceID(String rid) {
+		String query = QueryGenerator.getInstance().select("unit_resource", null, "ResourceID = " + "'"
+				+ rid + "'");
+		try {
+			Statement myStmt = sqlConn.createStatement();
+			ResultSet rs = myStmt.executeQuery(query);
+			while(rs.next()) {
+				if(rs.getDate("removeDate")==null || rs.getDate("removeDate").after(new Date(System.currentTimeMillis())))
+					return UnitCatalogue.getInstance().get(rs.getString("UnitID"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }
