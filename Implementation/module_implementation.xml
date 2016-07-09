@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_implementation" default="compile.module.implementation">
+  <dirname property="module.implementation.basedir" file="${ant.file.module_implementation}"/>
+  
+  <property name="module.jdk.home.implementation" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.implementation" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.implementation" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.implementation" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="implementation.output.dir" value="${module.implementation.basedir}/out/production/Implementation"/>
+  <property name="implementation.testoutput.dir" value="${module.implementation.basedir}/out/test/Implementation"/>
+  
+  <path id="implementation.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="implementation.module.production.classpath">
+    <path refid="${module.jdk.classpath.implementation}"/>
+    <path refid="library.mysql-connector-java-5.1.39-bin_(2).classpath"/>
+    <path refid="library.icu4j_3_2_calendar.classpath"/>
+    <path refid="library.persiancalendar.classpath"/>
+    <path refid="library.jdatepicker-1.3.4.classpath"/>
+  </path>
+  
+  <path id="implementation.runtime.production.module.classpath">
+    <pathelement location="${implementation.output.dir}"/>
+    <path refid="library.mysql-connector-java-5.1.39-bin_(2).classpath"/>
+    <path refid="library.icu4j_3_2_calendar.classpath"/>
+    <path refid="library.persiancalendar.classpath"/>
+    <path refid="library.jdatepicker-1.3.4.classpath"/>
+  </path>
+  
+  <path id="implementation.module.classpath">
+    <path refid="${module.jdk.classpath.implementation}"/>
+    <pathelement location="${implementation.output.dir}"/>
+    <path refid="library.mysql-connector-java-5.1.39-bin_(2).classpath"/>
+    <path refid="library.icu4j_3_2_calendar.classpath"/>
+    <path refid="library.persiancalendar.classpath"/>
+    <path refid="library.jdatepicker-1.3.4.classpath"/>
+  </path>
+  
+  <path id="implementation.runtime.module.classpath">
+    <pathelement location="${implementation.testoutput.dir}"/>
+    <pathelement location="${implementation.output.dir}"/>
+    <path refid="library.mysql-connector-java-5.1.39-bin_(2).classpath"/>
+    <path refid="library.icu4j_3_2_calendar.classpath"/>
+    <path refid="library.persiancalendar.classpath"/>
+    <path refid="library.jdatepicker-1.3.4.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.implementation">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.implementation">
+    <patternset refid="excluded.from.module.implementation"/>
+  </patternset>
+  
+  <path id="implementation.module.sourcepath">
+    <dirset dir="${module.implementation.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.implementation" depends="compile.module.implementation.production,compile.module.implementation.tests" description="Compile module Implementation"/>
+  
+  <target name="compile.module.implementation.production" depends="register.custom.compilers" description="Compile module Implementation; production classes">
+    <mkdir dir="${implementation.output.dir}"/>
+    <javac2 destdir="${implementation.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.implementation}/javac">
+      <compilerarg line="${compiler.args.implementation}"/>
+      <bootclasspath refid="implementation.module.bootclasspath"/>
+      <classpath refid="implementation.module.production.classpath"/>
+      <src refid="implementation.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.implementation"/>
+    </javac2>
+    
+    <copy todir="${implementation.output.dir}">
+      <fileset dir="${module.implementation.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.implementation.tests" depends="register.custom.compilers,compile.module.implementation.production" description="compile module Implementation; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.implementation" description="cleanup module">
+    <delete dir="${implementation.output.dir}"/>
+    <delete dir="${implementation.testoutput.dir}"/>
+  </target>
+</project>
