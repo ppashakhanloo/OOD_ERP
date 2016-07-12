@@ -67,8 +67,8 @@ public class MainFrame implements Visibility {
         Map<PermissionType, Boolean> permissionTypes = currentUser.getCurrentUserPermissions();
         menuBar = new JMenuBar();
 
-        prepareOrganizationMenu(permissionTypes);
-        prepareProjectsMenu(permissionTypes);
+        prepareOrganizationMenu();
+        prepareProjectsMenu();
         prepareResourcesMenu();
         prepareReportsMenu(permissionTypes);
         prepareEstimationsMenu(permissionTypes);
@@ -156,7 +156,7 @@ public class MainFrame implements Visibility {
             menuBar.add(resources);
     }
 
-    private void prepareProjectsMenu(Map<PermissionType, Boolean> permissionTypes) {
+    private void prepareProjectsMenu() {
         JMenu projects = new JMenu("پروژه‌ها");
         JMenuItem viewProjects = new JMenuItem("مشاهده پروژه‌ها");
         viewProjects.addActionListener(new ActionListener() {
@@ -172,7 +172,7 @@ public class MainFrame implements Visibility {
             menuBar.add(projects);
     }
 
-    private void prepareOrganizationMenu(Map<PermissionType, Boolean> permissionTypes) {
+    private void prepareOrganizationMenu() {
         JMenu organization = new JMenu("سازمان");
         JMenuItem viewUnits = new JMenuItem("مشاهده واحدها");
         viewUnits.addActionListener(new ActionListener() {
