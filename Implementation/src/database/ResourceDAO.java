@@ -88,7 +88,10 @@ public class ResourceDAO extends DBConnect {
                     .update("resource", "resourceStatus",
                             item.getResourceStatus().toString(),
                             "ID = " + item.getID()));
-            myStmt.executeUpdate("UPDATE resource SET isAvailable = 1 WHERE ID = " + item.getID());
+            myStmt.executeUpdate(QueryGenerator.getInstance()
+                    .update("resource", "resourceStatus",
+                            item.isAvailable() ? "1" : "0",
+                            "ID = " + item.getID()));
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
