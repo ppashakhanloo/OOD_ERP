@@ -5,25 +5,19 @@ import resource.Resource;
 import unit.Unit;
 import unit.UnitCatalogue;
 
-import java.sql.*;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.text.SimpleDateFormat;
 
-public class UnitResourceDAO {
+public class UnitResourceDAO extends DBConnect {
 
     private static UnitResourceDAO unitResourceDAO;
-    private Connection sqlConn;
-    private String url = "jdbc:mysql://localhost:3306/erp?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8";
-    private String user = "root";
-    private String password = "";
 
     private UnitResourceDAO() {
-        try {
-            sqlConn = DriverManager.getConnection(url, user, password);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        super("erp.conf");
     }
 
     public static UnitResourceDAO getInstance() {
@@ -36,7 +30,7 @@ public class UnitResourceDAO {
     public ArrayList<Resource> getResourceByUnitID(String uid) {
         ArrayList<Resource> unitResources = new ArrayList<>();
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             ResultSet rs = myStmt.executeQuery(QueryGenerator.getInstance().select("unit_resource", null, "UnitID = "
                     + "'" + uid + "'"));
 
@@ -63,7 +57,7 @@ public class UnitResourceDAO {
         String query = QueryGenerator.getInstance().select("unit_resource", null, "UnitID = "
                 + "'" + uid + "'");
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             ResultSet rs = myStmt.executeQuery(query);
             while (rs.next()) {
                 Resource tmp = HumanResourceDAO.getInstance().get(rs.getString("ResourceID"));
@@ -88,7 +82,7 @@ public class UnitResourceDAO {
         String query = QueryGenerator.getInstance().select("unit_resource", null, "ID = " + "'"
                 + key + "'");
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             ResultSet rs = myStmt.executeQuery(query);
             ResourceDAO dao = ResourceDAO.getInstance();
             return dao.get(rs.getString("ResourceID"));
@@ -102,7 +96,7 @@ public class UnitResourceDAO {
         String query = QueryGenerator.getInstance().select("unit_resource", null, "ID = " + "'"
                 + key + "'");
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             ResultSet rs = myStmt.executeQuery(query);
             UnitDAO dao = UnitDAO.getInstance();
             return dao.get(rs.getString("UnitID"));
@@ -127,7 +121,7 @@ public class UnitResourceDAO {
                 + "'" + item.getUnit().getID() + "'"
                 + ");";
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             myStmt.executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -140,7 +134,7 @@ public class UnitResourceDAO {
         String query = QueryGenerator.getInstance().select("unit_resource", null, "ID = " + "'"
                 + key + "'");
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             ResultSet rs = myStmt.executeQuery(query);
             while (rs.next()) {
                 return fillUnitRes(rs);
@@ -160,7 +154,7 @@ public class UnitResourceDAO {
         String query = "DELETE FROM unit_resource WHERE ID = " + "'" + key
                 + "'" + ";";
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             myStmt.executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -170,7 +164,7 @@ public class UnitResourceDAO {
 
     public boolean update(UnitResource item) {
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             myStmt.executeUpdate("UPDATE unit_resource SET additionDate  = "
                     + item.getAdditionDate() + " WHERE ID = " + "'"
                     + item.getID() + "'");
@@ -188,7 +182,7 @@ public class UnitResourceDAO {
     public ArrayList<UnitResource> list() {
         ArrayList<UnitResource> systems = new ArrayList<>();
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             ResultSet rs = myStmt.executeQuery("SELECT * FROM unit_resource;");
             while (rs.next()) {
                 UnitResource newSys = fillUnitRes(rs);
@@ -199,20 +193,20 @@ public class UnitResourceDAO {
         }
         return systems;
     }
-	
-	public Unit getUnitByResourceID(String rid) {
-		String query = QueryGenerator.getInstance().select("unit_resource", null, "ResourceID = " + "'"
-				+ rid + "'");
-		try {
-			Statement myStmt = sqlConn.createStatement();
-			ResultSet rs = myStmt.executeQuery(query);
-			while(rs.next()) {
-				if(rs.getDate("removeDate")==null || rs.getDate("removeDate").after(new Date(System.currentTimeMillis())))
-					return UnitCatalogue.getInstance().get(rs.getString("UnitID"));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
+
+    public Unit getUnitByResourceID(String rid) {
+        String query = QueryGenerator.getInstance().select("unit_resource", null, "ResourceID = " + "'"
+                + rid + "'");
+        try {
+            Statement myStmt = getSqlConn().createStatement();
+            ResultSet rs = myStmt.executeQuery(query);
+            while (rs.next()) {
+                if (rs.getDate("removeDate") == null || rs.getDate("removeDate").after(new Date(System.currentTimeMillis())))
+                    return UnitCatalogue.getInstance().get(rs.getString("UnitID"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

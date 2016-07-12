@@ -2,24 +2,17 @@ package database;
 
 import unit.Unit;
 
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
-public class UnitDAO implements DAO<Unit> {
+public class UnitDAO extends DBConnect implements DAO<Unit> {
 
     private static UnitDAO unitDAO;
-    QueryGenerator generator = QueryGenerator.getInstance();
-    private Connection sqlConn;
-    private String url = "jdbc:mysql://localhost:3306/erp?useUnicode=true&characterEncoding=UTF-8";
-    private String user = "root";
-    private String password = "";
 
     private UnitDAO() {
-        try {
-            sqlConn = DriverManager.getConnection(url, user, password);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        super("erp.conf");
     }
 
     public static UnitDAO getInstance() {
@@ -38,8 +31,8 @@ public class UnitDAO implements DAO<Unit> {
         values.add(item.getID());
         values.add(item.getName());
         try {
-            Statement myStmt = sqlConn.createStatement();
-            myStmt.executeUpdate(generator.insert("unit", colNames, values));
+            Statement myStmt = getSqlConn().createStatement();
+            myStmt.executeUpdate(QueryGenerator.getInstance().insert("unit", colNames, values));
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -49,10 +42,10 @@ public class UnitDAO implements DAO<Unit> {
 
     @Override
     public Unit get(String key) {
-        String query = generator
+        String query = QueryGenerator.getInstance()
                 .select("unit", null, "ID = " + "'" + key + "'");
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             ResultSet rs = myStmt.executeQuery(query);
             if (rs.next()) {
                 return fillUnit(rs);
@@ -65,11 +58,11 @@ public class UnitDAO implements DAO<Unit> {
 
     public ArrayList<Unit> getByName(String name) {
         ArrayList<Unit> units = new ArrayList<>();
-        String query = generator.select("unit", null, "name = " + "'" + name
+        String query = QueryGenerator.getInstance().select("unit", null, "name = " + "'" + name
                 + "'");
         ResultSet rs;
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             rs = myStmt.executeQuery(query);
             while (rs.next()) {
                 units.add(fillUnit(rs));
@@ -92,8 +85,8 @@ public class UnitDAO implements DAO<Unit> {
     @Override
     public void remove(String key) {
         try {
-            Statement myStmt = sqlConn.createStatement();
-            myStmt.executeUpdate(generator.delete("unit", "ID = " + "'" + key
+            Statement myStmt = getSqlConn().createStatement();
+            myStmt.executeUpdate(QueryGenerator.getInstance().delete("unit", "ID = " + "'" + key
                     + "'"));
         } catch (SQLException e) {
             e.printStackTrace();
@@ -104,8 +97,8 @@ public class UnitDAO implements DAO<Unit> {
     @Override
     public boolean update(Unit item) {
         try {
-            Statement myStmt = sqlConn.createStatement();
-            myStmt.executeUpdate(generator.update("unit", "name",
+            Statement myStmt = getSqlConn().createStatement();
+            myStmt.executeUpdate(QueryGenerator.getInstance().update("unit", "name",
                     item.getName(), "ID = " + "'" + item.getID() + "'"));
         } catch (SQLException e) {
             e.printStackTrace();
@@ -118,7 +111,7 @@ public class UnitDAO implements DAO<Unit> {
     public ArrayList<Unit> list() {
         ArrayList<Unit> units = new ArrayList<>();
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             ResultSet rs = myStmt.executeQuery("SELECT * FROM unit;");
             while (rs.next()) {
                 Unit newUnit = fillUnit(rs);

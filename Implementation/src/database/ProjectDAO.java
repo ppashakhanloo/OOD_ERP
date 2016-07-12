@@ -5,27 +5,19 @@ import project.Technology;
 import resource.HumanResource;
 import unit.Unit;
 
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.text.SimpleDateFormat;
 
-public class ProjectDAO implements DAO<Project> {
+public class ProjectDAO extends DBConnect implements DAO<Project> {
 
     private static ProjectDAO projectDAO;
-    private Connection sqlConn;
-    private String url = "jdbc:mysql://localhost:3306/erp?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull";
-    private String user = "root";
-    private String password = "";
-    private QueryGenerator generator = QueryGenerator.getInstance();
 
     private ProjectDAO() {
-        try {
-            sqlConn = DriverManager.getConnection(url, user, password);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        super("erp.conf");
     }
 
     public static ProjectDAO getInstance() {
@@ -53,10 +45,10 @@ public class ProjectDAO implements DAO<Project> {
     public ArrayList<Unit> getUnitsByProjectID(String pid) {
         ArrayList<Unit> units = new ArrayList<>();
         UnitDAO unitDAO = UnitDAO.getInstance();
-        String query = generator.select("project_unit", null, "ProjectID = "
+        String query = QueryGenerator.getInstance().select("project_unit", null, "ProjectID = "
                 + "'" + pid + "'");
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             ResultSet rs = myStmt.executeQuery(query);
             while (rs.next()) {
                 units.add(unitDAO.get(rs.getString("UnitID")));
@@ -69,10 +61,10 @@ public class ProjectDAO implements DAO<Project> {
 
     public HumanResource getProjectManager(String pid) {
         HumanResourceDAO hrDAO = HumanResourceDAO.getInstance();
-        String query = generator.select("project_management", null,
+        String query = QueryGenerator.getInstance().select("project_management", null,
                 "ProjectID = " + "'" + pid + "'");
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             ResultSet rs = myStmt.executeQuery(query);
             if (rs.next()) {
                 return ((HumanResource) hrDAO.get(rs.getString("ManagerID")));
@@ -86,7 +78,7 @@ public class ProjectDAO implements DAO<Project> {
     public boolean setProjectManager(String pid, String mid) {
         // remove old ones
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             myStmt.executeUpdate(QueryGenerator.getInstance().delete("project_management", "project_management.ProjectID = " + "'" + pid + "'"));
         } catch (SQLException e) {
             e.printStackTrace();
@@ -101,7 +93,7 @@ public class ProjectDAO implements DAO<Project> {
         values.add(pid);
         values.add(mid);
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             myStmt.executeUpdate(QueryGenerator.getInstance().insert("project_management", colNames, values));
         } catch (SQLException e) {
             e.printStackTrace();
@@ -111,10 +103,10 @@ public class ProjectDAO implements DAO<Project> {
     }
 
     public boolean addTechnology(Technology tech, String pid) {
-        String techExistQuery = generator.select("technology", null, "name = "
+        String techExistQuery = QueryGenerator.getInstance().select("technology", null, "name = "
                 + "'" + tech.getName() + "'");
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             ResultSet rs = myStmt.executeQuery(techExistQuery);
             if (!rs.next()) {
                 ArrayList<String> colNames = new ArrayList<>();
@@ -123,7 +115,7 @@ public class ProjectDAO implements DAO<Project> {
                 ArrayList<String> values = new ArrayList<>();
                 values.add(tech.getName());
                 values.add(tech.getReason());
-                String addTechQuery = generator.insert("technology", colNames,
+                String addTechQuery = QueryGenerator.getInstance().insert("technology", colNames,
                         values);
                 myStmt.executeUpdate(addTechQuery);
             }
@@ -134,7 +126,7 @@ public class ProjectDAO implements DAO<Project> {
             ArrayList<String> value = new ArrayList<>();
             value.add(pid);
             value.add(tech.getName());
-            String addProjTechQuery = generator.insert("project_technology",
+            String addProjTechQuery = QueryGenerator.getInstance().insert("project_technology",
                     cols, value);
             myStmt.executeUpdate(addProjTechQuery);
         } catch (SQLException e) {
@@ -146,15 +138,15 @@ public class ProjectDAO implements DAO<Project> {
 
     public ArrayList<Technology> getTechnologiesByProject(String pid) {
         ArrayList<Technology> techs = new ArrayList<>();
-        String techNamesQuery = generator.select("project_technology", null,
+        String techNamesQuery = QueryGenerator.getInstance().select("project_technology", null,
                 "ProjectID = " + "'" + pid + "'");
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             ResultSet rs = myStmt.executeQuery(techNamesQuery);
             while (rs.next()) {
-                Statement stmt = sqlConn.createStatement();
+                Statement stmt = getSqlConn().createStatement();
                 ResultSet techRS = stmt
-                        .executeQuery(generator.select(
+                        .executeQuery(QueryGenerator.getInstance().select(
                                 "technology",
                                 null,
                                 "name = " + "'"
@@ -178,9 +170,9 @@ public class ProjectDAO implements DAO<Project> {
         return false;
     }
 
-   public boolean add(Project item, ArrayList<String> uid) {
-    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-    	String query = "INSERT INTO project (ID, name, developmentStart,developmentEnd, customerName, usersCount) VALUES ('"
+    public boolean add(Project item, ArrayList<String> uid) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String query = "INSERT INTO project (ID, name, developmentStart,developmentEnd, customerName, usersCount) VALUES ('"
                 + item.getID()
                 + "', '"
                 + item.getName()
@@ -198,7 +190,7 @@ public class ProjectDAO implements DAO<Project> {
                 + item.getUsersCount()
                 + ");";
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             myStmt.executeUpdate(query);
             for (int i = 0; i < uid.size(); i++) {
                 ArrayList<String> colNames = new ArrayList<>();
@@ -207,7 +199,7 @@ public class ProjectDAO implements DAO<Project> {
                 ArrayList<String> values = new ArrayList<>();
                 values.add(uid.get(i));
                 values.add(item.getID());
-                String query2 = generator.insert("project_unit", colNames,
+                String query2 = QueryGenerator.getInstance().insert("project_unit", colNames,
                         values);
                 myStmt.executeUpdate(query2);
             }
@@ -220,10 +212,10 @@ public class ProjectDAO implements DAO<Project> {
 
     @Override
     public Project get(String key) {
-        String query = generator.select("project", null, "ID = " + "'" + key
+        String query = QueryGenerator.getInstance().select("project", null, "ID = " + "'" + key
                 + "'");
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             ResultSet rs = myStmt.executeQuery(query);
             if (rs.next()) {
                 Project newPrj = fillProject(rs);
@@ -244,9 +236,9 @@ public class ProjectDAO implements DAO<Project> {
 
     @Override
     public void remove(String key) {
-        String query = generator.delete("project", "ID = " + "'" + key + "'");
+        String query = QueryGenerator.getInstance().delete("project", "ID = " + "'" + key + "'");
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             myStmt.executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -256,11 +248,11 @@ public class ProjectDAO implements DAO<Project> {
 
     public ArrayList<Project> getByName(String name) {
         ArrayList<Project> projects = new ArrayList<>();
-        String query = generator.select("project", null, "name = " + "'" + name
+        String query = QueryGenerator.getInstance().select("project", null, "name = " + "'" + name
                 + "'");
         ResultSet rs;
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             rs = myStmt.executeQuery(query);
             while (rs.next()) {
                 projects.add(fillProject(rs));
@@ -273,11 +265,11 @@ public class ProjectDAO implements DAO<Project> {
 
     public ArrayList<Project> getByCustomerName(String name) {
         ArrayList<Project> projects = new ArrayList<>();
-        String query = generator.select("project", null, "customerName = "
+        String query = QueryGenerator.getInstance().select("project", null, "customerName = "
                 + "'" + name + "'");
         ResultSet rs;
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             rs = myStmt.executeQuery(query);
             while (rs.next()) {
                 projects.add(fillProject(rs));
@@ -290,14 +282,14 @@ public class ProjectDAO implements DAO<Project> {
 
     public ArrayList<Project> getByDevelopmentStart(Date DevelopmentStart) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-    	ArrayList<Project> projects = new ArrayList<>();
-        String query = generator.select("project", null, "developmentStart = "
+        ArrayList<Project> projects = new ArrayList<>();
+        String query = QueryGenerator.getInstance().select("project", null, "developmentStart = "
                 + "'"
-                     + (DevelopmentStart == null ? "0000-00-00" : sdf
-                     .format(DevelopmentStart)) + "'");
+                + (DevelopmentStart == null ? "0000-00-00" : sdf
+                .format(DevelopmentStart)) + "'");
         ResultSet rs;
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             rs = myStmt.executeQuery(query);
             while (rs.next()) {
                 projects.add(fillProject(rs));
@@ -308,16 +300,16 @@ public class ProjectDAO implements DAO<Project> {
         return projects;
     }
 
-        public ArrayList<Project> getByDevelopmentEnd(Date DevelopmentEnd) {
+    public ArrayList<Project> getByDevelopmentEnd(Date DevelopmentEnd) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-    	ArrayList<Project> projects = new ArrayList<>();
-        String query = generator.select("project", null, "developmentEnd = "
+        ArrayList<Project> projects = new ArrayList<>();
+        String query = QueryGenerator.getInstance().select("project", null, "developmentEnd = "
                 + "'"
-                     + (DevelopmentEnd == null ? "0000-00-00" : sdf
-                     .format(DevelopmentEnd)) + "'");
+                + (DevelopmentEnd == null ? "0000-00-00" : sdf
+                .format(DevelopmentEnd)) + "'");
         ResultSet rs;
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             rs = myStmt.executeQuery(query);
             while (rs.next()) {
                 projects.add(fillProject(rs));
@@ -336,11 +328,11 @@ public class ProjectDAO implements DAO<Project> {
             return projects;
         }
 
-        String query = generator.select("project", null, "usersCount = "
+        String query = QueryGenerator.getInstance().select("project", null, "usersCount = "
                 + count);
         ResultSet rs;
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             rs = myStmt.executeQuery(query);
             while (rs.next()) {
                 projects.add(fillProject(rs));
@@ -366,7 +358,7 @@ public class ProjectDAO implements DAO<Project> {
                     "WHERE project.ID = " + "'" + project.getID() + "'";
 
             try {
-                Statement myStmt = sqlConn.createStatement();
+                Statement myStmt = getSqlConn().createStatement();
                 ResultSet rs = myStmt.executeQuery(query);
                 rs.next();
 
@@ -392,7 +384,7 @@ public class ProjectDAO implements DAO<Project> {
                     "WHERE project.ID = " + "'" + project.getID() + "'";
 
             try {
-                Statement myStmt = sqlConn.createStatement();
+                Statement myStmt = getSqlConn().createStatement();
                 ResultSet rs = myStmt.executeQuery(query);
                 rs.next();
 
@@ -414,10 +406,10 @@ public class ProjectDAO implements DAO<Project> {
             return projects;
         }
 
-        String query = generator.select("project_technology", null,
+        String query = QueryGenerator.getInstance().select("project_technology", null,
                 "Technologyname = " + "'" + tech.getName() + "'");
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             ResultSet rs = myStmt.executeQuery(query);
             while (rs.next()) {
                 String ID = rs.getString("ProjectID");
@@ -429,29 +421,29 @@ public class ProjectDAO implements DAO<Project> {
         return projects;
     }
 
-   @Override
+    @Override
     public boolean update(Project item) {
-    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
-            Statement myStmt = sqlConn.createStatement();
-            myStmt.executeUpdate(generator.update("project", "name",
+            Statement myStmt = getSqlConn().createStatement();
+            myStmt.executeUpdate(QueryGenerator.getInstance().update("project", "name",
                     item.getName(), "ID = " + "'" + item.getID() + "'"));
-            myStmt.executeUpdate(generator.update("project", "customerName",
+            myStmt.executeUpdate(QueryGenerator.getInstance().update("project", "customerName",
                     item.getCustomerName(), "ID = " + "'" + item.getID() + "'"));
             myStmt.executeUpdate("UPDATE project SET developmentStart  = "
-            		 + "'"
-                     + (item.getDevelopmentStart() == null ? "0000-00-00" : sdf
-                     .format(item.getDevelopmentStart())) + "'"
+                    + "'"
+                    + (item.getDevelopmentStart() == null ? "0000-00-00" : sdf
+                    .format(item.getDevelopmentStart())) + "'"
                     + " WHERE ID = " + "'"
                     + item.getID() + "'");
             myStmt.executeUpdate("UPDATE project SET developmentEnd  = "
-            		 + "'"
-                     + (item.getDevelopmentEnd() == null ? "0000-00-00" : sdf
-                     .format(item.getDevelopmentEnd())) + "'"
-                    +" WHERE ID = " + "'"
+                    + "'"
+                    + (item.getDevelopmentEnd() == null ? "0000-00-00" : sdf
+                    .format(item.getDevelopmentEnd())) + "'"
+                    + " WHERE ID = " + "'"
                     + item.getID() + "'");
             myStmt.executeUpdate("UPDATE project SET usersCount  = "
-                    + item.getUsersCount() 
+                    + item.getUsersCount()
                     + " WHERE ID = " + "'"
                     + item.getID() + "'");
         } catch (SQLException e) {
@@ -464,8 +456,8 @@ public class ProjectDAO implements DAO<Project> {
 
     public boolean updateTechnology(Technology item) {
         try {
-            Statement myStmt = sqlConn.createStatement();
-            myStmt.executeUpdate(generator.update("technology", "reason",
+            Statement myStmt = getSqlConn().createStatement();
+            myStmt.executeUpdate(QueryGenerator.getInstance().update("technology", "reason",
                     item.getReason(), "name = " + "'" + item.getName() + "'"));
         } catch (SQLException e) {
             e.printStackTrace();
@@ -478,7 +470,7 @@ public class ProjectDAO implements DAO<Project> {
     public ArrayList<Technology> getAllTechnologies() {
         ArrayList<Technology> technologies = new ArrayList<>();
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             ResultSet rs = myStmt.executeQuery("SELECT * FROM technology");
             while (rs.next()) {
                 technologies.add(fillTechnology(rs));
@@ -493,7 +485,7 @@ public class ProjectDAO implements DAO<Project> {
     public ArrayList<Project> list() {
         ArrayList<Project> projects = new ArrayList<>();
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             ResultSet rs = myStmt.executeQuery("SELECT * FROM project");
             while (rs.next()) {
                 projects.add(fillProject(rs));

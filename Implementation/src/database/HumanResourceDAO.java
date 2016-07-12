@@ -71,7 +71,7 @@ public class HumanResourceDAO extends ResourceDAO {
         values.add(humanResourceItem.getAccessLevel().getAccessLevelType().toString());
 
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             myStmt.executeUpdate(QueryGenerator.getInstance()
                     .insert("human_resource", colNames, values));
         } catch (SQLException e) {
@@ -84,7 +84,7 @@ public class HumanResourceDAO extends ResourceDAO {
     @Override
     public Resource get(String key) {
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             ResultSet rs = myStmt
                     .executeQuery(
                             "SELECT * from human_resource inner join resource on human_resource.ResourceID = resource.ID AND human_resource.ResourceID = " + "'" + key + "'");
@@ -102,7 +102,7 @@ public class HumanResourceDAO extends ResourceDAO {
     @Override
     public boolean remove(String key) {
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             myStmt.executeUpdate(QueryGenerator.getInstance().delete("human_resource",
                     "ResourceID = " + "'" + key + "'"));
         } catch (SQLException e) {
@@ -116,7 +116,7 @@ public class HumanResourceDAO extends ResourceDAO {
     public boolean update(Resource item) {
         HumanResource humanResourceItem = (HumanResource) item;
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             myStmt.executeUpdate(QueryGenerator.getInstance().update("human_resource",
                     "firstName", humanResourceItem.getFirstName(),
                     "ResourceID = " + "'" + humanResourceItem.getID() + "'"));
@@ -147,7 +147,7 @@ public class HumanResourceDAO extends ResourceDAO {
     public ArrayList<Resource> getResourcesByProjectID(String pid) {
         ArrayList<Resource> resources = new ArrayList<>();
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             ResultSet rs = myStmt
                     .executeQuery("SELECT * from human_resource inner join resource on human_resource.ResourceID = resource.ID AND ProjectID = "
                             + "'" + pid + "'");
@@ -172,7 +172,7 @@ public class HumanResourceDAO extends ResourceDAO {
         ArrayList<Resource> results = new ArrayList<>();
         ResultSet rs;
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             rs = myStmt.executeQuery(query);
             while (rs.next()) {
                 Resource newRes = fillHumanResource(rs);
@@ -204,7 +204,7 @@ public class HumanResourceDAO extends ResourceDAO {
     private boolean authenticate(String ID, String password) {
         ResultSet rs;
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             rs = myStmt.executeQuery(QueryGenerator.getInstance().select("human_resource",
                     null, "ResourceID = " + "'" + ID + "'" + " AND " + "password = " + "'"
                             + password + "'"));
@@ -218,7 +218,7 @@ public class HumanResourceDAO extends ResourceDAO {
     public boolean login(String ID, String password) {
         if (authenticate(ID, password)) {
             try {
-                Statement myStmt = sqlConn.createStatement();
+                Statement myStmt = getSqlConn().createStatement();
                 myStmt.executeUpdate(QueryGenerator.getInstance().update("human_resource",
                         "logged_in", "1", "ResourceID = " + "'" + ID + "'"));
             } catch (SQLException e) {
@@ -232,7 +232,7 @@ public class HumanResourceDAO extends ResourceDAO {
 
     public void logout(String ID) {
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             myStmt.executeUpdate(QueryGenerator.getInstance().update("human_resource",
                     "logged_in", "0", "ResourceID = " + "'" + ID + "'"));
         } catch (SQLException e) {

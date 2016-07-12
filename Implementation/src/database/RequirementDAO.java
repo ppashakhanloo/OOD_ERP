@@ -1,29 +1,21 @@
 package database;
 
 import resource.Resource;
-import resource.ResourceCatalogue;
 import unit.Requirement;
 
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class RequirementDAO implements DAO<Requirement> {
-
-    private Connection sqlConn;
-    private String url = "jdbc:mysql://localhost:3306/erp?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull";
-    private String user = "root";
-    private String password = "";
+public class RequirementDAO extends DBConnect implements DAO<Requirement> {
 
     private static RequirementDAO requirementDAO;
 
     private RequirementDAO() {
-        try {
-            sqlConn = DriverManager.getConnection(url, user, password);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        super("erp.conf");
     }
 
     public static RequirementDAO getInstance() {
@@ -54,7 +46,7 @@ public class RequirementDAO implements DAO<Requirement> {
                 + rid
                 + "', '" + uid + "');";
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             myStmt.executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -68,7 +60,7 @@ public class RequirementDAO implements DAO<Requirement> {
         String query = QueryGenerator.getInstance().select("requirement", null,
                 "ID = " + "'" + key + "'");
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             ResultSet rs = myStmt.executeQuery(query);
             if (rs.next()) {
                 return fillRequirement(rs);
@@ -93,7 +85,7 @@ public class RequirementDAO implements DAO<Requirement> {
         String query = QueryGenerator.getInstance().select("requirement", null,
                 "ID = " + "'" + key + "'");
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             ResultSet rs = myStmt.executeQuery(query);
             ResourceDAO resourceDAO = ResourceDAO.getInstance();
             if (rs.next())
@@ -108,7 +100,7 @@ public class RequirementDAO implements DAO<Requirement> {
         String query = "UPDATE requirement SET ResourceID = " + "'"
                 + ResourceID + "'" + "WHERE ID = " + "'" + reqID + "';";
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             myStmt.executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -120,7 +112,7 @@ public class RequirementDAO implements DAO<Requirement> {
         String query = QueryGenerator.getInstance().delete("requirement",
                 "ID = " + "'" + key + "'");
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             myStmt.executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -131,7 +123,7 @@ public class RequirementDAO implements DAO<Requirement> {
     public boolean update(Requirement item) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             myStmt.executeUpdate(QueryGenerator.getInstance().update(
                     "requirement", "description", item.getDescription(),
                     "ID = " + "'" + item.getID() + "'"));
@@ -151,7 +143,7 @@ public class RequirementDAO implements DAO<Requirement> {
     public ArrayList<Requirement> list() {
         ArrayList<Requirement> requirements = new ArrayList<>();
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             ResultSet rs = myStmt.executeQuery("SELECT * FROM requirement;");
             while (rs.next()) {
                 requirements.add(fillRequirement(rs));
@@ -167,7 +159,7 @@ public class RequirementDAO implements DAO<Requirement> {
         String query = QueryGenerator.getInstance().select("requirement", null,
                 "UnitID = " + "'" + uid + "'");
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             ResultSet rs = myStmt.executeQuery(query);
             while (rs.next()) {
                 reqs.add(fillRequirement(rs));
@@ -184,7 +176,7 @@ public class RequirementDAO implements DAO<Requirement> {
         String query = QueryGenerator.getInstance().select("requirement", null,
                 "provideDate = " + sdf.format(provideDate));
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             ResultSet rs = myStmt.executeQuery(query);
             while (rs.next()) {
                 reqs.add(fillRequirement(rs));

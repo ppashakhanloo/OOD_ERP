@@ -4,23 +4,17 @@ import access.AccessLevel;
 import access.AccessLevelType;
 import access.PermissionType;
 
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AccessLevelDAO {
+public class AccessLevelDAO extends DBConnect {
     private static AccessLevelDAO accessLevelDAO;
-    protected Connection sqlConn;
-    private String url = "jdbc:mysql://localhost:3306/erp?useUnicode=true&characterEncoding=UTF-8";
-    private String user = "root";
-    private String password = "";
 
     private AccessLevelDAO() {
-        try {
-            sqlConn = DriverManager.getConnection(url, user, password);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        super("erp.conf");
     }
 
     public static AccessLevelDAO getInstance() {
@@ -35,7 +29,7 @@ public class AccessLevelDAO {
         Map<PermissionType, Boolean> permissions = accessLevel.getPermissions();
 
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             for (PermissionType permission : permissions.keySet())
                 myStmt.executeUpdate(QueryGenerator.getInstance().update("access_level",
                         permission.toString(), (permissions.get(permission).booleanValue() ? "1" : "0"), "accessLevelType = "
@@ -51,7 +45,7 @@ public class AccessLevelDAO {
         HashMap<PermissionType, Boolean> permitTypes = new HashMap<>();
         ResultSet rs;
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             rs = myStmt.executeQuery(QueryGenerator.getInstance().select("access_level", null, "accessLevelType = " + "'" + accessLevelType.toString()) + "'");
             while (rs.next()) {
                 permitTypes.put(PermissionType.canAddProject, rs.getString("canAddProject").equals("1"));
@@ -80,4 +74,5 @@ public class AccessLevelDAO {
         }
         return permitTypes;
     }
+
 }

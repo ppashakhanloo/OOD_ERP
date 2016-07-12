@@ -8,7 +8,6 @@ import unit.Unit;
 import utility.Identifiable;
 
 import java.util.Date;
-import java.text.SimpleDateFormat;
 
 
 public class ProjectRequirement extends Identifiable {

@@ -66,7 +66,7 @@ public class MonetaryResourceDAO extends ResourceDAO {
         String query = QueryGenerator.getInstance().insert("monetary_resource", colNames,
                 values);
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             myStmt.executeUpdate(query);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -78,7 +78,7 @@ public class MonetaryResourceDAO extends ResourceDAO {
     @Override
     public Resource get(String key) {
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             ResultSet rs = myStmt
                     .executeQuery("SELECT * from monetary_resource inner join resource on monetary_resource.ResourceID = resource.ID AND monetary_resource.ResourceID = " + "'" + key + "'");
             Resource newRes = null;
@@ -103,7 +103,7 @@ public class MonetaryResourceDAO extends ResourceDAO {
         ArrayList<Resource> results = new ArrayList<>();
         ResultSet rs;
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             rs = myStmt.executeQuery(query);
             while (rs.next()) {
                 Resource newRes = fillMonetaryResource(rs);
@@ -128,7 +128,7 @@ public class MonetaryResourceDAO extends ResourceDAO {
     @Override
     public boolean remove(String key) {
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             myStmt.executeUpdate(QueryGenerator.getInstance().delete("monetary_resource",
                     "ResourceID = " + key));
         } catch (SQLException e) {
@@ -142,7 +142,7 @@ public class MonetaryResourceDAO extends ResourceDAO {
     public boolean update(Resource item) {
         MonetaryResource monetaryResourceItem = (MonetaryResource) item;
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             myStmt.executeUpdate(QueryGenerator.getInstance().update("monetary_resource",
                     "monetaryType", monetaryResourceItem.getMonetaryType()
                             .toString(),
@@ -188,7 +188,7 @@ public class MonetaryResourceDAO extends ResourceDAO {
     public ArrayList<Resource> getResourcesByProjectID(String pid) {
         ArrayList<Resource> resources = new ArrayList<>();
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             ResultSet rs = myStmt
                     .executeQuery("SELECT * from monetary_resource inner join resource on monetary_resource.ResourceID = resource.ID AND ProjectID = "
                             + "'" + pid + "'");
@@ -204,7 +204,7 @@ public class MonetaryResourceDAO extends ResourceDAO {
 
     public String getUnitID(String key) {
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             ResultSet rs = myStmt
                     .executeQuery("SELECT * from unit_resource WHERE ResourceID = " + "'" + key + "';");
             while (rs.next()) {

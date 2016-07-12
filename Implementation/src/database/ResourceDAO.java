@@ -3,22 +3,16 @@ package database;
 import resource.Resource;
 import resource.ResourceStatus;
 
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
-public class ResourceDAO {
+public class ResourceDAO extends DBConnect {
     private static ResourceDAO resourceDAO;
-    protected Connection sqlConn;
-    private String url = "jdbc:mysql://localhost:3306/erp?useUnicode=true&characterEncoding=UTF-8";
-    private String user = "root";
-    private String password = "";
 
     ResourceDAO() {
-        try {
-            sqlConn = DriverManager.getConnection(url, user, password);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        super("erp.conf");
     }
 
     public static ResourceDAO getInstance() {
@@ -59,7 +53,7 @@ public class ResourceDAO {
         values.add(projectID == null ? "NULL" : projectID);
 
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             myStmt.executeUpdate(QueryGenerator.getInstance().insert(
                     "resource", colNames, values));
         } catch (SQLException e) {
@@ -75,7 +69,7 @@ public class ResourceDAO {
         ArrayList<Resource> results = new ArrayList<>();
         ResultSet rs;
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             rs = myStmt.executeQuery(query);
             while (rs.next()) {
                 Resource newRes = fillResource(rs);
@@ -94,7 +88,7 @@ public class ResourceDAO {
         ArrayList<Resource> results = new ArrayList<>();
         ResultSet rs;
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             rs = myStmt.executeQuery(query);
             while (rs.next()) {
                 Resource newRes = fillResource(rs);
@@ -108,7 +102,7 @@ public class ResourceDAO {
 
     public boolean update(Resource item) {
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             myStmt.executeUpdate(QueryGenerator.getInstance()
                     .update("resource", "resourceStatus",
                             item.getResourceStatus().toString(),
@@ -123,7 +117,7 @@ public class ResourceDAO {
 
     public boolean setProjectID(String key, String pid) {
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             myStmt.executeUpdate(QueryGenerator.getInstance().update(
                     "resource", "ProjectID", pid, "ID = " + key));
         } catch (SQLException e) {
@@ -137,7 +131,7 @@ public class ResourceDAO {
         String query = QueryGenerator.getInstance().select("resource", null,
                 "ID = " + "'" + key + "'");
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             ResultSet rs = myStmt.executeQuery(query);
             if (rs.next()) {
                 return fillResource(rs);
@@ -150,7 +144,7 @@ public class ResourceDAO {
 
     public boolean remove(String key) {
         try {
-            Statement myStmt = sqlConn.createStatement();
+            Statement myStmt = getSqlConn().createStatement();
             myStmt.executeUpdate(QueryGenerator.getInstance().delete(
                     "resource", "ID = " + key));
         } catch (SQLException e) {

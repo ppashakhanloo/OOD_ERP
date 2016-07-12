@@ -1,7 +1,6 @@
 package report;
 
 import database.ProjectRequirementDAO;
-import database.UnitResourceDAO;
 import project.Project;
 import project.ProjectCatalogue;
 import resource.*;
@@ -12,10 +11,6 @@ import unit.UnitCatalogue;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import access.AccessLevelFactory;
-import access.AccessLevelType;
-import access.AccessLevelFactory;
 
 public class ProjectRequirementCatalogue {
 
