@@ -34,17 +34,6 @@ public class Project extends Identifiable {
         this.usersCount = usersCount;
     }
 
-    public Project(String name, Date developmentStart, Date developmentEnd,
-                   String customerName, int usersCount) {
-        super();
-        setID(generateNDigitID(ID_LENGTH));
-        this.name = name;
-        this.developmentStart = developmentStart;
-        this.developmentEnd = developmentEnd;
-        this.customerName = customerName;
-        this.usersCount = usersCount;
-    }
-
     public static void main(String[] args) {
 //        Project project = new Project("OOD", new Date(), new Date(), "Dr. Ramsin", 10);
 //        ProjectRequirementCatalogue.
@@ -54,25 +43,12 @@ public class Project extends Identifiable {
         return SystemDAO.getInstance().add(system, getID());
     }
 
-    public void removeSystem(System system) {
-        SystemDAO.getInstance().remove(system.getID());
-    }
-
     public System getSystem(String id) {
         return SystemDAO.getInstance().get(id);
     }
 
     public ArrayList<System> getSystems() {
         return SystemDAO.getInstance().getByProjectID(getID());
-    }
-
-    public void edit(Project project) {
-        this.setName(project.getName());
-        this.setCustomerName(project.getCustomerName());
-        this.setDevelopmentEnd(project.getDevelopmentEnd());
-        this.setDevelopmentStart(project.getDevelopmentStart());
-        this.setUsersCount(project.getUsersCount());
-        ProjectDAO.getInstance().update(project);
     }
 
     public ArrayList<Unit> getInvolvedUnits() {
@@ -111,36 +87,12 @@ public class Project extends Identifiable {
         return developmentStart;
     }
 
-    public boolean setDevelopmentStart(Date developmentStart) {
-        this.developmentStart = developmentStart;
-        ProjectDAO projectDAO = ProjectDAO.getInstance();
-        return projectDAO.update(new Project(getID(), getName(),
-                developmentStart, getDevelopmentEnd(), getCustomerName(),
-                getUsersCount()));
-    }
-
     public Date getDevelopmentEnd() {
         return developmentEnd;
     }
 
-    public boolean setDevelopmentEnd(Date developmentEnd) {
-        this.developmentEnd = developmentEnd;
-        ProjectDAO projectDAO = ProjectDAO.getInstance();
-        return projectDAO.update(new Project(getID(), getName(),
-                getDevelopmentStart(), developmentEnd, getCustomerName(),
-                getUsersCount()));
-    }
-
     public String getCustomerName() {
         return customerName;
-    }
-
-    public boolean setCustomerName(String customerName) {
-        this.customerName = customerName;
-        ProjectDAO projectDAO = ProjectDAO.getInstance();
-        return projectDAO.update(new Project(getID(), getName(),
-                getDevelopmentStart(), getDevelopmentEnd(), customerName,
-                getUsersCount()));
     }
 
     public int getUsersCount() {

@@ -30,32 +30,16 @@ public class MonetaryResource extends Resource {
         return monetaryType;
     }
 
-    public void setMonetaryType(MonetaryType monetaryType) {
-        this.monetaryType = monetaryType;
-    }
-
     public String getLocation() {
         return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
     }
 
     public Quantity getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Quantity quantity) {
-        this.quantity = quantity;
-    }
-
     public int getAccountNumber() {
         return accountNumber;
-    }
-
-    public void setAccountNumber(int accountNumber) {
-        this.accountNumber = accountNumber;
     }
 
     public String getUnitID() {

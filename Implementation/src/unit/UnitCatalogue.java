@@ -22,11 +22,6 @@ public class UnitCatalogue {
         return unitDAO.add(unit);
     }
 
-    public void remove(Unit unit) {
-        UnitDAO unitDAO = UnitDAO.getInstance();
-        unitDAO.remove(unit.getID());
-    }
-
     public Unit get(String ID) {
         UnitDAO unitDAO = UnitDAO.getInstance();
         return unitDAO.get(ID);

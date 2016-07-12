@@ -29,30 +29,6 @@ public class ProjectRequirementCatalogue {
 		return ProjectRequirementDAO.getInstance().list();
 	}
 
-	public ProjectRequirement get(String key) {
-		return ProjectRequirementDAO.getInstance().get(key);
-	}
-
-	public void remove(ProjectRequirement prjReq) {
-		ProjectRequirementDAO.getInstance().remove(prjReq.getID());
-	}
-
-	public ArrayList<Project> getProjectsWithEssentialResource(Resource res) {
-		return ProjectRequirementDAO.getInstance()
-				.getProjectsWithEssentialResource(res.getID());
-	}
-
-	public ArrayList<Resource> getRequiredResources(String pid) {
-		return ProjectRequirementDAO.getInstance().getRequiredResources(pid);
-	}
-
-	public boolean addProjectRequirement(ProjectRequirement item,
-			String projectID, String resourceID) {
-
-		return ProjectRequirementDAO.getInstance().add(item, projectID,
-				resourceID);
-	}
-
 	public ArrayList<String> getBoundedUsageFlowReport(Date startDate,
 			Date endDate, List<Resource> resources) {
 		ProjectRequirementDAO dao = ProjectRequirementDAO.getInstance();

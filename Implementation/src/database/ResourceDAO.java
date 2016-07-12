@@ -81,25 +81,6 @@ public class ResourceDAO extends DBConnect {
         return results;
     }
 
-    // SELECT * FROM resource WHERE isAvailable = 1;
-    public ArrayList<Resource> listPresentResources() {
-        String query = QueryGenerator.getInstance().select("resource", null,
-                "isAvailable = 1");
-        ArrayList<Resource> results = new ArrayList<>();
-        ResultSet rs;
-        try {
-            Statement myStmt = getSqlConn().createStatement();
-            rs = myStmt.executeQuery(query);
-            while (rs.next()) {
-                Resource newRes = fillResource(rs);
-                results.add(newRes);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return results;
-    }
-
     public boolean update(Resource item) {
         try {
             Statement myStmt = getSqlConn().createStatement();
@@ -140,18 +121,6 @@ public class ResourceDAO extends DBConnect {
             e.printStackTrace();
         }
         return null;
-    }
-
-    public boolean remove(String key) {
-        try {
-            Statement myStmt = getSqlConn().createStatement();
-            myStmt.executeUpdate(QueryGenerator.getInstance().delete(
-                    "resource", "ID = " + key));
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
     }
 
     private Resource fillResource(ResultSet rs) throws SQLException {

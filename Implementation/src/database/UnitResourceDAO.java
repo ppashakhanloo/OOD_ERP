@@ -78,34 +78,6 @@ public class UnitResourceDAO extends DBConnect {
         return unitResources;
     }
 
-    public Resource getResource(String key) {
-        String query = QueryGenerator.getInstance().select("unit_resource", null, "ID = " + "'"
-                + key + "'");
-        try {
-            Statement myStmt = getSqlConn().createStatement();
-            ResultSet rs = myStmt.executeQuery(query);
-            ResourceDAO dao = ResourceDAO.getInstance();
-            return dao.get(rs.getString("ResourceID"));
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public Unit getUnit(String key) {
-        String query = QueryGenerator.getInstance().select("unit_resource", null, "ID = " + "'"
-                + key + "'");
-        try {
-            Statement myStmt = getSqlConn().createStatement();
-            ResultSet rs = myStmt.executeQuery(query);
-            UnitDAO dao = UnitDAO.getInstance();
-            return dao.get(rs.getString("UnitID"));
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
 
     public boolean add(UnitResource item, String resourceID) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -128,70 +100,6 @@ public class UnitResourceDAO extends DBConnect {
             return false;
         }
         return true;
-    }
-
-    public UnitResource get(String key) {
-        String query = QueryGenerator.getInstance().select("unit_resource", null, "ID = " + "'"
-                + key + "'");
-        try {
-            Statement myStmt = getSqlConn().createStatement();
-            ResultSet rs = myStmt.executeQuery(query);
-            while (rs.next()) {
-                return fillUnitRes(rs);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    private UnitResource fillUnitRes(ResultSet rs) throws SQLException {
-        return new UnitResource(rs.getString("ID"),
-                rs.getDate("additionDate"), rs.getDate("removeDate"), UnitDAO.getInstance().get(rs.getString("UnitID")));
-    }
-
-    public void remove(String key) {
-        String query = "DELETE FROM unit_resource WHERE ID = " + "'" + key
-                + "'" + ";";
-        try {
-            Statement myStmt = getSqlConn().createStatement();
-            myStmt.executeUpdate(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public boolean update(UnitResource item) {
-        try {
-            Statement myStmt = getSqlConn().createStatement();
-            myStmt.executeUpdate("UPDATE unit_resource SET additionDate  = "
-                    + item.getAdditionDate() + " WHERE ID = " + "'"
-                    + item.getID() + "'");
-            myStmt.executeUpdate("UPDATE unit_resource SET removeDate  = "
-                    + item.getRemoveDate() + " WHERE ID = " + "'"
-                    + item.getID() + "'");
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
-
-    }
-
-    public ArrayList<UnitResource> list() {
-        ArrayList<UnitResource> systems = new ArrayList<>();
-        try {
-            Statement myStmt = getSqlConn().createStatement();
-            ResultSet rs = myStmt.executeQuery("SELECT * FROM unit_resource;");
-            while (rs.next()) {
-                UnitResource newSys = fillUnitRes(rs);
-                systems.add(newSys);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return systems;
     }
 
     public Unit getUnitByResourceID(String rid) {

@@ -1,7 +1,6 @@
 package unit;
 
 import database.RequirementDAO;
-import database.UnitDAO;
 import database.UnitResourceDAO;
 import resource.*;
 import utility.Identifiable;
@@ -11,10 +10,6 @@ import java.util.ArrayList;
 public class Unit extends Identifiable {
 
     private String name;
-
-    public Unit() {
-        setID(generateNDigitID(ID_LENGTH));
-    }
 
     public Unit(String iD, String name) {
         setID(iD);
@@ -28,10 +23,6 @@ public class Unit extends Identifiable {
 
     public ArrayList<Requirement> getRequirements() {
         return RequirementDAO.getInstance().getRequirementsByUnitID(getID());
-    }
-
-    public void removeRequirement(Requirement req) {
-        RequirementDAO.getInstance().remove(req.getID());
     }
 
     public ArrayList<Resource> getResources() {
@@ -48,12 +39,6 @@ public class Unit extends Identifiable {
 
     public String getName() {
         return name;
-    }
-
-    public boolean setName(String name) {
-        this.name = name;
-        UnitDAO unitDAO = UnitDAO.getInstance();
-        return unitDAO.update(new Unit(getID(), name));
     }
 
 

@@ -93,12 +93,6 @@ public class OperationFacade {
         return quantityUnits;
     }
 
-    public ArrayList<MonetaryType> getMonetaryTypes() {
-        ArrayList<MonetaryType> monetaryTypes = new ArrayList<>();
-        Collections.addAll(monetaryTypes, MonetaryType.values());
-        return monetaryTypes;
-    }
-
     public boolean addNewHumanResource(String firstName, String lastName, String expertise, String password, AccessLevelType type, String unitID) {
         return ResourceCatalogue.getInstance().add(new HumanResource(firstName, lastName, expertise, password, (new AccessLevelFactory()).getAccessLevel(type)), unitID, "");
     }

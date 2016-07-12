@@ -121,19 +121,6 @@ public class InformationResourceDAO extends ResourceDAO {
     }
 
     @Override
-    public boolean remove(String key) {
-        try {
-            Statement myStmt = getSqlConn().createStatement();
-            myStmt.executeUpdate(QueryGenerator.getInstance().delete("information_resource",
-                    "ResourceID = " + key));
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return super.remove(key);
-    }
-
-    @Override
     public boolean update(Resource item) {
         InformationResource informationResourceItem = (InformationResource) item;
         try {
@@ -149,10 +136,6 @@ public class InformationResourceDAO extends ResourceDAO {
             return false;
         }
         return super.update(item);
-    }
-
-    public ArrayList<Resource> getByName(String name) {
-        return listConditional("name = " + "'" + name + "'");
     }
 
     public ArrayList<Resource> getResourcesByProjectID(String pid) {

@@ -100,19 +100,6 @@ public class HumanResourceDAO extends ResourceDAO {
     }
 
     @Override
-    public boolean remove(String key) {
-        try {
-            Statement myStmt = getSqlConn().createStatement();
-            myStmt.executeUpdate(QueryGenerator.getInstance().delete("human_resource",
-                    "ResourceID = " + "'" + key + "'"));
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return super.remove(key);
-    }
-
-    @Override
     public boolean update(Resource item) {
         HumanResource humanResourceItem = (HumanResource) item;
         try {
@@ -182,23 +169,6 @@ public class HumanResourceDAO extends ResourceDAO {
             e.printStackTrace();
         }
         return results;
-    }
-
-    public ArrayList<Resource> getByFirstName(String firstName) {
-        return listConditional("firstName = " + "'" + firstName + "'");
-    }
-
-    public ArrayList<Resource> getByLastName(String lastName) {
-        return listConditional("lastName = " + "'" + lastName + "'");
-    }
-
-    public ArrayList<Resource> getByExpertise(String expertise) {
-        return listConditional("expertise LIKE " + "'%" + expertise + "%'");
-    }
-
-    public ArrayList<Resource> getByConfirmStatus(ConfirmStatus confirmStatus) {
-        return listConditional("confirmStatus = " + "'"
-                + confirmStatus.toString() + "'");
     }
 
     private boolean authenticate(String ID, String password) {

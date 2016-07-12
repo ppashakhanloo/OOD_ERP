@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class RequirementDAO extends DBConnect implements DAO<Requirement> {
 
@@ -96,29 +95,6 @@ public class RequirementDAO extends DBConnect implements DAO<Requirement> {
         return null;
     }
 
-    public void setResource(String reqID, String ResourceID) {
-        String query = "UPDATE requirement SET ResourceID = " + "'"
-                + ResourceID + "'" + "WHERE ID = " + "'" + reqID + "';";
-        try {
-            Statement myStmt = getSqlConn().createStatement();
-            myStmt.executeUpdate(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void remove(String key) {
-        String query = QueryGenerator.getInstance().delete("requirement",
-                "ID = " + "'" + key + "'");
-        try {
-            Statement myStmt = getSqlConn().createStatement();
-            myStmt.executeUpdate(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
     public boolean update(Requirement item) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -158,23 +134,6 @@ public class RequirementDAO extends DBConnect implements DAO<Requirement> {
         ArrayList<Requirement> reqs = new ArrayList<>();
         String query = QueryGenerator.getInstance().select("requirement", null,
                 "UnitID = " + "'" + uid + "'");
-        try {
-            Statement myStmt = getSqlConn().createStatement();
-            ResultSet rs = myStmt.executeQuery(query);
-            while (rs.next()) {
-                reqs.add(fillRequirement(rs));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return reqs;
-    }
-
-    public ArrayList<Requirement> getByProvideDate(Date provideDate) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        ArrayList<Requirement> reqs = new ArrayList<>();
-        String query = QueryGenerator.getInstance().select("requirement", null,
-                "provideDate = " + sdf.format(provideDate));
         try {
             Statement myStmt = getSqlConn().createStatement();
             ResultSet rs = myStmt.executeQuery(query);

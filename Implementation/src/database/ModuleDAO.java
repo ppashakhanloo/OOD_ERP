@@ -83,17 +83,6 @@ public class ModuleDAO extends DBConnect implements DAO<Module> {
     }
 
     @Override
-    public void remove(String key) {
-        try {
-            Statement myStmt = getSqlConn().createStatement();
-            myStmt.executeUpdate("DELETE FROM module WHERE ID = " + "'" + key
-                    + "'" + ";");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
     public boolean update(Module item) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
@@ -120,63 +109,6 @@ public class ModuleDAO extends DBConnect implements DAO<Module> {
 
     }
 
-    public ArrayList<Module> getByName(String name) {
-        ArrayList<Module> modules = new ArrayList<>();
-        String query = QueryGenerator.getInstance().select("module", null, "name = " + "'" + name
-                + "'");
-        ResultSet rs;
-        try {
-            Statement myStmt = getSqlConn().createStatement();
-            rs = myStmt.executeQuery(query);
-            while (rs.next()) {
-                modules.add(fillModule(rs));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return modules;
-    }
-
-    public ArrayList<Module> getByDevelopmentStart(String DevelopmentStart) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        ArrayList<Module> modules = new ArrayList<>();
-        String query = QueryGenerator.getInstance().select("module", null, "developmentStart = "
-                + "'"
-                + (DevelopmentStart == null ? "0000-00-00" : sdf
-                .format(DevelopmentStart)) + "'");
-        ResultSet rs;
-        try {
-            Statement myStmt = getSqlConn().createStatement();
-            rs = myStmt.executeQuery(query);
-            while (rs.next()) {
-                modules.add(fillModule(rs));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return modules;
-    }
-
-    public ArrayList<Module> getByDevelopmentEnd(String DevelopmentEnd) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        ArrayList<Module> modules = new ArrayList<>();
-        String query = QueryGenerator.getInstance().select("module", null, "developmentEnd = "
-                + "'"
-                + (DevelopmentEnd == null ? "0000-00-00" : sdf
-                .format(DevelopmentEnd)) + "'");
-        ResultSet rs;
-        try {
-            Statement myStmt = getSqlConn().createStatement();
-            rs = myStmt.executeQuery(query);
-            while (rs.next()) {
-                modules.add(fillModule(rs));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return modules;
-    }
-
     @Override
     public ArrayList<Module> list() {
         ArrayList<Module> modules = new ArrayList<>();
@@ -191,25 +123,6 @@ public class ModuleDAO extends DBConnect implements DAO<Module> {
             e.printStackTrace();
         }
         return modules;
-    }
-
-    public ArrayList<HumanResource> getDevelopers(String modID) {
-        HumanResourceDAO hrDAO = HumanResourceDAO.getInstance();
-        ArrayList<HumanResource> developers = new ArrayList<>();
-        String query = QueryGenerator.getInstance().select("module_humanresource", null,
-                "ModuleID = " + "'" + modID + "'");
-        try {
-            Statement myStmt = getSqlConn().createStatement();
-            ResultSet rs = myStmt.executeQuery(query);
-            while (rs.next()) {
-                developers.add((HumanResource) hrDAO.get(rs
-                        .getString("HumanResourceID")));
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return developers;
     }
 
     public boolean addDeveloper(String modID, HumanResource developer) {

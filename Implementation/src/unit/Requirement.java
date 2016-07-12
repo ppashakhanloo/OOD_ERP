@@ -11,10 +11,6 @@ public class Requirement extends Identifiable {
     private String description;
     private Date provideDate;
 
-    public Requirement() {
-        setID(generateNDigitID(ID_LENGTH));
-    }
-
     public Requirement(String description, Date provideDate) {
         setID(generateNDigitID(ID_LENGTH));
         this.description = description;
@@ -32,20 +28,8 @@ public class Requirement extends Identifiable {
         return reqDAO.getResource(getID());
     }
 
-    public void setResource(String resID) {
-        RequirementDAO reqDAO = RequirementDAO.getInstance();
-        reqDAO.setResource(getID(), resID);
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public boolean setDescription(String description) {
-        this.description = description;
-        RequirementDAO reqDAO = RequirementDAO.getInstance();
-        return reqDAO.update(new Requirement(getID(), description,
-                getProvideDate()));
     }
 
     public Date getProvideDate() {

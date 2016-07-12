@@ -21,12 +21,6 @@ public class Technology extends Identifiable {
         return reason;
     }
 
-    public boolean setReason(String reason) {
-        this.reason = reason;
-        ProjectDAO projectDAO = ProjectDAO.getInstance();
-        return projectDAO.updateTechnology(new Technology(getName(), reason));
-    }
-
     @Override
     public String toString() {
 //        return "name=" + name + ", reason=" + reason;

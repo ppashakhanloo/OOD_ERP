@@ -25,24 +25,12 @@ public class PhysicalResource extends Resource {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getModel() {
         return model;
     }
 
-    public void setModel(String model) {
-        this.model = model;
-    }
-
     public String getLocation() {
         return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
     }
 
     @Override

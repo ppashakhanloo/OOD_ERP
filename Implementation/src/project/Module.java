@@ -34,10 +34,6 @@ public class Module extends Identifiable {
         return ModuleModificationDAO.getInstance().add(mod, getID());
     }
 
-    public ArrayList<HumanResource> getDevelopers() {
-        return ModuleDAO.getInstance().getDevelopers(getID());
-    }
-
     public boolean addDeveloper(HumanResource developer) {
         return ModuleDAO.getInstance().addDeveloper(getID(), developer);
     }
@@ -57,22 +53,8 @@ public class Module extends Identifiable {
         return developmentStart;
     }
 
-    public boolean setDevelopmentStart(Date developmentStart) {
-        this.developmentStart = developmentStart;
-        ModuleDAO modDAO = ModuleDAO.getInstance();
-        return modDAO.update(new Module(getID(), getName(), developmentStart,
-                getDevelopmentEnd()));
-    }
-
     public Date getDevelopmentEnd() {
         return developmentEnd;
-    }
-
-    public boolean setDevelopmentEnd(Date developmentEnd) {
-        this.developmentEnd = developmentEnd;
-        ModuleDAO modDAO = ModuleDAO.getInstance();
-        return modDAO.update(new Module(getID(), getName(),
-                getDevelopmentStart(), developmentEnd));
     }
 
     @Override

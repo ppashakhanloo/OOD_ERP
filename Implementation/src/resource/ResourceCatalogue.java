@@ -38,17 +38,6 @@ public class ResourceCatalogue {
         return add1 && add2;
     }
 
-    public void remove(Resource resource) {
-        if (resource instanceof HumanResource)
-            HumanResourceDAO.getInstance().remove(resource.getID());
-        else if (resource instanceof PhysicalResource)
-            PhysicalResourceDAO.getInstance().remove(resource.getID());
-        else if (resource instanceof InformationResource)
-            InformationResourceDAO.getInstance().remove(resource.getID());
-        else if (resource instanceof MonetaryResource)
-            MonetaryResourceDAO.getInstance().remove(resource.getID());
-    }
-
     public ArrayList<Resource> getAll() {
         ArrayList<Resource> allResources = new ArrayList<>();
         allResources.addAll(HumanResourceDAO.getInstance().list());
@@ -64,16 +53,6 @@ public class ResourceCatalogue {
             }
         }
         return realResources;
-    }
-
-    public ArrayList<Resource> getAvailableResources() {
-        ArrayList<Resource> realResources = getAll();
-        ArrayList<Resource> availableResources = new ArrayList<>();
-        for (Resource resource : realResources) {
-            if (resource.getResourceStatus().equals(ResourceStatus.IDLE))
-                availableResources.add(resource);
-        }
-        return availableResources;
     }
 
     public Resource get(String ID) {

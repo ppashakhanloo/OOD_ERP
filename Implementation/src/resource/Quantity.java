@@ -21,10 +21,6 @@ public class Quantity {
         return quantityUnit;
     }
 
-    public void setQuantityUnit(QuantityUnit quantityUnit) {
-        this.quantityUnit = quantityUnit;
-    }
-
     @Override
     public String toString() {
         return "[" + Integer.toString(amount) + " " + quantityUnit.toString() + "]";

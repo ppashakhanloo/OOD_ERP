@@ -9,7 +9,6 @@ public class HumanResource extends Resource {
     private String password;
     private ConfirmStatus confirmStatus;
     private AccessLevel accessLevel;
-    private boolean loggedIn;
 
     public HumanResource() {
         super();
@@ -43,16 +42,8 @@ public class HumanResource extends Resource {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
     public String getLastName() {
         return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public String getExpertise() {
@@ -67,10 +58,6 @@ public class HumanResource extends Resource {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public ConfirmStatus getConfirmStatus() {
         return confirmStatus;
     }
@@ -81,22 +68,6 @@ public class HumanResource extends Resource {
 
     public AccessLevel getAccessLevel() {
         return accessLevel;
-    }
-
-    public void setAccessLevel(AccessLevel accessLevel) {
-        this.accessLevel = accessLevel;
-    }
-
-    public void confirm() {
-        setConfirmStatus(ConfirmStatus.CONFIRMED);
-    }
-
-    public boolean isLoggedIn() {
-        return loggedIn;
-    }
-
-    public void setLoggedIn(boolean loggedIn) {
-        this.loggedIn = loggedIn;
     }
 
     @Override

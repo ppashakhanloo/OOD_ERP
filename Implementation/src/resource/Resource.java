@@ -20,11 +20,6 @@ public class Resource extends Identifiable {
         setID(iD);
     }
 
-    public void edit(Resource resource) {
-        this.resourceStatus = resource.getResourceStatus();
-        this.isAvailable = resource.isAvailable();
-    }
-
     public ResourceStatus getResourceStatus() {
         return resourceStatus;
     }

@@ -71,17 +71,6 @@ public class SystemDAO extends DBConnect implements DAO<System> {
     }
 
     @Override
-    public void remove(String key) {
-        String query = "DELETE FROM system WHERE ID = " + "'" + key + "'" + ";";
-        try {
-            Statement myStmt = getSqlConn().createStatement();
-            myStmt.executeUpdate(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
     public boolean update(System item) {
         try {
             Statement myStmt = getSqlConn().createStatement();
@@ -116,22 +105,6 @@ public class SystemDAO extends DBConnect implements DAO<System> {
             Statement myStmt = getSqlConn().createStatement();
             ResultSet rs = myStmt.executeQuery(QueryGenerator.getInstance().select("system", null,
                     "ProjectID = " + "'" + pid + "'"));
-            while (rs.next()) {
-                systems.add(fillSystem(rs));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return systems;
-    }
-
-    public ArrayList<System> getByName(String name) {
-        ArrayList<System> systems = new ArrayList<>();
-        String query = QueryGenerator.getInstance().select("system", null, "name = " + "'" + name
-                + "'");
-        try {
-            Statement myStmt = getSqlConn().createStatement();
-            ResultSet rs = myStmt.executeQuery(query);
             while (rs.next()) {
                 systems.add(fillSystem(rs));
             }

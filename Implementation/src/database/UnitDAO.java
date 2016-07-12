@@ -56,23 +56,6 @@ public class UnitDAO extends DBConnect implements DAO<Unit> {
         return null;
     }
 
-    public ArrayList<Unit> getByName(String name) {
-        ArrayList<Unit> units = new ArrayList<>();
-        String query = QueryGenerator.getInstance().select("unit", null, "name = " + "'" + name
-                + "'");
-        ResultSet rs;
-        try {
-            Statement myStmt = getSqlConn().createStatement();
-            rs = myStmt.executeQuery(query);
-            while (rs.next()) {
-                units.add(fillUnit(rs));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return units;
-    }
-
     private Unit fillUnit(ResultSet rs) {
         try {
             return (new Unit(rs.getString("ID"), rs.getString("name")));
@@ -80,18 +63,6 @@ public class UnitDAO extends DBConnect implements DAO<Unit> {
             e.printStackTrace();
             return null;
         }
-    }
-
-    @Override
-    public void remove(String key) {
-        try {
-            Statement myStmt = getSqlConn().createStatement();
-            myStmt.executeUpdate(QueryGenerator.getInstance().delete("unit", "ID = " + "'" + key
-                    + "'"));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
     }
 
     @Override

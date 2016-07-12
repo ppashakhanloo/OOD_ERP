@@ -74,24 +74,6 @@ public class ModuleModificationDAO extends DBConnect implements DAO<ModuleModifi
         return true;
     }
 
-    public ArrayList<HumanResource> getModifiers(String modID) {
-        ArrayList<HumanResource> modifiers = new ArrayList<>();
-        HumanResourceDAO hrDAO = HumanResourceDAO.getInstance();
-        String query = generator.select("modulemodification_humanresource",
-                null, "ModuleModificationID = " + modID);
-        try {
-            Statement myStmt = getSqlConn().createStatement();
-            ResultSet rs = myStmt.executeQuery(query);
-            while (rs.next()) {
-                modifiers.add((HumanResource) hrDAO.get(rs
-                        .getString("HumanResourceID")));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return modifiers;
-    }
-
     @Override
     public ModuleModification get(String key) {
         String query = generator.select("module_modification", null, "ID = "
@@ -112,18 +94,6 @@ public class ModuleModificationDAO extends DBConnect implements DAO<ModuleModifi
         return new ModuleModification(rs.getString("ID"),
                 rs.getString("modificationType"),
                 rs.getDate("modificationStart"), rs.getDate("modificationEnd"));
-    }
-
-    @Override
-    public void remove(String key) {
-        String query = "DELETE FROM module_modification WHERE ID = " + "'"
-                + key + "'" + ";";
-        try {
-            Statement myStmt = getSqlConn().createStatement();
-            myStmt.executeUpdate(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override

@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class ProjectDAO extends DBConnect implements DAO<Project> {
 
@@ -234,92 +233,6 @@ public class ProjectDAO extends DBConnect implements DAO<Project> {
         return project;
     }
 
-    @Override
-    public void remove(String key) {
-        String query = QueryGenerator.getInstance().delete("project", "ID = " + "'" + key + "'");
-        try {
-            Statement myStmt = getSqlConn().createStatement();
-            myStmt.executeUpdate(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public ArrayList<Project> getByName(String name) {
-        ArrayList<Project> projects = new ArrayList<>();
-        String query = QueryGenerator.getInstance().select("project", null, "name = " + "'" + name
-                + "'");
-        ResultSet rs;
-        try {
-            Statement myStmt = getSqlConn().createStatement();
-            rs = myStmt.executeQuery(query);
-            while (rs.next()) {
-                projects.add(fillProject(rs));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return projects;
-    }
-
-    public ArrayList<Project> getByCustomerName(String name) {
-        ArrayList<Project> projects = new ArrayList<>();
-        String query = QueryGenerator.getInstance().select("project", null, "customerName = "
-                + "'" + name + "'");
-        ResultSet rs;
-        try {
-            Statement myStmt = getSqlConn().createStatement();
-            rs = myStmt.executeQuery(query);
-            while (rs.next()) {
-                projects.add(fillProject(rs));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return projects;
-    }
-
-    public ArrayList<Project> getByDevelopmentStart(Date DevelopmentStart) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        ArrayList<Project> projects = new ArrayList<>();
-        String query = QueryGenerator.getInstance().select("project", null, "developmentStart = "
-                + "'"
-                + (DevelopmentStart == null ? "0000-00-00" : sdf
-                .format(DevelopmentStart)) + "'");
-        ResultSet rs;
-        try {
-            Statement myStmt = getSqlConn().createStatement();
-            rs = myStmt.executeQuery(query);
-            while (rs.next()) {
-                projects.add(fillProject(rs));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return projects;
-    }
-
-    public ArrayList<Project> getByDevelopmentEnd(Date DevelopmentEnd) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        ArrayList<Project> projects = new ArrayList<>();
-        String query = QueryGenerator.getInstance().select("project", null, "developmentEnd = "
-                + "'"
-                + (DevelopmentEnd == null ? "0000-00-00" : sdf
-                .format(DevelopmentEnd)) + "'");
-        ResultSet rs;
-        try {
-            Statement myStmt = getSqlConn().createStatement();
-            rs = myStmt.executeQuery(query);
-            while (rs.next()) {
-                projects.add(fillProject(rs));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return projects;
-    }
-
     public ArrayList<Project> getByUsersCount(int count) {
         ArrayList<Project> projects = new ArrayList<>();
 
@@ -446,19 +359,6 @@ public class ProjectDAO extends DBConnect implements DAO<Project> {
                     + item.getUsersCount()
                     + " WHERE ID = " + "'"
                     + item.getID() + "'");
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
-
-    }
-
-    public boolean updateTechnology(Technology item) {
-        try {
-            Statement myStmt = getSqlConn().createStatement();
-            myStmt.executeUpdate(QueryGenerator.getInstance().update("technology", "reason",
-                    item.getReason(), "name = " + "'" + item.getName() + "'"));
         } catch (SQLException e) {
             e.printStackTrace();
             return false;

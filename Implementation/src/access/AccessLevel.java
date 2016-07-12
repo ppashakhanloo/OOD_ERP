@@ -19,14 +19,6 @@ abstract public class AccessLevel {
         this.accessLevelType = accessLevelType;
     }
 
-    public void setPermission(PermissionType permissionType, Boolean permitStatus) {
-        hasPermission.put(permissionType, permitStatus);
-    }
-
-    public Boolean getPermission(PermissionType permissionType) {
-        return hasPermission.get(permissionType);
-    }
-
     public Map<PermissionType, Boolean> getPermissions() {
         return hasPermission;
     }

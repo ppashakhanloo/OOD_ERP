@@ -26,16 +26,8 @@ public class ProjectCatalogue {
         return ProjectDAO.getInstance().add(project, uid);
     }
 
-    public void remove(Project project) {
-        ProjectDAO.getInstance().remove(project.getID());
-    }
-
     public Project get(String ID) {
         return ProjectDAO.getInstance().get(ID);
-    }
-
-    public boolean update(Project project) {
-        return ProjectDAO.getInstance().update(project);
     }
 
     public ArrayList<Technology> getTechnologies() {

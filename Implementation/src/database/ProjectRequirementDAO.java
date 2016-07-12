@@ -55,59 +55,6 @@ public class ProjectRequirementDAO extends DBConnect {
         }
     }
 
-    public ArrayList<ProjectRequirement> getByProvideDate(Date provideDate) {
-        ArrayList<ProjectRequirement> projects = new ArrayList<>();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String query = QueryGenerator.getInstance().select("project_requirement", null,
-                "provideDate = " + "'" + sdf.format(provideDate) + "'");
-        ResultSet rs;
-        try {
-            Statement myStmt = getSqlConn().createStatement();
-            rs = myStmt.executeQuery(query);
-            while (rs.next()) {
-                projects.add(fillProjectRequirement(rs));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return projects;
-    }
-
-    public ArrayList<ProjectRequirement> getByReleaseDate(Date releaseDate) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        ArrayList<ProjectRequirement> projects = new ArrayList<>();
-        String query = QueryGenerator.getInstance().select("project_requirement", null,
-                "releaseDate = " + "'" + sdf.format(releaseDate) + "'");
-        ResultSet rs;
-        try {
-            Statement myStmt = getSqlConn().createStatement();
-            rs = myStmt.executeQuery(query);
-            while (rs.next()) {
-                projects.add(fillProjectRequirement(rs));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return projects;
-    }
-
-    public ArrayList<ProjectRequirement> getEssentials() {
-        ArrayList<ProjectRequirement> projects = new ArrayList<>();
-        String query = QueryGenerator.getInstance().select("project_requirement", null,
-                "isEssential = 1");
-        ResultSet rs;
-        try {
-            Statement myStmt = getSqlConn().createStatement();
-            rs = myStmt.executeQuery(query);
-            while (rs.next()) {
-                projects.add(fillProjectRequirement(rs));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return projects;
-    }
-
     public Project getProject(String key) {
         String query = QueryGenerator.getInstance().select("project_requirement", null, "ID = "
                 + "'" + key + "'");
@@ -195,17 +142,6 @@ public class ProjectRequirementDAO extends DBConnect {
         return prjReq;
     }
 
-    public void remove(String key) {
-        String query = QueryGenerator.getInstance().delete("project_requirement", "ID = " + "'"
-                + key + "'");
-        try {
-            Statement myStmt = getSqlConn().createStatement();
-            myStmt.executeUpdate(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     public boolean update(ProjectRequirement item) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
@@ -276,40 +212,6 @@ public class ProjectRequirementDAO extends DBConnect {
         return reqs;
     }
 
-
-    public ArrayList<Project> getProjectsWithEssentialResource(String rid) {
-        ArrayList<Project> projects = new ArrayList<>();
-        try {
-            Statement myStmt = getSqlConn().createStatement();
-            ResultSet rs = myStmt.executeQuery(QueryGenerator.getInstance().select(
-                    "project_requirement", null,
-                    "isEssential = 1 AND ResourceID = " + "'" + rid + "'"));
-            while (rs.next()) {
-                ProjectDAO dao = ProjectDAO.getInstance();
-                projects.add(dao.get(rs.getString("ProjectID")));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return projects;
-    }
-
-    public ArrayList<Resource> getRequiredResources(String pid) {
-        ArrayList<Resource> resources = new ArrayList<>();
-        try {
-            Statement myStmt = getSqlConn().createStatement();
-            ResultSet rs = myStmt.executeQuery(QueryGenerator.getInstance().select(
-                    "project_requirement", null, "provideDate = '0000-00-00'"
-                            + " AND ProjectID = " + "'" + pid + "'"));
-            while (rs.next()) {
-                ResourceDAO dao = ResourceDAO.getInstance();
-                resources.add(dao.get(rs.getString("ResourceID")));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return resources;
-    }
 
     public ArrayList<String> getFlowReport(Date Start, Date End,
                                            List<Resource> resources) {

@@ -92,19 +92,6 @@ public class PhysicalResourceDAO extends ResourceDAO {
     }
 
     @Override
-    public boolean remove(String key) {
-        try {
-            Statement myStmt = getSqlConn().createStatement();
-            myStmt.executeUpdate(QueryGenerator.getInstance().delete("physical_resource",
-                    "ResourceID = " + key));
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return super.remove(key);
-    }
-
-    @Override
     public boolean update(Resource item) {
         PhysicalResource physicalResourceItem = (PhysicalResource) item;
         try {
@@ -123,18 +110,6 @@ public class PhysicalResourceDAO extends ResourceDAO {
             return false;
         }
         return super.update(item);
-    }
-
-    public ArrayList<Resource> getByName(String name) {
-        return listConditional("name = " + "'" + name + "'");
-    }
-
-    public ArrayList<Resource> getByModel(String model) {
-        return listConditional("model = " + "'" + model + "'");
-    }
-
-    public ArrayList<Resource> getByLocation(String location) {
-        return listConditional("location = " + "'" + location + "'");
     }
 
     private ArrayList<Resource> listConditional(String cond) {

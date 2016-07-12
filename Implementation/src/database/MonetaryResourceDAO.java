@@ -126,19 +126,6 @@ public class MonetaryResourceDAO extends ResourceDAO {
     }
 
     @Override
-    public boolean remove(String key) {
-        try {
-            Statement myStmt = getSqlConn().createStatement();
-            myStmt.executeUpdate(QueryGenerator.getInstance().delete("monetary_resource",
-                    "ResourceID = " + key));
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return super.remove(key);
-    }
-
-    @Override
     public boolean update(Resource item) {
         MonetaryResource monetaryResourceItem = (MonetaryResource) item;
         try {
@@ -167,22 +154,6 @@ public class MonetaryResourceDAO extends ResourceDAO {
             return false;
         }
         return super.update(item);
-    }
-
-    public ArrayList<Resource> getByType(MonetaryType monetaryType) {
-        return listConditional("monetaryType = " + "'"
-                + monetaryType.toString() + "'");
-    }
-
-    public ArrayList<Resource> getByLocation(String location) {
-        return listConditional("location = " + "'" + location + "'");
-    }
-
-    public ArrayList<Resource> getByQuantity(Quantity quantity) {
-        return listConditional("quantity_amount = " + "'"
-                + Integer.toString(quantity.getAmount()) + "' AND "
-                + "quantity_unit = " + "'"
-                + quantity.getQuantityUnit().toString() + "'");
     }
 
     public ArrayList<Resource> getResourcesByProjectID(String pid) {
