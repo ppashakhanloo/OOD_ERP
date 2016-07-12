@@ -71,10 +71,10 @@
 \begin{landscape}
 \section{کلاس‌های واسط کاربری}
 \subsection{نمای کلی کلاس‌های واسط کاربری}
-همه‌ی کلاس‌های واسط کاربری ( که در واقع نمایانگر صفحات واسط کاربری هستند) از طریق واسط Visiblity می‌توانند یکدیگر را مرئی یا نامرئی کنند. در واقع همه‌ی کلاس‌های واسط کاربری از این واسط استفاده می‌کنند؛ اما برای شلوغ نشدن نمودار کلاس مربوط به آن، از آوردنش خودداری کرده‌ایم. همچنین، کلاس‌های واسط کاربری از طریق واسط دیگری (Initiator) می‌توانند یکدیگر را پیکربندی کنند. این ارتباط هم برای جلوگیری از شلوغ شدن نمودار، نمایش داده نشده است.\\
+به منظور جلوگیری از شلوغی و دشوار‌فهم شدن نمودارها، در نمودار زیر تنها روابط وراثت و تحقّق بین کلاس‌ها و واسط‌ها نمایش داده شده است. جزئیات تمام کلاس‌ها در ادامه در بسته‌های جداگانه نمایش داده خواهد شد.\\
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.4]{img/class-design/ui/UI}
+	\includegraphics[scale=0.30]{img/class-design/ui/FinalUI}
 	\caption{بسته واسط کاربری}
 \end{figure}
 \end{landscape}
@@ -82,281 +82,49 @@
 \subsection{جزییات کلاس‌های واسط کاربری}
 \begin{figure}[H]
 	\centering
-	\begin{subfigure}[b]{0.4\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/Visibility.png}
-		\caption{واسط تعیین وضعیت نمایش صفحه}
-	\end{subfigure}
-%	\hfill
-\end{figure}
+	\includegraphics[width=\textwidth]{img/class-design/ui/TopClasses.png}
 
-
-\begin{figure}[H]
-	\centering
-	\begin{subfigure}[b]{0.2\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/UnitObserver}
-		\caption{مشاهده‌گر واحد}
-	\end{subfigure}
-	%	\hfill
-	\begin{subfigure}[b]{0.2\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/ProjectObserver}
-		\caption{مشاهده‌گر پروژه}
-	\end{subfigure}
-	\begin{subfigure}[b]{0.2\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/HumanResourceObserver}
-		\caption{مشاهده‌گر منبع انسانی}
-	\end{subfigure}
-	\begin{subfigure}[b]{0.2\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/PhysicalResourceObserver}
-		\caption{مشاهده‌گر منبع فیزیکی}
-	\end{subfigure}	
-	\begin{subfigure}[b]{0.2\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/MonetaryResourceObserver}
-		\caption{مشاهده‌گر منبع مالی}
-	\end{subfigure}
-	\begin{subfigure}[b]{0.2\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/InformationResourceObserver}
-		\caption{مشاهده‌گر منبع اطلاعاتی}
-	\end{subfigure}
-	\caption{مشاهده‌گرها}
-\end{figure}
-
-
-
-\begin{figure}[H]
-	\centering
-	\begin{subfigure}[b]{0.4\textwidth}
-	\includegraphics[width=\textwidth]{img/class-design/ui/AddModuleModificationDialog.jpg}
-	\caption{کلاس ثبت تغییر ماژول}
-	\end{subfigure}
-	%	\hfill
-	\begin{subfigure}[b]{0.4\textwidth}
-	\includegraphics[width=\textwidth]{img/class-design/ui/EditModuleDialog.jpg}
-	\caption{کلاس ویرایش ماژول}
-	\end{subfigure}
-	\begin{subfigure}[b]{0.4\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/AddNewModule.png}
-		\caption{کلاس افزودن ماژول به سیستم}	
-	\end{subfigure}
-	\caption{کلاس‌های برزش ماژول}
+	\caption{واسط جهت مرئی‌سازی و کلاس‌های سطح بالای اصلی به عنوان قالب اصلی صفحات}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\begin{subfigure}[b]{0.3\textwidth}
-	\includegraphics[width=\textwidth]{img/class-design/ui/ViewModule.png}
-	\caption{کلاس مشاهده ماژول}
-	\end{subfigure}
-\hfill
-	\begin{subfigure}[b]{0.4\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/ViewSingleProject}
-		\caption{کلاس مشاهده پروژه}
-	\end{subfigure}
-\hfill
-	\begin{subfigure}[b]{0.4\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/ViewHumanResource}
-		\caption{کلاس مشاهده منبع انسانی}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[b]{0.4\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/ViewPhysicalResource}
-		\caption{کلاس مشاهده منبع فیزیکی}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[b]{0.4\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/ViewMonetaryResource}
-		\caption{کلاس مشاهده منبع مالی}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[b]{0.4\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/ViewInformationResource}
-		\caption{کلاس مشاهده منبع اطلاعاتی}
-	\end{subfigure}
-	\caption{کلاس‌های مشاهده یک شئ}
-\end{figure}
+	\includegraphics[width=\textwidth]{img/class-design/ui/UIProject.png}
 
-
-\begin{figure}[H]
-	\centering
-	\begin{subfigure}[b]{0.5\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/ViewProjects}
-		\caption{کلاس مشاهده پروژه‌ها}
-	\end{subfigure}
-
-	\begin{subfigure}[b]{0.5\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/ViewResources.jpg}
-		\caption{کلاس مشاهده منابع}
-	\end{subfigure}
-\hfill
-	\begin{subfigure}[b]{0.3\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/ViewUnits.png}
-		\caption{کلاس مشاهده واحدها}
-	\end{subfigure}
-\hfill
-	\begin{subfigure}[b]{0.3\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/ViewUnitResources}
-		\caption{کلاس مشاهده منابع واحد}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[b]{0.4\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/ViewUnitRequirements.png}
-		\caption{کلاس مشاهده نیازمندی‌های واحد}
-	\end{subfigure}
-	\hfill
-		\begin{subfigure}[b]{0.4\textwidth}
-			\includegraphics[width=\textwidth]{img/class-design/ui/ViewProjectRequirements}
-			\caption{کلاس مشاهده نیازمندی‌های پروژه}
-		\end{subfigure}
-	\hfill
-	\begin{subfigure}[b]{0.3\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/ViewModuleModificationHistory.png}
-		\caption{کلاس مشاهده تاریخچه تغییرات ماژول}
-	\end{subfigure}
-	\hfill
-		\begin{subfigure}[b]{0.5\textwidth}
-			\includegraphics[width=\textwidth]{img/class-design/ui/ViewProjectResources}
-			\caption{کلاس مشاهده منابع پروژه}
-		\end{subfigure}
-
-	\caption{کلاس‌های مشاهده چند شئ}
+	\caption{بسته‌ی کلاس‌های واسط کاربری پروژه}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\begin{subfigure}[b]{0.3\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/AddNewHumanResource}
-		\caption{کلاس افزودن منبع انسانی}
-	\end{subfigure}
-\hfill
-	\begin{subfigure}[b]{0.3\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/AddNewMonetaryResource}
-		\caption{کلاس افزودن منبع مالی}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[b]{0.3\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/AddNewPhysicalResource}
-		\caption{کلاس افزودن منبع فیزیکی}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[b]{0.3\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/AddNewInformationResource}
-		\caption{کلاس افزودن منبع اطلاعاتی}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[b]{0.3\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/AddNewProject}
-		\caption{کلاس افزودن پروژه}
-	\end{subfigure}
-	\begin{subfigure}[b]{0.3\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/AddNewSystem}
-		\caption{کلاس افزودن سیستم }
-	\end{subfigure}
-	\begin{subfigure}[b]{0.3\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/AddNewUnit}
-		\caption{کلاس افزودن واحد }
-	\end{subfigure}
-	\begin{subfigure}[b]{0.4\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/AddNewTechnology}
-		\caption{کلاس افزودن تکنولوژی به پروژه}
-	\end{subfigure}
-	\begin{subfigure}[b]{0.3\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/SubmitNewRequirement.jpg}
-		\caption{کلاس افزودن نیازمندی جدید}
-	\end{subfigure}
-	\begin{subfigure}[b]{0.3\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/AddNewProjectRequirement}
-		\caption{کلاس افزودن نیازمندی}
-	\end{subfigure}
-	\caption{کلاس‌های افزودن یک شئ}
-\end{figure}
+	\includegraphics[width=\textwidth]{img/class-design/ui/UIReport.png}
 
-
-\begin{figure}[H]
-	\centering
-	\begin{subfigure}[b]{0.3\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/NeededResourceReport.jpg}
-		\caption{ گزارش منابع موردنیاز}
-	\end{subfigure}
-	\begin{subfigure}[b]{0.3\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/ViewNeededResourceReport.png}
-		\caption{مشاهده گزارش منابع موردنیاز}
-	\end{subfigure}
-	\begin{subfigure}[b]{0.3\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/ResourceFlowReport.jpg}
-		\caption{گزارش جریان چرخشی }
-	\end{subfigure}
-	\begin{subfigure}[b]{0.3\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/ViewAvailableResourceReport.png}
-		\caption{مشاهده گزارش منابع موجود}
-	\end{subfigure}
-
-	\begin{subfigure}[b]{0.3\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/ViewResourceFlowReport.png}
-		\caption{مشاهده گزارش جریان چرخشی}
-	\end{subfigure}
-	\caption{کلاس‌های گزارش‌گیری}
+	\caption{بسته‌ی کلاس‌های واسط کاربری گزارش}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\begin{subfigure}[b]{0.4\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/EstimateRequirements.jpg}
-		\caption{کلاس جستجو برای تخمین نیازمندی‌ها}
-	\end{subfigure}
-	\begin{subfigure}[b]{0.4\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/EstimateResources}
-		\caption{کلاس جستجو برای تخمین منابع}
-	\end{subfigure}
-	\caption{کلاس‌های جستجو}
+	\includegraphics[width=\textwidth]{img/class-design/ui/UIResource.png}
+
+	\caption{بسته‌ی کلاس‌های واسط کاربری منبع}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\begin{subfigure}[b]{0.3\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/EditAccessPermissions.png}
-		\caption{کلاس ویرایش سطح دسترسی}
-	\end{subfigure}
-	\begin{subfigure}[b]{0.3\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/SetAccessLevelDialog.png}
-		\caption{کلاس تعیین سطح دسترسی}
-	\end{subfigure}
-	\caption{کلاس‌های سطح دسترسی}
+	\includegraphics[width=\textwidth]{img/class-design/ui/UISearch.png}
+
+	\caption{جست و جو}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\begin{subfigure}[b]{0.3\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/MainFrame}
-		\caption{کلاس اصلی}
-	\end{subfigure}
-		\centering
-		\begin{subfigure}[b]{0.3\textwidth}
-			\includegraphics[width=\textwidth]{img/class-design/ui/MainDialog}
-			\caption{کلاس اصلی برای دیالوگ‌ها}
-		\end{subfigure}
-	\begin{subfigure}[b]{0.3\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/Register.png}
-		\caption{کلاس ثبت‌نام در سیستم برنامه‌ریزی}
-	\end{subfigure}
-	\begin{subfigure}[b]{0.3\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/LoginForm.png}
-		\caption{کلاس ورود به سیستم برنامه‌ریزی}
-	\end{subfigure}
-	\caption{کلاس‌های کاربری}
+	\includegraphics[width=\textwidth]{img/class-design/ui/UIUnit.png}
+
+	\caption{بسته‌ی کلاس‌های واسط کاربری واحد}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\begin{subfigure}[b]{0.6\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/EditProject}
-		\caption{کلاس ویرایش پروژه}
-	\end{subfigure}
-	\begin{subfigure}[b]{0.5\textwidth}
-		\includegraphics[width=\textwidth]{img/class-design/ui/EditResourceDialog.jpg}
-		\caption{کلاس ویرایش منبع}
-	\end{subfigure}
-	%%\begin{subfigure}[b]{0.3\textwidth}
-		%%\includegraphics[width=\textwidth]{img/class-design/ui/AddResourceDialog.png}
-%%		\caption{کلاس تخصیص منبع}
-%%	\end{subfigure}
-	\caption{کلاس‌های ویرایش شئ}
+	\includegraphics[width=\textwidth]{img/class-design/ui/UIUser.png}
+
+	\caption{بسته‌ی کلاس‌های واسط کاربری کاربر}
 \end{figure}
