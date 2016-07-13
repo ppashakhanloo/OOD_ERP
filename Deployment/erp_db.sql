@@ -513,7 +513,6 @@ CREATE TABLE `system` (
 
 LOCK TABLES `system` WRITE;
 /*!40000 ALTER TABLE `system` DISABLE KEYS */;
-INSERT INTO `system` VALUES ('177261','sys1','256789'),('185197','سیستم نمونه','605356');
 /*!40000 ALTER TABLE `system` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -537,7 +536,6 @@ CREATE TABLE `technology` (
 
 LOCK TABLES `technology` WRITE;
 /*!40000 ALTER TABLE `technology` DISABLE KEYS */;
-INSERT INTO `technology` VALUES ('????','??????? ?? ??????? ????????');
 /*!40000 ALTER TABLE `technology` ENABLE KEYS */;
 UNLOCK TABLES;
 
