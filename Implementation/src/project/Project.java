@@ -51,6 +51,8 @@ public class Project extends Identifiable {
         return SystemDAO.getInstance().getByProjectID(getID());
     }
 
+    public ArrayList<Module> getModules() { return ProjectDAO.getInstance().getAllModules(getID()); }
+
     public ArrayList<Unit> getInvolvedUnits() {
         return ProjectDAO.getInstance().getUnitsByProjectID(getID());
     }

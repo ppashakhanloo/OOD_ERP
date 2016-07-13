@@ -5,6 +5,7 @@ import business_logic_facade.ProjectFacade;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
+import project.Module;
 import resource.*;
 import ui.MainDialog;
 import ui.utilities.FormUtility;
@@ -139,6 +140,13 @@ public class AddNewProjectRequirement extends MainDialog {
         units.forEach(unitsCombo::addItem);
         JLabel unitsComboLbl = formUtility.addLabel("واحد متقاضی", form);
         formUtility.addLastField(unitsCombo, form);
+
+        java.util.List<Module> modules = ProjectFacade.getInstance().getProject(pid).getModules();
+        JComboBox<Module> modulesCombo = new JComboBox<>();
+        modulesCombo.addItem(null);
+        modules.forEach(modulesCombo::addItem);
+        JLabel modulesComboLbl = formUtility.addLabel("ماژول استفاده کننده از منبع", form);
+        formUtility.addLastField(modulesCombo, form);
 
         monetaryCash.addActionListener(new ActionListener() {
             @Override

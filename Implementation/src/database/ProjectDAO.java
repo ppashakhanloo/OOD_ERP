@@ -1,5 +1,6 @@
 package database;
 
+import project.Module;
 import project.Project;
 import project.Technology;
 import resource.HumanResource;
@@ -309,6 +310,25 @@ public class ProjectDAO extends DBConnect implements DAO<Project> {
         }
 
         return projectsWithSameModulesCount;
+    }
+
+    public ArrayList<Module> getAllModules(String projectID) {
+        ArrayList<Module> modules = new ArrayList<>();
+
+        String query = "SELECT module.ID AS ID FROM project INNER JOIN system ON project.ID = system.ProjectID INNER JOIN module_system ON system.ID = module_system.SystemID " +
+                "INNER JOIN module on module_system.ModuleID = module.ID WHERE project.ID = " + "'" + projectID + "'";
+
+        try {
+            Statement myStmt = getSqlConn().createStatement();
+            ResultSet rs = myStmt.executeQuery(query);
+            while(rs.next()) {
+                modules.add(ModuleDAO.getInstance().get(rs.getString("ID")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return modules;
     }
 
     public ArrayList<Project> getByTechnology(Technology tech) {
