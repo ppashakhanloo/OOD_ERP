@@ -30,7 +30,7 @@ public class ViewModuleModifications implements Visibility {
 
     public static void main(String[] args) {
         UserFacade userFacade = new UserFacade();
-        userFacade.login("310243", "admin");
+        userFacade.login("1", "admin");
         ViewModuleModifications viewModuleModifications = new ViewModuleModifications(userFacade, "1");
         viewModuleModifications.setVisible(true);
     }

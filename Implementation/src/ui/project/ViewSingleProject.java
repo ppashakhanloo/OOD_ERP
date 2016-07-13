@@ -160,6 +160,7 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
                     if (e.getClickCount() == 2) {
                         if ((selPath != null ? selPath.getLastPathComponent() : null) instanceof Module) {
                             // Open requirements/resources window... TODO
+                            new ViewModuleResources(userFacade, ((Module) selPath.getLastPathComponent()).getID()).setVisible(true);
                         }
                     }
                 }
