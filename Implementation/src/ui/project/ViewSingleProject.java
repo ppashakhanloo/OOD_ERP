@@ -13,8 +13,6 @@ import unit.Unit;
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreePath;
-import javax.swing.tree.TreeSelectionModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -150,18 +148,15 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
         DefaultTreeModel defaultTreeModel = new DefaultTreeModel(root);
         structTree.setModel(defaultTreeModel);
 
-        structTree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
         structTree.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 int selRow = structTree.getRowForLocation(e.getX(), e.getY());
-                TreePath selPath = structTree.getPathForLocation(e.getX(), e.getY());
+                DefaultMutableTreeNode node = (DefaultMutableTreeNode) structTree.getLastSelectedPathComponent();
                 if (selRow != -1) {
                     if (e.getClickCount() == 2) {
-                        if ((selPath != null ? selPath.getLastPathComponent() : null) instanceof Module) {
-                            // Open requirements/resources window... TODO
-                            new ViewModuleResources(userFacade, ((Module) selPath.getLastPathComponent()).getID()).setVisible(true);
-                        }
+                        if (node.getUserObject() instanceof Module)
+                            new ViewModuleResources(userFacade, ((Module) node.getUserObject()).getID()).setVisible(true);
                     }
                 }
             }
