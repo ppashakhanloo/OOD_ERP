@@ -13,7 +13,7 @@ $mysql_password = '';
 /////////////////////////////////////////
 // BACKUP FILE NAME /////////////////////
 /////////////////////////////////////////
-$filename = 'backp-file-name.sql';
+$filename = 'erp-backup-2016-07-13-16-18-07-pm.sql';
 /////////////////////////////////////////
 /////////////////////////////////////////
 /////////////////////////////////////////
@@ -22,6 +22,7 @@ $filename = 'backp-file-name.sql';
 $mysql_database = 'erp';
 
 mysql_connect($mysql_host, $mysql_username, $mysql_password) or die('Error connecting to MySQL server: ' . mysql_error());
+mysql_set_charset("utf8");
 mysql_select_db($mysql_database) or die('Error selecting MySQL database: ' . mysql_error());
 
 

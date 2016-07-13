@@ -16,7 +16,9 @@ backup_tables($mysql_host, $mysql_username, $mysql_password, $mysql_database);
 
 function backup_tables($host,$user,$pass,$name,$tables = '*')
 {   
-    $link = mysql_connect($host, $user, $pass) or die('Error connecting to MySQL server: ' . mysql_error());
+    mysql_connect($host, $user, $pass) or die('Error connecting to MySQL server: ' . mysql_error());
+    mysql_set_charset("utf8");
+
     mysql_select_db($name) or die('Error selecting MySQL database: ' . mysql_error());
     
     //get all of the tables
