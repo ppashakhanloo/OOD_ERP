@@ -21,6 +21,7 @@ public class ViewModuleResources implements Visibility {
 
     private void prepareGUI(String mid) {
         mainFrame.getMainFrame().setTitle("مشاهده منابع ماژول");
+        mainFrame.getMainFrame().getContentPane().removeAll();
         DefaultListModel<Resource> listModel = new DefaultListModel<>();
         for (Resource r : ProjectFacade.getInstance().getModuleResources(mid)) {
             listModel.addElement(r);
