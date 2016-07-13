@@ -13,6 +13,8 @@ import unit.Unit;
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
+import javax.swing.tree.TreeSelectionModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -29,6 +31,12 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
     private JList<Technology> techList;
 
     private String pid;
+
+    public static void main(String[] args) {
+        UserFacade userFacade = new UserFacade();
+        userFacade.login("1", "admin");
+        new ViewSingleProject(userFacade, "1").setVisible(true);
+    }
 
     public ViewSingleProject(UserFacade userFacade, String pid) {
         mainDialog = new MainDialog();
@@ -142,9 +150,24 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
         DefaultTreeModel defaultTreeModel = new DefaultTreeModel(root);
         structTree.setModel(defaultTreeModel);
 
+        structTree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+        structTree.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                int selRow = structTree.getRowForLocation(e.getX(), e.getY());
+                TreePath selPath = structTree.getPathForLocation(e.getX(), e.getY());
+                if (selRow != -1) {
+                    if (e.getClickCount() == 2) {
+                        if (selPath.getLastPathComponent() instanceof Module) {
+                            // Open requirements/resources window... TODO
+                        }
+                    }
+                }
+            }
+        });
+
 
         techPanel.setBorder(BorderFactory.createTitledBorder("تکنولوژی‌ها"));
-
         techListScroll.setViewportView(techList);
 
         GroupLayout techPanelLayout = new GroupLayout(techPanel);
