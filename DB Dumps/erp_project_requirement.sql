@@ -38,16 +38,6 @@ CREATE TABLE `project_requirement` (
   CONSTRAINT `project_requirement_ibfk_2` FOREIGN KEY (`ProjectID`) REFERENCES `project` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `project_requirement`
---
-
-LOCK TABLES `project_requirement` WRITE;
-/*!40000 ALTER TABLE `project_requirement` DISABLE KEYS */;
-INSERT INTO `project_requirement` VALUES ('607708','2016-07-08','2016-07-10',0,'2016-07-13',2,'101772','256789');
-/*!40000 ALTER TABLE `project_requirement` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -58,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-07-08 22:26:42
+-- Dump completed on 2016-07-13 20:29:48
