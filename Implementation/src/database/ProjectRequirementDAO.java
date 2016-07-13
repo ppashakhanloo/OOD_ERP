@@ -1,6 +1,7 @@
 package database;
 
 import project.Project;
+import project.System;
 import report.ProjectRequirement;
 import resource.Resource;
 
@@ -214,6 +215,21 @@ public class ProjectRequirementDAO extends DBConnect {
         return reqs;
     }
 
+    public ArrayList<ProjectRequirement> getAllRequirementByProjectID(String pid) {
+        ArrayList<ProjectRequirement> reqs = new ArrayList<>();
+        try {
+            Statement myStmt = getSqlConn().createStatement();
+            ResultSet rs = myStmt.executeQuery(QueryGenerator.getInstance().select(
+                    "project_requirement", null, "ProjectID = " + "'" + pid + "'"));
+            while (rs.next()) {
+                reqs.add(fillProjectRequirement(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return reqs;
+    }
+
     public ArrayList<Resource> getModuleResources(String mid) {
         ArrayList<Resource> moduleResources = new ArrayList<>();
 
@@ -252,6 +268,9 @@ public class ProjectRequirementDAO extends DBConnect {
                                                 + " "
                                                 + rs.getString("ProjectID")
                                                 + " "
+                                                + (ProjectDAO.getInstance().get(rs.getString("ProjectID")).getName() == null ? "Unnamed"
+                                                : ProjectDAO.getInstance().get(rs.getString("ProjectID")).getName())
+                                                + " "
                                                 + (rs.getDate("provideDate")
                                                 .after(Start) ? rs
                                                 .getDate("provideDate")
@@ -268,6 +287,9 @@ public class ProjectRequirementDAO extends DBConnect {
                                     reports.add(res.getID()
                                             + " "
                                             + rs.getString("ProjectID")
+                                            + " "
+                                            + (ProjectDAO.getInstance().get(rs.getString("ProjectID")).getName() == null ? "Unnamed"
+                                            : ProjectDAO.getInstance().get(rs.getString("ProjectID")).getName())
                                             + " "
                                             + (rs.getDate("provideDate"))
                                             + " "
@@ -289,6 +311,9 @@ public class ProjectRequirementDAO extends DBConnect {
                                             + " "
                                             + rs.getString("ProjectID")
                                             + " "
+                                            + (ProjectDAO.getInstance().get(rs.getString("ProjectID")).getName() == null ? "Unnamed"
+                                            : ProjectDAO.getInstance().get(rs.getString("ProjectID")).getName())
+                                            + " "
                                             + (rs.getDate("provideDate").after(
                                             Start) ? rs
                                             .getDate("provideDate")
@@ -298,6 +323,9 @@ public class ProjectRequirementDAO extends DBConnect {
                             } else {
                                 reports.add(res.getID() + " "
                                         + rs.getString("ProjectID") + " "
+                                        + (ProjectDAO.getInstance().get(rs.getString("ProjectID")).getName() == null ? "Unnamed"
+                                        : ProjectDAO.getInstance().get(rs.getString("ProjectID")).getName())
+                                        + " "
                                         + (rs.getDate("provideDate")) + " "
                                         + rs.getDate("releaseDate"));
                             }
