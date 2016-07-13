@@ -31,13 +31,25 @@ CREATE TABLE `project_requirement` (
   `lengthOfPossession` int(10) DEFAULT NULL,
   `ResourceID` varchar(255) NOT NULL,
   `ProjectID` varchar(255) NOT NULL,
+  `ModuleID` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `ResourceID` (`ResourceID`),
   KEY `ProjectID` (`ProjectID`),
+  KEY `ModuleID` (`ModuleID`),
   CONSTRAINT `project_requirement_ibfk_1` FOREIGN KEY (`ResourceID`) REFERENCES `resource` (`ID`),
-  CONSTRAINT `project_requirement_ibfk_2` FOREIGN KEY (`ProjectID`) REFERENCES `project` (`ID`)
+  CONSTRAINT `project_requirement_ibfk_2` FOREIGN KEY (`ProjectID`) REFERENCES `project` (`ID`),
+  CONSTRAINT `project_requirement_ibfk_3` FOREIGN KEY (`ModuleID`) REFERENCES `module` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `project_requirement`
+--
+
+LOCK TABLES `project_requirement` WRITE;
+/*!40000 ALTER TABLE `project_requirement` DISABLE KEYS */;
+/*!40000 ALTER TABLE `project_requirement` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -48,4 +60,4 @@ CREATE TABLE `project_requirement` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-07-13 20:29:48
+-- Dump completed on 2016-07-13 21:03:36
