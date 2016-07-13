@@ -271,23 +271,28 @@ public class AddNewProjectRequirement extends MainDialog {
                 cal.set(Calendar.DAY_OF_MONTH, datePicker.getModel().getDay());
 
                 String unitID = ((Unit) unitsCombo.getSelectedItem()).getID();
+                String moduleID;
+                if(modulesCombo.getSelectedItem() != null)
+                    moduleID = ((Module) modulesCombo.getSelectedItem()).getID();
+                else
+                    moduleID = null;
 
                 if (monetaryCash.isSelected()) {
                     Resource resource = new MonetaryResource(MonetaryType.CASH, location.getText(), -1, new Quantity((Integer) amount.getValue(), QuantityUnit.valueOf(quantityUnitsCombo.getSelectedItem().toString())));
-                    ProjectFacade.getInstance().addRequirementToProject(isEssential.isSelected(), cal.getTime(), lengthOfPossession.getValue().toString(), pid, resource, unitID);
+                    ProjectFacade.getInstance().addRequirementToProject(isEssential.isSelected(), cal.getTime(), lengthOfPossession.getValue().toString(), pid, resource, unitID, moduleID);
                 } else if (monetaryNonCash.isSelected()) {
                     Resource resource = new MonetaryResource(MonetaryType.NON_CASH, location.getText(), -1, new Quantity((Integer) amount.getValue(), QuantityUnit.valueOf(quantityUnitsCombo.getSelectedItem().toString())));
-                    ProjectFacade.getInstance().addRequirementToProject(isEssential.isSelected(), cal.getTime(), lengthOfPossession.getValue().toString(), pid, resource, unitID);
+                    ProjectFacade.getInstance().addRequirementToProject(isEssential.isSelected(), cal.getTime(), lengthOfPossession.getValue().toString(), pid, resource, unitID, moduleID);
                 } else if (human.isSelected()) {
                     Resource resource = new HumanResource();
                     ((HumanResource) resource).setExpertise(exp.getText());
-                    ProjectFacade.getInstance().addRequirementToProject(isEssential.isSelected(), cal.getTime(), lengthOfPossession.getValue().toString(), pid, resource, unitID);
+                    ProjectFacade.getInstance().addRequirementToProject(isEssential.isSelected(), cal.getTime(), lengthOfPossession.getValue().toString(), pid, resource, unitID, moduleID);
                 } else if (information.isSelected()) {
                     Resource resource = new InformationResource(name.getText(), "");
-                    ProjectFacade.getInstance().addRequirementToProject(isEssential.isSelected(), cal.getTime(), lengthOfPossession.getValue().toString(), pid, resource, unitID);
+                    ProjectFacade.getInstance().addRequirementToProject(isEssential.isSelected(), cal.getTime(), lengthOfPossession.getValue().toString(), pid, resource, unitID, moduleID);
                 } else if (physical.isSelected()) {
                     Resource resource = new PhysicalResource(name.getText(), model.getText(), "");
-                    ProjectFacade.getInstance().addRequirementToProject(isEssential.isSelected(), cal.getTime(), lengthOfPossession.getValue().toString(), pid, resource, unitID);
+                    ProjectFacade.getInstance().addRequirementToProject(isEssential.isSelected(), cal.getTime(), lengthOfPossession.getValue().toString(), pid, resource, unitID, moduleID);
                 }
 
                 JOptionPane.showMessageDialog(null, "نیازمندی با موفّقیّت ثبت شد.");

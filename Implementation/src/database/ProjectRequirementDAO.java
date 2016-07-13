@@ -71,10 +71,10 @@ public class ProjectRequirementDAO extends DBConnect {
     }
 
     public boolean add(ProjectRequirement item, String ProjectID,
-                       String ResourceID) {
+                       String ResourceID, String moduleID) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String query = "INSERT INTO project_requirement (ID, provideDate, releaseDate,"
-                + "isEssential, criticalProvideDate, lengthOfPossession, ProjectID, ResourceID) "
+                + "isEssential, criticalProvideDate, lengthOfPossession, ProjectID, ResourceID, ModuleID) "
                 + "VALUES ('"
                 + item.getID()
                 + "', "
@@ -102,7 +102,9 @@ public class ProjectRequirementDAO extends DBConnect {
                 + "'"
                 + ProjectID
                 + "'"
-                + ", " + "'" + ResourceID + "'" + ");";
+                + ", " + "'" + ResourceID + "'"
+                + ", " + (moduleID == null ? "NULL" : "'" + moduleID + "'")
+                + ");";
         try {
             Statement myStmt = getSqlConn().createStatement();
             myStmt.executeUpdate(query);
@@ -212,6 +214,21 @@ public class ProjectRequirementDAO extends DBConnect {
         return reqs;
     }
 
+    public ArrayList<Resource> getModuleResources(String mid) {
+        ArrayList<Resource> moduleResources = new ArrayList<>();
+
+        try {
+            Statement myStmt = getSqlConn().createStatement();
+            ResultSet rs = myStmt.executeQuery("SELECT * FROM project_requirement WHERE ModuleID = " + mid);
+            while (rs.next()) {
+                moduleResources.add(fillProjectRequirement(rs).getResource());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return moduleResources;
+    }
 
     public ArrayList<String> getFlowReport(Date Start, Date End,
                                            List<Resource> resources) {

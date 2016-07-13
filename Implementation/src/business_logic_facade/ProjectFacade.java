@@ -82,7 +82,7 @@ public class ProjectFacade {
         return addModuleSuccessful && setNameSuccessful;
     }
 
-    public boolean addRequirementToProject(boolean isEssential, java.util.Date criticalProvideDate, String lengthOfPossession, String pid, Resource resource, String unitID) {
+    public boolean addRequirementToProject(boolean isEssential, java.util.Date criticalProvideDate, String lengthOfPossession, String pid, Resource resource, String unitID, String moduleID) {
         ProjectRequirement projectRequirement = new ProjectRequirement();
 
         projectRequirement.setEssential(isEssential);
@@ -98,7 +98,7 @@ public class ProjectFacade {
         c.add(Calendar.DATE, Integer.valueOf(lengthOfPossession));
         projectRequirement.setReleaseDate(c.getTime());
 
-        boolean addSuccessful = ProjectRequirementCatalogue.getInstance().add(projectRequirement, pid, unitID, resource);
+        boolean addSuccessful = ProjectRequirementCatalogue.getInstance().add(projectRequirement, pid, unitID, resource, moduleID);
 
         return addSuccessful;
     }
@@ -118,6 +118,10 @@ public class ProjectFacade {
 //            moduleModification.addResource(resource);
 
         return moduleModificationSuccessful;
+    }
+
+    public ArrayList<Resource> getModuleResources(String mid) {
+        return ProjectRequirementCatalogue.getInstance().getModuleResources(mid);
     }
 
 

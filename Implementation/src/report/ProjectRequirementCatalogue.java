@@ -44,7 +44,7 @@ public class ProjectRequirementCatalogue {
 	}
 
 	public boolean add(ProjectRequirement prjReq, String projectID,
-			String unitID, Resource resource) {
+			String unitID, Resource resource, String moduleID) {
 		ProjectRequirementDAO dao = ProjectRequirementDAO.getInstance();
 
 		resource = getSimilarResourceToReq(prjReq, unitID, projectID, resource);
@@ -60,7 +60,7 @@ public class ProjectRequirementCatalogue {
 							resource.isAvailable()));
 		}
 
-		return dao.add(prjReq, projectID, resource.getID());
+		return dao.add(prjReq, projectID, resource.getID(), moduleID);
 	}
 
 	public Resource getSimilarResourceToReq(ProjectRequirement prjReq,
@@ -219,5 +219,9 @@ public class ProjectRequirementCatalogue {
 				break;
 			}
 		}
+	}
+
+	public ArrayList<Resource> getModuleResources(String mid) {
+		return ProjectRequirementDAO.getInstance().getModuleResources(mid);
 	}
 }
