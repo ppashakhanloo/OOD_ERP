@@ -158,7 +158,7 @@ public class ViewSingleProject extends ProjectObserver implements Visibility {
                 TreePath selPath = structTree.getPathForLocation(e.getX(), e.getY());
                 if (selRow != -1) {
                     if (e.getClickCount() == 2) {
-                        if (selPath.getLastPathComponent() instanceof Module) {
+                        if ((selPath != null ? selPath.getLastPathComponent() : null) instanceof Module) {
                             // Open requirements/resources window... TODO
                         }
                     }
