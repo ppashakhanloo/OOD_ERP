@@ -7,7 +7,7 @@ abstract public class AccessLevel {
     private AccessLevelType accessLevelType;
     private Map<PermissionType, Boolean> hasPermission;
 
-    AccessLevel() {
+    public AccessLevel() {
         hasPermission = new HashMap<>();
     }
 

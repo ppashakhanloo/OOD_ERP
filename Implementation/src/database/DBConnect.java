@@ -9,7 +9,7 @@ import java.util.HashMap;
 class DBConnect {
     private Connection sqlConn;
 
-    DBConnect(String configFilePath) {
+    public DBConnect(String configFilePath) {
         try {
             HashMap<String, String> connectionProperties = readConfigFile(new File(configFilePath));
             String url = "jdbc:mysql://" + connectionProperties.get("host") + ":" + connectionProperties.get("port") + "/erp?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8";
