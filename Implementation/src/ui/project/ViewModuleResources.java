@@ -16,6 +16,7 @@ public class ViewModuleResources implements Visibility {
 
     public ViewModuleResources(UserFacade userFacade, String mid) {
         mainFrame = new MainFrame(userFacade);
+
         prepareGUI(mid);
     }
 
