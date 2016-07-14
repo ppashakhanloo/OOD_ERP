@@ -56,6 +56,10 @@ public class ProjectFacade {
         return ProjectCatalogue.getInstance().get(pid).getRequirements();
     }
 
+    public ArrayList<ProjectRequirement> getAllProjectRequirements(String pid) {
+        return ProjectCatalogue.getInstance().get(pid).getAllRequirements();
+    }
+
     public boolean updateProject(String name, String managerID, int usersCount, String pid) {
         boolean setProjectManagerSuccessful = false;
         if (ProjectCatalogue.getInstance().get(pid).getProjectManager() == null)

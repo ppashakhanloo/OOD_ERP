@@ -31,7 +31,7 @@ public class UsageFlowReport implements Visibility {
 
     public static void main(String[] args) {
         UserFacade userFacade = new UserFacade();
-        userFacade.login("310243", "admin");
+        userFacade.login("100824", "888");
         UsageFlowReport ufr = new UsageFlowReport(userFacade);
         ufr.setVisible(true);
     }
@@ -179,7 +179,7 @@ public class UsageFlowReport implements Visibility {
 
                 for (String reportItem : reportItems) {
                     String[] parts = reportItem.split(" ");
-                    Object[] data = {parts[3], parts[2], parts[1], parts[0]};
+                    Object[] data = {parts[4], parts[3], parts[1] + " (" + parts[2] + ")", parts[0]};
                     flowReportTableModel.addRow(data);
                 }
             }

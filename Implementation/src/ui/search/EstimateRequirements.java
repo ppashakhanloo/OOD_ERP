@@ -25,7 +25,7 @@ public class EstimateRequirements implements Visibility {
 
     public static void main(String[] args) {
         UserFacade userFacade = new UserFacade();
-        userFacade.login("310243", "admin");
+        userFacade.login("100824", "888");
         EstimateRequirements er = new EstimateRequirements(userFacade);
         er.setVisible(true);
     }
@@ -122,7 +122,7 @@ public class EstimateRequirements implements Visibility {
                         resultsTableModel.setRowCount(0);
 
                         for (Project project : projects) {
-                            projectRequirements.addAll(ProjectFacade.getInstance().getProjectRequirements(project.getID()));
+                            projectRequirements.addAll(ProjectFacade.getInstance().getAllProjectRequirements(project.getID()));
                         }
 
                         for (ProjectRequirement projectRequirement : projectRequirements) {
@@ -141,7 +141,7 @@ public class EstimateRequirements implements Visibility {
                         resultsTableModel.setRowCount(0);
 
                         for (Project project : projects) {
-                            projectRequirements.addAll(ProjectFacade.getInstance().getProjectRequirements(project.getID()));
+                            projectRequirements.addAll(ProjectFacade.getInstance().getAllProjectRequirements(project.getID()));
                         }
 
                         for (ProjectRequirement projectRequirement : projectRequirements) {
@@ -160,7 +160,7 @@ public class EstimateRequirements implements Visibility {
                         resultsTableModel.setRowCount(0);
 
                         for (Project project : projects) {
-                            projectRequirements.addAll(ProjectFacade.getInstance().getProjectRequirements(project.getID()));
+                            projectRequirements.addAll(ProjectFacade.getInstance().getAllProjectRequirements(project.getID()));
                         }
 
                         for (ProjectRequirement projectRequirement : projectRequirements) {

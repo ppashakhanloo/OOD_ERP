@@ -123,6 +123,10 @@ public class Project extends Identifiable {
         return ProjectRequirementDAO.getInstance().getRequirementByProjectID(getID());
     }
 
+    public ArrayList<ProjectRequirement> getAllRequirements() {
+        return ProjectRequirementDAO.getInstance().getAllRequirementByProjectID(getID());
+    }
+
     public ArrayList<Resource> getResources() {
         ArrayList<Resource> resources = new ArrayList<>(HumanResourceDAO.getInstance().getResourcesByProjectID(getID()));
         resources.addAll(InformationResourceDAO.getInstance().getResourcesByProjectID(getID()));
