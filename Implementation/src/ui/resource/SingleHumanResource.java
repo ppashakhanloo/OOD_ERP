@@ -108,15 +108,14 @@ public class SingleHumanResource extends MainDialog implements Visibility {
         formUtility.addLastField(accessLevelCombo, form);
 
 
-        // TODO
         ArrayList<Unit> units = OperationFacade.getInstance().getUnits();
         unitsCombo = new JComboBox<>();
         for (Unit unit : units)
             unitsCombo.addItem(unit);
-// TODO        unitsCombo.setSelectedItem(OperationFacade.getInstance().getResourceUnit(rID));
         formUtility.addLabel("واحد ", form);
         formUtility.addLastField(unitsCombo, form);
 
+        unitsCombo.setSelectedItem(OperationFacade.getInstance().getResourceUnit(rID));
 
         JButton submit = new JButton("ذخیره تغییرات");
         submit.addActionListener(new ActionListener() {

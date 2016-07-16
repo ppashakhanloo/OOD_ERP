@@ -28,5 +28,4 @@ public class UnitResource extends Identifiable {
     public Unit getUnit() {
         return this.unit;
     }
-
 }

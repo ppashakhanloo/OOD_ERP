@@ -102,6 +102,24 @@ public class UnitResourceDAO extends DBConnect {
         return true;
     }
 
+    public boolean update(UnitResource item, String resourceID) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        System.out.println("QUERY: " + QueryGenerator.getInstance().update("unit_resource", "UnitID",
+                item.getUnit().getID(), "ResourceID = " + "'" + resourceID + "'"));
+        try {
+            Statement myStmt = getSqlConn().createStatement();
+            myStmt.executeUpdate(QueryGenerator.getInstance().update("unit_resource", "UnitID",
+                    item.getUnit().getID(), "ResourceID = " + "'" + resourceID + "'"));
+            myStmt.executeUpdate(QueryGenerator.getInstance().update("unit_resource", "additionDate",
+                    sdf.format(item.getAdditionDate()), "ResourceID = " + "'" + resourceID + "'"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+
     public Unit getUnitByResourceID(String rid) {
         String query = QueryGenerator.getInstance().select("unit_resource", null, "ResourceID = " + "'"
                 + rid + "'");

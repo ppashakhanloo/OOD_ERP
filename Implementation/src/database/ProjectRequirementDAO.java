@@ -1,7 +1,6 @@
 package database;
 
 import project.Project;
-import project.System;
 import report.ProjectRequirement;
 import resource.Resource;
 
@@ -36,6 +35,7 @@ public class ProjectRequirementDAO extends DBConnect {
             ResultSet rs = myStmt.executeQuery(query);
             ResourceDAO rsDAO = ResourceDAO.getInstance();
             rs.next();
+            java.lang.System.out.println("***RESOURCE: " + rsDAO.get(rs.getString("ResourceID")));
             return rsDAO.get(rs.getString("ResourceID"));
         } catch (SQLException e) {
             e.printStackTrace();
@@ -265,17 +265,17 @@ public class ProjectRequirementDAO extends DBConnect {
                                             || rs.getDate("releaseDate").after(
                                             Start)) {
                                         reports.add(res.getID()
-                                                + " "
+                                                + "@"
                                                 + rs.getString("ProjectID")
-                                                + " "
+                                                + "@"
                                                 + (ProjectDAO.getInstance().get(rs.getString("ProjectID")).getName() == null ? "Unnamed"
                                                 : ProjectDAO.getInstance().get(rs.getString("ProjectID")).getName())
-                                                + " "
+                                                + "@"
                                                 + (rs.getDate("provideDate")
                                                 .after(Start) ? rs
                                                 .getDate("provideDate")
                                                 : sdf.format(Start))
-                                                + " "
+                                                + "@"
                                                 + (rs.getDate("releaseDate") == null ? sdf.format(End)
                                                 : (rs.getDate(
                                                 "releaseDate")
@@ -285,14 +285,14 @@ public class ProjectRequirementDAO extends DBConnect {
                                     }
                                 } else {
                                     reports.add(res.getID()
-                                            + " "
+                                            + "@"
                                             + rs.getString("ProjectID")
-                                            + " "
+                                            + "@"
                                             + (ProjectDAO.getInstance().get(rs.getString("ProjectID")).getName() == null ? "Unnamed"
                                             : ProjectDAO.getInstance().get(rs.getString("ProjectID")).getName())
-                                            + " "
+                                            + "@"
                                             + (rs.getDate("provideDate"))
-                                            + " "
+                                            + "@"
                                             + (rs.getDate("releaseDate") == null ? sdf.format(End)
                                             : (rs.getDate("releaseDate")
                                             .before(End) ? rs
@@ -308,25 +308,25 @@ public class ProjectRequirementDAO extends DBConnect {
                                         || rs.getDate("releaseDate").after(
                                         Start)) {
                                     reports.add(res.getID()
-                                            + " "
+                                            + "@"
                                             + rs.getString("ProjectID")
-                                            + " "
+                                            + "@"
                                             + (ProjectDAO.getInstance().get(rs.getString("ProjectID")).getName() == null ? "Unnamed"
                                             : ProjectDAO.getInstance().get(rs.getString("ProjectID")).getName())
-                                            + " "
+                                            + "@"
                                             + (rs.getDate("provideDate").after(
                                             Start) ? rs
                                             .getDate("provideDate")
-                                            : Start) + " "
+                                            : Start) + "@"
                                             + rs.getDate("releaseDate"));
                                 }
                             } else {
-                                reports.add(res.getID() + " "
-                                        + rs.getString("ProjectID") + " "
+                                reports.add(res.getID() + "@"
+                                        + rs.getString("ProjectID") + "@"
                                         + (ProjectDAO.getInstance().get(rs.getString("ProjectID")).getName() == null ? "Unnamed"
                                         : ProjectDAO.getInstance().get(rs.getString("ProjectID")).getName())
-                                        + " "
-                                        + (rs.getDate("provideDate")) + " "
+                                        + "@"
+                                        + (rs.getDate("provideDate")) + "@"
                                         + rs.getDate("releaseDate"));
                             }
                         }

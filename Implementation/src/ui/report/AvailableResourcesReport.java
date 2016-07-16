@@ -3,6 +3,7 @@ package ui.report;
 import business_logic_facade.OperationFacade;
 import business_logic_facade.UserFacade;
 import resource.Resource;
+import resource.ResourceStatus;
 import ui.MainFrame;
 import ui.Visibility;
 import unit.Unit;
@@ -32,8 +33,10 @@ public class AvailableResourcesReport implements Visibility {
             ArrayList<Resource> value = entry.getValue();
 
             for (Resource resource : value) {
-                Object[] data = {key.getName(), resource};
-                reportTableModel.addRow(data);
+                if (resource.getResourceStatus() == ResourceStatus.IDLE) {
+                    Object[] data = {key.getName(), resource};
+                    reportTableModel.addRow(data);
+                }
             }
         }
 

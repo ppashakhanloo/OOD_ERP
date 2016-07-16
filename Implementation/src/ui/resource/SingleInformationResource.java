@@ -58,12 +58,13 @@ public class SingleInformationResource extends MainDialog implements Visibility 
         formUtility.addLabel("شرح ", form);
         formUtility.addLastField(description, form);
 
-        // TODO
         ArrayList<Unit> units = OperationFacade.getInstance().getUnits();
         unitsCombo = new JComboBox<>();
         for (Unit unit : units)
             unitsCombo.addItem(unit);
-// TODO        unitsCombo.setSelectedItem(OperationFacade.getInstance().getResourceUnit(rID));
+
+        unitsCombo.setSelectedItem(OperationFacade.getInstance().getResourceUnit(rID));
+
         formUtility.addLabel("واحد ", form);
         formUtility.addLastField(unitsCombo, form);
 
@@ -71,9 +72,8 @@ public class SingleInformationResource extends MainDialog implements Visibility 
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (OperationFacade.getInstance().updateInformationResource(
-                        id.getText(), name.getText(),
-                        description.getText()))
+                if (OperationFacade.getInstance().updateInformationResource(id.getText(), name.getText(),
+                        description.getText(), (Unit) unitsCombo.getSelectedItem()))
                     setVisible(false);
                 else
                     JOptionPane.showMessageDialog(null,

@@ -113,13 +113,15 @@ public class ViewHumanResources extends HumanResourceObserver implements Visibil
                             JList list = (JList) evt.getSource();
                             if (evt.getClickCount() == 2) {
                                 // Double-click detected
-                                new SingleHumanResource(userFacade, ((HumanResource) list.getSelectedValue()).getID()).setVisible(true);
+                                update();
+//                                new SingleHumanResource(userFacade, ((HumanResource) list.getSelectedValue()).getID()).setVisible(true);
                             }
                         }
                     });
                 panel2.add(new JScrollPane(resourceList));
                 mainDialog.getMainDialog().repaint();
                 mainDialog.getMainDialog().revalidate();
+                mainDialog.getMainDialog().pack();
             }
         });
 
@@ -153,5 +155,6 @@ public class ViewHumanResources extends HumanResourceObserver implements Visibil
         mainDialog.getMainDialog().add(jScrollPane, BorderLayout.CENTER);
         mainDialog.getMainDialog().repaint();
         mainDialog.getMainDialog().revalidate();
+        mainDialog.getMainDialog().pack();
     }
 }

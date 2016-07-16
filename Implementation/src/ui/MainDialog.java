@@ -12,6 +12,7 @@ public class MainDialog implements Visibility {
 
     @Override
     public void setVisible(boolean visible) {
+
         mainDialog.setVisible(visible);
     }
 

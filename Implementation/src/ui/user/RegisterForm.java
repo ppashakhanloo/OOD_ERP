@@ -71,9 +71,15 @@ class RegisterForm extends MainDialog {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                OperationFacade.getInstance().addNewHumanResource(firstName.getText(), lastName.getText(), expertise.getText(), password.getText(), (AccessLevelType) accessCombo.getSelectedItem(), ((Unit) unitsCombo.getSelectedItem()).getID());
-                JOptionPane.showMessageDialog(null, "ثبت‌نام شما با موفقیت انجام شد. منتظر تایید باشید.");
-                setVisible(false);
+                if (OperationFacade.getInstance().addNewHumanResource(firstName.getText(), lastName.getText(), expertise.getText(), password.getText(), (AccessLevelType) accessCombo.getSelectedItem(), ((Unit) unitsCombo.getSelectedItem()).getID())) {
+                    JOptionPane.showMessageDialog(null, "ثبت‌نام شما با موفقیت انجام شد. منتظر تایید باشید.");
+                    setVisible(false);
+                } else {
+                    JOptionPane.showMessageDialog(null,
+                            "خطایی در ثبت‌نام رخ داده است.",
+                            "خطا",
+                            JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
         JButton cancel = new JButton("انصراف");

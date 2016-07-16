@@ -111,13 +111,15 @@ public class ViewMonetaryResources extends MonetaryResourceObserver implements V
                         JList list = (JList) evt.getSource();
                         if (evt.getClickCount() == 2) {
                             // Double-click detected
-                            new SingleMonetaryResource(userFacade, ((MonetaryResource) list.getSelectedValue()).getID()).setVisible(true);
+//                            new SingleMonetaryResource(userFacade, ((MonetaryResource) list.getSelectedValue()).getID()).setVisible(true);
+                            update();
                         }
                     }
                 });
                 panel2.add(new JScrollPane(resourceList));
                 mainDialog.getMainDialog().repaint();
                 mainDialog.getMainDialog().revalidate();
+                mainDialog.getMainDialog().pack();
             }
         });
 
@@ -150,5 +152,6 @@ public class ViewMonetaryResources extends MonetaryResourceObserver implements V
         mainDialog.getMainDialog().add(jScrollPane, BorderLayout.CENTER);
         mainDialog.getMainDialog().repaint();
         mainDialog.getMainDialog().revalidate();
+        mainDialog.getMainDialog().pack();
     }
 }

@@ -50,6 +50,6 @@ public class MonetaryResource extends Resource {
     public String toString() {
 //        return super.toString() + ",\n" + "monetaryType=" + monetaryType.toString() + ", location=" + location
 //                + ", accountNumber=" + Integer.toString(accountNumber) + ", quantity=" + quantity.toString();
-        return "[" + " نوع " + monetaryType + "] " + "[" + " مبلغ " + quantity.toString() + "] " + "[" + location + ", " + accountNumber + "] " + super.toString();
+        return "[" + " نوع " + monetaryType + "] " + "[" + " مبلغ " + quantity.toString() + "] " + "[" + location + ((accountNumber == -1) ? "" : ", " + accountNumber) + "] " + super.toString();
     }
 }

@@ -49,7 +49,7 @@ public class HumanResourceDAO extends ResourceDAO {
 
     @Override
     public boolean add(Resource item, String projectID) {
-        super.add(item, projectID);
+        boolean addSuper = super.add(item, projectID);
         HumanResource humanResourceItem = (HumanResource) item;
 
         ArrayList<String> colNames = new ArrayList<>();
@@ -68,17 +68,18 @@ public class HumanResourceDAO extends ResourceDAO {
         values.add(humanResourceItem.getPassword());
         values.add(humanResourceItem.getConfirmStatus().toString());
         values.add(humanResourceItem.getID());
-        values.add(humanResourceItem.getAccessLevel().getAccessLevelType().toString());
+        values.add(humanResourceItem.getAccessLevel() == null ? new AccessLevelFactory().getAccessLevel(AccessLevelType.Low).getAccessLevelType().toString() : humanResourceItem.getAccessLevel().getAccessLevelType().toString());
 
         try {
             Statement myStmt = getSqlConn().createStatement();
+            System.out.println("QUERY: " + QueryGenerator.getInstance().insert("human_resource", colNames, values));
             myStmt.executeUpdate(QueryGenerator.getInstance()
                     .insert("human_resource", colNames, values));
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
-        return true;
+        return addSuper && true;
     }
 
     @Override

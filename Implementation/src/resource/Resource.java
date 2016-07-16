@@ -14,7 +14,6 @@ public class Resource extends Identifiable {
     }
 
     public Resource(String iD, ResourceStatus resourceStatus, boolean isAvailable) {
-        super();
         this.resourceStatus = resourceStatus;
         this.isAvailable = isAvailable;
         setID(iD);
@@ -43,7 +42,7 @@ public class Resource extends Identifiable {
 
     @Override
     public String toString() {
-//        return "ID=" + getID() + ", resourceStatus=" + resourceStatus + ", isAvailable=" + isAvailable;
-        return "وضعیت" + ": " + resourceStatus + " (" + getID() + ")";
+        return "ID=" + getID() + ", resourceStatus=" + resourceStatus + ", isAvailable=" + isAvailable;
+//        return "وضعیت" + ": " + resourceStatus + " (" + getID() + ")";
     }
 }

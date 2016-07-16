@@ -111,13 +111,15 @@ public class ViewPhysicalResources extends PhysicalResourceObserver implements V
                         JList list = (JList) evt.getSource();
                         if (evt.getClickCount() == 2) {
                             // Double-click detected
-                            new SinglePhysicalResource(userFacade, ((PhysicalResource) list.getSelectedValue()).getID()).setVisible(true);
+//                            new SinglePhysicalResource(userFacade, ((PhysicalResource) list.getSelectedValue()).getID()).setVisible(true);
+                            update();
                         }
                     }
                 });
                 panel2.add(new JScrollPane(resourceList));
                 mainDialog.getMainDialog().repaint();
                 mainDialog.getMainDialog().revalidate();
+                mainDialog.getMainDialog().pack();
             }
         });
 
@@ -151,5 +153,6 @@ public class ViewPhysicalResources extends PhysicalResourceObserver implements V
         mainDialog.getMainDialog().pack();
         mainDialog.getMainDialog().repaint();
         mainDialog.getMainDialog().revalidate();
+        mainDialog.getMainDialog().pack();
     }
 }

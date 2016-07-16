@@ -46,11 +46,15 @@ public class ResourceDAO extends DBConnect {
         colNames.add("resourceStatus");
         colNames.add("isAvailable");
         colNames.add("ProjectID");
+
         ArrayList<String> values = new ArrayList<>();
         values.add(item.getID());
         values.add(item.getResourceStatus().toString());
         values.add(Integer.toString(isAvailable));
-        values.add(projectID == null ? "NULL" : projectID);
+        values.add((projectID == null || projectID.equals("")) ? "NULL" : projectID);
+
+        System.out.println("COLNAM= " + colNames);
+        System.out.println("VALUES= " + values);
 
         try {
             Statement myStmt = getSqlConn().createStatement();
@@ -82,16 +86,22 @@ public class ResourceDAO extends DBConnect {
     }
 
     public boolean update(Resource item) {
+        System.out.println("resource status = " + item.getResourceStatus().toString());
+        System.out.println("is available = " + item.isAvailable());
         try {
             Statement myStmt = getSqlConn().createStatement();
             myStmt.executeUpdate(QueryGenerator.getInstance()
                     .update("resource", "resourceStatus",
                             item.getResourceStatus().toString(),
-                            "ID = " + item.getID()));
+                            "ID = " + "'" + item.getID() + "'"));
             myStmt.executeUpdate(QueryGenerator.getInstance()
-                    .update("resource", "resourceStatus",
-                            item.isAvailable() ? "1" : "0",
-                            "ID = " + item.getID()));
+                    .update("resource", "isAvailable",
+                            Integer.toString(item.isAvailable() ? 1 : 0),
+                            "ID = " + "'" + item.getID() + "'"));
+            System.out.println("UPDATE2: " + QueryGenerator.getInstance()
+                    .update("resource", "isAvailable",
+                            Integer.toString(item.isAvailable() ? 1 : 0),
+                            "ID = " + "'" + item.getID() + "'"));
         } catch (SQLException e) {
             e.printStackTrace();
             return false;

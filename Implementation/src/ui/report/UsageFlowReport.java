@@ -178,7 +178,8 @@ public class UsageFlowReport implements Visibility {
                     reportItems = OperationFacade.getInstance().getFlowReport(null, null, resources);
 
                 for (String reportItem : reportItems) {
-                    String[] parts = reportItem.split(" ");
+                    System.out.println(reportItem);
+                    String[] parts = reportItem.split("@");
                     Object[] data = {parts[4], parts[3], parts[1] + " (" + parts[2] + ")", parts[0]};
                     flowReportTableModel.addRow(data);
                 }

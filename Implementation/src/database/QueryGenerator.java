@@ -53,8 +53,11 @@ public class QueryGenerator {
             return wrapper + values.get(0) + wrapper;
         String stringValues = "";
         for (String value : values) {
-            if (value.equals("NULL"))
+            if (value == null)
+                stringValues += "NULL" + separator + " ";
+            else if (value.equals("NULL"))
                 stringValues += value + separator + " ";
+
             else
                 stringValues += wrapper + value + wrapper + separator + " ";
         }

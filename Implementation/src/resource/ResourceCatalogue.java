@@ -2,6 +2,7 @@ package resource;
 
 import database.*;
 import report.UnitResource;
+import unit.Unit;
 import unit.UnitCatalogue;
 
 import java.util.ArrayList;
@@ -95,7 +96,9 @@ public class ResourceCatalogue {
         return null;
     }
 
-    public boolean update(Resource resource) {
+    public boolean update(Resource resource, Unit unit) {
+        UnitResourceDAO.getInstance().update(new UnitResource(new Date(), null, unit), resource.getID());
+
         if (resource instanceof HumanResource)
             return HumanResourceDAO.getInstance().update(resource);
         if (resource instanceof InformationResource)
@@ -104,6 +107,7 @@ public class ResourceCatalogue {
             return PhysicalResourceDAO.getInstance().update(resource);
         if (resource instanceof MonetaryResource)
             return MonetaryResourceDAO.getInstance().update(resource);
+
         return resource != null && ResourceDAO.getInstance().update(resource);
     }
 

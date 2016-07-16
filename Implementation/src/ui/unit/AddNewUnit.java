@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class AddNewUnit extends MainDialog {
 
     private ArrayList<UnitObserver> observers;
+    private JTextField name;
 
     AddNewUnit() {
 
@@ -47,7 +48,7 @@ public class AddNewUnit extends MainDialog {
         form.setLayout(new GridBagLayout());
         FormUtility formUtility = new FormUtility();
 
-        JTextField name = new JTextField(20);
+        name = new JTextField(20);
         formUtility.addLabel("نام واحد ", form);
         formUtility.addLastField(name, form);
 
@@ -78,5 +79,11 @@ public class AddNewUnit extends MainDialog {
         form.setBorder(new EmptyBorder(10, 10, 10, 10));
         super.getMainDialog().pack();
         super.getMainDialog().setLocationRelativeTo(null);
+    }
+
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        name.setText("");
     }
 }

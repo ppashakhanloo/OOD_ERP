@@ -91,12 +91,11 @@ public class SingleMonetaryResource extends MainDialog implements Visibility {
         formUtility.addLastField(location, form);
 
 
-        // TODO
         ArrayList<Unit> units = OperationFacade.getInstance().getUnits();
         unitsCombo = new JComboBox<>();
         for (Unit unit : units)
             unitsCombo.addItem(unit);
-// TODO        unitsCombo.setSelectedItem(OperationFacade.getInstance().getResourceUnit(rID));
+        unitsCombo.setSelectedItem(OperationFacade.getInstance().getResourceUnit(rID));
         formUtility.addLabel("واحد ", form);
         formUtility.addLastField(unitsCombo, form);
 

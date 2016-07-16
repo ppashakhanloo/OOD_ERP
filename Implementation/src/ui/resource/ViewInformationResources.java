@@ -112,13 +112,15 @@ public class ViewInformationResources extends InformationResourceObserver implem
                         JList list = (JList) evt.getSource();
                         if (evt.getClickCount() == 2) {
                             // Double-click detected
-                            new SingleInformationResource(userFacade, ((InformationResource) list.getSelectedValue()).getID()).setVisible(true);
+//                            new SingleInformationResource(userFacade, ((InformationResource) list.getSelectedValue()).getID()).setVisible(true);
+                            update();
                         }
                     }
                 });
                 panel2.add(new JScrollPane(resourceList));
                 mainDialog.getMainDialog().repaint();
                 mainDialog.getMainDialog().revalidate();
+                mainDialog.getMainDialog().pack();
             }
         });
 
@@ -151,5 +153,6 @@ public class ViewInformationResources extends InformationResourceObserver implem
         mainDialog.getMainDialog().add(jScrollPane, BorderLayout.CENTER);
         mainDialog.getMainDialog().repaint();
         mainDialog.getMainDialog().revalidate();
+        mainDialog.getMainDialog().pack();
     }
 }
